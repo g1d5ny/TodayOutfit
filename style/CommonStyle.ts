@@ -155,6 +155,13 @@ export const MobileFont = StyleSheet.create({
         letterSpacing: dp(-0.48),
         lineHeight: 32
     },
+    body_1: {
+        fontSize: 16,
+        color: CommonColor.main_black,
+        fontFamily: "Pretendard-SemiBold",
+        letterSpacing: dp(-0.32),
+        lineHeight: 22
+    },
     body_2: {
         fontSize: 16,
         color: CommonColor.main_black,
@@ -211,20 +218,6 @@ export const MobileFont = StyleSheet.create({
         letterSpacing: dp(-0.12),
         lineHeight: 14
     },
-    modal_text_1: {
-        fontSize: 20,
-        color: CommonColor.main_black,
-        fontFamily: "Pretendard-SemiBold",
-        letterSpacing: dp(-0.4),
-        lineHeight: 28
-    },
-    button_1: {
-        fontSize: 18,
-        color: CommonColor.main_black,
-        fontFamily: "Pretendard-SemiBold",
-        letterSpacing: dp(-0.36),
-        lineHeight: 22
-    },
     detail_4: {
         fontSize: 12,
         color: CommonColor.main_black,
@@ -232,12 +225,12 @@ export const MobileFont = StyleSheet.create({
         letterSpacing: dp(-0.12),
         lineHeight: 14
     },
-    button_2: {
-        fontSize: 18,
+    modal_text_1: {
+        fontSize: 20,
         color: CommonColor.main_black,
-        fontFamily: "Pretendard-Regular",
-        letterSpacing: dp(-0.14),
-        lineHeight: 20
+        fontFamily: "Pretendard-SemiBold",
+        letterSpacing: dp(-0.4),
+        lineHeight: 28
     },
     modal_text_2: {
         fontSize: 10,
@@ -246,10 +239,17 @@ export const MobileFont = StyleSheet.create({
         letterSpacing: dp(-0.12),
         lineHeight: 16
     },
-    body_1: {
+    button_1: {
         fontSize: 18,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-SemiBold",
+        letterSpacing: dp(-0.36),
+        lineHeight: 22
+    },
+    button_2: {
+        fontSize: 18,
+        color: CommonColor.main_black,
+        fontFamily: "Pretendard-Regular",
         letterSpacing: dp(-0.36),
         lineHeight: 22
     }

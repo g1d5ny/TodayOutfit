@@ -1,6 +1,11 @@
 import { atom, selector } from "recoil"
 import { isEmpty } from "lodash"
 import Storage from "@react-native-async-storage/async-storage"
+import DeviceInfo from "react-native-device-info"
+import { ADDRESS_RESULT, IToast } from "../type"
+import { setRecoil } from "recoil-nexus"
+
+export const isTablet = DeviceInfo.isTablet()
 
 export const getStorage = (key: string): Record<string, any> | null => {
     if (isEmpty(key)) {
@@ -62,3 +67,22 @@ export const loggedInState = atom<Record<string, boolean> | null>({
         }
     })
 })
+
+export const inputAddressState = atom<string>({
+    key: "inputAddressState",
+    default: ""
+})
+
+export const resultAdressListState = atom<[ADDRESS_RESULT] | [] | ["NOT_FOUND"]>({
+    key: "resultAdressListState",
+    default: []
+})
+
+export const toastState = atom<IToast | undefined>({
+    key: "toastState",
+    default: undefined
+})
+
+export const setToast = (message: IToast) => {
+    setRecoil(toastState, message)
+}
