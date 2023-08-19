@@ -5,15 +5,19 @@ import Woman from "../../asset/icon/icon_woman_3D.svg"
 import TabletMan from "../../asset/icon/icon_tablet_man_3D.svg"
 import TabletWoman from "../../asset/icon/icon_tablet_woman_3D.svg"
 import { useState } from "react"
-import { isTablet, setStorage } from "../../store"
+import { isTablet, loggedInState, setStorage } from "../../store"
+import { useSetRecoilState } from "recoil"
 
-export const SelectGenderScreen = ({ navigation }: { navigation: any }) => {
+export const SelectGenderScreen = () => {
+    const setIsLoggedIn = useSetRecoilState(loggedInState)
+
     const [gender, setGender] = useState<string | undefined>()
 
     const onPress = (gender: "man" | "woman") => {
         setGender(gender)
         setStorage("gender", gender)
-        navigation.navigate("GuideAddressScreen")
+        setIsLoggedIn(true)
+        setStorage("loggedInState", true)
     }
 
     return (

@@ -1,5 +1,4 @@
 import React from "react"
-import { View } from "react-native"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { CommonColor } from "../../style/CommonStyle"
 import HomeOn from "../../asset/icon/icon_home_on.svg"
@@ -25,8 +24,9 @@ export const TabNavigator = () => {
                 headerShown: false,
                 tabBarActiveTintColor: CommonColor.basic_gray_dark,
                 tabBarInactiveTintColor: CommonColor.basic_gray_medium,
-                tabBarStyle: { paddingTop: 13 },
-                tabBarLabelStyle: { fontFamily: "Pretendard-Regular", fontSize: 12, marginTop: 5 }
+                tabBarStyle: { height: 60 },
+                tabBarItemStyle: { height: 60 },
+                tabBarLabelStyle: { fontFamily: "Pretendard-Regular", fontSize: 12 }
             }}
         >
             <Screen
@@ -35,15 +35,7 @@ export const TabNavigator = () => {
                 options={{
                     tabBarLabel: "홈",
                     tabBarIcon: ({ focused }: { focused: boolean }) => {
-                        return focused ? (
-                            <View style={{ marginBottom: 5 }}>
-                                <HomeOn width={24} height={24} />
-                            </View>
-                        ) : (
-                            <View style={{ marginBottom: 5 }}>
-                                <HomeOff width={24} height={24} />
-                            </View>
-                        )
+                        return focused ? <HomeOn width={24} height={24} /> : <HomeOff width={24} height={24} />
                     }
                 }}
             />
@@ -53,15 +45,7 @@ export const TabNavigator = () => {
                 options={{
                     tabBarLabel: "위치",
                     tabBarIcon: ({ focused }: { focused: boolean }) => {
-                        return focused ? (
-                            <View style={{ marginBottom: 5 }}>
-                                <LocationOn width={24} height={24} />
-                            </View>
-                        ) : (
-                            <View style={{ marginBottom: 5 }}>
-                                <LocationOff width={24} height={24} />
-                            </View>
-                        )
+                        return focused ? <LocationOn width={24} height={24} /> : <LocationOff width={24} height={24} />
                     }
                 }}
             />
@@ -71,15 +55,7 @@ export const TabNavigator = () => {
                 options={{
                     tabBarLabel: "날씨",
                     tabBarIcon: ({ focused }: { focused: boolean }) => {
-                        return focused ? (
-                            <View style={{ marginBottom: 5 }}>
-                                <WeatherOn width={24} height={24} />
-                            </View>
-                        ) : (
-                            <View style={{ marginBottom: 5 }}>
-                                <WeatherOff width={24} height={24} />
-                            </View>
-                        )
+                        return focused ? <WeatherOn width={24} height={24} /> : <WeatherOff width={24} height={24} />
                     }
                 }}
             />
@@ -89,15 +65,7 @@ export const TabNavigator = () => {
                 options={{
                     tabBarLabel: "설정",
                     tabBarIcon: ({ focused }: { focused: boolean }) => {
-                        return focused ? (
-                            <View style={{ marginBottom: 5 }}>
-                                <SettingOn width={24} height={24} />
-                            </View>
-                        ) : (
-                            <View style={{ marginBottom: 5 }}>
-                                <SettingOff width={24} height={24} />
-                            </View>
-                        )
+                        return focused ? <SettingOn width={24} height={24} /> : <SettingOff width={24} height={24} />
                     }
                 }}
             />

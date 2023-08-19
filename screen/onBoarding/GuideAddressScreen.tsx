@@ -1,20 +1,21 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import { StyleSheet, Text, View } from "react-native"
 import { CommonColor, MobileFont, ShadowStyle, TabletFont } from "../../style/CommonStyle"
 import { useState } from "react"
 import { isTablet } from "../../store"
-import Search from "../../asset/icon/icon_search.svg"
-import Location from "../../asset/icon/icon_now_location.svg"
-import TabletSearch from "../../asset/icon/icon_tablet_search.svg"
-import TabletLocation from "../../asset/icon/icon_tablet_now_location.svg"
 import GreenCheck from "../../asset/icon/icon_check_green.svg"
 import TabletGreenCheck from "../../asset/icon/icon_tablet_check_green.svg"
 import X from "../../asset/icon/icon_x_red.svg"
 import TabletX from "../../asset/icon/icon_tablet_x_red.svg"
 import { LocationPermissionModal } from "../../component"
 import SearchInput from "../../component/SearchInput"
+import { useLocationPermissionHook } from "../../hook/useLocationPermissionHook"
 
-export const GuideAddressScreen = ({ navigation }: { navigation: any }) => {
+export const GuideAddressScreen = ({ navigation, param }: { navigation: any; param?: any }) => {
     const [isVisible, setIsVisible] = useState(false)
+
+    const onPress = async () => {
+        navigation.navigate("SearchAddressScreen")
+    }
 
     return (
         <View style={styles.container}>
@@ -25,11 +26,7 @@ export const GuideAddressScreen = ({ navigation }: { navigation: any }) => {
                 <Text style={[styles.content, { marginTop: isTablet ? 12 : 10, color: CommonColor.basic_gray_dark }]}>상세주소를 제외한 행정구역까지만 입력해주세요.</Text>
             </View>
             <View style={styles.addressContainer}>
-                <View style={styles.input}>
-                    {isTablet ? <TabletSearch /> : <Search />}
-                    <SearchInput isInput={false} onPress={() => navigation.navigate("SearchAddressScreen")} />
-                    <TouchableOpacity onPress={() => setIsVisible(true)}>{isTablet ? <TabletLocation /> : <Location />}</TouchableOpacity>
-                </View>
+                <SearchInput isInput={false} onPress={onPress} />
                 <View style={styles.addressView}>
                     <View style={[styles.card, ShadowStyle]}>
                         <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>서울특별시 중구</Text>

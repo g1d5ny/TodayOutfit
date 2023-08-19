@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Image, StyleSheet, View } from "react-native"
 import LottieView from "lottie-react-native"
 
-const Loader = ({ style }: { style: any }) => {
+const Loader = ({ style }: { style?: any }) => {
     const [completed, setCompleted] = useState(false)
 
     if (completed) {

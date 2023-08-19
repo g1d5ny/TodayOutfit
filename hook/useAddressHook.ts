@@ -3,11 +3,11 @@ import { TextAlarm } from "../text/AlarmText"
 import { useRecoilValue, useSetRecoilState } from "recoil"
 import { inputAddressState, resultAdressListState } from "../store"
 
-export default function useAddressHook() {
+export const useAddressHook = () => {
     const setResultAddress = useSetRecoilState(resultAdressListState)
     const query = useRecoilValue(inputAddressState)
 
-    const SearchAddressFunction = async () => {
+    const searchAddress = async () => {
         const key = "8a95a11fdcfc3ef9b55dcffcbff12914"
         // setLoading(true)
         try {
@@ -19,7 +19,6 @@ export default function useAddressHook() {
                     return
                 }
                 const jsonResponse = JSON.parse(xobj.response)
-
                 if (jsonResponse.errorType !== undefined || jsonResponse.meta.total_count === 0) {
                     setResultAddress(["NOT_FOUND"])
                     return
@@ -34,7 +33,7 @@ export default function useAddressHook() {
         }
     }
 
-    const AddressToCoordinate = async (address: string) => {
+    const addressToCoordinate = async (address: string) => {
         try {
             return new Promise(function (resolve, reject) {
                 const xobj = new XMLHttpRequest()
@@ -60,7 +59,7 @@ export default function useAddressHook() {
         }
     }
 
-    const CoordinateToAddress = async (lng: number, lat: number) => {
+    const coordinateToAddress = async (lng: number, lat: number) => {
         try {
             return new Promise(function (resolve, reject) {
                 const xobj = new XMLHttpRequest()
@@ -72,7 +71,6 @@ export default function useAddressHook() {
                         return
                     }
                     if (xobj.status === 200) {
-                        //console.log('success', xobj.response);
                         const jsonResponse = JSON.parse(xobj.response)
                         resolve(jsonResponse)
                     } else {
@@ -125,5 +123,5 @@ export default function useAddressHook() {
     //     }
     // }
 
-    return { SearchAddressFunction, AddressToCoordinate, CoordinateToAddress }
+    return { searchAddress, addressToCoordinate, coordinateToAddress }
 }

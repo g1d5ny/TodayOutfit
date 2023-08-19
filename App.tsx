@@ -5,12 +5,13 @@
  * @format
  */
 
-import React from "react"
+import React, { useEffect } from "react"
 import { StyleSheet } from "react-native"
 import { SafeAreaProvider } from "react-native-safe-area-context"
 import NavController from "./navigation/NavController"
 import { RecoilEnv, RecoilRoot } from "recoil"
 import RecoilNexus from "recoil-nexus"
+import Storage from "@react-native-async-storage/async-storage"
 
 if (__DEV__) {
     RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false
