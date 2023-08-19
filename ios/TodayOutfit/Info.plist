@@ -36,7 +36,13 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>'오늘모입지' 앱이 사용자의 위치를 사용하도록 허용하시겠습니까?</string>
+	<string>사용자의 위치를 사용하도록 허용하겠습니까?</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>'오늘모입지'에서 정확한 날씨 정보를 위해 위치 권한이 필요합니다.</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>'오늘모입지'에서 정확한 날씨 정보를 위해 위치 권한이 필요합니다.</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>'오늘모입지'에서 정확한 날씨 정보를 위해 위치 권한이 필요합니다.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Fonts/Pretendard-Thin.otf</string>
