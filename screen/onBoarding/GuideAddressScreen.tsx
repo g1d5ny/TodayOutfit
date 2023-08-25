@@ -2,13 +2,10 @@ import { StyleSheet, Text, View } from "react-native"
 import { CommonColor, MobileFont, ShadowStyle, TabletFont } from "../../style/CommonStyle"
 import { useState } from "react"
 import { isTablet } from "../../store"
-import GreenCheck from "../../asset/icon/icon_check_green.svg"
-import TabletGreenCheck from "../../asset/icon/icon_tablet_check_green.svg"
-import X from "../../asset/icon/icon_x_red.svg"
-import TabletX from "../../asset/icon/icon_tablet_x_red.svg"
-import { LocationPermissionModal } from "../../component"
+import GreenCheck from "../../asset/icon/icon_green_check.svg"
+import X from "../../asset/icon/icon_x.svg"
+import { LocationPermissionModal } from "../../component/LocationPermissionModal"
 import SearchInput from "../../component/SearchInput"
-import { useLocationPermissionHook } from "../../hook/useLocationPermissionHook"
 
 export const GuideAddressScreen = ({ navigation, param }: { navigation: any; param?: any }) => {
     const [isVisible, setIsVisible] = useState(false)
@@ -30,12 +27,16 @@ export const GuideAddressScreen = ({ navigation, param }: { navigation: any; par
                 <View style={styles.addressView}>
                     <View style={[styles.card, ShadowStyle]}>
                         <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>서울특별시 중구</Text>
-                        <View style={styles.icon}>{isTablet ? <TabletGreenCheck /> : <GreenCheck />}</View>
+                        <View style={styles.icon}>
+                            <GreenCheck width={isTablet ? 26 : 22} height={isTablet ? 26 : 22} />
+                        </View>
                     </View>
                     <View style={[styles.card, ShadowStyle, { marginLeft: isTablet ? 25 : 20 }]}>
                         <Text style={MobileFont.body_2}>서울특별시 중구</Text>
                         <Text style={MobileFont.body_2}>00대로 000길</Text>
-                        <View style={styles.icon}>{isTablet ? <TabletX /> : <X />}</View>
+                        <View style={styles.icon}>
+                            <X width={isTablet ? 26 : 22} height={isTablet ? 26 : 22} />
+                        </View>
                     </View>
                 </View>
             </View>

@@ -11,8 +11,7 @@ const Loader = ({ style }: { style?: any }) => {
 
     return (
         <View style={styles.view}>
-            <LottieView style={[style, styles.lottie]} source={require("../../asset/lottie/loading.json")} onAnimationFinish={() => setCompleted(true)} autoPlay loop={true} />
-            {/* <Image style={styles.lottie} source={require("../../asset/icon/icon_lottie_hanger.svg")} /> */}
+            <LottieView style={[style, styles.lottie]} source={require("../../asset/lottie/progress.json")} onAnimationFinish={() => setCompleted(true)} autoPlay loop={true} />
         </View>
     )
 }
@@ -20,13 +19,14 @@ const Loader = ({ style }: { style?: any }) => {
 const styles = StyleSheet.create({
     view: {
         width: "100%",
-        height: "100%"
+        height: "100%",
+        alignItems: "center",
+        justifyContent: "center"
     },
     lottie: {
-        width: "100%",
-        height: 200,
-        // height: 500,
-        backgroundColor: "#faf"
+        width: "30%",
+        height: "30%",
+        backgroundColor: "transparent"
     }
 })
 

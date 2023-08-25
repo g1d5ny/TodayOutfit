@@ -1,9 +1,9 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { CommonColor, MobileFont, TabletFont } from "../../style/CommonStyle"
-import Man from "../../asset/icon/icon_man_3D.svg"
-import Woman from "../../asset/icon/icon_woman_3D.svg"
-import TabletMan from "../../asset/icon/icon_tablet_man_3D.svg"
-import TabletWoman from "../../asset/icon/icon_tablet_woman_3D.svg"
+import Man from "../../asset/icon/3d_gender_man.svg"
+import Woman from "../../asset/icon/3d_gender_woman.svg"
+import TabletMan from "../../asset/icon/3d_gender_man_tablet.svg"
+import TabletWoman from "../../asset/icon/3d_gender_woman_tablet.svg"
 import { useState } from "react"
 import { isTablet, loggedInState, setStorage } from "../../store"
 import { useSetRecoilState } from "recoil"
@@ -28,10 +28,11 @@ export const SelectGenderScreen = () => {
                 <Text style={[styles.content, { marginTop: isTablet ? 12 : 10, color: CommonColor.basic_gray_dark }]}>이후 설정에서 언제든 변경 가능합니다.</Text>
             </View>
             <View style={styles.genderContainer}>
-                <TouchableOpacity onPress={() => onPress("man")} style={[gender === "man" ? styles.checked : styles.unChecked]}>
+                <TouchableOpacity onPress={() => onPress("man")} style={[styles.gender, gender === "man" ? styles.checked : styles.unChecked]}>
                     {isTablet ? <TabletMan /> : <Man />}
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => onPress("woman")} style={[gender === "woman" ? styles.checked : styles.unChecked]}>
+                <View style={{ width: isTablet ? 24 : 14, height: isTablet ? 24 : 14 }} />
+                <TouchableOpacity onPress={() => onPress("woman")} style={[styles.gender, gender === "woman" ? styles.checked : styles.unChecked]}>
                     {isTablet ? <TabletWoman /> : <Woman />}
                 </TouchableOpacity>
             </View>
@@ -42,19 +43,24 @@ export const SelectGenderScreen = () => {
 const styles = StyleSheet.create({
     checked: {
         padding: isTablet ? 30 : 15,
-        backgroundColor: "#F6F7FF",
         borderWidth: 2,
         borderColor: CommonColor.main_blue,
         borderRadius: 15
     },
     unChecked: {
         padding: isTablet ? 30 : 15,
-        backgroundColor: "transparent",
         borderWidth: 0,
         borderRadius: 15
     },
+    gender: {
+        borderRadius: isTablet ? 26 : 20,
+        backgroundColor: CommonColor.basic_gray_light,
+        alignItems: "center",
+        justifyContent: "center",
+        paddingHorizontal: 17,
+        paddingVertical: 19
+    },
     genderContainer: {
-        height: isTablet ? 280 : 174,
         marginTop: isTablet ? 183 : 95,
         flexDirection: "row",
         alignItems: "center"

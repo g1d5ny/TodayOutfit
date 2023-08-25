@@ -6,10 +6,9 @@ import SearchInput from "../../component/SearchInput"
 import { isEmpty } from "lodash"
 import { useState } from "react"
 import { useLocationPermissionHook } from "../../hook/useLocationPermissionHook"
-import { LocationPermissionModal } from "../../component"
+import { LocationPermissionModal } from "../../component/LocationPermissionModal"
 import { useAddressHook } from "../../hook/useAddressHook"
 import { MY_ADDRSS } from "../../type"
-import { DateFormat } from "../../function"
 
 const selectedAddressInitialValue = {
     location: "",
@@ -47,7 +46,7 @@ export const SearchAddressScreen = ({ navigation }: { navigation: any }) => {
                 style={{
                     flex: 1,
                     backgroundColor: "#fff",
-                    justifyContent: onFocus ? "space-between" : undefined
+                    justifyContent: "space-between"
                 }}
                 behavior={"padding"}
             >
@@ -59,7 +58,7 @@ export const SearchAddressScreen = ({ navigation }: { navigation: any }) => {
                         <Text style={[styles.content, { marginTop: isTablet ? 12 : 10, color: CommonColor.basic_gray_dark }]}>상세주소를 제외한 행정구역까지만 입력해주세요.</Text>
                     </View>
                     <View style={styles.addressContainer}>
-                        <SearchInput isInput={true} onPress={onPress} setOnFocus={setOnFocus} selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress} />
+                        <SearchInput isInput={true} onPress={onPress} onFocus={onFocus} setOnFocus={setOnFocus} selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress} />
                     </View>
                 </View>
                 {isEmpty(selectedAddress.location) ? (

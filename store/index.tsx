@@ -5,13 +5,21 @@ import DeviceInfo from "react-native-device-info"
 import { RESULT_ADDRESS, MY_ADDRSS, TOAST, CURRENT_WEATHER, HOUR_WEATHER, WEEKELY_WEATHER, WEATHER_DESC_KOR, WEATHER_DESC_ENG } from "../type"
 import { setRecoil } from "recoil-nexus"
 import Sunny from "../asset/icon/icon_sunny.svg"
+import MaxSunny from "../asset/icon/3d_sunny.svg"
 import Snow from "../asset/icon/icon_light_snow.svg"
+import MaxSnow from "../asset/icon/3d_snowy.svg"
 import PartyCloudyDay from "../asset/icon/icon_pary_cloudy_day.svg"
+import MaxPartyCloudyDay from "../asset/icon/3d_partly_cloudy.svg"
 import PartyCloudyNight from "../asset/icon/icon_party_cloudy_night.svg"
+import MaxPartyCloudyNight from "../asset/icon/3d_partly_cloudy.svg"
 import Cloudy from "../asset/icon/icon_cloudy_day.svg"
+import MaxCloudy from "../asset/icon/3d_cloudy.svg"
 import Rainy from "../asset/icon/icon_rain.svg"
+import MaxRainy from "../asset/icon/3d_rainy.svg"
 import Fog from "../asset/icon/icon_fog.svg"
+import MaxFog from "../asset/icon/3d_thunder.svg"
 import Moon from "../asset/icon/icon_moon.svg"
+import MaxMoon from "../asset/icon/3d_sunny.svg"
 
 export const isTablet = DeviceInfo.isTablet()
 
@@ -138,13 +146,13 @@ export const weeklyWeatherInfoState = atom<WEEKELY_WEATHER[]>({
     default: []
 })
 
-export const weatherDesc: { [key: string]: { icon: JSX.Element; text: WEATHER_DESC_KOR } } = {
-    "clear-day": { icon: <Sunny />, text: "맑음" },
-    snow: { icon: <Snow />, text: "눈" },
-    "partly-cloudy-day": { icon: <PartyCloudyDay />, text: "구름 조금" },
-    "partly-cloudy-night": { icon: <PartyCloudyNight />, text: "구름 조금" },
-    cloudy: { icon: <Cloudy />, text: "흐림" },
-    rain: { icon: <Rainy />, text: "비" },
-    fog: { icon: <Rainy />, text: "안개" },
-    "clear-night": { icon: <Moon />, text: "맑음 저녁" }
+export const weatherDesc: { [key: string]: { minIcon: JSX.Element; maxIcon: JSX.Element; text: WEATHER_DESC_KOR; backgroundColor: string } } = {
+    "clear-day": { minIcon: <Sunny />, maxIcon: <MaxSunny />, text: "맑음", backgroundColor: "rgb(255, 250, 226)" },
+    snow: { minIcon: <Snow />, maxIcon: <MaxSnow />, text: "눈", backgroundColor: "rgb(230, 242, 253)" },
+    "partly-cloudy-day": { minIcon: <PartyCloudyDay />, maxIcon: <MaxPartyCloudyDay width={190} height={150} />, text: "구름 조금", backgroundColor: "rgb(241, 243, 255)" },
+    "partly-cloudy-night": { minIcon: <PartyCloudyNight />, maxIcon: <MaxPartyCloudyNight />, text: "구름 조금", backgroundColor: "rgb(241, 243, 255)" },
+    cloudy: { minIcon: <Cloudy />, maxIcon: <MaxCloudy />, text: "흐림", backgroundColor: "rgb(241, 252, 255)" },
+    rain: { minIcon: <Rainy />, maxIcon: <MaxRainy />, text: "비", backgroundColor: "rgb(239, 245, 245)" },
+    fog: { minIcon: <Rainy />, maxIcon: <MaxRainy />, text: "안개", backgroundColor: "rgb(241, 252, 255)" },
+    "clear-night": { minIcon: <Moon />, maxIcon: <MaxMoon />, text: "맑음 저녁", backgroundColor: "rgb(255, 250, 226)" }
 }

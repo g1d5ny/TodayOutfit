@@ -5,7 +5,7 @@ import Map from "../asset/icon/icon_modal_map.svg"
 import { isTablet, locationPermissionState, setStorage, toastState } from "../store"
 import { CommonColor, MobileFont, TabletFont } from "../style/CommonStyle"
 import { useEffect, useState } from "react"
-import { SetterOrUpdater, useRecoilState, useRecoilStateLoadable, useRecoilValue, useRecoilValueLoadable } from "recoil"
+import { useRecoilValue, useRecoilValueLoadable } from "recoil"
 import Toast from "react-native-toast-message"
 import { useLocationPermissionHook } from "../hook/useLocationPermissionHook"
 

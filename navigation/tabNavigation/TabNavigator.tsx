@@ -63,7 +63,7 @@ export const TabNavigator = () => {
                 name={"SettingNavigator"}
                 component={SettingNavigator}
                 options={{
-                    tabBarLabel: "설정",
+                    tabBarLabel: "더보기",
                     tabBarIcon: ({ focused }: { focused: boolean }) => {
                         return focused ? <SettingOn width={24} height={24} /> : <SettingOff width={24} height={24} />
                     }

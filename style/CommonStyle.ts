@@ -91,11 +91,11 @@ export const TabletFont = StyleSheet.create({
         lineHeight: 42
     },
     temperature_2: {
-        fontSize: 33,
+        fontSize: 90,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-SemiBold",
-        letterSpacing: dp(-0.1),
-        lineHeight: 38
+        letterSpacing: 0,
+        lineHeight: 108
     },
     body_1: {
         fontSize: 16,
@@ -191,8 +191,8 @@ export const MobileFont = StyleSheet.create({
         letterSpacing: dp(-0.1),
         lineHeight: 42
     },
-    temperature2: {
-        fontSize: 66,
+    temperature_2: {
+        fontSize: 55,
         color: CommonColor.main_white,
         fontFamily: "Pretendard-SemiBold",
         letterSpacing: dp(-0.1),

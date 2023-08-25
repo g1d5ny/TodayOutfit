@@ -1,9 +1,15 @@
 export const DateFormat = () => {
-    let year = new Date().getFullYear()
-    let month = new Date().getMonth() + 1
-    let date = new Date().getDate()
+    const year = new Date().getFullYear()
+    const month = new Date().getMonth() + 1
+    const date = new Date().getDate()
 
     return year + "년 " + month + "월 " + date + "일"
+}
+
+export const getDay = () => {
+    const day = { 0: "일", 1: "월", 2: "화", 3: "수", 4: "목", 5: "금", 6: "토" } as { [key: string]: string }
+    const index = new Date().getDay().toString()
+    return day[index]
 }
 
 export const FahrenheitToCelsius = (temp: number) => {

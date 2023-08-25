@@ -80,12 +80,18 @@ export interface CURRENT_WEATHER {
     windname: string
     winddir: string
     description: string
+    uxindex: number
+    summary: string
+    minIcon: JSX.Element
+    maxIcon: JSX.Element
+    backgroundColor: string
 }
 
 export interface HOUR_WEATHER {
     temp: number
     hour: string
-    icon: JSX.Element
+    minIcon: JSX.Element
+    maxIcon: JSX.Element
     feelslike: number
     windspeed: number
     windname: string
@@ -96,7 +102,8 @@ export interface HOUR_WEATHER {
 export interface WEEKELY_WEATHER {
     max: number
     min: number
-    icon: JSX.Element
+    minIcon: JSX.Element
+    maxIcon: JSX.Element
     date: string
     day: number
     description: WEATHER_DESC_KOR
