@@ -28,8 +28,7 @@ const selectedAddressInitialValue = {
     coordinate: {
         longitude: 0,
         latitude: 0
-    },
-    date: DateFormat()
+    }
 }
 export default memo(({ isInput, onPress, setOnFocus, selectedAddress, setSelectedAddress }: InputProps) => {
     // const [loading, setLoading] = useState(true)
@@ -108,8 +107,7 @@ export default memo(({ isInput, onPress, setOnFocus, selectedAddress, setSelecte
                                                 setSelectedAddress &&
                                                 setSelectedAddress({
                                                     location: region_1depth_name + " " + region_2depth_name + " " + region_3depth_h_name + " " + region_3depth_name,
-                                                    coordinate: { longitude: Number(x), latitude: Number(y) },
-                                                    date: DateFormat()
+                                                    coordinate: { longitude: Number(x), latitude: Number(y) }
                                                 })
                                             }
                                         >

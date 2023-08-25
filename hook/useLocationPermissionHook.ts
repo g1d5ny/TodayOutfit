@@ -4,9 +4,9 @@ import Geolocation from "react-native-geolocation-service"
 import { useAddressHook } from "./useAddressHook"
 import { isEmpty } from "lodash"
 import { myAddressListState, setStorage } from "../store"
-import { useRecoilState, useRecoilStateLoadable, useRecoilValueLoadable, useSetRecoilState } from "recoil"
+import { useRecoilStateLoadable } from "recoil"
 import { DateFormat } from "../function"
-import { COORDINATE_ADDRESS, MY_ADDRSS } from "../type"
+import { MY_ADDRSS } from "../type"
 
 export const useLocationPermissionHook = () => {
     const [{ contents: myAddress }, setMyAddress] = useRecoilStateLoadable(myAddressListState)
@@ -49,20 +49,26 @@ export const useLocationPermissionHook = () => {
                 if (isEmpty(res.documents)) {
                     return
                 }
-                const location = res.documents[0].address.region_1depth_name + " " + res.documents[0].address.region_2depth_name + " " + res.documents[0].address.region_3depth_name
-                const myLocationFormat = { location, coordinate: { longitude, latitude }, date: DateFormat() } as MY_ADDRSS
-                if (!myAddress) {
-                    setStorage("myAddressList", myLocationFormat)
-                    setMyAddress([myLocationFormat])
-                } else {
-                    const locationList = [...myAddress] as [MY_ADDRSS]
-                    locationList.unshift(myLocationFormat)
-                    setStorage("myAddressList", locationList)
-                    setMyAddress(locationList)
-                }
+                const { region_1depth_name, region_2depth_name, region_3depth_name } = res.documents[0].address
+                const location = region_1depth_name + " " + region_2depth_name + " " + region_3depth_name
+                const coordinate = { longitude, latitude }
+                setUserLocation(location.trim(), coordinate)
             })
             .catch(rej => console.error(rej))
     }
 
-    return { checkOnlyLocationPermission, getUserLocation }
+    const setUserLocation = (location: string, coordinate: { longitude: number; latitude: number }) => {
+        const myLocationFormat = { location, coordinate, date: DateFormat() } as MY_ADDRSS
+        if (isEmpty(myAddress)) {
+            setStorage("myAddressList", myLocationFormat)
+            setMyAddress([myLocationFormat])
+        } else {
+            const locationList = [myAddress] as [MY_ADDRSS]
+            locationList.unshift(myLocationFormat)
+            setStorage("myAddressList", locationList)
+            setMyAddress(locationList)
+        }
+    }
+
+    return { checkOnlyLocationPermission, getUserLocation, setUserLocation }
 }

@@ -63,38 +63,44 @@ export interface MY_ADDRSS {
         longitude: number
         latitude: number
     }
-    date: string
+    date?: string
 }
 
 export interface CURRENT_WEATHER {
-    icon: string
-    month: string
     sunrise: string
-    sunriseEpoch: number
     sunset: string
-    sunsetEpoch: number
     datetimeEpoch: number
     currentTemp: number
     feelsLike: number
     max: number
     min: number
+    humidity: number
+    precipprob: number
+    windspeed: number
+    windname: string
+    winddir: string
     description: string
 }
 
 export interface HOUR_WEATHER {
-    temp: string
-    datetime: string
-    icon: string
+    temp: number
+    hour: string
+    icon: JSX.Element
+    feelslike: number
+    windspeed: number
+    windname: string
+    winddir: string
+    precipprob: number
 }
 
 export interface WEEKELY_WEATHER {
-    sunriseEpoch: number
-    sunrise: string
     max: number
     min: number
-    icon: string
+    icon: JSX.Element
     date: string
     day: number
-    humidity: string
-    wind: string
+    description: WEATHER_DESC_KOR
 }
+
+export type WEATHER_DESC_ENG = "clear-day" | "snow" | "partly-cloudy-day" | "partly-cloudy-night" | "cloudy" | "rain" | "fog"
+export type WEATHER_DESC_KOR = "맑음" | "눈" | "구름 조금" | "흐림" | "비" | "안개" | "맑음 저녁"

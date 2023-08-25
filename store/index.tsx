@@ -2,8 +2,16 @@ import { atom, selector } from "recoil"
 import { isEmpty } from "lodash"
 import Storage from "@react-native-async-storage/async-storage"
 import DeviceInfo from "react-native-device-info"
-import { RESULT_ADDRESS, MY_ADDRSS, TOAST, CURRENT_WEATHER, HOUR_WEATHER, WEEKELY_WEATHER } from "../type"
+import { RESULT_ADDRESS, MY_ADDRSS, TOAST, CURRENT_WEATHER, HOUR_WEATHER, WEEKELY_WEATHER, WEATHER_DESC_KOR, WEATHER_DESC_ENG } from "../type"
 import { setRecoil } from "recoil-nexus"
+import Sunny from "../asset/icon/icon_sunny.svg"
+import Snow from "../asset/icon/icon_light_snow.svg"
+import PartyCloudyDay from "../asset/icon/icon_pary_cloudy_day.svg"
+import PartyCloudyNight from "../asset/icon/icon_party_cloudy_night.svg"
+import Cloudy from "../asset/icon/icon_cloudy_day.svg"
+import Rainy from "../asset/icon/icon_rain.svg"
+import Fog from "../asset/icon/icon_fog.svg"
+import Moon from "../asset/icon/icon_moon.svg"
 
 export const isTablet = DeviceInfo.isTablet()
 
@@ -101,7 +109,7 @@ export const locationPermissionState = atom<Record<string, boolean> | null>({
     })
 })
 
-export const myAddressListState = atom<Record<string, [MY_ADDRSS]> | [MY_ADDRSS] | null>({
+export const myAddressListState = atom<Record<string, MY_ADDRSS> | [MY_ADDRSS] | null>({
     key: "myAddressListState",
     default: selector({
         key: "myAddressListState/default",
@@ -122,10 +130,21 @@ export const currentWeatherInfoState = atom<CURRENT_WEATHER>({
 
 export const hourWeatherInfoState = atom<HOUR_WEATHER[]>({
     key: "hourWeatherInfoState",
-    default: undefined
+    default: []
 })
 
 export const weeklyWeatherInfoState = atom<WEEKELY_WEATHER[]>({
     key: "weeklyWeatherInfoState",
-    default: undefined
+    default: []
 })
+
+export const weatherDesc: { [key: string]: { icon: JSX.Element; text: WEATHER_DESC_KOR } } = {
+    "clear-day": { icon: <Sunny />, text: "맑음" },
+    snow: { icon: <Snow />, text: "눈" },
+    "partly-cloudy-day": { icon: <PartyCloudyDay />, text: "구름 조금" },
+    "partly-cloudy-night": { icon: <PartyCloudyNight />, text: "구름 조금" },
+    cloudy: { icon: <Cloudy />, text: "흐림" },
+    rain: { icon: <Rainy />, text: "비" },
+    fog: { icon: <Rainy />, text: "안개" },
+    "clear-night": { icon: <Moon />, text: "맑음 저녁" }
+}

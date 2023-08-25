@@ -16,8 +16,7 @@ const selectedAddressInitialValue = {
     coordinate: {
         longitude: 0,
         latitude: 0
-    },
-    date: DateFormat()
+    }
 }
 export const SearchAddressScreen = ({ navigation }: { navigation: any }) => {
     const resultAddress = useRecoilValue(resultAdressListState)
@@ -25,7 +24,7 @@ export const SearchAddressScreen = ({ navigation }: { navigation: any }) => {
     const [onFocus, setOnFocus] = useState(false)
     const isNotFoundAddress = resultAddress && resultAddress[0] === "NOT_FOUND"
     const [selectedAddress, setSelectedAddress] = useState<MY_ADDRSS>(selectedAddressInitialValue)
-    const { checkOnlyLocationPermission, getUserLocation } = useLocationPermissionHook()
+    const { checkOnlyLocationPermission, getUserLocation, setUserLocation } = useLocationPermissionHook()
     const { searchAddress } = useAddressHook()
 
     const onPress = async () => {
@@ -68,7 +67,13 @@ export const SearchAddressScreen = ({ navigation }: { navigation: any }) => {
                         <Text style={[isTablet ? TabletFont.button_1 : MobileFont.button_1, { color: "#fff" }]}>확인</Text>
                     </TouchableOpacity>
                 ) : (
-                    <TouchableOpacity style={[styles.confirmButton, { paddingHorizontal: isTablet ? 132 : 16, backgroundColor: isNotFoundAddress ? CommonColor.basic_gray_medium : CommonColor.main_blue }]} onPress={navigate}>
+                    <TouchableOpacity
+                        style={[styles.confirmButton, { paddingHorizontal: isTablet ? 132 : 16, backgroundColor: isNotFoundAddress ? CommonColor.basic_gray_medium : CommonColor.main_blue }]}
+                        onPress={() => {
+                            setUserLocation(selectedAddress.location.trim(), selectedAddress.coordinate)
+                            navigate()
+                        }}
+                    >
                         <Text style={[isTablet ? TabletFont.button_1 : MobileFont.button_1, { color: "#fff" }]}>앱 구경하러 가기</Text>
                     </TouchableOpacity>
                 )}

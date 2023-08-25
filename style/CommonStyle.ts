@@ -2,8 +2,9 @@ import { PixelRatio, StyleSheet } from "react-native"
 
 export const CommonColor = {
     // main color
-    main_blue: "#4165FF",
+    main_blue: "#308AF2",
     sub_blue: "#517EFF",
+    sub_yellow: "#F3FC6A",
     opacity_blue: "#F6F7FF",
     opacity_blue_calendar: "#EFF2FF",
     main_black: "#010101",

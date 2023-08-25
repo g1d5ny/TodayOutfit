@@ -2,18 +2,18 @@ import { Alert } from "react-native"
 import { TextAlarm } from "../text/AlarmText"
 import { useRecoilValue, useSetRecoilState } from "recoil"
 import { inputAddressState, resultAdressListState } from "../store"
+import { KAKAO_ADDRESS_KEY } from "../asset/key"
 
 export const useAddressHook = () => {
     const setResultAddress = useSetRecoilState(resultAdressListState)
     const query = useRecoilValue(inputAddressState)
 
     const searchAddress = async () => {
-        const key = "8a95a11fdcfc3ef9b55dcffcbff12914"
         // setLoading(true)
         try {
             const xobj = new XMLHttpRequest()
             xobj.open("GET", "https://dapi.kakao.com/v2/local/search/address.json?query=" + encodeURIComponent(query), true)
-            xobj.setRequestHeader("Authorization", "KakaoAK " + key)
+            xobj.setRequestHeader("Authorization", "KakaoAK " + KAKAO_ADDRESS_KEY)
             xobj.onreadystatechange = async function () {
                 if (xobj.readyState !== 4) {
                     return

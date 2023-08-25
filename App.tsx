@@ -18,6 +18,10 @@ if (__DEV__) {
 }
 
 function App(): JSX.Element {
+    // useEffect(() => {
+    //     Storage.removeItem("loggedInState")
+    // }, [])
+
     return (
         <RecoilRoot>
             <RecoilNexus />

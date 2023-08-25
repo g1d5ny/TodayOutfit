@@ -10,7 +10,6 @@ import { useSetRecoilState } from "recoil"
 
 export const SelectGenderScreen = () => {
     const setIsLoggedIn = useSetRecoilState(loggedInState)
-
     const [gender, setGender] = useState<string | undefined>()
 
     const onPress = (gender: "man" | "woman") => {
