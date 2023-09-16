@@ -147,12 +147,12 @@ export const weeklyWeatherInfoState = atom<WEEKELY_WEATHER[]>({
 })
 
 export const weatherDesc: { [key: string]: { minIcon: JSX.Element; maxIcon: JSX.Element; text: WEATHER_DESC_KOR; backgroundColor: string } } = {
-    "clear-day": { minIcon: <Sunny />, maxIcon: <MaxSunny />, text: "맑음", backgroundColor: "rgb(255, 250, 226)" },
-    snow: { minIcon: <Snow />, maxIcon: <MaxSnow />, text: "눈", backgroundColor: "rgb(230, 242, 253)" },
-    "partly-cloudy-day": { minIcon: <PartyCloudyDay />, maxIcon: <MaxPartyCloudyDay width={190} height={150} />, text: "구름 조금", backgroundColor: "rgb(241, 243, 255)" },
-    "partly-cloudy-night": { minIcon: <PartyCloudyNight />, maxIcon: <MaxPartyCloudyNight />, text: "구름 조금", backgroundColor: "rgb(241, 243, 255)" },
-    cloudy: { minIcon: <Cloudy />, maxIcon: <MaxCloudy />, text: "흐림", backgroundColor: "rgb(241, 252, 255)" },
-    rain: { minIcon: <Rainy />, maxIcon: <MaxRainy />, text: "비", backgroundColor: "rgb(239, 245, 245)" },
-    fog: { minIcon: <Rainy />, maxIcon: <MaxRainy />, text: "안개", backgroundColor: "rgb(241, 252, 255)" },
-    "clear-night": { minIcon: <Moon />, maxIcon: <MaxMoon />, text: "맑음 저녁", backgroundColor: "rgb(255, 250, 226)" }
+    "clear-day": { minIcon: <Sunny />, maxIcon: <MaxSunny width={"100%"} height={"100%"} />, text: "맑음", backgroundColor: "rgb(255, 250, 226)" },
+    snow: { minIcon: <Snow />, maxIcon: <MaxSnow width={"100%"} height={"100%"} />, text: "눈", backgroundColor: "rgb(230, 242, 253)" },
+    "partly-cloudy-day": { minIcon: <PartyCloudyDay />, maxIcon: <MaxPartyCloudyDay width={"100%"} height={"100%"} />, text: "구름 조금", backgroundColor: "rgb(241, 243, 255)" },
+    "partly-cloudy-night": { minIcon: <PartyCloudyNight />, maxIcon: <MaxPartyCloudyNight width={"100%"} height={"100%"} />, text: "구름 조금", backgroundColor: "rgb(241, 243, 255)" },
+    cloudy: { minIcon: <Cloudy />, maxIcon: <MaxCloudy width={"100%"} height={"100%"} />, text: "흐림", backgroundColor: "rgb(241, 252, 255)" },
+    rain: { minIcon: <Rainy />, maxIcon: <MaxRainy width={"100%"} height={"100%"} />, text: "비", backgroundColor: "rgb(239, 245, 245)" },
+    fog: { minIcon: <Rainy />, maxIcon: <MaxRainy width={"100%"} height={"100%"} />, text: "안개", backgroundColor: "rgb(241, 252, 255)" },
+    "clear-night": { minIcon: <Moon />, maxIcon: <MaxMoon width={"100%"} height={"100%"} />, text: "맑음 저녁", backgroundColor: "rgb(255, 250, 226)" }
 }

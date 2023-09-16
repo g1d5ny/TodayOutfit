@@ -34,27 +34,27 @@ export const useWeatherHook = () => {
                     return
                 }
 
-                const { days } = JSON.parse(xobj.response)
+                const { days, currentConditions } = JSON.parse(xobj.response)
 
                 setCurrentWeatherInfo({
-                    sunrise: days[0].sunrise.slice(":", 5),
-                    sunset: days[0].sunset.slice(":", 5),
-                    datetimeEpoch: days[0].datetimeEpoch * 1000,
-                    currentTemp: FahrenheitToCelsius(days[0].temp),
-                    feelsLike: FahrenheitToCelsius(days[0].feelslike),
+                    sunrise: currentConditions.sunrise.slice(":", 5),
+                    sunset: currentConditions.sunset.slice(":", 5),
+                    datetimeEpoch: currentConditions.datetimeEpoch * 1000,
+                    currentTemp: FahrenheitToCelsius(currentConditions.temp),
+                    feelsLike: FahrenheitToCelsius(currentConditions.feelslike),
                     max: FahrenheitToCelsius(days[0].tempmax),
                     min: FahrenheitToCelsius(days[0].tempmin),
                     precipprob: days[0].precipprob,
-                    humidity: days[0].humidity,
-                    windspeed: days[0].windspeed,
-                    winddir: WinddirFormat(days[0].winddir),
-                    windname: WindNameFormat(days[0].windspeed),
+                    humidity: currentConditions.humidity,
+                    windspeed: currentConditions.windspeed,
+                    winddir: WinddirFormat(currentConditions.winddir),
+                    windname: WindNameFormat(currentConditions.windspeed),
                     description: days[0].description, //  jsonResponse.current.weather[0].description
-                    uxindex: days[0].uvindex,
-                    summary: weatherDesc[days[0].icon].text,
-                    minIcon: weatherDesc[days[0].icon].minIcon,
-                    maxIcon: weatherDesc[days[0].icon].maxIcon,
-                    backgroundColor: weatherDesc[days[0].icon].backgroundColor
+                    uxindex: currentConditions.uvindex,
+                    summary: weatherDesc[currentConditions.icon].text,
+                    minIcon: weatherDesc[currentConditions.icon].minIcon,
+                    maxIcon: weatherDesc[currentConditions.icon].maxIcon,
+                    backgroundColor: weatherDesc[currentConditions.icon].backgroundColor
                 })
 
                 let hourWeather = [] as HOUR_WEATHER[]
