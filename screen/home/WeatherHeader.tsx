@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native"
-import { currentWeatherInfoState, isTablet, myAddressListState } from "../../store"
+import { currentWeatherInfoState, isTablet, myAddressListState, todayWeatherInfoState } from "../../store"
 import { useRecoilValue } from "recoil"
 import { CommonColor, MobileFont, TabletFont, TextShadowStyle } from "../../style/CommonStyle"
 import Location from "../../asset/icon/icon_line_location.svg"
@@ -9,15 +9,16 @@ import MaxTemp from "../../asset/icon/icon_max_temp.svg"
 export default () => {
     const myAddressList = useRecoilValue(myAddressListState)
     const currentWeather = useRecoilValue(currentWeatherInfoState)
+    const todayWeather = useRecoilValue(todayWeatherInfoState)
 
     return (
         <View>
             <View style={styles.weatherDesc}>
                 <View style={{ maxWidth: "65%" }}>
                     <Text style={[isTablet ? TabletFont.detail_1 : MobileFont.detail_1, TextShadowStyle, { color: CommonColor.main_white }]}>오늘은</Text>
-                    <Text style={[isTablet ? TabletFont.temperature : MobileFont.bold_on_boarding, TextShadowStyle, { color: CommonColor.main_white }]}>{currentWeather.description}</Text>
+                    <Text style={[isTablet ? TabletFont.temperature : MobileFont.bold_on_boarding, TextShadowStyle, { color: CommonColor.main_white }]}>{todayWeather.text}</Text>
                 </View>
-                <Text style={[isTablet ? TabletFont.temperature_2 : MobileFont.temperature_2, TextShadowStyle, { color: CommonColor.main_white }]}>{currentWeather.currentTemp}˚</Text>
+                <Text style={[isTablet ? TabletFont.temperature_2 : MobileFont.temperature_2, TextShadowStyle, { color: CommonColor.main_white }]}>{currentWeather.temp}˚</Text>
             </View>
             <View style={[styles.weatherDesc, { marginTop: 0 }]}>
                 <View style={styles.addrView}>
@@ -26,10 +27,10 @@ export default () => {
                 </View>
                 <View style={styles.tempView}>
                     <MinTemp width={isTablet ? 14 : 12} height={isTablet ? 14 : 12} />
-                    <Text style={[isTablet ? TabletFont.body_2 : MobileFont.detail_2, { color: CommonColor.main_white, marginLeft: 8 }]}>{currentWeather.min}˚</Text>
+                    <Text style={[isTablet ? TabletFont.body_2 : MobileFont.detail_2, { color: CommonColor.main_white, marginLeft: 8 }]}>{todayWeather.minTemp}˚</Text>
                     <Text style={[isTablet ? TabletFont.body_2 : MobileFont.detail_2, { color: CommonColor.main_white, marginHorizontal: 8 }]}>|</Text>
                     <MaxTemp width={isTablet ? 14 : 12} height={isTablet ? 14 : 12} />
-                    <Text style={[isTablet ? TabletFont.body_2 : MobileFont.detail_2, { color: CommonColor.main_white, marginLeft: 8 }]}>{currentWeather.max}˚</Text>
+                    <Text style={[isTablet ? TabletFont.body_2 : MobileFont.detail_2, { color: CommonColor.main_white, marginLeft: 8 }]}>{todayWeather.maxTemp}˚</Text>
                 </View>
             </View>
         </View>

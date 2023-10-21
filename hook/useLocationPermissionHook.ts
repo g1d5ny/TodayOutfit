@@ -29,7 +29,7 @@ export const useLocationPermissionHook = () => {
     const getUserLocation = async () => {
         Geolocation.getCurrentPosition(
             async ({ coords: { longitude, latitude } }) => {
-                getNowLocation(longitude, latitude)
+                await getNowLocation(longitude, latitude)
             },
             error => {
                 console.error(error)
@@ -43,7 +43,7 @@ export const useLocationPermissionHook = () => {
     }
 
     // 위도, 경도에 따른 지번, 도로명 주소 가져오기
-    const getNowLocation = (longitude: number, latitude: number) => {
+    const getNowLocation = async (longitude: number, latitude: number) => {
         coordinateToAddress(longitude, latitude)
             .then((res: any) => {
                 if (isEmpty(res.documents)) {
@@ -58,12 +58,12 @@ export const useLocationPermissionHook = () => {
     }
 
     const setUserLocation = (location: string, coordinate: { longitude: number; latitude: number }) => {
-        const myLocationFormat = { location, coordinate, date: DateFormat() } as MY_ADDRSS
+        const myLocationFormat = [{ location, coordinate, date: DateFormat() }] as MY_ADDRSS[]
         if (isEmpty(myAddress)) {
             setStorage("myAddressList", myLocationFormat)
-            setMyAddress([myLocationFormat])
+            setMyAddress(myLocationFormat)
         } else {
-            const locationList = [myAddress] as [MY_ADDRSS]
+            const locationList = myAddress
             locationList.unshift(myLocationFormat)
             setStorage("myAddressList", locationList)
             setMyAddress(locationList)

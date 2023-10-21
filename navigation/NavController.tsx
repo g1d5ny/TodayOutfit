@@ -11,7 +11,8 @@ import { OnBoardingNavigator } from "./onBoardingNavigation/OnBoardingNavigator"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 export default () => {
-    const { contents: isLoggedIn } = useRecoilValueLoadable(loggedInState)
+    const { contents: isLoggedIn, state } = useRecoilValueLoadable(loggedInState)
+
     const [goTo, setGoTo] = useState<string>("auth")
     const isDarkMode = useColorScheme() === "dark"
     const { top } = useSafeAreaInsets()
@@ -23,10 +24,10 @@ export default () => {
     }
 
     useEffect(() => {
-        if (isLoggedIn) {
+        if (isLoggedIn && state === "hasValue") {
             setGoTo("main")
         }
-    }, [isLoggedIn])
+    }, [isLoggedIn, state])
 
     return (
         <SafeAreaView style={backgroundStyle}>

@@ -20,6 +20,7 @@ if (__DEV__) {
 function App(): JSX.Element {
     // useEffect(() => {
     //     Storage.removeItem("loggedInState")
+    //     Storage.removeItem("myAddressList")
     // }, [])
 
     return (

@@ -29,8 +29,9 @@ export const SearchAddressScreen = ({ navigation }: { navigation: any }) => {
     const onPress = async () => {
         const checkP = await checkOnlyLocationPermission()
         if (checkP) {
-            getUserLocation()
-            navigate()
+            getUserLocation().then(() => {
+                navigate()
+            })
             return
         }
         setIsVisible(true)

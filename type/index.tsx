@@ -67,47 +67,55 @@ export interface MY_ADDRSS {
 }
 
 export interface CURRENT_WEATHER {
+    code: number
+    temp: number
+    is_day: boolean // true: day, false: night
+    minIcon: JSX.Element
+}
+
+export interface TODAY_WEATHER {
+    code: number
+    text: string
     sunrise: string
     sunset: string
     datetimeEpoch: number
-    currentTemp: number
-    feelsLike: number
-    max: number
-    min: number
-    humidity: number
-    precipprob: number
-    windspeed: number
-    windname: string
-    winddir: string
-    description: string
-    uxindex: number
-    summary: string
-    minIcon: JSX.Element
-    maxIcon: JSX.Element
+    avgTemp: number
+    maxTemp: number
+    minTemp: number
+    minIcon?: JSX.Element
+    maxIcon?: JSX.Element
+    daily_will_it_rain: boolean
+    daily_will_it_snow: boolean
     backgroundColor: string
+    uv: number
 }
 
 export interface HOUR_WEATHER {
-    temp: number
     hour: string
     minIcon: JSX.Element
-    maxIcon: JSX.Element
+    temp: number
+    uv: number
     feelslike: number
-    windspeed: number
-    windname: string
-    winddir: string
-    precipprob: number
+    windDir: string
+    windSpeed: number
+    precip_mm: number
+    humidity: number
 }
 
 export interface WEEKELY_WEATHER {
-    max: number
-    min: number
-    minIcon: JSX.Element
+    code: number
+    avgTemp: number
+    maxTemp: number
+    minTemp: number
+    minIcon?: JSX.Element
     maxIcon: JSX.Element
     date: string
     day: number
-    description: WEATHER_DESC_KOR
+    sunrise: string
+    sunset: string
+    text: string
+    backgroundColor: string
 }
 
 export type WEATHER_DESC_ENG = "clear-day" | "snow" | "partly-cloudy-day" | "partly-cloudy-night" | "cloudy" | "rain" | "fog"
-export type WEATHER_DESC_KOR = "맑음" | "눈" | "구름 조금" | "흐림" | "비" | "안개" | "맑음 저녁"
+export type WEATHER_DESC_KOR = "맑음" | "눈" | "구름 조금" | "흐림" | "비" | "안개" | "천둥 번개"

@@ -1,5 +1,5 @@
-import { ImageBackground, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native"
-import { currentWeatherInfoState, hourWeatherInfoState, isTablet, myAddressListState } from "../../store"
+import { ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import { currentWeatherInfoState, hourWeatherInfoState, isTablet, myAddressListState, todayWeatherInfoState } from "../../store"
 import { useWeatherHook } from "../../hook/useWeatherHook"
 import { useRecoilValue } from "recoil"
 import Loader from "../../component/lottie/Loader"
@@ -9,35 +9,46 @@ import ArrowDown from "../../asset/icon/icon_arrow_down.svg"
 import ArrowUp from "../../asset/icon/icon_arrow_up.svg"
 import WeatherHeader from "./WeatherHeader"
 import WeatherBody from "./WeatherBody"
+import WeatherFooter from "./WeatherFooter"
 
 export default () => {
     const currentWeather = useRecoilValue(currentWeatherInfoState)
     const hourWeather = useRecoilValue(hourWeatherInfoState)
+    const todayWeather = useRecoilValue(todayWeatherInfoState)
     const [arrow, setArrow] = useState("down")
 
-    const { CallAllWeather } = useWeatherHook()
+    const { CallCurrentWeather, CallTodayWeather, CallWeeklyWeather, CallHourlyWeather } = useWeatherHook()
 
     useEffect(() => {
-        CallAllWeather()
+        CallCurrentWeather()
+        CallTodayWeather()
+        CallWeeklyWeather()
+        CallHourlyWeather()
     }, [])
+    // console.log("currentWeather: ", currentWeather)
+    // console.log("hourWeather: ", hourWeather)
+    // console.log("todayWeather: ", todayWeather)
 
     return (
         <View style={{ flex: 1, backgroundColor: "#fff" }}>
-            {!currentWeather || !hourWeather ? (
+            {!currentWeather || !hourWeather || !todayWeather ? (
                 <View style={{ flex: 1 }}>
                     <Loader />
                 </View>
             ) : (
-                <ImageBackground source={require("../../asset/image/image_background.png")} resizeMode='cover' style={{ flex: 1 }}>
-                    <SafeAreaView style={{ flex: 1 }}>
-                        <View style={[styles.bar]}></View>
-                        <ScrollView style={{ flex: 1, paddingHorizontal: isTablet ? 32 : 16 }}>
-                            <WeatherHeader />
-                            <WeatherBody />
-                            <TouchableOpacity style={styles.scroller}>{arrow === "down" ? <ArrowDown /> : <ArrowUp />}</TouchableOpacity>
-                        </ScrollView>
-                    </SafeAreaView>
-                </ImageBackground>
+                <>
+                    <ScrollView style={{ flex: 1 }}>
+                        <ImageBackground source={require("../../asset/image/image_background.png")} resizeMode='cover' style={{ flex: 1, paddingHorizontal: isTablet ? 32 : 16 }}>
+                            <SafeAreaView style={{ flex: 1 }}>
+                                <View style={[styles.bar]}></View>
+                                <WeatherHeader />
+                                <WeatherBody />
+                                <TouchableOpacity style={styles.scroller}>{arrow === "down" ? <ArrowDown /> : <ArrowUp />}</TouchableOpacity>
+                            </SafeAreaView>
+                        </ImageBackground>
+                        <WeatherFooter />
+                    </ScrollView>
+                </>
             )}
         </View>
     )
