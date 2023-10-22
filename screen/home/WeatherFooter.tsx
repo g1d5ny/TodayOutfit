@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native"
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { currentWeatherInfoState, hourWeatherInfoState, isTablet } from "../../store"
 import { CommonColor, MobileFont, TabletFont } from "../../style/CommonStyle"
 import { DateView, LocationView, WeatherDetail } from "../../component/MiniCard"
@@ -7,10 +7,13 @@ import UV from "../../asset/icon/icon_uv_index.svg"
 import FeelsLike from "../../asset/icon/icon_feels_like.svg"
 import WindSpeed from "../../asset/icon/icon_wind_speed.svg"
 import RainPercentage from "../../asset/icon/icon_rain_percentage.svg"
+import { useState } from "react"
 
 export default () => {
     const hourWeather = useRecoilValue(hourWeatherInfoState)
     const currentWeather = useRecoilValue(currentWeatherInfoState)
+    // TODO 시간 선택해서 상세정보 뜰 수 있도록 해야함 - 1023
+    const [selectedHour, setSelectedHour] = useState<number>(-1)
 
     return (
         <View style={[styles.wrapper]}>
@@ -25,18 +28,18 @@ export default () => {
                 <Text style={[isTablet ? TabletFont.button_1 : MobileFont.body_1]}>시간별 일기 예보</Text>
                 <ScrollView style={styles.scrollView} horizontal={true}>
                     <View style={styles.row}>
-                        <View style={[styles.hourView, { backgroundColor: CommonColor.basic_gray_light }]}>
+                        <TouchableOpacity style={[styles.hourView, { backgroundColor: CommonColor.basic_gray_light }]}>
                             <Text style={[isTablet ? TabletFont.detail_1 : MobileFont.detail_1, styles.currentText]}>지금</Text>
-                            {currentWeather.minIcon}
+                            <View style={{ marginVertical: 9 }}>{currentWeather.minIcon}</View>
                             <Text style={[isTablet ? TabletFont.detail_1 : MobileFont.detail_1, styles.currentText]}>{currentWeather.temp}˚</Text>
-                        </View>
-                        {hourWeather.map(({ hour, temp, minIcon }, index: number) => {
+                        </TouchableOpacity>
+                        {hourWeather.map(({ hour, temp, minIcon, uv, feelslike, windSpeed, precip_mm, windDir, humidity }, index: number) => {
                             return (
-                                <View key={index} style={[styles.hourView, { marginLeft: 12 }]}>
-                                    <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.body_2, styles.hourText]}>{hour}시</Text>
-                                    {minIcon}
-                                    <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.body_2, styles.hourText]}>{temp}˚</Text>
-                                </View>
+                                <TouchableOpacity key={index} style={[styles.hourView, { marginLeft: 12 }]} onPress={() => {}}>
+                                    <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.detail_2, styles.hourText]}>{hour}시</Text>
+                                    <View style={{ marginVertical: 9 }}>{minIcon}</View>
+                                    <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.detail_2, styles.hourText]}>{temp}˚</Text>
+                                </TouchableOpacity>
                             )
                         })}
                     </View>
@@ -53,12 +56,10 @@ export default () => {
 
 const styles = StyleSheet.create({
     hourText: {
-        color: CommonColor.basic_gray_dark,
-        marginBottom: 9
+        color: CommonColor.basic_gray_dark
     },
     currentText: {
-        color: CommonColor.main_blue,
-        marginBottom: 9
+        color: CommonColor.main_blue
     },
     hourView: {
         width: 46,

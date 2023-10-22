@@ -1,7 +1,9 @@
 import { StyleSheet, Text, View } from "react-native"
 import { CommonColor, MobileFont, TabletFont } from "../style/CommonStyle"
-import Location from "../asset/icon/icon_location_on.svg"
-import Calendar from "../asset/icon/icon_calendar.svg"
+import LocationMobile from "../asset/icon/icon_location_mobile.svg"
+import LocationTablet from "../asset/icon/icon_location_tablet.svg"
+import CalendarMobile from "../asset/icon/icon_calendar_mobile.svg"
+import CalendarTablet from "../asset/icon/icon_calendar_tablet.svg"
 import { isTablet, myAddressListState } from "../store"
 import { useRecoilValue } from "recoil"
 
@@ -10,8 +12,8 @@ export const LocationView = () => {
 
     return (
         <View style={styles.container}>
-            {/* <Location /> */}
-            <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.detail_3, { color: CommonColor.basic_gray_dark }]}>{myAddressList[0].location.split(" ")[0] + " " + myAddressList[0].location.split(" ")[1]}</Text>
+            {isTablet ? <LocationTablet /> : <LocationMobile />}
+            <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.detail_3, { color: CommonColor.basic_gray_dark, marginLeft: 2 }]}>{myAddressList[0].location.split(" ")[0] + " " + myAddressList[0].location.split(" ")[1]}</Text>
         </View>
     )
 }
@@ -22,8 +24,8 @@ export const DateView = () => {
 
     return (
         <View style={[styles.container, { marginLeft: 10 }]}>
-            <Calendar />
-            <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.detail_3, { color: CommonColor.basic_gray_dark }]}>
+            {isTablet ? <CalendarTablet /> : <CalendarMobile />}
+            <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.detail_3, { color: CommonColor.basic_gray_dark, marginLeft: 2 }]}>
                 {currentMonth}월 {currentDate}일
             </Text>
         </View>
@@ -72,7 +74,7 @@ const styles = StyleSheet.create({
     },
     container: {
         paddingHorizontal: 8,
-        paddintVertical: 6,
+        paddingVertical: 6,
         borderRadius: 4,
         backgroundColor: CommonColor.basic_gray_light,
         flexDirection: "row",

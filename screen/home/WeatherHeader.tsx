@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from "react-native"
 import { currentWeatherInfoState, isTablet, myAddressListState, todayWeatherInfoState } from "../../store"
 import { useRecoilValue } from "recoil"
 import { CommonColor, MobileFont, TabletFont, TextShadowStyle } from "../../style/CommonStyle"
-import Location from "../../asset/icon/icon_line_location.svg"
+import Location from "../../asset/icon/icon_location_min.svg"
 import MinTemp from "../../asset/icon/icon_min_temp.svg"
 import MaxTemp from "../../asset/icon/icon_max_temp.svg"
 
