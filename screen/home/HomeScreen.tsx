@@ -11,7 +11,7 @@ import WeatherHeader from "./WeatherHeader"
 import WeatherBody from "./WeatherBody"
 import WeatherFooter from "./WeatherFooter"
 
-export default () => {
+export const HomeScreen = ({ navigation }: { navigation: any }) => {
     const currentWeather = useRecoilValue(currentWeatherInfoState)
     const hourWeather = useRecoilValue(hourWeatherInfoState)
     const todayWeather = useRecoilValue(todayWeatherInfoState)
@@ -46,7 +46,7 @@ export default () => {
                                 <TouchableOpacity style={styles.scroller}>{arrow === "down" ? <ArrowDown /> : <ArrowUp />}</TouchableOpacity>
                             </SafeAreaView>
                         </ImageBackground>
-                        <WeatherFooter />
+                        <WeatherFooter navigation={navigation} />
                     </ScrollView>
                 </>
             )}

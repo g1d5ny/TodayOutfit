@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native"
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { CommonColor, MobileFont, TabletFont } from "../style/CommonStyle"
 import LocationMobile from "../asset/icon/icon_location_mobile.svg"
 import LocationTablet from "../asset/icon/icon_location_tablet.svg"
@@ -39,13 +39,14 @@ interface WeatherIcon {
     desc?: string
     contentIcon?: any
     isVisible?: boolean
+    onPress?: () => void
 }
-export const WeatherDetail = ({ titleIcon, title, content, desc, contentIcon, isVisible = true }: WeatherIcon): React.ReactElement => {
+export const WeatherDetail = ({ titleIcon, title, content, desc, contentIcon, isVisible = true, onPress }: WeatherIcon): React.ReactElement => {
     if (!isVisible) {
         return <View style={[styles.weatherDetail, { backgroundColor: "transparent" }]} />
     }
     return (
-        <View style={styles.weatherDetail}>
+        <TouchableOpacity style={styles.weatherDetail} onPress={onPress}>
             <View style={styles.row}>
                 {titleIcon}
                 <Text style={[isTablet ? TabletFont.detail_1 : MobileFont.detail_1, { marginLeft: 7 }]}>{title}</Text>
@@ -53,7 +54,7 @@ export const WeatherDetail = ({ titleIcon, title, content, desc, contentIcon, is
             <Text style={[MobileFont.detail_2, { marginVertical: 14 }]}>{content}</Text>
             <Text style={{ fontSize: 20 }}>{desc}</Text>
             <View style={styles.detailIcon}>{contentIcon}</View>
-        </View>
+        </TouchableOpacity>
     )
 }
 

@@ -1,6 +1,6 @@
 import React from "react"
 import { createStackNavigator } from "@react-navigation/stack"
-import WeatherScreen from "../../../../screen/weather/WeatherScreen"
+import WeatherScreen from "../../../../../screen/weather/WeatherScreen"
 
 const { Navigator, Screen } = createStackNavigator()
 

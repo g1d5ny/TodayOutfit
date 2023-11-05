@@ -10,8 +10,6 @@ import WindDirection from "../../asset/icon/icon_wind_dir.svg"
 import RainPercentage from "../../asset/icon/icon_rain_percentage.svg"
 import Humidity from "../../asset/icon/icon_humidity.svg"
 import SnowFall from "../../asset/icon/icon_snow_fall.svg"
-import Sunrise from "../../asset/icon/icon_sunrise.svg"
-import Sunset from "../../asset/icon/icon_sunset.svg"
 import { useCallback, useEffect, useState } from "react"
 import { FeelsLikeFormat, HumidityFormat, RainPercentageFormat, SnowFallFormat, UVFormat, WindDirectionFormat, WindSpeedFormat } from "../../function"
 
@@ -36,7 +34,7 @@ interface WeatherHourlyCard {
     isClicked: boolean
     index?: number
 }
-export default () => {
+export default ({ navigation }: { navigation: any }) => {
     const hourWeather = useRecoilValue(hourWeatherInfoState)
     const currentWeather = useRecoilValue(currentWeatherInfoState)
     const weeklyWeather = useRecoilValue(weeklyWeatherInfoState)
@@ -82,7 +80,7 @@ export default () => {
     return (
         <View style={[styles.wrapper]}>
             <View style={styles.title}>
-                <Text style={[isTablet ? TabletFont.heading : MobileFont.heading]}>일기 예보 상세</Text>
+                <Text style={[isTablet ? TabletFont.heading_1 : MobileFont.heading_1]}>일기 예보 상세</Text>
                 <View style={styles.row}>
                     <LocationView />
                     <DateView />
@@ -134,13 +132,21 @@ export default () => {
                         <>
                             <View style={[styles.foreDetailRow]}>
                                 <View style={styles.foreDetailTablet}>
-                                    <WeatherDetail titleIcon={<UV />} title={"UV 지수"} content={UVFormat(selectedHour.uv)?.content as string} desc={UVFormat(selectedHour.uv)?.text as string} contentIcon={UVFormat(selectedHour.uv)?.icon} />
+                                    <WeatherDetail
+                                        titleIcon={<UV />}
+                                        title={"UV 지수"}
+                                        content={UVFormat(selectedHour.uv)?.content as string}
+                                        desc={UVFormat(selectedHour.uv)?.text as string}
+                                        contentIcon={UVFormat(selectedHour.uv)?.icon}
+                                        onPress={() => navigation.navigate("WeatherDetailNavigator", "UVScreen")}
+                                    />
                                     <WeatherDetail
                                         titleIcon={<WindDirection />}
                                         title={"풍향"}
                                         content={WindDirectionFormat(selectedHour.windDir)?.content as string}
                                         desc={WindDirectionFormat(selectedHour.windDir)?.text as string}
                                         contentIcon={WindDirectionFormat(selectedHour.windDir)?.icon}
+                                        onPress={() => navigation.navigate("WeatherDetailNavigator", "WindDirectionScreen")}
                                     />
                                 </View>
                                 <View style={styles.foreDetailTablet}>
@@ -150,6 +156,7 @@ export default () => {
                                         content={FeelsLikeFormat(selectedHour.feelslike)?.content as string}
                                         desc={FeelsLikeFormat(selectedHour.feelslike)?.text as string}
                                         contentIcon={FeelsLikeFormat(selectedHour.feelslike)?.icon}
+                                        onPress={() => navigation.navigate("WeatherDetailNavigator", "FeelsLikeScreen")}
                                     />
                                     {selectedHour.will_it_snow ? (
                                         <WeatherDetail
@@ -158,6 +165,7 @@ export default () => {
                                             content={SnowFallFormat(selectedHour.chance_of_snow as number)?.content as string}
                                             desc={SnowFallFormat(selectedHour.chance_of_snow as number)?.text as string}
                                             contentIcon={SnowFallFormat(selectedHour.chance_of_snow as number)?.icon}
+                                            onPress={() => navigation.navigate("WeatherDetailNavigator", "SnowFallScreen")}
                                         />
                                     ) : (
                                         <WeatherDetail
@@ -166,6 +174,7 @@ export default () => {
                                             content={RainPercentageFormat(selectedHour.chance_of_rain as number)?.content as string}
                                             desc={RainPercentageFormat(selectedHour.chance_of_rain as number)?.text as string}
                                             contentIcon={RainPercentageFormat(selectedHour.chance_of_rain as number)?.icon}
+                                            onPress={() => navigation.navigate("WeatherDetailNavigator", "RainPercentageScreen")}
                                         />
                                     )}
                                 </View>
@@ -176,6 +185,7 @@ export default () => {
                                         content={WindSpeedFormat(selectedHour.windSpeed)?.content as string}
                                         desc={WindSpeedFormat(selectedHour.windSpeed)?.text as string}
                                         contentIcon={WindSpeedFormat(selectedHour.windSpeed)?.icon}
+                                        onPress={() => navigation.navigate("WeatherDetailNavigator", "WindSpeedScreen")}
                                     />
                                     <WeatherDetail isVisible={false} />
                                 </View>
@@ -186,8 +196,8 @@ export default () => {
                                         content={HumidityFormat(selectedHour.humidity)?.content as string}
                                         desc={HumidityFormat(selectedHour.humidity)?.text as string}
                                         contentIcon={HumidityFormat(selectedHour.humidity)?.icon}
+                                        onPress={() => navigation.navigate("WeatherDetailNavigator", "HumidityScreen")}
                                     />
-
                                     <WeatherDetail isVisible={false} />
                                 </View>
                             </View>
@@ -195,13 +205,21 @@ export default () => {
                     ) : (
                         <View style={styles.foreDetailRow}>
                             <View style={[styles.foreDetail]}>
-                                <WeatherDetail titleIcon={<UV />} title={"UV 지수"} content={UVFormat(selectedHour.uv)?.content as string} desc={UVFormat(selectedHour.uv)?.text as string} contentIcon={UVFormat(selectedHour.uv)?.icon} />
+                                <WeatherDetail
+                                    titleIcon={<UV />}
+                                    title={"UV 지수"}
+                                    content={UVFormat(selectedHour.uv)?.content as string}
+                                    desc={UVFormat(selectedHour.uv)?.text as string}
+                                    contentIcon={UVFormat(selectedHour.uv)?.icon}
+                                    onPress={() => navigation.navigate("WeatherDetailNavigator", "UVScreen")}
+                                />
                                 <WeatherDetail
                                     titleIcon={<WindSpeed />}
                                     title={"풍속"}
                                     content={WindSpeedFormat(selectedHour.windSpeed)?.content as string}
                                     desc={WindSpeedFormat(selectedHour.windSpeed)?.text as string}
                                     contentIcon={WindSpeedFormat(selectedHour.windSpeed)?.icon}
+                                    onPress={() => navigation.navigate("WeatherDetailNavigator", "WindSpeedScreen")}
                                 />
                                 {selectedHour.will_it_snow ? (
                                     <WeatherDetail
@@ -210,6 +228,7 @@ export default () => {
                                         content={SnowFallFormat(selectedHour.chance_of_snow as number)?.content as string}
                                         desc={SnowFallFormat(selectedHour.chance_of_snow as number)?.text as string}
                                         contentIcon={SnowFallFormat(selectedHour.chance_of_snow as number)?.icon}
+                                        onPress={() => navigation.navigate("WeatherDetailNavigator", "SnowFallScreen")}
                                     />
                                 ) : (
                                     <WeatherDetail
@@ -218,6 +237,7 @@ export default () => {
                                         content={RainPercentageFormat(selectedHour.chance_of_rain as number)?.content as string}
                                         desc={RainPercentageFormat(selectedHour.chance_of_rain as number)?.text as string}
                                         contentIcon={RainPercentageFormat(selectedHour.chance_of_rain as number)?.icon}
+                                        onPress={() => navigation.navigate("WeatherDetailNavigator", "RainPercentageScreen")}
                                     />
                                 )}
                             </View>
@@ -228,6 +248,7 @@ export default () => {
                                     content={FeelsLikeFormat(selectedHour.feelslike)?.content as string}
                                     desc={FeelsLikeFormat(selectedHour.feelslike)?.text as string}
                                     contentIcon={FeelsLikeFormat(selectedHour.feelslike)?.icon}
+                                    onPress={() => navigation.navigate("WeatherDetailNavigator", "FeelsLikeScreen")}
                                 />
                                 <WeatherDetail
                                     titleIcon={<WindDirection />}
@@ -235,6 +256,7 @@ export default () => {
                                     content={WindDirectionFormat(selectedHour.windDir)?.content as string}
                                     desc={WindDirectionFormat(selectedHour.windDir)?.text as string}
                                     contentIcon={WindDirectionFormat(selectedHour.windDir)?.icon}
+                                    onPress={() => navigation.navigate("WeatherDetailNavigator", "WindDirectionScreen")}
                                 />
                                 <WeatherDetail
                                     titleIcon={<Humidity />}
@@ -242,6 +264,7 @@ export default () => {
                                     content={HumidityFormat(selectedHour.humidity)?.content as string}
                                     desc={HumidityFormat(selectedHour.humidity)?.text as string}
                                     contentIcon={HumidityFormat(selectedHour.humidity)?.icon}
+                                    onPress={() => navigation.navigate("WeatherDetailNavigator", "HumidityScreen")}
                                 />
                             </View>
                         </View>
