@@ -5,16 +5,6 @@ import { WEATHER_BASE_URL } from "../asset/key"
 import { isEmpty } from "lodash"
 import axios from "axios"
 
-interface CUSTOM_HOUR_WEATHER {
-    temp: number
-    datetime: string
-    icon: string
-    feelslike: number
-    windspeed: number
-    windname: string
-    winddir: number
-    precipprob: number
-}
 export const useWeatherHook = () => {
     const myAddressList = useRecoilValue(myAddressListState)
     const setCurrentWeatherInfo = useSetRecoilState(currentWeatherInfoState)
@@ -38,7 +28,8 @@ export const useWeatherHook = () => {
                 code,
                 temp: parseInt(temp_c),
                 is_day,
-                minIcon: weatherIcon(code, is_day)?.minIcon as JSX.Element
+                minIcon: weatherIcon(code, is_day)?.minIcon as JSX.Element,
+                backgroundColor: weatherIcon(code, is_day)?.backgroundColor as string
             })
         }
     }

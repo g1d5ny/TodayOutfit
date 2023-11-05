@@ -71,6 +71,7 @@ export interface CURRENT_WEATHER {
     temp: number
     is_day: boolean // true: day, false: night
     minIcon: JSX.Element
+    backgroundColor: string
 }
 
 export interface TODAY_WEATHER {
