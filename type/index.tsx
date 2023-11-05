@@ -84,8 +84,6 @@ export interface TODAY_WEATHER {
     minTemp: number
     minIcon?: JSX.Element
     maxIcon?: JSX.Element
-    daily_will_it_rain: boolean
-    daily_will_it_snow: boolean
     backgroundColor: string
     uv: number
 }
@@ -100,6 +98,10 @@ export interface HOUR_WEATHER {
     windSpeed: number
     precip_mm: number
     humidity: number
+    will_it_rain: boolean
+    will_it_snow: boolean
+    chance_of_rain: number
+    chance_of_snow: number
 }
 
 export interface WEEKELY_WEATHER {

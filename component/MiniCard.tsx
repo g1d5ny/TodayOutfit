@@ -33,22 +33,26 @@ export const DateView = () => {
 }
 
 interface WeatherIcon {
-    titleIcon: JSX.Element
-    title: string
-    content: string
-    desc: string
-    contentIcon: JSX.Element
+    titleIcon?: any
+    title?: string
+    content?: string
+    desc?: string
+    contentIcon?: any
+    isVisible?: boolean
 }
-export const WeatherDetail = ({ titleIcon, title, content, desc, contentIcon }: WeatherIcon) => {
+export const WeatherDetail = ({ titleIcon, title, content, desc, contentIcon, isVisible = true }: WeatherIcon): React.ReactElement => {
+    if (!isVisible) {
+        return <View style={[styles.weatherDetail, { backgroundColor: "transparent" }]} />
+    }
     return (
         <View style={styles.weatherDetail}>
             <View style={styles.row}>
                 {titleIcon}
-                <Text style={[isTablet ? TabletFont.detail_1 : MobileFont.detail_1]}>{title}</Text>
-                <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.detail_2, { marginVertical: 14 }]}>{content}</Text>
-                <Text style={{ fontSize: 20 }}>{desc}</Text>
-                <View style={styles.detailIcon}>{contentIcon}</View>
+                <Text style={[isTablet ? TabletFont.detail_1 : MobileFont.detail_1, { marginLeft: 7 }]}>{title}</Text>
             </View>
+            <Text style={[MobileFont.detail_2, { marginVertical: 14 }]}>{content}</Text>
+            <Text style={{ fontSize: 20 }}>{desc}</Text>
+            <View style={styles.detailIcon}>{contentIcon}</View>
         </View>
     )
 }
@@ -57,20 +61,20 @@ const styles = StyleSheet.create({
     detailIcon: {
         width: 64,
         height: 64,
-        alignItems: "center",
-        justifyContent: "center"
+        alignSelf: "flex-end"
     },
     row: {
         flexDirection: "row",
         alignItems: "center"
     },
     weatherDetail: {
-        width: 170,
-        height: 180,
+        width: 172,
         borderRadius: 10,
         backgroundColor: CommonColor.basic_gray_light,
         paddingHorizontal: 12,
-        paddingVertical: 14
+        paddingTop: 14,
+        paddingBottom: 16,
+        marginBottom: isTablet ? 24 : 16
     },
     container: {
         paddingHorizontal: 8,

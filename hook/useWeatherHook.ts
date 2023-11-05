@@ -1,8 +1,7 @@
 import { useRecoilValue, useSetRecoilState } from "recoil"
-import { Weather, currentWeatherInfoState, hourWeatherInfoState, isClear, myAddressListState, todayWeatherInfoState, weatherIcon, weeklyWeatherInfoState } from "../store"
-import { FahrenheitToCelsius, WindNameFormat, WinddirFormat } from "../function"
-import { HOUR_WEATHER, MY_ADDRSS, WEEKELY_WEATHER } from "../type"
-import { WEATHER_BASE_URL, WEATHER_INFO_KEY } from "../asset/key"
+import { currentWeatherInfoState, hourWeatherInfoState, isRain, isSummeryRain, myAddressListState, todayWeatherInfoState, weatherIcon, weeklyWeatherInfoState } from "../store"
+import { HOUR_WEATHER, WEEKELY_WEATHER } from "../type"
+import { WEATHER_BASE_URL } from "../asset/key"
 import { isEmpty } from "lodash"
 import axios from "axios"
 
@@ -30,7 +29,7 @@ export const useWeatherHook = () => {
                     current: {
                         temp_c,
                         is_day,
-                        condition: { code, text }
+                        condition: { code }
                     }
                 }
             } = await axios.get(WEATHER_BASE_URL("current") + "&q=" + myAddressList[0].coordinate.latitude + "," + myAddressList[0]?.coordinate.longitude + "&aqi=no&lang=ko")
@@ -45,7 +44,7 @@ export const useWeatherHook = () => {
     }
 
     const CallTodayWeather = async () => {
-        if (!isEmpty(myAddressList) && Object.keys(myAddressList).length > 0) {
+        if (!isEmpty(myAddressList)) {
             const {
                 data: {
                     forecast: { forecastday }
@@ -59,8 +58,6 @@ export const useWeatherHook = () => {
                     maxtemp_c,
                     mintemp_c,
                     avgtemp_c,
-                    daily_will_it_rain,
-                    daily_will_it_snow,
                     uv,
                     condition: { text, code }
                 }
@@ -76,8 +73,6 @@ export const useWeatherHook = () => {
                 avgTemp: parseInt(avgtemp_c),
                 maxTemp: parseInt(maxtemp_c),
                 minTemp: parseInt(mintemp_c),
-                daily_will_it_rain,
-                daily_will_it_snow,
                 minIcon: weatherIcon(code, true)?.minIcon as JSX.Element,
                 maxIcon: weatherIcon(code, true)?.maxIcon as JSX.Element,
                 backgroundColor: weatherIcon(code, true)?.backgroundColor as string
@@ -86,7 +81,7 @@ export const useWeatherHook = () => {
     }
 
     const CallWeeklyWeather = async () => {
-        if (myAddressList !== null) {
+        if (!isEmpty(myAddressList)) {
             const {
                 data: {
                     forecast: { forecastday }
@@ -140,7 +135,7 @@ export const useWeatherHook = () => {
 
             let count = 0
             for (let i = 0; i < forecastday.length; i++) {
-                forecastday[i].hour.map(({ condition: { code }, time_epoch, is_day, time, temp_c, uv, feelslike_c, wind_dir, wind_mph, precip_mm, humidity }: any) => {
+                forecastday[i].hour.map(({ condition: { code }, time_epoch, is_day, time, temp_c, uv, feelslike_c, wind_dir, wind_mph, precip_mm, humidity, will_it_rain, will_it_snow, chance_of_rain, chance_of_snow }: any) => {
                     if (count > 16) {
                         return
                     }
@@ -154,7 +149,11 @@ export const useWeatherHook = () => {
                             windDir: wind_dir,
                             windSpeed: parseInt(wind_mph),
                             precip_mm: parseInt(precip_mm),
-                            humidity: parseInt(humidity)
+                            humidity: parseInt(humidity),
+                            will_it_rain,
+                            will_it_snow,
+                            chance_of_rain,
+                            chance_of_snow
                         }
                         count++
                     }

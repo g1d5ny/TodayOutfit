@@ -15,7 +15,7 @@ export default () => {
     return (
         <View style={{ flex: 1, justifyContent: "flex-end" }}>
             <View style={styles.character}>
-                <Image source={require("../../asset/image/image_girl.png")} style={{ width: isTablet ? 286 : 186, height: isTablet ? 720 : 470 }} />
+                {/* <Image source={require("../../asset/image/image_girl.png")} style={{ width: isTablet ? 286 : 186, height: isTablet ? 720 : 470 }} /> */}
                 <View>
                     <Text style={[isTablet ? TabletFont.header : MobileFont.body_1, { color: CommonColor.main_white }]}>기온 맞춤 추천 의상</Text>
                     <View style={styles.recomContainer}>

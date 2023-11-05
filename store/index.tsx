@@ -2,7 +2,7 @@ import { atom, selector } from "recoil"
 import { isEmpty } from "lodash"
 import Storage from "@react-native-async-storage/async-storage"
 import DeviceInfo from "react-native-device-info"
-import { RESULT_ADDRESS, MY_ADDRSS, TOAST, CURRENT_WEATHER, HOUR_WEATHER, WEEKELY_WEATHER, WEATHER_DESC_KOR, WEATHER_DESC_ENG, TODAY_WEATHER } from "../type"
+import { RESULT_ADDRESS, MY_ADDRSS, TOAST, CURRENT_WEATHER, HOUR_WEATHER, WEEKELY_WEATHER, WEATHER_DESC_KOR, TODAY_WEATHER } from "../type"
 import { setRecoil } from "recoil-nexus"
 import ClearDay from "../asset/icon/icon_clear_day.svg"
 import ClearNight from "../asset/icon/icon_clear_night.svg"
@@ -13,11 +13,14 @@ import PartyCloudyDay from "../asset/icon/icon_party_cloudy_day.svg"
 import PartyCloudyNight from "../asset/icon/icon_party_cloudy_night.svg"
 import MaxPartyCloudyDay from "../asset/icon/3d_party_cloudy_day.svg"
 import MaxPartyCloudyNight from "../asset/icon/3d_party_cloudy_night.svg"
-import Cloudy from "../asset/icon/icon_cloudy_day.svg"
+import CloudyDay from "../asset/icon/icon_cloudy_day.svg"
+import CloudyNight from "../asset/icon/icon_cloudy_night.svg"
 import MaxCloudy from "../asset/icon/3d_cloudy.svg"
-import Rainy from "../asset/icon/icon_rain.svg"
+import RainyDay from "../asset/icon/icon_rain_day.svg"
+import RainyNight from "../asset/icon/icon_rain_night.svg"
 import MaxRainy from "../asset/icon/3d_rainy.svg"
-import Fog from "../asset/icon/icon_fog.svg"
+import FogNight from "../asset/icon/icon_fog_night.svg"
+import FogDay from "../asset/icon/icon_fog_day.svg"
 import MaxFog from "../asset/icon/3d_fog.svg"
 import MaxMoon from "../asset/icon/3d_moon.svg"
 import Thunder from "../asset/icon/icon_thunder.svg"
@@ -163,7 +166,7 @@ export type Thunder = 1087 | 1273 | 1276
 export type Four_Seasons = Clear | Partly_Cloudy | Cloudy | Fog | Thunder
 
 // SummeryRain
-export type Rain = 1063 | 1150 | 1180 | 1183 | 1186 | 1189 | 1192 | 1195 | 1246
+export type Rain = 1063 | 1150 | 1153 | 1180 | 1183 | 1186 | 1189 | 1192 | 1195 | 1246
 export type Hail = 1072 | 1201 | 1198 | 1168 | 1171
 export type Shower = 1240 | 1243 | 1249 | 1252
 
@@ -203,7 +206,7 @@ export const isSummeryRain = (code: number): code is SummeryRain => {
 }
 
 export const isRain = (code: number): code is Rain => {
-    return code === 1063 || code === 1150 || code === 1180 || code === 1183 || code === 1186 || code === 1189 || code === 1192 || code === 1195 || code === 1246
+    return code === 1063 || code === 1150 || code === 1153 || code === 1180 || code === 1183 || code === 1186 || code === 1189 || code === 1192 || code === 1195 || code === 1246
 }
 
 export const isHail = (code: number): code is Hail => {
@@ -237,18 +240,15 @@ export const weatherIcon = (code: Weather, is_day: boolean) => {
     if (isPartyCloudy(code)) {
         return is_day ? weatherDesc["party-cloudy-day"] : weatherDesc["party-cloudy-night"]
     }
-    // cloudy-night 데이터 교체 필요
     if (isCloudy(code)) {
         return is_day ? weatherDesc["cloudy-day"] : weatherDesc["cloudy-night"]
     }
-    // fog-night 데이터 교체 필요
     if (isFog(code)) {
         return is_day ? weatherDesc["fog-day"] : weatherDesc["fog-night"]
     }
     if (isThunder(code)) {
         return weatherDesc["thunder"]
     }
-    // rain-night 데이터 교체 필요
     if (isSummeryRain(code)) {
         return is_day ? weatherDesc["rain-day"] : weatherDesc["rain-night"]
     }
@@ -263,11 +263,11 @@ export const weatherDesc: { [key: string]: { minIcon: JSX.Element; maxIcon: JSX.
     snow: { minIcon: <Snow />, maxIcon: <MaxSnow width={"100%"} height={"100%"} />, text: "눈", backgroundColor: "rgb(230, 242, 253)" },
     "party-cloudy-day": { minIcon: <PartyCloudyDay />, maxIcon: <MaxPartyCloudyDay width={"100%"} height={"100%"} />, text: "구름 조금", backgroundColor: "rgb(241, 243, 255)" },
     "party-cloudy-night": { minIcon: <PartyCloudyNight />, maxIcon: <MaxPartyCloudyNight width={"100%"} height={"100%"} />, text: "구름 조금", backgroundColor: "rgb(241, 243, 255)" },
-    "cloudy-day": { minIcon: <Cloudy />, maxIcon: <MaxCloudy width={"100%"} height={"100%"} />, text: "흐림", backgroundColor: "rgb(241, 252, 255)" },
-    "cloudy-night": { minIcon: <Cloudy />, maxIcon: <MaxCloudy width={"100%"} height={"100%"} />, text: "흐림", backgroundColor: "rgb(241, 252, 255)" },
-    "rain-day": { minIcon: <Rainy />, maxIcon: <MaxRainy width={"100%"} height={"100%"} />, text: "비", backgroundColor: "rgb(239, 245, 245)" },
-    "rain-night": { minIcon: <Rainy />, maxIcon: <MaxRainy width={"100%"} height={"100%"} />, text: "비", backgroundColor: "rgb(239, 245, 245)" },
-    "fog-day": { minIcon: <Fog />, maxIcon: <MaxFog width={"100%"} height={"100%"} />, text: "안개", backgroundColor: "rgb(230, 242, 253)" },
-    "fog-night": { minIcon: <Fog />, maxIcon: <MaxFog width={"100%"} height={"100%"} />, text: "안개", backgroundColor: "rgb(230, 242, 253)" },
+    "cloudy-day": { minIcon: <CloudyDay />, maxIcon: <MaxCloudy width={"100%"} height={"100%"} />, text: "흐림", backgroundColor: "rgb(241, 252, 255)" },
+    "cloudy-night": { minIcon: <CloudyNight />, maxIcon: <MaxCloudy width={"100%"} height={"100%"} />, text: "흐림", backgroundColor: "rgb(241, 252, 255)" },
+    "rain-day": { minIcon: <RainyDay />, maxIcon: <MaxRainy width={"100%"} height={"100%"} />, text: "비", backgroundColor: "rgb(239, 245, 245)" },
+    "rain-night": { minIcon: <RainyNight />, maxIcon: <MaxRainy width={"100%"} height={"100%"} />, text: "비", backgroundColor: "rgb(239, 245, 245)" },
+    "fog-day": { minIcon: <FogDay />, maxIcon: <MaxFog width={"100%"} height={"100%"} />, text: "안개", backgroundColor: "rgb(230, 242, 253)" },
+    "fog-night": { minIcon: <FogNight />, maxIcon: <MaxFog width={"100%"} height={"100%"} />, text: "안개", backgroundColor: "rgb(230, 242, 253)" },
     thunder: { minIcon: <Thunder />, maxIcon: <MaxThunder width={"100%"} height={"100%"} />, text: "천둥 번개", backgroundColor: "rgb(228, 230, 242)" }
 }
