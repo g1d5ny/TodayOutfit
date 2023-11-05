@@ -16,9 +16,9 @@ export default () => {
             <View style={styles.weatherDesc}>
                 <View style={{ maxWidth: "65%" }}>
                     <Text style={[isTablet ? TabletFont.detail_1 : MobileFont.detail_1, TextShadowStyle, { color: CommonColor.main_white }]}>오늘은</Text>
-                    <Text style={[isTablet ? TabletFont.temperature : MobileFont.bold_on_boarding, TextShadowStyle, { color: CommonColor.main_white }]}>{todayWeather.text}</Text>
+                    <Text style={[isTablet ? TabletFont.main_page_forecast_text : MobileFont.title_on_boarding, TextShadowStyle, { color: CommonColor.main_white }]}>{todayWeather.text}</Text>
                 </View>
-                <Text style={[isTablet ? TabletFont.temperature_2 : MobileFont.temperature_2, TextShadowStyle, { color: CommonColor.main_white }]}>{currentWeather.temp}˚</Text>
+                <Text style={[isTablet ? TabletFont.temperature : MobileFont.temperature, TextShadowStyle, { color: CommonColor.main_white }]}>{currentWeather.temp}˚</Text>
             </View>
             <View style={[styles.weatherDesc, { marginTop: 0 }]}>
                 <View style={styles.addrView}>

@@ -17,7 +17,7 @@ export default () => {
             <View style={styles.character}>
                 {/* <Image source={require("../../asset/image/image_girl.png")} style={{ width: isTablet ? 286 : 186, height: isTablet ? 720 : 470 }} /> */}
                 <View>
-                    <Text style={[isTablet ? TabletFont.header : MobileFont.body_1, { color: CommonColor.main_white }]}>기온 맞춤 추천 의상</Text>
+                    <Text style={[isTablet ? TabletFont.button_1 : MobileFont.button_1, { color: CommonColor.main_white }]}>기온 맞춤 추천 의상</Text>
                     <View style={styles.recomContainer}>
                         <View style={[styles.recom, { marginBottom: isTablet ? 0 : 8, marginRight: isTablet ? 25 : 0 }]}>
                             <View style={styles.clothes}>

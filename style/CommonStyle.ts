@@ -48,54 +48,33 @@ export const dp = (px: number) => {
 }
 
 export const TabletFont = StyleSheet.create({
-    bold_on_boarding: {
+    title_on_boarding: {
         fontSize: 28,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-SemiBold",
         letterSpacing: dp(-0.56),
         lineHeight: 38
     },
-    body_on_boarding: {
-        fontSize: 20,
-        color: CommonColor.main_black,
-        fontFamily: "Pretendard-Regular",
-        letterSpacing: dp(-0.4),
-        lineHeight: 20
-    },
-    title_on_boarding: {
-        fontSize: 18,
-        color: CommonColor.main_black,
-        fontFamily: "Pretendard-Regular",
-        letterSpacing: dp(-0.36),
-        lineHeight: 20
-    },
-    header: {
-        fontSize: 20,
-        color: CommonColor.main_black,
-        fontFamily: "Pretendard-SemiBold",
-        letterSpacing: dp(-0.4),
-        lineHeight: 24
-    },
-    heading: {
+    heading_1: {
         fontSize: 24,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-SemiBold",
         letterSpacing: dp(-0.48),
         lineHeight: 30
     },
-    temperature: {
+    main_page_forecast_text: {
         fontSize: 35,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-SemiBold",
-        letterSpacing: dp(-0.1),
-        lineHeight: 42
+        letterSpacing: dp(-1),
+        lineHeight: 45
     },
-    temperature_2: {
+    temperature: {
         fontSize: 90,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-SemiBold",
         letterSpacing: 0,
-        lineHeight: 108
+        lineHeight: 107
     },
     body_1: {
         fontSize: 16,
@@ -105,25 +84,25 @@ export const TabletFont = StyleSheet.create({
         lineHeight: 22
     },
     body_2: {
-        fontSize: 18,
+        fontSize: 16,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-Regular",
-        letterSpacing: dp(-0.36),
+        letterSpacing: dp(-0.32),
         lineHeight: 22
     },
     detail_1: {
-        fontSize: 16,
+        fontSize: 14,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-SemiBold",
-        letterSpacing: dp(-0.32),
+        letterSpacing: dp(-0.14),
         lineHeight: 20
     },
     detail_2: {
-        fontSize: 16,
+        fontSize: 14,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-Regular",
-        letterSpacing: dp(-0.32),
-        lineHeight: 16
+        letterSpacing: dp(-0.14),
+        lineHeight: 18
     },
     detail_3: {
         fontSize: 12,
@@ -132,27 +111,55 @@ export const TabletFont = StyleSheet.create({
         letterSpacing: dp(-0.12),
         lineHeight: 14
     },
+    detail_4: {
+        fontSize: 12,
+        color: CommonColor.main_black,
+        fontFamily: "Pretendard-SemiBold",
+        letterSpacing: dp(-0.12),
+        lineHeight: 14
+    },
+    modal_text_2: {
+        fontSize: 10,
+        color: CommonColor.main_black,
+        fontFamily: "Pretendard-Regular",
+        letterSpacing: dp(-0.12),
+        lineHeight: 16
+    },
     button_1: {
-        fontSize: 18,
+        fontSize: 20,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-SemiBold",
         letterSpacing: dp(-0.36),
-        lineHeight: 22
+        lineHeight: 24
     },
     button_2: {
-        fontSize: 18,
+        fontSize: 20,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-Regular",
         letterSpacing: dp(-0.36),
-        lineHeight: 22
+        lineHeight: 24
+    },
+    weather_info_page_text: {
+        fontSize: 14,
+        color: CommonColor.main_black,
+        fontFamily: "Pretendard-Regular",
+        letterSpacing: dp(-0.14),
+        lineHeight: 21
+    },
+    mobile_title: {
+        fontSize: 20,
+        color: CommonColor.main_black,
+        fontFamily: "Pretendard-SemiBold",
+        letterSpacing: dp(-0.36),
+        lineHeight: 26
     }
 })
 
 export const MobileFont = StyleSheet.create({
-    bold_on_boarding: {
+    title_on_boarding: {
         fontSize: 24,
         color: CommonColor.main_black,
-        fontFamily: "Pretendard-SemiBold",
+        fontFamily: "Pretendard-Regular",
         letterSpacing: dp(-0.48),
         lineHeight: 32
     },
@@ -170,32 +177,25 @@ export const MobileFont = StyleSheet.create({
         letterSpacing: dp(-0.32),
         lineHeight: 22
     },
-    heading: {
-        fontSize: 18,
+    heading_1: {
+        fontSize: 20,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-SemiBold",
         letterSpacing: dp(-0.36),
         lineHeight: 24
     },
-    main_text: {
-        fontSize: 26,
+    main_page_forecast_text: {
+        fontSize: 24,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-SemiBold",
-        letterSpacing: dp(-0.52),
-        lineHeight: 36
+        letterSpacing: dp(-0.48),
+        lineHeight: 32
     },
     temperature: {
-        fontSize: 35,
-        color: CommonColor.main_black,
-        fontFamily: "Pretendard-SemiBold",
-        letterSpacing: dp(-0.1),
-        lineHeight: 42
-    },
-    temperature_2: {
         fontSize: 55,
         color: CommonColor.main_white,
         fontFamily: "Pretendard-SemiBold",
-        letterSpacing: dp(-0.1),
+        letterSpacing: dp(-1),
         lineHeight: 79
     },
     detail_1: {
@@ -210,7 +210,7 @@ export const MobileFont = StyleSheet.create({
         color: CommonColor.main_black,
         fontFamily: "Pretendard-Regular",
         letterSpacing: dp(-0.14),
-        lineHeight: 20
+        lineHeight: 18
     },
     detail_3: {
         fontSize: 12,
@@ -226,12 +226,12 @@ export const MobileFont = StyleSheet.create({
         letterSpacing: dp(-0.12),
         lineHeight: 14
     },
-    modal_text_1: {
-        fontSize: 20,
+    mobile_title: {
+        fontSize: 24,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-SemiBold",
-        letterSpacing: dp(-0.4),
-        lineHeight: 28
+        letterSpacing: dp(-0.48),
+        lineHeight: 32
     },
     modal_text_2: {
         fontSize: 10,
@@ -253,6 +253,13 @@ export const MobileFont = StyleSheet.create({
         fontFamily: "Pretendard-Regular",
         letterSpacing: dp(-0.36),
         lineHeight: 22
+    },
+    weather_info_page_text: {
+        fontSize: 14,
+        color: CommonColor.main_black,
+        fontFamily: "Pretendard-Regular",
+        letterSpacing: dp(-0.14),
+        lineHeight: 21
     }
 })
 

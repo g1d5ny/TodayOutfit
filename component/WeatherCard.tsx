@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from "react-native"
-import { CommonColor, TabletFont } from "../style/CommonStyle"
+import { CommonColor, MobileFont, TabletFont } from "../style/CommonStyle"
 import LinearGradient from "react-native-linear-gradient"
 import MinTemp from "../asset/icon/icon_min_temp.svg"
 import MaxTemp from "../asset/icon/icon_max_temp.svg"
 import Sunrise from "../asset/icon/icon_sunrise.svg"
 import Sunset from "../asset/icon/icon_sunset.svg"
+import { isTablet } from "../store"
 
 interface WeatherProps {
     day: string
@@ -22,7 +23,7 @@ interface WeatherProps {
 export default ({ day, date, minIcon, text, maxIcon, maxTemp, minTemp, sunrise, sunset, backgroundColor }: WeatherProps) => {
     return (
         <View style={styles.weatherContainer}>
-            <Text style={[TabletFont.header, { color: CommonColor.main_white }]}>오늘의 날씨</Text>
+            <Text style={[isTablet ? TabletFont.button_1 : MobileFont.button_1, { color: CommonColor.main_white }]}>오늘의 날씨</Text>
             <View style={styles.weatherCard}>
                 <View style={styles.cardHeader}>
                     <View style={styles.row}>
@@ -41,16 +42,16 @@ export default ({ day, date, minIcon, text, maxIcon, maxTemp, minTemp, sunrise, 
                             <View style={styles.temp}>
                                 <View style={[styles.row, { marginBottom: 8 }]}>
                                     <MaxTemp width={10} height={10} />
-                                    <Text style={[TabletFont.detail_3, { marginLeft: 4 }]}>최고온도</Text>
+                                    <Text style={[isTablet ? TabletFont.detail_3 : MobileFont.detail_3, { marginLeft: 4 }]}>최고온도</Text>
                                 </View>
-                                <Text style={[TabletFont.temperature, { color: CommonColor.etc_red }]}>{maxTemp}˚</Text>
+                                <Text style={[isTablet ? TabletFont.main_page_forecast_text : MobileFont.main_page_forecast_text, { color: CommonColor.etc_red }]}>{maxTemp}˚</Text>
                             </View>
                             <View style={[styles.temp, { marginLeft: 8 }]}>
                                 <View style={[styles.row, { marginBottom: 8 }]}>
                                     <MinTemp width={10} height={10} />
                                     <Text style={[TabletFont.detail_3, { marginLeft: 4 }]}>최저온도</Text>
                                 </View>
-                                <Text style={[TabletFont.temperature, { color: CommonColor.main_blue }]}>{minTemp}˚</Text>
+                                <Text style={[isTablet ? TabletFont.main_page_forecast_text : MobileFont.main_page_forecast_text, { color: CommonColor.main_blue }]}>{minTemp}˚</Text>
                             </View>
                         </View>
                         <View style={[styles.row, styles.temp, { marginTop: 23, justifyContent: "space-between" }]}>

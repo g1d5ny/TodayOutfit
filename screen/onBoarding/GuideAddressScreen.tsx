@@ -85,8 +85,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         paddingHorizontal: isTablet ? 132 : 16
     },
-    content: isTablet ? TabletFont.title_on_boarding : MobileFont.detail_2,
-    title: isTablet ? TabletFont.bold_on_boarding : MobileFont.bold_on_boarding,
+    content: isTablet ? TabletFont.title_on_boarding : MobileFont.title_on_boarding,
+    title: isTablet ? TabletFont.title_on_boarding : MobileFont.title_on_boarding,
     subtitle: isTablet ? TabletFont.body_2 : MobileFont.body_2,
     textContainer: {
         alignItems: "center",
