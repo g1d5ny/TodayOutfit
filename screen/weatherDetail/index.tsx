@@ -2,7 +2,6 @@ import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } fr
 import { isTablet } from "../../store"
 import Back from "../../asset/icon/icon_arrow_back.svg"
 import { MobileFont, TabletFont } from "../../style/CommonStyle"
-import PagerView from "react-native-pager-view"
 
 export default ({ navigation, route }: { navigation: any; route: any }) => {
     const Header = () => {
@@ -19,14 +18,13 @@ export default ({ navigation, route }: { navigation: any; route: any }) => {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
             <Header />
-            <PagerView initialPage={0}>
-                <View key='1'>
-                    <Text>First page</Text>
-                </View>
-                <View key='2'>
-                    <Text>Second page</Text>
-                </View>
-            </PagerView>
+
+            <View key='1'>
+                <Text>First page</Text>
+            </View>
+            <View key='2'>
+                <Text>Second page</Text>
+            </View>
         </SafeAreaView>
     )
 }
