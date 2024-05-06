@@ -25,10 +25,10 @@ export const WeatherDetailFooter = ({ text }: { text: string }) => {
 
 const styles = StyleSheet.create({
     bottomLine: {
-        width: screenWidth,
         borderTopWidth: 8,
         borderTopColor: CommonColor.basic_gray_light,
-        paddingVertical: 24
+        paddingVertical: 24,
+        borderWidth: 2
     },
     header: {
         width: "100%",

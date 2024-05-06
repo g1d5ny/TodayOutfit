@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-nati
 import { isTablet } from "../../store"
 import PagerView from "react-native-pager-view"
 import { Header, WeatherDetailFooter } from "../../component/CommonComponent"
-import { CommonColor, CommonStyle, MobileFont, TabletFont, screenHeight } from "../../style/CommonStyle"
+import { CommonColor, CommonStyle, MobileFont, TabletFont } from "../../style/CommonStyle"
 import { UVScreen } from "./UVScreen"
 import { FeelsLikeScreen } from "./FeelsLikeScreen"
 import { WindSpeedScreen } from "./WindSpeedScreen"
@@ -26,7 +26,7 @@ const categoryList = [
     { title: "적설량", footer: "적설량의 단계 기준의 경우 기상청 날씨누리의 대설 특보, ‘대설 판단 가이던스'를 활용했음을 알려드립니다.", Component: SnowFallScreen }
 ]
 export const WeatherDetailScreen = ({ route }: { navigation: any; route: any }) => {
-    const [selectedIndex, setSelectedIndex] = useState<number>(0)
+    const [selectedIndex, setSelectedIndex] = useState<number>(route.params.index)
     const ref = useRef<any>(null) // PagerView로 타입해야함
 
     const WeatherHeader = () => {
@@ -58,11 +58,7 @@ export const WeatherDetailScreen = ({ route }: { navigation: any; route: any }) 
                 <WeatherHeader />
                 <PagerView ref={ref} initialPage={route.params.index} useNext scrollEnabled={false}>
                     {categoryList.map(({ Component, footer }, index) => {
-                        return (
-                            <View key={index}>
-                                <Component footerText={footer} />
-                            </View>
-                        )
+                        return <Component key={index} footerText={footer} />
                     })}
                 </PagerView>
             </ScrollView>
