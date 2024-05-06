@@ -7,19 +7,15 @@ import { loggedInState } from "../store"
 import { OnBoardingNavigator } from "./onBoardingNavigation/OnBoardingNavigator"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { MainNavigator } from "./MainNavigation/MainNavigor"
+import { CommonStyle } from "style/CommonStyle"
+import { useNavigation } from "@react-navigation/native"
 
-export default () => {
+export const NavController = () => {
     const { contents: isLoggedIn, state } = useRecoilValueLoadable(loggedInState)
 
     const [goTo, setGoTo] = useState<string>("auth")
     const isDarkMode = useColorScheme() === "dark"
     const { top } = useSafeAreaInsets()
-
-    const backgroundStyle = {
-        flex: 1,
-        marginTop: -top,
-        backgroundColor: "#fff"
-    }
 
     useEffect(() => {
         if (isLoggedIn && state === "hasValue") {
@@ -28,8 +24,9 @@ export default () => {
     }, [isLoggedIn, state])
 
     return (
-        <SafeAreaView style={backgroundStyle}>
-            <StatusBar barStyle={isDarkMode ? "light-content" : "dark-content"} backgroundColor={backgroundStyle.backgroundColor} />
+        // TODO HomeScreen에서만 -top 되도록
+        <SafeAreaView style={CommonStyle.flex}>
+            <StatusBar barStyle={isDarkMode ? "light-content" : "dark-content"} backgroundColor={CommonStyle.flex.backgroundColor} />
             <NavigationContainer ref={navigationRef}>{goTo === "main" ? <MainNavigator /> : <OnBoardingNavigator />}</NavigationContainer>
             {/* <ToastComponent/> */}
         </SafeAreaView>

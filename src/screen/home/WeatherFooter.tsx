@@ -12,6 +12,7 @@ import Humidity from "../../asset/icon/icon_humidity.svg"
 import SnowFall from "../../asset/icon/icon_snow_fall.svg"
 import { useCallback, useEffect, useState } from "react"
 import { FeelsLikeFormat, HumidityFormat, RainPercentageFormat, SnowFallFormat, UVFormat, WindDirectionFormat, WindSpeedFormat } from "../../function"
+import { navigationRef } from "navigation/RootNavigation"
 
 interface ClickedWeather {
     hour: number | string
@@ -34,7 +35,7 @@ interface WeatherHourlyCard {
     isClicked: boolean
     index?: number
 }
-export default ({ navigation }: { navigation: any }) => {
+export default () => {
     const hourWeather = useRecoilValue(hourWeatherInfoState)
     const currentWeather = useRecoilValue(currentWeatherInfoState)
     const weeklyWeather = useRecoilValue(weeklyWeatherInfoState)
@@ -138,7 +139,7 @@ export default ({ navigation }: { navigation: any }) => {
                                         content={UVFormat(selectedHour.uv)?.content as string}
                                         desc={UVFormat(selectedHour.uv)?.text as string}
                                         contentIcon={UVFormat(selectedHour.uv)?.icon}
-                                        onPress={() => navigation.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 0 } })}
+                                        onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 0 } })}
                                     />
                                     <WeatherDetail
                                         titleIcon={<WindDirection />}
@@ -146,7 +147,7 @@ export default ({ navigation }: { navigation: any }) => {
                                         content={WindDirectionFormat(selectedHour.windDir)?.content as string}
                                         desc={WindDirectionFormat(selectedHour.windDir)?.text as string}
                                         contentIcon={WindDirectionFormat(selectedHour.windDir)?.icon}
-                                        onPress={() => navigation.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 3 } })}
+                                        onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 3 } })}
                                     />
                                 </View>
                                 <View style={styles.foreDetailTablet}>
@@ -156,7 +157,7 @@ export default ({ navigation }: { navigation: any }) => {
                                         content={FeelsLikeFormat(selectedHour.feelslike)?.content as string}
                                         desc={FeelsLikeFormat(selectedHour.feelslike)?.text as string}
                                         contentIcon={FeelsLikeFormat(selectedHour.feelslike)?.icon}
-                                        onPress={() => navigation.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 1 } })}
+                                        onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 1 } })}
                                     />
                                     {selectedHour.will_it_snow ? (
                                         <WeatherDetail
@@ -165,7 +166,7 @@ export default ({ navigation }: { navigation: any }) => {
                                             content={SnowFallFormat(selectedHour.chance_of_snow as number)?.content as string}
                                             desc={SnowFallFormat(selectedHour.chance_of_snow as number)?.text as string}
                                             contentIcon={SnowFallFormat(selectedHour.chance_of_snow as number)?.icon}
-                                            onPress={() => navigation.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 6 } })}
+                                            onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 6 } })}
                                         />
                                     ) : (
                                         <WeatherDetail
@@ -174,7 +175,7 @@ export default ({ navigation }: { navigation: any }) => {
                                             content={RainPercentageFormat(selectedHour.chance_of_rain as number)?.content as string}
                                             desc={RainPercentageFormat(selectedHour.chance_of_rain as number)?.text as string}
                                             contentIcon={RainPercentageFormat(selectedHour.chance_of_rain as number)?.icon}
-                                            onPress={() => navigation.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 4 } })}
+                                            onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 4 } })}
                                         />
                                     )}
                                 </View>
@@ -185,7 +186,7 @@ export default ({ navigation }: { navigation: any }) => {
                                         content={WindSpeedFormat(selectedHour.windSpeed)?.content as string}
                                         desc={WindSpeedFormat(selectedHour.windSpeed)?.text as string}
                                         contentIcon={WindSpeedFormat(selectedHour.windSpeed)?.icon}
-                                        onPress={() => navigation.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 2 } })}
+                                        onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 2 } })}
                                     />
                                     <WeatherDetail isVisible={false} />
                                 </View>
@@ -196,7 +197,7 @@ export default ({ navigation }: { navigation: any }) => {
                                         content={HumidityFormat(selectedHour.humidity)?.content as string}
                                         desc={HumidityFormat(selectedHour.humidity)?.text as string}
                                         contentIcon={HumidityFormat(selectedHour.humidity)?.icon}
-                                        onPress={() => navigation.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 5 } })}
+                                        onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 5 } })}
                                     />
                                     <WeatherDetail isVisible={false} />
                                 </View>
@@ -211,7 +212,7 @@ export default ({ navigation }: { navigation: any }) => {
                                     content={UVFormat(selectedHour.uv)?.content as string}
                                     desc={UVFormat(selectedHour.uv)?.text as string}
                                     contentIcon={UVFormat(selectedHour.uv)?.icon}
-                                    onPress={() => navigation.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 0 } })}
+                                    onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 0 } })}
                                 />
                                 <WeatherDetail
                                     titleIcon={<WindSpeed />}
@@ -219,7 +220,7 @@ export default ({ navigation }: { navigation: any }) => {
                                     content={WindSpeedFormat(selectedHour.windSpeed)?.content as string}
                                     desc={WindSpeedFormat(selectedHour.windSpeed)?.text as string}
                                     contentIcon={WindSpeedFormat(selectedHour.windSpeed)?.icon}
-                                    onPress={() => navigation.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 2 } })}
+                                    onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 2 } })}
                                 />
                                 {selectedHour.will_it_snow ? (
                                     <WeatherDetail
@@ -228,7 +229,7 @@ export default ({ navigation }: { navigation: any }) => {
                                         content={SnowFallFormat(selectedHour.chance_of_snow as number)?.content as string}
                                         desc={SnowFallFormat(selectedHour.chance_of_snow as number)?.text as string}
                                         contentIcon={SnowFallFormat(selectedHour.chance_of_snow as number)?.icon}
-                                        onPress={() => navigation.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 6 } })}
+                                        onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 6 } })}
                                     />
                                 ) : (
                                     <WeatherDetail
@@ -237,7 +238,7 @@ export default ({ navigation }: { navigation: any }) => {
                                         content={RainPercentageFormat(selectedHour.chance_of_rain as number)?.content as string}
                                         desc={RainPercentageFormat(selectedHour.chance_of_rain as number)?.text as string}
                                         contentIcon={RainPercentageFormat(selectedHour.chance_of_rain as number)?.icon}
-                                        onPress={() => navigation.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 4 } })}
+                                        onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 4 } })}
                                     />
                                 )}
                             </View>
@@ -248,7 +249,7 @@ export default ({ navigation }: { navigation: any }) => {
                                     content={FeelsLikeFormat(selectedHour.feelslike)?.content as string}
                                     desc={FeelsLikeFormat(selectedHour.feelslike)?.text as string}
                                     contentIcon={FeelsLikeFormat(selectedHour.feelslike)?.icon}
-                                    onPress={() => navigation.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 1 } })}
+                                    onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 1 } })}
                                 />
                                 <WeatherDetail
                                     titleIcon={<WindDirection />}
@@ -256,7 +257,7 @@ export default ({ navigation }: { navigation: any }) => {
                                     content={WindDirectionFormat(selectedHour.windDir)?.content as string}
                                     desc={WindDirectionFormat(selectedHour.windDir)?.text as string}
                                     contentIcon={WindDirectionFormat(selectedHour.windDir)?.icon}
-                                    onPress={() => navigation.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 3 } })}
+                                    onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 3 } })}
                                 />
                                 <WeatherDetail
                                     titleIcon={<Humidity />}
@@ -264,7 +265,7 @@ export default ({ navigation }: { navigation: any }) => {
                                     content={HumidityFormat(selectedHour.humidity)?.content as string}
                                     desc={HumidityFormat(selectedHour.humidity)?.text as string}
                                     contentIcon={HumidityFormat(selectedHour.humidity)?.icon}
-                                    onPress={() => navigation.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 5 } })}
+                                    onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 5 } })}
                                 />
                             </View>
                         </View>

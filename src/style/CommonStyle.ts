@@ -1,4 +1,8 @@
-import { PixelRatio, StyleSheet } from "react-native"
+import { Dimensions, PixelRatio, StyleSheet } from "react-native"
+
+const { width, height } = Dimensions.get("window")
+export const screenWidth = width
+export const screenHeight = height
 
 export const CommonColor = {
     // main color
@@ -146,7 +150,7 @@ export const TabletFont = StyleSheet.create({
         letterSpacing: dp(-0.36),
         lineHeight: 24
     },
-    weather_info_page_text: {
+    weather_info_main_text: {
         fontSize: 14,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-Regular",
@@ -261,7 +265,7 @@ export const MobileFont = StyleSheet.create({
         letterSpacing: dp(-0.36),
         lineHeight: 22
     },
-    weather_info_page_text: {
+    weather_info_main_text: {
         fontSize: 14,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-Regular",
@@ -286,9 +290,21 @@ export const TextShadowStyle = {
     textShadowRadius: 8
 }
 
-export const CommonStyle = {
+export const CommonStyle = StyleSheet.create({
+    bottomLine: {
+        borderBottomWidth: 1,
+        borderColor: CommonColor.basic_gray_light
+    },
+    center: {
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    row: {
+        flexDirection: "row",
+        alignItems: "center"
+    },
     flex: {
         flex: 1,
         backgroundColor: "#fff"
     }
-}
+})

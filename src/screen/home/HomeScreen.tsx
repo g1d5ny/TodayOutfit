@@ -4,18 +4,20 @@ import { useWeatherHook } from "../../hook/useWeatherHook"
 import { useRecoilValue } from "recoil"
 import Loader from "../../component/lottie/Loader"
 import { useEffect, useState } from "react"
-import { CommonColor } from "../../style/CommonStyle"
+import { CommonColor, CommonStyle } from "../../style/CommonStyle"
 import ArrowDown from "../../asset/icon/icon_arrow_down.svg"
 import ArrowUp from "../../asset/icon/icon_arrow_up.svg"
 import WeatherHeader from "./WeatherHeader"
 import WeatherBody from "./WeatherBody"
 import WeatherFooter from "./WeatherFooter"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 
-export const HomeScreen = ({ navigation }: { navigation: any }) => {
+export const HomeScreen = () => {
     const currentWeather = useRecoilValue(currentWeatherInfoState)
     const hourWeather = useRecoilValue(hourWeatherInfoState)
     const todayWeather = useRecoilValue(todayWeatherInfoState)
     const [arrow, setArrow] = useState("down")
+    const { top } = useSafeAreaInsets()
 
     const { CallCurrentWeather, CallTodayWeather, CallWeeklyWeather, CallHourlyWeather } = useWeatherHook()
 
@@ -25,30 +27,25 @@ export const HomeScreen = ({ navigation }: { navigation: any }) => {
         CallWeeklyWeather()
         CallHourlyWeather()
     }, [])
-    // console.log("currentWeather: ", currentWeather)
-    // console.log("hourWeather: ", hourWeather)
-    // console.log("todayWeather: ", todayWeather)
 
     return (
-        <View style={{ flex: 1, backgroundColor: "#fff" }}>
+        <View style={CommonStyle.flex}>
             {!currentWeather || !hourWeather || !todayWeather ? (
-                <View style={{ flex: 1 }}>
+                <View style={CommonStyle.flex}>
                     <Loader />
                 </View>
             ) : (
-                <>
-                    <ScrollView style={{ flex: 1 }}>
-                        <ImageBackground source={require("../../asset/image/image_background.png")} resizeMode='cover' style={{ flex: 1, paddingHorizontal: isTablet ? 32 : 16 }}>
-                            <SafeAreaView style={{ flex: 1 }}>
-                                <View style={[styles.bar]}></View>
-                                <WeatherHeader />
-                                <WeatherBody />
-                                <TouchableOpacity style={styles.scroller}>{arrow === "down" ? <ArrowDown /> : <ArrowUp />}</TouchableOpacity>
-                            </SafeAreaView>
-                        </ImageBackground>
-                        <WeatherFooter navigation={navigation} />
-                    </ScrollView>
-                </>
+                <ScrollView style={CommonStyle.flex}>
+                    <ImageBackground source={require("../../asset/image/image_background.png")} resizeMode='cover' style={{ flex: 1, paddingHorizontal: isTablet ? 32 : 16 }}>
+                        <SafeAreaView style={{ flex: 1 }}>
+                            <View style={styles.bar} />
+                            <WeatherHeader />
+                            <WeatherBody />
+                            <TouchableOpacity style={styles.scroller}>{arrow === "down" ? <ArrowDown /> : <ArrowUp />}</TouchableOpacity>
+                        </SafeAreaView>
+                    </ImageBackground>
+                    <WeatherFooter />
+                </ScrollView>
             )}
         </View>
     )
