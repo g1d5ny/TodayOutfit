@@ -1,6 +1,5 @@
 import React from "react"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import { CommonColor } from "../../../style/CommonStyle"
 import HomeOn from "../../../asset/icon/icon_home_on.svg"
 import HomeOff from "../../../asset/icon/icon_home_off.svg"
 import LocationOn from "../../../asset/icon/icon_location_on.svg"
@@ -13,6 +12,7 @@ import { HomeNavigator } from "./tab/home/HomeNavigator"
 import { LocationNavigator } from "./tab/location/LocationNavigator"
 import { WeatherNavigator } from "./tab/weather/WeatherNavigator"
 import { SettingNavigator } from "./tab/setting/SettingNavigator"
+import { CommonColor } from "../../../style/CommonStyle"
 
 const { Navigator, Screen } = createBottomTabNavigator()
 

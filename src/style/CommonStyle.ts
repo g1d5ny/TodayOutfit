@@ -62,6 +62,13 @@ export const TabletFont = StyleSheet.create({
         letterSpacing: dp(-0.48),
         lineHeight: 30
     },
+    heading_2: {
+        fontSize: 18,
+        color: CommonColor.main_black,
+        fontFamily: "Pretendard-SemiBold",
+        letterSpacing: dp(-0.36),
+        lineHeight: 22
+    },
     main_page_forecast_text: {
         fontSize: 35,
         color: CommonColor.main_black,
@@ -277,4 +284,11 @@ export const ShadowStyle = {
 export const TextShadowStyle = {
     textShadowColor: "rgba(0, 0, 0, 0.4)",
     textShadowRadius: 8
+}
+
+export const CommonStyle = {
+    flex: {
+        flex: 1,
+        backgroundColor: "#fff"
+    }
 }
