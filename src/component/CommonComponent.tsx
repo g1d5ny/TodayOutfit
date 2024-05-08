@@ -27,8 +27,7 @@ const styles = StyleSheet.create({
     bottomLine: {
         borderTopWidth: 8,
         borderTopColor: CommonColor.basic_gray_light,
-        paddingVertical: 24,
-        borderWidth: 2
+        paddingVertical: 24
     },
     header: {
         width: "100%",

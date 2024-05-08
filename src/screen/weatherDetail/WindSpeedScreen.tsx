@@ -1,11 +1,11 @@
-import { StyleSheet, Text, View } from "react-native"
-import { CommonColor, CommonStyle, MobileFont, TabletFont, screenHeight, screenWidth } from "../../style/CommonStyle"
+import { ScrollView, StyleSheet, Text, View } from "react-native"
+import { CommonColor, CommonStyle, MobileFont, TabletFont } from "../../style/CommonStyle"
 import { WindSpeed, isTablet } from "../../store"
 import { WeatherDetailFooter } from "../../component/CommonComponent"
 
 export const WindSpeedScreen = ({ footerText }: { footerText: string }) => {
     return (
-        <View style={CommonStyle.flex}>
+        <ScrollView style={styles.flex}>
             <Text style={[styles.title, isTablet ? TabletFont.heading_2 : MobileFont.body_1]}>풍속이란?</Text>
             <Text style={[styles.content, isTablet ? TabletFont.weather_info_main_text : MobileFont.weather_info_main_text]}>
                 풍속은 단위 시간당 이동하는 공기의 속도를 말합니다. 오늘모입지에서는 풍속을 m/s 단위 기준으로 보버트 풍력 계급표에 기초해 구분하였으며 강풍 경보를 미만으로 일상 생활에서의 육상 상태를 안내하고 있습니다.
@@ -36,7 +36,7 @@ export const WindSpeedScreen = ({ footerText }: { footerText: string }) => {
                 )
             })}
             {!isTablet && <WeatherDetailFooter text={footerText} />}
-        </View>
+        </ScrollView>
     )
 }
 
@@ -77,5 +77,9 @@ const styles = StyleSheet.create({
     },
     title: {
         marginTop: 32
+    },
+    flex: {
+        flex: 1,
+        paddingHorizontal: isTablet ? 76 : 14
     }
 })

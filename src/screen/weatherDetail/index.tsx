@@ -54,14 +54,12 @@ export const WeatherDetailScreen = ({ route }: { navigation: any; route: any }) 
     return (
         <View style={CommonStyle.flex}>
             <Header text='기상정보에 관하여' />
-            <ScrollView style={styles.view}>
-                <WeatherHeader />
-                <PagerView ref={ref} initialPage={route.params.index} useNext scrollEnabled={false}>
-                    {categoryList.map(({ Component, footer }, index) => {
-                        return <Component key={index} footerText={footer} />
-                    })}
-                </PagerView>
-            </ScrollView>
+            <WeatherHeader />
+            <PagerView ref={ref} initialPage={route.params.index} useNext scrollEnabled={false} style={CommonStyle.flex}>
+                {categoryList.map(({ Component, footer }, index) => {
+                    return <Component key={index} footerText={footer} />
+                })}
+            </PagerView>
             {isTablet && <WeatherDetailFooter text={categoryList[selectedIndex].footer} />}
         </View>
     )
@@ -75,8 +73,5 @@ const styles = StyleSheet.create({
     category: {
         paddingHorizontal: 8,
         paddingVertical: 14
-    },
-    view: {
-        paddingHorizontal: isTablet ? 76 : 14
     }
 })
