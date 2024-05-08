@@ -1,5 +1,4 @@
-import { WeatherDetailFooter } from "component/CommonComponent"
-import { ScrollView, StyleSheet, Text, View } from "react-native"
+import { StyleSheet, Text, View } from "react-native"
 import { isTablet } from "store"
 import { CommonColor, CommonStyle, MobileFont, TabletFont } from "style/CommonStyle"
 import FeelsLike10 from "asset/icon/feels_like/icon_feels_like_10.svg"
@@ -40,7 +39,7 @@ const FeelsLike = [
         range: "~20"
     }
 ]
-export const FeelsLikeScreen = ({ footerText }: { footerText: string }) => {
+export const FeelsLikeScreen = () => {
     return (
         <View>
             <Text style={[styles.title, isTablet ? TabletFont.heading_2 : MobileFont.body_1]}>체감온도란?</Text>
@@ -82,7 +81,6 @@ export const FeelsLikeScreen = ({ footerText }: { footerText: string }) => {
                     </View>
                 )
             })}
-            {!isTablet && <WeatherDetailFooter text={footerText} />}
         </View>
     )
 }

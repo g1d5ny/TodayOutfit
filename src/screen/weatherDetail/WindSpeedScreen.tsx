@@ -1,9 +1,8 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native"
+import { StyleSheet, Text, View } from "react-native"
 import { CommonColor, CommonStyle, MobileFont, TabletFont } from "../../style/CommonStyle"
 import { WindSpeed, isTablet } from "../../store"
-import { WeatherDetailFooter } from "../../component/CommonComponent"
 
-export const WindSpeedScreen = ({ footerText }: { footerText: string }) => {
+export const WindSpeedScreen = () => {
     return (
         <View>
             <Text style={[styles.title, isTablet ? TabletFont.heading_2 : MobileFont.body_1]}>풍속이란?</Text>
@@ -28,7 +27,6 @@ export const WindSpeedScreen = ({ footerText }: { footerText: string }) => {
                     )
                 })}
             </View>
-            {!isTablet && <WeatherDetailFooter text={footerText} />}
         </View>
     )
 }

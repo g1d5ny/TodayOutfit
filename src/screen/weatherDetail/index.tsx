@@ -59,7 +59,10 @@ export const WeatherDetailScreen = ({ route }: { navigation: any; route: any }) 
                 {categoryList.map(({ Component, footer }, index) => {
                     return (
                         <ScrollView key={index} style={styles.padding}>
-                            <Component key={index} footerText={footer} />
+                            <View style={styles.component}>
+                                <Component key={index} footerText={footer} />
+                            </View>
+                            {!isTablet && <WeatherDetailFooter text={footer} />}
                         </ScrollView>
                     )
                 })}
@@ -70,6 +73,9 @@ export const WeatherDetailScreen = ({ route }: { navigation: any; route: any }) 
 }
 
 const styles = StyleSheet.create({
+    component: {
+        minHeight: "90%"
+    },
     selectedCategory: {
         borderBottomWidth: 3,
         borderColor: CommonColor.main_blue

@@ -48,6 +48,7 @@ import WindSpeed7 from "../asset/icon/wind_speed/icon_wind_speed_7.svg"
 import WindSpeed8 from "../asset/icon/wind_speed/icon_wind_speed_8.svg"
 import WindSpeed9 from "../asset/icon/wind_speed/icon_wind_speed_9.svg"
 import WindSpeed10 from "../asset/icon/wind_speed/icon_wind_speed_10.svg"
+import Precip0 from "../asset/icon/rain_percentage/icon_rain_percentage_0.svg"
 import Precip1 from "../asset/icon/rain_percentage/icon_rain_percentage_1.svg"
 import Precip2 from "../asset/icon/rain_percentage/icon_rain_percentage_2.svg"
 import Precip3 from "../asset/icon/rain_percentage/icon_rain_percentage_3.svg"
@@ -58,7 +59,6 @@ import Precip7 from "../asset/icon/rain_percentage/icon_rain_percentage_7.svg"
 import Precip8 from "../asset/icon/rain_percentage/icon_rain_percentage_8.svg"
 import Precip9 from "../asset/icon/rain_percentage/icon_rain_percentage_9.svg"
 import Precip10 from "../asset/icon/rain_percentage/icon_rain_percentage_10.svg"
-import Precip11 from "../asset/icon/rain_percentage/icon_rain_percentage_11.svg"
 import Humidity1 from "../asset/icon/humidity/icon_humidity_1.svg"
 import Humidity2 from "../asset/icon/humidity/icon_humidity_2.svg"
 import Humidity3 from "../asset/icon/humidity/icon_humidity_3.svg"
@@ -370,17 +370,17 @@ export const WindDirection = [
 ]
 
 export const RainPercentage = (precip: number) => [
-    { text: precip + "%", content: "강수 확률이 없습니다.", icon: <Precip1 /> },
-    { text: precip + "%", content: "강수 확률이 매우 낮습니다.", icon: <Precip2 /> },
+    { text: precip + "%", content: "강수 확률이 없습니다.", icon: <Precip0 /> },
+    { text: precip + "%", content: "강수 확률이 매우 낮습니다.", icon: <Precip1 /> },
+    { text: precip + "%", content: "강수 확률이 낮습니다.", icon: <Precip2 /> },
     { text: precip + "%", content: "강수 확률이 낮습니다.", icon: <Precip3 /> },
-    { text: precip + "%", content: "강수 확률이 낮습니다.", icon: <Precip4 /> },
+    { text: precip + "%", content: "강수 확률이 있어 우산 휴대를 권장합니다.", icon: <Precip4 /> },
     { text: precip + "%", content: "강수 확률이 있어 우산 휴대를 권장합니다.", icon: <Precip5 /> },
-    { text: precip + "%", content: "강수 확률이 있어 우산 휴대를 권장합니다.", icon: <Precip6 /> },
+    { text: precip + "%", content: "강수 확률이 높아 우산 휴대를 권장합니다.", icon: <Precip6 /> },
     { text: precip + "%", content: "강수 확률이 높아 우산 휴대를 권장합니다.", icon: <Precip7 /> },
-    { text: precip + "%", content: "강수 확률이 높아 우산 휴대를 권장합니다.", icon: <Precip8 /> },
+    { text: precip + "%", content: "강수 확률이 매우 높아 우산 휴대가 필요합니다.", icon: <Precip8 /> },
     { text: precip + "%", content: "강수 확률이 매우 높아 우산 휴대가 필요합니다.", icon: <Precip9 /> },
-    { text: precip + "%", content: "강수 확률이 매우 높아 우산 휴대가 필요합니다.", icon: <Precip10 /> },
-    { text: precip + "%", content: "강수 확률이 매우 높아 우산  휴대가 필수입니다", icon: <Precip11 /> }
+    { text: precip + "%", content: "강수 확률이 매우 높아 우산  휴대가 필수입니다", icon: <Precip10 /> }
 ]
 
 export const WindSpeed = [

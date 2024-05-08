@@ -1,11 +1,10 @@
-import { Image, StyleSheet, Text, View } from "react-native"
+import { StyleSheet, Text, View } from "react-native"
 import { isTablet } from "store"
 import { CommonStyle, MobileFont, TabletFont } from "style/CommonStyle"
 import MobileCompass from "asset/image/image_mobile_compass.svg"
 import TabletCompass from "asset/image/image_tablet_compass.svg"
-import { WeatherDetailFooter } from "component/CommonComponent"
 
-export const WindDirectionScreen = ({ footerText }: { footerText: string }) => {
+export const WindDirectionScreen = () => {
     return (
         <View>
             <Text style={[styles.title, isTablet ? TabletFont.heading_2 : MobileFont.body_1]}>풍향이란?</Text>
@@ -14,7 +13,6 @@ export const WindDirectionScreen = ({ footerText }: { footerText: string }) => {
                 <Text style={[isTablet ? TabletFont.heading_2 : MobileFont.body_1]}>풍향 구분</Text>
                 <View style={[CommonStyle.center, styles.compass]}>{isTablet ? <TabletCompass /> : <MobileCompass />}</View>
             </View>
-            {!isTablet && <WeatherDetailFooter text={footerText} />}
         </View>
     )
 }
