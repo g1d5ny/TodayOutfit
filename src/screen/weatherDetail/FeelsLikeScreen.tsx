@@ -9,31 +9,31 @@ import FeelsLike2 from "asset/icon/feels_like/icon_feels_like_2.svg"
 
 const FeelsLike = [
     {
-        text: "100%",
+        text: "위험",
         desc: ["폭염경보 수준의 체감 온도로 가능한 실내에 머물러야 합니다.", "직사광선을 오래 받으면 열사병, 일사병과 같은 온열질환이 발생할 가능성이 높습니다."],
         icon: <FeelsLike10 />,
         range: "~100"
     },
     {
-        text: "80%",
+        text: "높음",
         desc: ["최대 폭염 주의보 수준의 체감온도로 외출을 피하는 것을 권장합니다.", "장기 외부활동시 일사병이나 탈수가 일어날 수 있으니 주의해야 합니다."],
         icon: <FeelsLike8 />,
         range: "~80"
     },
     {
-        text: "60%",
+        text: "보통",
         desc: ["평균 기온에 해당하는 적정한 체감온도 입니다.", "사람의 체질에 따라 다르게 느낄 수 있습니다."],
         icon: <FeelsLike6 />,
         range: "~60"
     },
     {
-        text: "40%",
+        text: "낮음",
         desc: ["추위가 느껴지는 정도로 옷을 따뜻하게 입는 것을 권장합니다."],
         icon: <FeelsLike4 />,
         range: "~40"
     },
     {
-        text: "낮음",
+        text: "매우 낮음",
         desc: ["노출된 피부에 매우 찬 기운이 느껴지는 정도로 장기 야외 활동시 저체온증 위험이 있습니다."],
         icon: <FeelsLike2 />,
         range: "~20"
