@@ -60,7 +60,7 @@ export const WeatherDetailScreen = ({ route }: { navigation: any; route: any }) 
                     return (
                         <ScrollView key={index} style={styles.padding}>
                             <View style={styles.component}>
-                                <Component key={index} footerText={footer} />
+                                <Component key={index} />
                             </View>
                             {!isTablet && <WeatherDetailFooter text={footer} />}
                         </ScrollView>
