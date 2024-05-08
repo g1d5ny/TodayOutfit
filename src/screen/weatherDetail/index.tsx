@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-nati
 import { isTablet } from "../../store"
 import PagerView from "react-native-pager-view"
 import { Header, WeatherDetailFooter } from "../../component/CommonComponent"
-import { CommonColor, CommonStyle, MobileFont, TabletFont } from "../../style/CommonStyle"
+import { CommonColor, CommonStyle, MobileFont, TabletFont, screenWidth } from "../../style/CommonStyle"
 import { UVScreen } from "./UVScreen"
 import { FeelsLikeScreen } from "./FeelsLikeScreen"
 import { WindSpeedScreen } from "./WindSpeedScreen"
@@ -36,12 +36,12 @@ export const WeatherDetailScreen = ({ route }: { navigation: any; route: any }) 
         }
 
         return (
-            <View>
+            <View style={[styles.view, styles.padding]}>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                     {categoryList.map(({ title }, index) => {
                         const isSelectedIndex = selectedIndex === index
                         return (
-                            <TouchableOpacity key={index} style={[styles.category, CommonStyle.bottomLine, isSelectedIndex && styles.selectedCategory]} onPress={() => setCategory(index)}>
+                            <TouchableOpacity key={index} style={[styles.category, isSelectedIndex && styles.selectedCategory]} onPress={() => setCategory(index)}>
                                 <Text style={[isTablet ? TabletFont.button_1 : MobileFont.body_1, { color: isSelectedIndex ? CommonColor.main_black : CommonColor.basic_gray_medium }]}>{title}</Text>
                             </TouchableOpacity>
                         )
@@ -57,7 +57,11 @@ export const WeatherDetailScreen = ({ route }: { navigation: any; route: any }) 
             <WeatherHeader />
             <PagerView ref={ref} initialPage={route.params.index} useNext scrollEnabled={false} style={CommonStyle.flex}>
                 {categoryList.map(({ Component, footer }, index) => {
-                    return <Component key={index} footerText={footer} />
+                    return (
+                        <ScrollView key={index} style={styles.padding}>
+                            <Component key={index} footerText={footer} />
+                        </ScrollView>
+                    )
                 })}
             </PagerView>
             {isTablet && <WeatherDetailFooter text={categoryList[selectedIndex].footer} />}
@@ -73,5 +77,13 @@ const styles = StyleSheet.create({
     category: {
         paddingHorizontal: 8,
         paddingVertical: 14
+    },
+    view: {
+        width: screenWidth,
+        borderBottomWidth: 1,
+        borderColor: CommonColor.basic_gray_light
+    },
+    padding: {
+        paddingHorizontal: isTablet ? 76 : 14
     }
 })

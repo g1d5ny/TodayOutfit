@@ -5,7 +5,7 @@ import { WeatherDetailFooter } from "../../component/CommonComponent"
 
 export const UVScreen = ({ footerText }: { footerText: string }) => {
     return (
-        <ScrollView style={styles.flex}>
+        <View>
             <Text style={[styles.title, isTablet ? TabletFont.heading_2 : MobileFont.body_1]}>UV 지수란?</Text>
             <Text style={[styles.content, isTablet ? TabletFont.weather_info_main_text : MobileFont.weather_info_main_text]}>
                 UV 지수(Ultraviolet Index)는 피부 손상 가능성을 나타내는 지표로 일광화상을 유발하는 자외선 복사 강도의 국제 표준 측정 값입니다. 태양고도가 최대인 남중시각(南中時刻)때 지표에 도달하는 자외선 B 영역의 복사량을 지수식으로
@@ -29,7 +29,7 @@ export const UVScreen = ({ footerText }: { footerText: string }) => {
                     <View key={index} style={styles.row}>
                         <View style={styles.left}>
                             <Text style={isTablet ? TabletFont.detail_1 : MobileFont.detail_1}>{text}</Text>
-                            <Text style={[isTablet ? TabletFont.detail_3 : MobileFont.detail_3, { color: CommonColor.main_blue }]}>{range}</Text>
+                            <Text style={[isTablet ? TabletFont.detail_3 : MobileFont.detail_3, styles.range]}>{range}</Text>
                         </View>
                         <View style={CommonStyle.flex}>
                             {desc.map((item, index) => (
@@ -43,11 +43,15 @@ export const UVScreen = ({ footerText }: { footerText: string }) => {
                 )
             })}
             {!isTablet && <WeatherDetailFooter text={footerText} />}
-        </ScrollView>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
+    range: {
+        marginTop: 6,
+        color: CommonColor.main_blue
+    },
     wrap: {
         flexDirection: "row",
         alignItems: "flex-start"
@@ -84,9 +88,5 @@ const styles = StyleSheet.create({
     },
     title: {
         marginTop: 32
-    },
-    flex: {
-        flex: 1,
-        paddingHorizontal: isTablet ? 76 : 14
     }
 })
