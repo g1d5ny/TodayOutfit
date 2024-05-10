@@ -1,3 +1,5 @@
+import { Weather } from "store"
+
 export interface RESULT_ADDRESS {
     address: {
         address_name: string
@@ -75,11 +77,11 @@ export interface CURRENT_WEATHER {
 }
 
 export interface TODAY_WEATHER {
-    code: number
+    code: Weather
     text: string
     sunrise: string
     sunset: string
-    datetimeEpoch: number
+    datetimeEpoch?: number
     avgTemp: number
     maxTemp: number
     minTemp: number
@@ -87,36 +89,32 @@ export interface TODAY_WEATHER {
     maxIcon?: JSX.Element
     backgroundColor: string
     uv: number
+    maxWindSpeed: number // 최대 풍속
+    rainPercentage: number // 강수 확률
+    snowPercentage: number // 강설 확률
+    willItRain: boolean
+    willItSnow: boolean
 }
 
 export interface HOUR_WEATHER {
     hour: string
     minIcon: JSX.Element
-    temp: number
+    temp?: number
     uv: number
     feelslike: number
     windDir: string
     windSpeed: number
-    precip_mm: number
+    precip_mm?: number
     humidity: number
-    will_it_rain: boolean
-    will_it_snow: boolean
-    chance_of_rain: number
-    chance_of_snow: number
+    willItRain: boolean
+    willItSnow: boolean
+    rainPercentage: number
+    snowPercentage: number
 }
 
-export interface WEEKELY_WEATHER {
-    code: number
-    avgTemp: number
-    maxTemp: number
-    minTemp: number
-    minIcon?: JSX.Element
-    maxIcon: JSX.Element
+export interface WEEKELY_WEATHER extends TODAY_WEATHER {
     date: string
     day: number
-    sunrise: string
-    sunset: string
-    text: string
     backgroundColor: string
 }
 

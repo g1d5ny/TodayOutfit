@@ -1,5 +1,5 @@
 import { useRecoilValue, useSetRecoilState } from "recoil"
-import { currentWeatherInfoState, hourWeatherInfoState, isRain, isSummeryRain, myAddressListState, todayWeatherInfoState, weatherIcon, weeklyWeatherInfoState } from "../store"
+import { currentWeatherInfoState, hourWeatherInfoState, isRain, isSummeryRain, myAddressListState, todayWeatherInfoState, weather, weeklyWeatherInfoState } from "../store"
 import { HOUR_WEATHER, WEEKELY_WEATHER } from "../type"
 import { WEATHER_BASE_URL } from "../asset/key"
 import { isEmpty } from "lodash"
@@ -28,8 +28,8 @@ export const useWeatherHook = () => {
                 code,
                 temp: parseInt(temp_c),
                 is_day,
-                minIcon: weatherIcon(code, is_day)?.minIcon as JSX.Element,
-                backgroundColor: weatherIcon(code, is_day)?.backgroundColor as string
+                minIcon: weather(code, is_day)?.minIcon as JSX.Element,
+                backgroundColor: weather(code, is_day)?.backgroundColor as string
             })
         }
     }
@@ -50,6 +50,11 @@ export const useWeatherHook = () => {
                     mintemp_c,
                     avgtemp_c,
                     uv,
+                    maxwind_mph,
+                    daily_chance_of_rain,
+                    daily_chance_of_snow,
+                    daily_will_it_rain,
+                    daily_will_it_snow,
                     condition: { text, code }
                 }
             } = forecastday[0]
@@ -58,15 +63,20 @@ export const useWeatherHook = () => {
                 code,
                 sunrise,
                 sunset,
-                text,
+                text: weather(code, true)?.text as string,
                 uv,
+                maxWindSpeed: maxwind_mph,
+                willItRain: daily_will_it_rain,
+                willItSnow: daily_will_it_snow,
+                rainPercentage: daily_chance_of_rain,
+                snowPercentage: daily_chance_of_snow,
                 datetimeEpoch: date_epoch,
                 avgTemp: parseInt(avgtemp_c),
                 maxTemp: parseInt(maxtemp_c),
                 minTemp: parseInt(mintemp_c),
-                minIcon: weatherIcon(code, true)?.minIcon as JSX.Element,
-                maxIcon: weatherIcon(code, true)?.maxIcon as JSX.Element,
-                backgroundColor: weatherIcon(code, true)?.backgroundColor as string
+                minIcon: weather(code, true)?.minIcon as JSX.Element,
+                maxIcon: weather(code, true)?.maxIcon as JSX.Element,
+                backgroundColor: weather(code, true)?.backgroundColor as string
             })
         }
     }
@@ -89,7 +99,13 @@ export const useWeatherHook = () => {
                             maxtemp_c,
                             mintemp_c,
                             avgtemp_c,
-                            condition: { text, code }
+                            condition: { text, code },
+                            uv,
+                            maxwind_mph,
+                            daily_chance_of_rain,
+                            daily_chance_of_snow,
+                            daily_will_it_rain,
+                            daily_will_it_snow
                         }
                     }: any,
                     index: number
@@ -101,11 +117,18 @@ export const useWeatherHook = () => {
                         sunrise,
                         sunset,
                         text,
+                        uv,
+                        maxWindSpeed: maxwind_mph,
+                        rainPercentage: daily_chance_of_rain,
+                        snowPercentage: daily_chance_of_snow,
+                        willItRain: daily_will_it_rain,
+                        willItSnow: daily_will_it_snow,
                         avgTemp: parseInt(avgtemp_c),
                         maxTemp: parseInt(maxtemp_c),
                         minTemp: parseInt(mintemp_c),
-                        maxIcon: weatherIcon(code, true)?.maxIcon as JSX.Element,
-                        backgroundColor: weatherIcon(code, true)?.backgroundColor as string
+                        maxIcon: weather(code, true)?.maxIcon as JSX.Element,
+                        minIcon: weather(code, true)?.minIcon as JSX.Element,
+                        backgroundColor: weather(code, true)?.backgroundColor as string
                     }
                 }
             )
@@ -133,7 +156,7 @@ export const useWeatherHook = () => {
                     if (time_epoch * 1000 > Date.now()) {
                         hourlyWeather[count] = {
                             hour: time.split(" ")[1].split(":")[0],
-                            minIcon: weatherIcon(code, is_day)?.minIcon as JSX.Element,
+                            minIcon: weather(code, is_day)?.minIcon as JSX.Element,
                             temp: parseInt(temp_c),
                             uv: parseInt(uv),
                             feelslike: parseInt(feelslike_c),
@@ -141,10 +164,10 @@ export const useWeatherHook = () => {
                             windSpeed: parseInt(wind_mph),
                             precip_mm: parseInt(precip_mm),
                             humidity: parseInt(humidity),
-                            will_it_rain,
-                            will_it_snow,
-                            chance_of_rain,
-                            chance_of_snow
+                            willItRain: will_it_rain,
+                            willItSnow: will_it_snow,
+                            rainPercentage: chance_of_rain,
+                            snowPercentage: chance_of_snow
                         }
                         count++
                     }

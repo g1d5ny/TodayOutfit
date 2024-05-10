@@ -8,9 +8,8 @@ export const DateFormat = () => {
     return year + "년 " + month + "월 " + date + "일"
 }
 
-export const getDay = () => {
+export const getDay = (index: number) => {
     const day = { 0: "일", 1: "월", 2: "화", 3: "수", 4: "목", 5: "금", 6: "토" } as { [key: string]: string }
-    const index = new Date().getDay().toString()
     return day[index]
 }
 

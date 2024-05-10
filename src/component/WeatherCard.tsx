@@ -1,11 +1,11 @@
-import { StyleSheet, Text, View } from "react-native"
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { CommonColor, MobileFont, TabletFont } from "../style/CommonStyle"
 import LinearGradient from "react-native-linear-gradient"
 import MinTemp from "../asset/icon/icon_min_temp.svg"
 import MaxTemp from "../asset/icon/icon_max_temp.svg"
 import Sunrise from "../asset/icon/icon_sunrise.svg"
 import Sunset from "../asset/icon/icon_sunset.svg"
-import { isTablet } from "../store"
+import { isTablet, weather } from "../store"
 
 interface WeatherProps {
     day: string
@@ -18,21 +18,24 @@ interface WeatherProps {
     sunrise: string
     sunset: string
     backgroundColor: string
+    onPress?: () => void
 }
 
-export const WeatherCard = ({ day, date, minIcon, text, maxIcon, maxTemp, minTemp, sunrise, sunset, backgroundColor }: WeatherProps) => {
+export const WeatherCard = ({ day, date, minIcon, text, maxIcon, maxTemp, minTemp, sunrise, sunset, backgroundColor, onPress }: WeatherProps) => {
+    const color = day === "토" ? CommonColor.main_blue : day === "일" ? CommonColor.etc_red : CommonColor.main_black
+
     return (
         <View style={styles.weatherCard}>
-            <View style={styles.cardHeader}>
+            <TouchableOpacity disabled={!onPress} style={styles.cardHeader} onPress={onPress}>
                 <View style={styles.row}>
-                    <Text style={TabletFont.body_1}>{day}</Text>
+                    <Text style={[TabletFont.body_1, { color }]}>{day}</Text>
                     <Text style={[TabletFont.body_2, { marginLeft: 6 }]}>{date}</Text>
                 </View>
                 <View style={[styles.row, { marginLeft: 20 }]}>
                     {minIcon}
                     <Text style={{ marginLeft: 4 }}>{text}</Text>
                 </View>
-            </View>
+            </TouchableOpacity>
             <LinearGradient colors={[backgroundColor, "#fff"]} style={styles.gradient}>
                 <View style={styles.maxIcon}>{maxIcon}</View>
                 <View style={styles.cardDesc}>
@@ -100,7 +103,6 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     cardHeader: {
-        height: 56,
         paddingHorizontal: 20,
         paddingVertical: 11,
         flexDirection: "row",
@@ -111,6 +113,7 @@ const styles = StyleSheet.create({
         height: 250,
         backgroundColor: "#fff",
         borderRadius: 10,
-        marginTop: 8
+        borderWidth: 2,
+        borderColor: CommonColor.basic_gray_light
     }
 })

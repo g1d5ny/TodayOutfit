@@ -4,7 +4,7 @@ import LocationMobile from "../asset/icon/icon_location_mobile.svg"
 import LocationTablet from "../asset/icon/icon_location_tablet.svg"
 import CalendarMobile from "../asset/icon/icon_calendar_mobile.svg"
 import CalendarTablet from "../asset/icon/icon_calendar_tablet.svg"
-import { isTablet, myAddressListState } from "../store"
+import { currentDate, currentMonth, isTablet, myAddressListState } from "../store"
 import { useRecoilValue } from "recoil"
 
 export const LocationView = () => {
@@ -21,9 +21,6 @@ export const LocationView = () => {
 }
 
 export const DateView = () => {
-    const currentMonth = new Date().getMonth() + 1
-    const currentDate = new Date().getDate()
-
     return (
         <View style={[styles.container, { marginLeft: 10 }]}>
             {isTablet ? <CalendarTablet /> : <CalendarMobile />}

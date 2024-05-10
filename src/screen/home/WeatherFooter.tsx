@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
-import { currentWeatherInfoState, hourWeatherInfoState, isTablet, todayWeatherInfoState, weeklyWeatherInfoState } from "../../store"
+import { currentWeatherInfoState, hourWeatherInfoState, isTablet } from "../../store"
 import { CommonColor, MobileFont, TabletFont } from "../../style/CommonStyle"
 import { DateView, LocationView, WeatherDetail } from "../../component/MiniCard"
 import { useRecoilValue } from "recoil"
@@ -13,19 +13,7 @@ import SnowFall from "../../asset/icon/icon_snow_fall.svg"
 import { useCallback, useEffect, useState } from "react"
 import { FeelsLikeFormat, HumidityFormat, RainPercentageFormat, SnowFallFormat, UVFormat, WindDirectionFormat, WindSpeedFormat } from "../../utils"
 import { navigationRef } from "navigation/RootNavigation"
-
-interface ClickedWeather {
-    hour: number | string
-    uv: number
-    feelslike: number
-    windSpeed: number
-    chance_of_rain: number
-    chance_of_snow: number
-    will_it_rain: boolean
-    will_it_snow: boolean
-    windDir: string
-    humidity: number
-}
+import { HOUR_WEATHER } from "type"
 
 interface WeatherHourlyCard {
     hour?: string | number
@@ -38,20 +26,26 @@ interface WeatherHourlyCard {
 export default () => {
     const hourWeather = useRecoilValue(hourWeatherInfoState)
     const currentWeather = useRecoilValue(currentWeatherInfoState)
-    const weeklyWeather = useRecoilValue(weeklyWeatherInfoState)
-    const todayWeather = useRecoilValue(todayWeatherInfoState)
-    const [selectedHour, setSelectedHour] = useState<ClickedWeather>({
-        hour: -1,
-        uv: hourWeather[0]?.uv,
-        feelslike: hourWeather[0]?.feelslike,
-        windSpeed: hourWeather[0]?.windSpeed,
-        will_it_rain: Boolean(hourWeather[0]?.will_it_rain),
-        will_it_snow: Boolean(hourWeather[0]?.will_it_snow),
-        chance_of_rain: hourWeather[0]?.chance_of_rain,
-        chance_of_snow: hourWeather[0]?.chance_of_snow,
-        windDir: hourWeather[0]?.windDir,
-        humidity: hourWeather[0]?.humidity
-    })
+    const [selectedHour, setSelectedHour] = useState<HOUR_WEATHER>()
+
+    useEffect(() => {
+        if (hourWeather[0]) {
+            const { uv, minIcon, feelslike, windSpeed, willItRain, willItSnow, rainPercentage, snowPercentage, windDir, humidity } = hourWeather[0]
+            setSelectedHour({
+                hour: String(-1),
+                uv,
+                minIcon,
+                feelslike,
+                windSpeed,
+                willItRain,
+                willItSnow,
+                rainPercentage,
+                snowPercentage,
+                windDir,
+                humidity
+            })
+        }
+    }, [hourWeather])
 
     const WeatherHourlyCard = useCallback(({ hour, minIcon, temp, onPress, isClicked, index }: WeatherHourlyCard) => {
         if (isClicked) {
@@ -91,32 +85,35 @@ export default () => {
                                     hour: -1,
                                     minIcon: currentWeather.minIcon,
                                     temp: currentWeather.temp,
-                                    onPress: () =>
+                                    onPress: () => {
+                                        const { uv, minIcon, feelslike, windSpeed, willItRain, willItSnow, rainPercentage, snowPercentage, windDir, humidity } = hourWeather[0]
                                         setSelectedHour({
-                                            hour: -1,
-                                            uv: hourWeather[0]?.uv,
-                                            feelslike: hourWeather[0]?.feelslike,
-                                            windSpeed: hourWeather[0]?.windSpeed,
-                                            will_it_rain: Boolean(hourWeather[0]?.will_it_rain),
-                                            will_it_snow: Boolean(hourWeather[0]?.will_it_snow),
-                                            chance_of_rain: hourWeather[0]?.chance_of_rain,
-                                            chance_of_snow: hourWeather[0]?.chance_of_snow,
-                                            windDir: hourWeather[0]?.windDir,
-                                            humidity: hourWeather[0]?.humidity
-                                        }),
-                                    isClicked: selectedHour.hour === -1,
+                                            hour: String(-1),
+                                            uv,
+                                            minIcon,
+                                            feelslike,
+                                            windSpeed,
+                                            willItRain,
+                                            willItSnow,
+                                            rainPercentage,
+                                            snowPercentage,
+                                            windDir,
+                                            humidity
+                                        })
+                                    },
+                                    isClicked: selectedHour.hour === String(-1),
                                     index: -1
                                 })}
-                                {hourWeather.map(({ hour, temp, minIcon, uv, feelslike, windSpeed, chance_of_rain, chance_of_snow, will_it_snow, will_it_rain, windDir, humidity }, index: number) => {
+                                {hourWeather.map(({ hour, temp, minIcon, uv, feelslike, windSpeed, rainPercentage, snowPercentage, willItSnow, willItRain, windDir, humidity }, index: number) => {
                                     const onPress = () => {
-                                        setSelectedHour({ hour: Number(hour), uv, feelslike, windSpeed, chance_of_snow, chance_of_rain, will_it_rain, will_it_snow, windDir, humidity })
+                                        setSelectedHour({ hour, uv, feelslike, minIcon, windSpeed, snowPercentage, rainPercentage, willItRain, willItSnow, windDir, humidity })
                                     }
                                     return WeatherHourlyCard({
-                                        hour: Number(hour),
+                                        hour,
                                         minIcon,
                                         temp,
                                         onPress,
-                                        isClicked: selectedHour.hour === Number(hour),
+                                        isClicked: selectedHour.hour === hour,
                                         index
                                     })
                                 })}
@@ -153,22 +150,22 @@ export default () => {
                                         contentIcon={FeelsLikeFormat(selectedHour.feelslike)?.icon}
                                         onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 1 } })}
                                     />
-                                    {selectedHour.will_it_snow ? (
+                                    {selectedHour.willItSnow ? (
                                         <WeatherDetail
                                             titleIcon={<SnowFall />}
                                             title={"적설량"}
-                                            content={SnowFallFormat(selectedHour.chance_of_snow as number)?.content as string}
-                                            desc={SnowFallFormat(selectedHour.chance_of_snow as number)?.text as string}
-                                            contentIcon={SnowFallFormat(selectedHour.chance_of_snow as number)?.icon}
+                                            content={SnowFallFormat(selectedHour.snowPercentage as number)?.content as string}
+                                            desc={SnowFallFormat(selectedHour.snowPercentage as number)?.text as string}
+                                            contentIcon={SnowFallFormat(selectedHour.snowPercentage as number)?.icon}
                                             onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 6 } })}
                                         />
                                     ) : (
                                         <WeatherDetail
                                             titleIcon={<RainPercentage />}
                                             title={"강수 확률"}
-                                            content={RainPercentageFormat(selectedHour.chance_of_rain as number)?.content as string}
-                                            desc={RainPercentageFormat(selectedHour.chance_of_rain as number)?.text as string}
-                                            contentIcon={RainPercentageFormat(selectedHour.chance_of_rain as number)?.icon}
+                                            content={RainPercentageFormat(selectedHour.rainPercentage as number)?.content as string}
+                                            desc={RainPercentageFormat(selectedHour.rainPercentage as number)?.text as string}
+                                            contentIcon={RainPercentageFormat(selectedHour.rainPercentage as number)?.icon}
                                             onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 4 } })}
                                         />
                                     )}
@@ -216,22 +213,22 @@ export default () => {
                                     contentIcon={WindSpeedFormat(selectedHour.windSpeed)?.icon}
                                     onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 2 } })}
                                 />
-                                {selectedHour.will_it_snow ? (
+                                {selectedHour.willItSnow ? (
                                     <WeatherDetail
                                         titleIcon={<SnowFall />}
                                         title={"적설량"}
-                                        content={SnowFallFormat(selectedHour.chance_of_snow as number)?.content as string}
-                                        desc={SnowFallFormat(selectedHour.chance_of_snow as number)?.text as string}
-                                        contentIcon={SnowFallFormat(selectedHour.chance_of_snow as number)?.icon}
+                                        content={SnowFallFormat(selectedHour.snowPercentage as number)?.content as string}
+                                        desc={SnowFallFormat(selectedHour.snowPercentage as number)?.text as string}
+                                        contentIcon={SnowFallFormat(selectedHour.snowPercentage as number)?.icon}
                                         onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 6 } })}
                                     />
                                 ) : (
                                     <WeatherDetail
                                         titleIcon={<RainPercentage />}
                                         title={"강수 확률"}
-                                        content={RainPercentageFormat(selectedHour.chance_of_rain as number)?.content as string}
-                                        desc={RainPercentageFormat(selectedHour.chance_of_rain as number)?.text as string}
-                                        contentIcon={RainPercentageFormat(selectedHour.chance_of_rain as number)?.icon}
+                                        content={RainPercentageFormat(selectedHour.rainPercentage as number)?.content as string}
+                                        desc={RainPercentageFormat(selectedHour.rainPercentage as number)?.text as string}
+                                        contentIcon={RainPercentageFormat(selectedHour.rainPercentage as number)?.icon}
                                         onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 4 } })}
                                     />
                                 )}

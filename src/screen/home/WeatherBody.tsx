@@ -10,7 +10,7 @@ import { getDay } from "../../utils"
 export default () => {
     const { backgroundColor } = useRecoilValue(currentWeatherInfoState)
     const { minIcon, text, maxIcon, maxTemp, minTemp, sunrise, sunset } = useRecoilValue(todayWeatherInfoState)
-    const currentDay = getDay()
+    const currentDay = getDay(new Date().getDay())
     const currentDate = new Date().getDate()
 
     return (
@@ -65,6 +65,7 @@ export default () => {
 const styles = StyleSheet.create({
     titleText: {
         marginTop: 26,
+        marginBottom: 8,
         color: CommonColor.main_white
     },
     temp: {

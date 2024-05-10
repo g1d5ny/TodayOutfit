@@ -82,6 +82,8 @@ import SnowFall4 from "../asset/icon/snow_fall/icon_snow_fall_4.svg"
 import { Alert } from "react-native"
 
 export const isTablet = DeviceInfo.isTablet()
+export const currentMonth = new Date().getMonth() + 1
+export const currentDate = new Date().getDate()
 
 export const getStorage = async (key: string): Promise<string | any> => {
     if (isEmpty(key)) {
@@ -270,7 +272,7 @@ export const isHeavySnow = (code: number): code is Heavy_Snow => {
     return code === 1222 || code === 1225 || code === 1255 || code === 1258
 }
 
-export const weatherIcon = (code: Weather, is_day: boolean) => {
+export const weather = (code: Weather, is_day: boolean) => {
     if (isClear(code)) {
         return is_day ? weatherDesc["clear-day"] : weatherDesc["clear-night"]
     }
