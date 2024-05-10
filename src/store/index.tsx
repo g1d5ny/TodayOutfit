@@ -79,57 +79,40 @@ import SnowFall1 from "../asset/icon/snow_fall/icon_snow_fall_1.svg"
 import SnowFall2 from "../asset/icon/snow_fall/icon_snow_fall_2.svg"
 import SnowFall3 from "../asset/icon/snow_fall/icon_snow_fall_3.svg"
 import SnowFall4 from "../asset/icon/snow_fall/icon_snow_fall_4.svg"
+import { Alert } from "react-native"
 
 export const isTablet = DeviceInfo.isTablet()
 
-export const getStorage = (key: string): Promise<Record<string, any> | null> => {
+export const getStorage = async (key: string): Promise<string | any> => {
     if (isEmpty(key)) {
-        throw Error("item not found")
-    }
-    return new Promise((resolve, reject) => {
-        Storage.getItem(key, async (err, result: any) => {
-            if (err) {
-                return reject(err)
-            }
-            if (result === null) {
-                return resolve(null)
-            }
-            if (JSON.parse(result).expire) {
-                const currentTime = Date.now()
-                const expiredTime = JSON.parse(result).date + JSON.parse(result).expire
-                if (currentTime > expiredTime) {
-                    await Storage.removeItem(key)
-                    return resolve(null)
-                } else {
-                    // console.log(key, " 현재 시간(ms)    : ", currentTime)
-                    // console.log(key, " 만료 예정 시간(ms): ", expiredTime)
-                }
-            }
-            resolve(JSON.parse(result))
-        })
-    })
-}
-
-export const setStorage = async (key: string, value: any, expire?: number) => {
-    if (isEmpty(key)) {
-        throw Error("item not found")
-    }
-
-    return new Promise((resolve, reject) => {
-        if (expire) {
-            value = { ...value, expire, date: Date.now() }
+        if (__DEV__) {
+            throw Error("스토리지에서 가져올 key가 존재하지 않습니다.")
+        } else {
+            return null
         }
+    }
 
-        Storage.setItem(key, JSON.stringify(value), error => {
-            if (error) {
-                return reject(false)
-            }
-            resolve(true)
-        })
+    const data = await Storage.getItem(key)
+    if (!data) {
+        return null
+    }
+    return JSON.parse(data)
+}
+
+export const setStorage = async (key: string, value: any) => {
+    if (isEmpty(key)) {
+        handleError("스토리지에 저장할 key가 존재하지 않습니다.", Alert.alert("데이터를 저장하는데 실패하였습니다."))
+    }
+
+    await Storage.setItem(key, JSON.stringify(value), error => {
+        if (error) {
+            handleError("데이터를 스토리지 저장하는데 실패하였습니다.", Alert.alert("데이터를 저장하는데 실패하였습니다."), error)
+            return
+        }
     })
 }
 
-export const loggedInState = atom<Record<string, boolean> | boolean | null>({
+export const loggedInState = atom<Record<string, boolean> | null>({
     key: "loggedInState",
     default: selector({
         key: "loggedInState/default",
@@ -176,7 +159,7 @@ export const locationPermissionState = atom<Record<string, boolean> | null>({
     })
 })
 
-export const myAddressListState = atom<MY_ADDRSS[] | Record<string, MY_ADDRSS[]> | null>({
+export const myAddressListState = atom<MY_ADDRSS[] | null>({
     key: "myAddressListState",
     default: selector({
         key: "myAddressListState/default",
@@ -424,3 +407,11 @@ export const SnowFall = (snowFall: number) => [
     { text: snowFall + "cm", content: "재해 피해가 예상되는 대설주의보 단계로 주의해야 합니다.", icon: <SnowFall3 /> },
     { text: snowFall + "cm", content: "재해 피해가 예상되는 대설경보 단계로 주의해야합니다.", icon: <SnowFall4 /> }
 ]
+
+export const handleError = (debuggingMessage: string, func: any, error?: any): ErrorConstructor => {
+    if (__DEV__) {
+        console.error(error)
+        throw Error(debuggingMessage)
+    }
+    return func() || func
+}

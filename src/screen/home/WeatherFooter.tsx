@@ -11,7 +11,7 @@ import RainPercentage from "../../asset/icon/icon_rain_percentage.svg"
 import Humidity from "../../asset/icon/icon_humidity.svg"
 import SnowFall from "../../asset/icon/icon_snow_fall.svg"
 import { useCallback, useEffect, useState } from "react"
-import { FeelsLikeFormat, HumidityFormat, RainPercentageFormat, SnowFallFormat, UVFormat, WindDirectionFormat, WindSpeedFormat } from "../../function"
+import { FeelsLikeFormat, HumidityFormat, RainPercentageFormat, SnowFallFormat, UVFormat, WindDirectionFormat, WindSpeedFormat } from "../../utils"
 import { navigationRef } from "navigation/RootNavigation"
 
 interface ClickedWeather {

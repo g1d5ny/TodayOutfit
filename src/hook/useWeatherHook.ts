@@ -13,7 +13,7 @@ export const useWeatherHook = () => {
     const setWeeklyWeatherInfo = useSetRecoilState(weeklyWeatherInfoState)
 
     const CallCurrentWeather = async () => {
-        if (!isEmpty(myAddressList)) {
+        if (myAddressList) {
             const {
                 data: {
                     current: {
@@ -35,7 +35,7 @@ export const useWeatherHook = () => {
     }
 
     const CallTodayWeather = async () => {
-        if (!isEmpty(myAddressList)) {
+        if (myAddressList) {
             const {
                 data: {
                     forecast: { forecastday }
@@ -72,12 +72,12 @@ export const useWeatherHook = () => {
     }
 
     const CallWeeklyWeather = async () => {
-        if (!isEmpty(myAddressList)) {
+        if (myAddressList) {
             const {
                 data: {
                     forecast: { forecastday }
                 }
-            } = await axios.get(WEATHER_BASE_URL("forecast") + "&q=" + myAddressList[0]?.coordinate.latitude + "," + myAddressList[0]?.coordinate.longitude + "&days=3&aqi=no&lang=ko")
+            } = await axios.get(WEATHER_BASE_URL("forecast") + "&q=" + myAddressList[0].coordinate.latitude + "," + myAddressList[0].coordinate.longitude + "&days=3&aqi=no&lang=ko")
 
             const weeklyWeather = [] as WEEKELY_WEATHER[]
             forecastday.forEach(
@@ -114,7 +114,7 @@ export const useWeatherHook = () => {
     }
 
     const CallHourlyWeather = async () => {
-        if (!isEmpty(myAddressList)) {
+        if (myAddressList) {
             const {
                 data: {
                     forecast: { forecastday }

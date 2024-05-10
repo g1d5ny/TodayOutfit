@@ -5,7 +5,7 @@ import TempClothes from "../../asset/icon/icon_recom_temp_clothes.svg"
 import TempPants from "../../asset/icon/icon_recom_temp_pants.svg"
 import { useRecoilValue } from "recoil"
 import WeatherCard from "../../component/WeatherCard"
-import { getDay } from "../../function"
+import { getDay } from "../../utils"
 
 export default () => {
     const { backgroundColor } = useRecoilValue(currentWeatherInfoState)

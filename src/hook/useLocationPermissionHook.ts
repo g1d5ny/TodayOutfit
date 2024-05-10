@@ -5,7 +5,7 @@ import { useAddressHook } from "./useAddressHook"
 import { isEmpty } from "lodash"
 import { myAddressListState, setStorage } from "../store"
 import { useRecoilStateLoadable } from "recoil"
-import { DateFormat } from "../function"
+import { DateFormat } from "../utils"
 import { MY_ADDRSS } from "../type"
 
 export const useLocationPermissionHook = () => {
@@ -58,7 +58,7 @@ export const useLocationPermissionHook = () => {
     }
 
     const setUserLocation = (location: string, coordinate: { longitude: number; latitude: number }) => {
-        const myLocationFormat = [{ location, coordinate, date: DateFormat() }] as MY_ADDRSS[]
+        const myLocationFormat = [{ location, coordinate, date: DateFormat() }]
         if (isEmpty(myAddress)) {
             setStorage("myAddressList", myLocationFormat)
             setMyAddress(myLocationFormat)

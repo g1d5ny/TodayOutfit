@@ -13,7 +13,9 @@ export const LocationView = () => {
     return (
         <View style={styles.container}>
             {isTablet ? <LocationTablet /> : <LocationMobile />}
-            <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.detail_3, { color: CommonColor.basic_gray_dark, marginLeft: 2 }]}>{myAddressList[0].location.split(" ")[0] + " " + myAddressList[0].location.split(" ")[1]}</Text>
+            {myAddressList && (
+                <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.detail_3, { color: CommonColor.basic_gray_dark, marginLeft: 2 }]}>{myAddressList[0].location.split(" ")[0] + " " + myAddressList[0].location.split(" ")[1]}</Text>
+            )}
         </View>
     )
 }

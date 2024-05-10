@@ -1,5 +1,5 @@
 import { ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
-import { currentWeatherInfoState, hourWeatherInfoState, isTablet, myAddressListState, todayWeatherInfoState } from "../../store"
+import { currentWeatherInfoState, hourWeatherInfoState, isTablet, todayWeatherInfoState } from "../../store"
 import { useWeatherHook } from "../../hook/useWeatherHook"
 import { useRecoilValue } from "recoil"
 import Loader from "../../component/lottie/Loader"
