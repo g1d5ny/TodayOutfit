@@ -20,57 +20,54 @@ interface WeatherProps {
     backgroundColor: string
 }
 
-export default ({ day, date, minIcon, text, maxIcon, maxTemp, minTemp, sunrise, sunset, backgroundColor }: WeatherProps) => {
+export const WeatherCard = ({ day, date, minIcon, text, maxIcon, maxTemp, minTemp, sunrise, sunset, backgroundColor }: WeatherProps) => {
     return (
-        <View style={styles.weatherContainer}>
-            <Text style={[isTablet ? TabletFont.button_1 : MobileFont.button_1, { color: CommonColor.main_white }]}>오늘의 날씨</Text>
-            <View style={styles.weatherCard}>
-                <View style={styles.cardHeader}>
-                    <View style={styles.row}>
-                        <Text style={TabletFont.body_1}>{day}</Text>
-                        <Text style={[TabletFont.body_2, { marginLeft: 6 }]}>{date}</Text>
+        <View style={styles.weatherCard}>
+            <View style={styles.cardHeader}>
+                <View style={styles.row}>
+                    <Text style={TabletFont.body_1}>{day}</Text>
+                    <Text style={[TabletFont.body_2, { marginLeft: 6 }]}>{date}</Text>
+                </View>
+                <View style={[styles.row, { marginLeft: 20 }]}>
+                    {minIcon}
+                    <Text style={{ marginLeft: 4 }}>{text}</Text>
+                </View>
+            </View>
+            <LinearGradient colors={[backgroundColor, "#fff"]} style={styles.gradient}>
+                <View style={styles.maxIcon}>{maxIcon}</View>
+                <View style={styles.cardDesc}>
+                    <View style={[styles.row, { justifyContent: "space-between" }]}>
+                        <View style={styles.temp}>
+                            <View style={[styles.row, { marginBottom: 8 }]}>
+                                <MaxTemp width={10} height={10} />
+                                <Text style={[isTablet ? TabletFont.detail_3 : MobileFont.detail_3, { marginLeft: 4 }]}>최고온도</Text>
+                            </View>
+                            <Text style={[isTablet ? TabletFont.main_page_forecast_text : MobileFont.main_page_forecast_text, { color: CommonColor.etc_red }]}>{maxTemp}˚</Text>
+                        </View>
+                        <View style={[styles.temp, { marginLeft: 8 }]}>
+                            <View style={[styles.row, { marginBottom: 8 }]}>
+                                <MinTemp width={10} height={10} />
+                                <Text style={[TabletFont.detail_3, { marginLeft: 4 }]}>최저온도</Text>
+                            </View>
+                            <Text style={[isTablet ? TabletFont.main_page_forecast_text : MobileFont.main_page_forecast_text, { color: CommonColor.main_blue }]}>{minTemp}˚</Text>
+                        </View>
                     </View>
-                    <View style={[styles.row, { marginLeft: 20 }]}>
-                        {minIcon}
-                        <Text style={{ marginLeft: 4 }}>{text}</Text>
+                    <View style={[styles.row, styles.temp, { marginTop: 23, justifyContent: "space-between" }]}>
+                        <View style={styles.row}>
+                            <Sunrise />
+                            <Text style={[TabletFont.detail_2, { color: CommonColor.basic_gray_dark, marginLeft: 8 }]}>일출</Text>
+                        </View>
+                        <Text style={[TabletFont.detail_2, { color: CommonColor.main_black }]}>{sunrise}</Text>
+                    </View>
+                    <View style={[styles.row, styles.temp, { justifyContent: "space-between", marginTop: 15 }]}>
+                        <View style={styles.row}>
+                            <Sunset />
+                            <Text style={[TabletFont.detail_2, { color: CommonColor.basic_gray_dark, marginLeft: 8 }]}>일몰</Text>
+                        </View>
+                        <Text style={[TabletFont.detail_2, { color: CommonColor.main_black }]}>{sunset}</Text>
                     </View>
                 </View>
-                <LinearGradient colors={[backgroundColor, "#fff"]} style={styles.gradient}>
-                    <View style={styles.maxIcon}>{maxIcon}</View>
-                    <View style={styles.cardDesc}>
-                        <View style={[styles.row, { justifyContent: "space-between" }]}>
-                            <View style={styles.temp}>
-                                <View style={[styles.row, { marginBottom: 8 }]}>
-                                    <MaxTemp width={10} height={10} />
-                                    <Text style={[isTablet ? TabletFont.detail_3 : MobileFont.detail_3, { marginLeft: 4 }]}>최고온도</Text>
-                                </View>
-                                <Text style={[isTablet ? TabletFont.main_page_forecast_text : MobileFont.main_page_forecast_text, { color: CommonColor.etc_red }]}>{maxTemp}˚</Text>
-                            </View>
-                            <View style={[styles.temp, { marginLeft: 8 }]}>
-                                <View style={[styles.row, { marginBottom: 8 }]}>
-                                    <MinTemp width={10} height={10} />
-                                    <Text style={[TabletFont.detail_3, { marginLeft: 4 }]}>최저온도</Text>
-                                </View>
-                                <Text style={[isTablet ? TabletFont.main_page_forecast_text : MobileFont.main_page_forecast_text, { color: CommonColor.main_blue }]}>{minTemp}˚</Text>
-                            </View>
-                        </View>
-                        <View style={[styles.row, styles.temp, { marginTop: 23, justifyContent: "space-between" }]}>
-                            <View style={styles.row}>
-                                <Sunrise />
-                                <Text style={[TabletFont.detail_2, { color: CommonColor.basic_gray_dark, marginLeft: 8 }]}>일출</Text>
-                            </View>
-                            <Text style={[TabletFont.detail_2, { color: CommonColor.main_black }]}>{sunrise}</Text>
-                        </View>
-                        <View style={[styles.row, styles.temp, { justifyContent: "space-between", marginTop: 15 }]}>
-                            <View style={styles.row}>
-                                <Sunset />
-                                <Text style={[TabletFont.detail_2, { color: CommonColor.basic_gray_dark, marginLeft: 8 }]}>일몰</Text>
-                            </View>
-                            <Text style={[TabletFont.detail_2, { color: CommonColor.main_black }]}>{sunset}</Text>
-                        </View>
-                    </View>
-                </LinearGradient>
-            </View>
+            </LinearGradient>
         </View>
     )
 }
@@ -93,6 +90,8 @@ const styles = StyleSheet.create({
         padding: 14,
         justifyContent: "space-between",
         borderRadius: 10,
+        borderTopLeftRadius: 0,
+        borderTopRightRadius: 0,
         alignItems: "center",
         flexDirection: "row"
     },
@@ -113,8 +112,5 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         borderRadius: 10,
         marginTop: 8
-    },
-    weatherContainer: {
-        marginTop: 26
     }
 })

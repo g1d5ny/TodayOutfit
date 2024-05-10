@@ -68,7 +68,7 @@ export const UVFormat = (uvIndex: number) => {
 export const HumidityFormat = (humidity: number) => {
     if (humidity === 0) return Humidity(humidity)[0]
     if (humidity <= 20) return Humidity(humidity)[1]
-    if (humidity <= 40) return Humidity(humidity)[2]
+    if (humidity <= 30) return Humidity(humidity)[2]
     if (humidity <= 60) return Humidity(humidity)[3]
     if (humidity <= 80) return Humidity(humidity)[4]
     if (humidity > 80) return Humidity(humidity)[5]
@@ -88,8 +88,8 @@ export const FeelsLikeFormat = (feelsLike: number) => {
 }
 
 export const SnowFallFormat = (snowFall: number) => {
-    if (snowFall < 1) return SnowFall(snowFall)[0]
-    if (snowFall <= 5) return SnowFall(snowFall)[1]
-    if (snowFall <= 20) return SnowFall(snowFall)[2]
-    if (snowFall > 20) return SnowFall(snowFall)[3]
+    if (snowFall <= 1) return SnowFall(snowFall)[0]
+    if (snowFall < 5) return SnowFall(snowFall)[1]
+    if (snowFall < 20) return SnowFall(snowFall)[2]
+    if (snowFall >= 20) return SnowFall(snowFall)[3]
 }

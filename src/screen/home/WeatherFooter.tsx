@@ -40,24 +40,18 @@ export default () => {
     const currentWeather = useRecoilValue(currentWeatherInfoState)
     const weeklyWeather = useRecoilValue(weeklyWeatherInfoState)
     const todayWeather = useRecoilValue(todayWeatherInfoState)
-    const [selectedHour, setSelectedHour] = useState<ClickedWeather>()
-
-    useEffect(() => {
-        if (hourWeather) {
-            setSelectedHour({
-                hour: -1,
-                uv: hourWeather[0]?.uv,
-                feelslike: hourWeather[0]?.feelslike,
-                windSpeed: hourWeather[0]?.windSpeed,
-                will_it_rain: Boolean(hourWeather[0]?.will_it_rain),
-                will_it_snow: Boolean(hourWeather[0]?.will_it_snow),
-                chance_of_rain: hourWeather[0]?.chance_of_rain,
-                chance_of_snow: hourWeather[0]?.chance_of_snow,
-                windDir: hourWeather[0]?.windDir,
-                humidity: hourWeather[0]?.humidity
-            })
-        }
-    }, [hourWeather])
+    const [selectedHour, setSelectedHour] = useState<ClickedWeather>({
+        hour: -1,
+        uv: hourWeather[0]?.uv,
+        feelslike: hourWeather[0]?.feelslike,
+        windSpeed: hourWeather[0]?.windSpeed,
+        will_it_rain: Boolean(hourWeather[0]?.will_it_rain),
+        will_it_snow: Boolean(hourWeather[0]?.will_it_snow),
+        chance_of_rain: hourWeather[0]?.chance_of_rain,
+        chance_of_snow: hourWeather[0]?.chance_of_snow,
+        windDir: hourWeather[0]?.windDir,
+        humidity: hourWeather[0]?.humidity
+    })
 
     const WeatherHourlyCard = useCallback(({ hour, minIcon, temp, onPress, isClicked, index }: WeatherHourlyCard) => {
         if (isClicked) {

@@ -11,43 +11,43 @@ const Humidity = [
     {
         text: "매우 높음",
         desc: ["세균과 곰팡이 증식을 촉진해 특정 병원균에 관한 질병 확산률이 높아집니다", "호흡기 환자에게 치명적일 수 있습니다."],
-        icon: <Humidity6 />,
+        icon: <Humidity6 width={48} height={48} />,
         range: "~100"
     },
     {
         text: "높음",
         desc: ["약간 습함을 느끼는 정도로 실내에서 습도 조절기를 통한 조정이 필요한 상황입니다."],
-        icon: <Humidity5 />,
+        icon: <Humidity5 width={48} height={48} />,
         range: "~80"
     },
     {
         text: "쾌적",
         desc: ["쾌적한 상태인 최적의 습도 단계입니다.", "그러나 사람에 따라 다른 기상 상태의 영향으로 쾌적함을 느끼지 않을 수 있습니다."],
-        icon: <Humidity3 />,
+        icon: <Humidity3 width={48} height={48} />,
         range: "~60"
     },
     {
         text: "건조",
         desc: ["다소 건조함을 느낄 수 있습니다.", "유아에게 코 막힘 현상이 발생할 수 있습니다.", "정전기가 발생하기 쉽습니다."],
-        icon: <Humidity1 />,
+        icon: <Humidity1 width={48} height={48} />,
         range: "~30"
     },
     {
         text: "매우 건조",
         desc: ["알레르기 반응을 악화시킬 수 있습니다.", "호흡기 문제를 유발시킬 수 있습니다.", "목재를 수축시키고 정전기가 자주 발생합니다."],
-        icon: <Humidity0 />,
+        icon: <Humidity0 width={48} height={48} />,
         range: "~20"
     }
 ]
 export const HumidityScreen = () => {
     return (
-        <View>
-            <Text style={[styles.title, isTablet ? TabletFont.heading_2 : MobileFont.body_1]}>습도란?</Text>
+        <View style={styles.flex}>
+            <Text style={[CommonStyle.title, isTablet ? TabletFont.heading_2 : MobileFont.body_1]}>습도란?</Text>
             <Text style={[styles.content, isTablet ? TabletFont.weather_info_main_text : MobileFont.weather_info_main_text]}>
                 습도란 공기 중에 포함되어 있는 수증기의 비율을 의미하며 오늘모입지에서 제공되는 습도 정보는 노점 온도를 활용한 상대습도를 의미합니다. 기온의 영향으로 계절에 따라 쾌적함을 느끼는 상대습도가 달라지며 여름철엔 50~60%, 겨울철엔
                 40~50%, 봄과 가을에는 50% 정도가 이상적인 상대습도입니다.
             </Text>
-            <View style={[styles.title, CommonStyle.row]}>
+            <View style={[CommonStyle.title, CommonStyle.row]}>
                 <Text style={[isTablet ? TabletFont.heading_2 : MobileFont.body_1]}>습도 단계</Text>
                 <Text style={[isTablet ? TabletFont.detail_3 : MobileFont.detail_3, { color: CommonColor.main_blue }]}>단위: %, C</Text>
             </View>
@@ -124,8 +124,7 @@ const styles = StyleSheet.create({
     content: {
         marginTop: 8
     },
-    title: {
-        marginTop: 32,
-        justifyContent: "space-between"
+    flex: {
+        paddingHorizontal: isTablet ? 60 : 0
     }
 })

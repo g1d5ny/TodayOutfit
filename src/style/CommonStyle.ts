@@ -1,4 +1,5 @@
 import { Dimensions, PixelRatio, StyleSheet } from "react-native"
+import { isTablet } from "store"
 
 const { width, height } = Dimensions.get("window")
 export const screenWidth = width
@@ -291,6 +292,13 @@ export const TextShadowStyle = {
 }
 
 export const CommonStyle = StyleSheet.create({
+    title: {
+        marginTop: 32,
+        justifyContent: "space-between"
+    },
+    padding: {
+        paddingHorizontal: isTablet ? 32 : 16
+    },
     bottomLine: {
         borderBottomWidth: 1,
         borderColor: CommonColor.basic_gray_light

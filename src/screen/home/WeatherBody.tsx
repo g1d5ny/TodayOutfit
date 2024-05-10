@@ -4,7 +4,7 @@ import { CommonColor, MobileFont, TabletFont } from "../../style/CommonStyle"
 import TempClothes from "../../asset/icon/icon_recom_temp_clothes.svg"
 import TempPants from "../../asset/icon/icon_recom_temp_pants.svg"
 import { useRecoilValue } from "recoil"
-import WeatherCard from "../../component/WeatherCard"
+import { WeatherCard } from "../../component/WeatherCard"
 import { getDay } from "../../utils"
 
 export default () => {
@@ -40,18 +40,21 @@ export default () => {
                         </View>
                     </View>
                     {isTablet && (
-                        <WeatherCard
-                            day={currentDay}
-                            date={currentDate}
-                            minIcon={minIcon as JSX.Element}
-                            text={text}
-                            maxIcon={maxIcon as JSX.Element}
-                            maxTemp={maxTemp}
-                            minTemp={minTemp}
-                            sunrise={sunrise}
-                            sunset={sunset}
-                            backgroundColor={backgroundColor}
-                        />
+                        <View>
+                            <Text style={[isTablet ? TabletFont.button_1 : MobileFont.button_1, styles.titleText]}>오늘의 날씨</Text>
+                            <WeatherCard
+                                day={currentDay}
+                                date={currentDate}
+                                minIcon={minIcon as JSX.Element}
+                                text={text}
+                                maxIcon={maxIcon as JSX.Element}
+                                maxTemp={maxTemp}
+                                minTemp={minTemp}
+                                sunrise={sunrise}
+                                sunset={sunset}
+                                backgroundColor={backgroundColor}
+                            />
+                        </View>
                     )}
                 </View>
             </View>
@@ -60,6 +63,10 @@ export default () => {
 }
 
 const styles = StyleSheet.create({
+    titleText: {
+        marginTop: 26,
+        color: CommonColor.main_white
+    },
     temp: {
         paddingHorizontal: 8,
         alignItems: "center"
