@@ -18,11 +18,11 @@ export const WeatherScreen = () => {
     const [openIndex, setOpenIndex] = useState<number>(-1)
 
     const MobileView = ({ children }: { children: JSX.Element }) => {
-        return <View>{children}</View>
+        return <View style={styles.mobileView}>{children}</View>
     }
 
     const TabletView = ({ children }: { children: JSX.Element }) => {
-        return <View>{children}</View>
+        return <View style={[styles.cardContainer, styles.weatherContainer]}>{children}</View>
     }
 
     const Component = ({ children }: { children: JSX.Element }) => {
@@ -35,8 +35,8 @@ export const WeatherScreen = () => {
                 <Text style={[isTablet ? TabletFont.heading_1 : MobileFont.heading_1]}>날씨 정보</Text>
                 <LocationView />
             </View>
-            <View style={[CommonStyle.title, CommonStyle.padding]}>
-                <ScrollView>
+            <ScrollView>
+                <View style={[CommonStyle.title, CommonStyle.padding]}>
                     <Text style={isTablet ? TabletFont.heading_1 : MobileFont.body_1}>이번주 날씨</Text>
                     <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.detail_3, styles.content]}>요일을 선택하면 더 자세한 기상 정보를 확인할 수 있습니다.</Text>
                     <View style={styles.cardContainer}>
@@ -48,19 +48,21 @@ export const WeatherScreen = () => {
 
                             return isOpen ? (
                                 <View key={index}>
-                                    <WeatherCard
-                                        day={getDay(day)}
-                                        date={new Date(date).getDate()}
-                                        minIcon={minIcon as JSX.Element}
-                                        text={weather(code, true)?.text as string}
-                                        maxIcon={maxIcon as JSX.Element}
-                                        maxTemp={maxTemp}
-                                        minTemp={minTemp}
-                                        sunrise={sunrise}
-                                        sunset={sunset}
-                                        backgroundColor={backgroundColor}
-                                        onPress={() => setOpenIndex(-1)}
-                                    />
+                                    <View style={[isTablet && styles.weatherContainer]}>
+                                        <WeatherCard
+                                            day={getDay(day)}
+                                            date={new Date(date).getDate()}
+                                            minIcon={minIcon as JSX.Element}
+                                            text={weather(code, true)?.text as string}
+                                            maxIcon={maxIcon as JSX.Element}
+                                            maxTemp={maxTemp}
+                                            minTemp={minTemp}
+                                            sunrise={sunrise}
+                                            sunset={sunset}
+                                            backgroundColor={backgroundColor}
+                                            onPress={() => setOpenIndex(-1)}
+                                        />
+                                    </View>
                                     {
                                         <Component>
                                             <>
@@ -126,13 +128,23 @@ export const WeatherScreen = () => {
                             )
                         })}
                     </View>
-                </ScrollView>
-            </View>
+                </View>
+            </ScrollView>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
+    weatherContainer: {
+        width: "50%"
+    },
+    mobileView: {
+        marginVertical: 16,
+        flexWrap: "wrap",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between"
+    },
     tempContainer: {
         height: "50%"
     },
