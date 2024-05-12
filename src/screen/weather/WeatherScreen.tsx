@@ -284,6 +284,8 @@ const styles = StyleSheet.create({
         paddingVertical: isTablet ? 14 : 13,
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        borderBottomWidth: 1,
+        borderColor: CommonColor.basic_gray_light
     }
 })
