@@ -1,8 +1,7 @@
 import { useRecoilValue, useSetRecoilState } from "recoil"
-import { currentWeatherInfoState, hourWeatherInfoState, isRain, isSummeryRain, myAddressListState, todayWeatherInfoState, weather, weeklyWeatherInfoState } from "../store"
+import { currentWeatherInfoState, hourWeatherInfoState, myAddressListState, todayWeatherInfoState, weather, weeklyWeatherInfoState } from "../store"
 import { HOUR_WEATHER, WEEKELY_WEATHER } from "../type"
 import { WEATHER_BASE_URL } from "../asset/key"
-import { isEmpty } from "lodash"
 import axios from "axios"
 
 export const useWeatherHook = () => {
@@ -28,6 +27,7 @@ export const useWeatherHook = () => {
                 code,
                 temp: parseInt(temp_c),
                 is_day,
+                maxIcon: weather(code, is_day)?.maxIcon as JSX.Element,
                 minIcon: weather(code, is_day)?.minIcon as JSX.Element,
                 backgroundColor: weather(code, is_day)?.backgroundColor as string
             })
@@ -55,7 +55,7 @@ export const useWeatherHook = () => {
                     daily_chance_of_snow,
                     daily_will_it_rain,
                     daily_will_it_snow,
-                    condition: { text, code }
+                    condition: { code }
                 }
             } = forecastday[0]
 
@@ -149,29 +149,47 @@ export const useWeatherHook = () => {
 
             let count = 0
             for (let i = 0; i < forecastday.length; i++) {
-                forecastday[i].hour.map(({ condition: { code }, time_epoch, is_day, time, temp_c, uv, feelslike_c, wind_dir, wind_mph, precip_mm, humidity, will_it_rain, will_it_snow, chance_of_rain, chance_of_snow }: any) => {
-                    if (count > 16) {
-                        return
-                    }
-                    if (time_epoch * 1000 > Date.now()) {
-                        hourlyWeather[count] = {
-                            hour: time.split(" ")[1].split(":")[0],
-                            minIcon: weather(code, is_day)?.minIcon as JSX.Element,
-                            temp: parseInt(temp_c),
-                            uv: parseInt(uv),
-                            feelslike: parseInt(feelslike_c),
-                            windDir: wind_dir,
-                            windSpeed: parseInt(wind_mph),
-                            precip_mm: parseInt(precip_mm),
-                            humidity: parseInt(humidity),
-                            willItRain: will_it_rain,
-                            willItSnow: will_it_snow,
-                            rainPercentage: chance_of_rain,
-                            snowPercentage: chance_of_snow
+                forecastday[i].hour.map(
+                    ({
+                        condition: { code },
+                        time_epoch,
+                        is_day,
+                        time,
+                        temp_c,
+                        uv,
+                        feelslike_c,
+                        wind_dir,
+                        wind_mph,
+                        precip_mm,
+                        humidity,
+                        will_it_rain,
+                        will_it_snow,
+                        chance_of_rain,
+                        chance_of_snow
+                    }: any) => {
+                        if (count > 16) {
+                            return
                         }
-                        count++
+                        if (time_epoch * 1000 > Date.now()) {
+                            hourlyWeather[count] = {
+                                hour: time.split(" ")[1].split(":")[0],
+                                minIcon: weather(code, is_day)?.minIcon as JSX.Element,
+                                temp: parseInt(temp_c),
+                                uv: parseInt(uv),
+                                feelslike: parseInt(feelslike_c),
+                                windDir: wind_dir,
+                                windSpeed: parseInt(wind_mph),
+                                precip_mm: parseInt(precip_mm),
+                                humidity: parseInt(humidity),
+                                willItRain: will_it_rain,
+                                willItSnow: will_it_snow,
+                                rainPercentage: chance_of_rain,
+                                snowPercentage: chance_of_snow
+                            }
+                            count++
+                        }
                     }
-                })
+                )
             }
 
             setHourWeatherInfo(hourlyWeather)

@@ -8,8 +8,8 @@ import { WeatherCard } from "../../component/WeatherCard"
 import { getDay } from "../../utils"
 
 export default () => {
-    const { backgroundColor } = useRecoilValue(currentWeatherInfoState)
-    const { minIcon, text, maxIcon, maxTemp, minTemp, sunrise, sunset } = useRecoilValue(todayWeatherInfoState)
+    const { maxIcon, backgroundColor } = useRecoilValue(currentWeatherInfoState)
+    const { minIcon, text, maxTemp, minTemp, sunrise, sunset } = useRecoilValue(todayWeatherInfoState)
     const currentDay = getDay(new Date().getDay())
     const currentDate = new Date().getDate()
 

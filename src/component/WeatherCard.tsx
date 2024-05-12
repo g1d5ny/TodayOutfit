@@ -5,7 +5,7 @@ import MinTemp from "../asset/icon/icon_min_temp.svg"
 import MaxTemp from "../asset/icon/icon_max_temp.svg"
 import Sunrise from "../asset/icon/icon_sunrise.svg"
 import Sunset from "../asset/icon/icon_sunset.svg"
-import { isTablet, weather } from "../store"
+import { isTablet } from "../store"
 
 interface WeatherProps {
     day: string

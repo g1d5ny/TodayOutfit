@@ -6,25 +6,29 @@ import { RESULT_ADDRESS, MY_ADDRSS, TOAST, CURRENT_WEATHER, HOUR_WEATHER, WEEKEL
 import { setRecoil } from "recoil-nexus"
 import ClearDay from "../asset/icon/icon_clear_day.svg"
 import ClearNight from "../asset/icon/icon_clear_night.svg"
-import MaxSunny from "../asset/icon/3d_sunny.svg"
+import MaxSunny from "../asset/icon/3d/weather/day/icon_3d_sunny.svg"
 import Snow from "../asset/icon/icon_light_snow.svg"
-import MaxSnow from "../asset/icon/3d_snowy.svg"
+import MaxSnowDay from "../asset/icon/3d/weather/day/icon_3d_snowy.svg"
+import MaxSnowNight from "../asset/icon/3d/weather/night/icon_3d_snowy.svg"
 import PartyCloudyDay from "../asset/icon/icon_party_cloudy_day.svg"
 import PartyCloudyNight from "../asset/icon/icon_party_cloudy_night.svg"
-import MaxPartyCloudyDay from "../asset/icon/3d_party_cloudy_day.svg"
-import MaxPartyCloudyNight from "../asset/icon/3d_party_cloudy_night.svg"
+import MaxPartyCloudyDay from "../asset/icon/3d/weather/day/icon_3d_party_cloudy_day.svg"
+import MaxPartyCloudyNight from "../asset/icon/3d/weather/night/icon_3d_party_cloudy_night.svg"
 import CloudyDay from "../asset/icon/icon_cloudy_day.svg"
 import CloudyNight from "../asset/icon/icon_cloudy_night.svg"
-import MaxCloudy from "../asset/icon/3d_cloudy.svg"
+import MaxCloudyDay from "../asset/icon/3d/weather/day/icon_3d_cloudy.svg"
+import MaxCloudyNight from "../asset/icon/3d/weather/night/icon_3d_cloudy.svg"
 import RainyDay from "../asset/icon/icon_rain_day.svg"
 import RainyNight from "../asset/icon/icon_rain_night.svg"
-import MaxRainy from "../asset/icon/3d_rainy.svg"
+import MaxRainyDay from "../asset/icon/3d/weather/day/icon_3d_rainy.svg"
+import MaxRainyNight from "../asset/icon/3d/weather/night/icon_3d_rainy.svg"
 import FogNight from "../asset/icon/icon_fog_night.svg"
 import FogDay from "../asset/icon/icon_fog_day.svg"
-import MaxFog from "../asset/icon/3d_fog.svg"
-import MaxMoon from "../asset/icon/3d_moon.svg"
+import MaxFogDay from "../asset/icon/3d/weather/day/icon_3d_fog.svg"
+import MaxFogNight from "../asset/icon/3d/weather/night/icon_3d_fog.svg"
+import MaxMoon from "../asset/icon/3d/weather/night/icon_3d_moon.svg"
 import Thunder from "../asset/icon/icon_thunder.svg"
-import MaxThunder from "../asset/icon/3d_thunder.svg"
+import MaxThunder from "../asset/icon/3d/weather/icon_3d_thunder.svg"
 import UV1 from "../asset/icon/uv_index/icon_uv_index_1.svg"
 import UV2 from "../asset/icon/uv_index/icon_uv_index_2.svg"
 import UV3 from "../asset/icon/uv_index/icon_uv_index_3.svg"
@@ -114,7 +118,7 @@ export const setStorage = async (key: string, value: any) => {
     })
 }
 
-export const loggedInState = atom<Record<string, boolean> | null>({
+export const loggedInState = atom<boolean | null>({
     key: "loggedInState",
     default: selector({
         key: "loggedInState/default",
@@ -292,22 +296,23 @@ export const weather = (code: Weather, is_day: boolean) => {
         return is_day ? weatherDesc["rain-day"] : weatherDesc["rain-night"]
     }
     if (isWintrySnow(code)) {
-        return weatherDesc["snow"]
+        return is_day ? weatherDesc["snow-day"] : weatherDesc["snow-night"]
     }
 }
 
 export const weatherDesc: { [key: string]: { minIcon: JSX.Element; maxIcon: JSX.Element; text: WEATHER_DESC_KOR; backgroundColor: string } } = {
     "clear-day": { minIcon: <ClearDay />, maxIcon: <MaxSunny width={"100%"} height={"100%"} />, text: "맑음", backgroundColor: "rgb(252, 252, 221)" },
     "clear-night": { minIcon: <ClearNight />, maxIcon: <MaxMoon width={"100%"} height={"100%"} />, text: "맑음", backgroundColor: "rgb(201, 211, 246)" },
-    snow: { minIcon: <Snow />, maxIcon: <MaxSnow width={"100%"} height={"100%"} />, text: "눈", backgroundColor: "rgb(230, 242, 253)" },
+    "snow-day": { minIcon: <Snow />, maxIcon: <MaxSnowDay width={"100%"} height={"100%"} />, text: "눈", backgroundColor: "rgb(230, 242, 253)" },
+    "snow-night": { minIcon: <Snow />, maxIcon: <MaxSnowNight width={"100%"} height={"100%"} />, text: "눈", backgroundColor: "rgb(228, 230, 242)" },
     "party-cloudy-day": { minIcon: <PartyCloudyDay />, maxIcon: <MaxPartyCloudyDay width={"100%"} height={"100%"} />, text: "구름 조금", backgroundColor: "rgb(241, 243, 255)" },
     "party-cloudy-night": { minIcon: <PartyCloudyNight />, maxIcon: <MaxPartyCloudyNight width={"100%"} height={"100%"} />, text: "구름 조금", backgroundColor: "rgb(241, 243, 255)" },
-    "cloudy-day": { minIcon: <CloudyDay />, maxIcon: <MaxCloudy width={"100%"} height={"100%"} />, text: "흐림", backgroundColor: "rgb(241, 252, 255)" },
-    "cloudy-night": { minIcon: <CloudyNight />, maxIcon: <MaxCloudy width={"100%"} height={"100%"} />, text: "흐림", backgroundColor: "rgb(241, 252, 255)" },
-    "rain-day": { minIcon: <RainyDay />, maxIcon: <MaxRainy width={"100%"} height={"100%"} />, text: "비", backgroundColor: "rgb(239, 245, 245)" },
-    "rain-night": { minIcon: <RainyNight />, maxIcon: <MaxRainy width={"100%"} height={"100%"} />, text: "비", backgroundColor: "rgb(239, 245, 245)" },
-    "fog-day": { minIcon: <FogDay />, maxIcon: <MaxFog width={"100%"} height={"100%"} />, text: "안개", backgroundColor: "rgb(230, 242, 253)" },
-    "fog-night": { minIcon: <FogNight />, maxIcon: <MaxFog width={"100%"} height={"100%"} />, text: "안개", backgroundColor: "rgb(230, 242, 253)" },
+    "cloudy-day": { minIcon: <CloudyDay />, maxIcon: <MaxCloudyDay width={"100%"} height={"100%"} />, text: "흐림", backgroundColor: "rgb(241, 252, 255)" },
+    "cloudy-night": { minIcon: <CloudyNight />, maxIcon: <MaxCloudyNight width={"100%"} height={"100%"} />, text: "흐림", backgroundColor: "rgb(241, 252, 255)" },
+    "rain-day": { minIcon: <RainyDay />, maxIcon: <MaxRainyDay width={"100%"} height={"100%"} />, text: "비", backgroundColor: "rgb(239, 245, 245)" },
+    "rain-night": { minIcon: <RainyNight />, maxIcon: <MaxRainyNight width={"100%"} height={"100%"} />, text: "비", backgroundColor: "rgb(239, 245, 245)" },
+    "fog-day": { minIcon: <FogDay />, maxIcon: <MaxFogDay width={"100%"} height={"100%"} />, text: "안개", backgroundColor: "rgb(230, 242, 253)" },
+    "fog-night": { minIcon: <FogNight />, maxIcon: <MaxFogNight width={"100%"} height={"100%"} />, text: "안개", backgroundColor: "rgb(230, 242, 253)" },
     thunder: { minIcon: <Thunder />, maxIcon: <MaxThunder width={"100%"} height={"100%"} />, text: "천둥 번개", backgroundColor: "rgb(228, 230, 242)" }
 }
 
@@ -322,11 +327,21 @@ export const UV = [
     {
         text: "매우 높음",
         content: "자외선 차단제를 정기적으로 발라야 합니다.",
-        desc: ["햇볕에 노출 시 수십 분 이내에도 피부 화상을 입을 수 있어 매우 위험합니다.", "오전 10시부터 오후 3시까지 외출을 피하고 실내나 그늘에 머물러야 합니다.", "외출 시 긴 소매 옷, 선글라스 착용을 권장합니다."],
+        desc: [
+            "햇볕에 노출 시 수십 분 이내에도 피부 화상을 입을 수 있어 매우 위험합니다.",
+            "오전 10시부터 오후 3시까지 외출을 피하고 실내나 그늘에 머물러야 합니다.",
+            "외출 시 긴 소매 옷, 선글라스 착용을 권장합니다."
+        ],
         icon: <UV4 />,
         range: "8~10"
     },
-    { text: "높음", content: "자외선 차단제를 정기적으로 발라야 합니다.", desc: ["햇볕에 노출 시 1~2시간 이내에도 피부 화상을 입을 수 있어 가장 위험합니다.", "한낮에는 그늘에 머무르는 것을 권장 합니다."], icon: <UV3 />, range: "6~7" },
+    {
+        text: "높음",
+        content: "자외선 차단제를 정기적으로 발라야 합니다.",
+        desc: ["햇볕에 노출 시 1~2시간 이내에도 피부 화상을 입을 수 있어 가장 위험합니다.", "한낮에는 그늘에 머무르는 것을 권장 합니다."],
+        icon: <UV3 />,
+        range: "6~7"
+    },
     {
         text: "보통",
         content: "자외선 차단제를 바르는 것을 권장합니다.",
@@ -370,15 +385,57 @@ export const RainPercentage = (precip: number) => [
 
 export const WindSpeed = [
     { text: "고요", content: "바람이 불지 않는 고요한 상태가 예상됩니다.", desc: "연기가 수직으로 올라가는 정도로 바람이 없는 수준", icon: <WindSpeed1 />, range: "0~0.02" },
-    { text: "실바람", content: "풍향은 연기가 날리는 것으로 알 수 있으나, 풍향계가 움직이지 않는 정도", desc: "풍향은 연기가 날리는 것으로 알 수 있으나, 풍향계가 움직이지 않는 정도", icon: <WindSpeed2 />, range: "0.3~1.5" },
-    { text: "남실바람", content: "가벼운 바람이 얼굴에 느껴지며 나뭇잎이 흔들리는 정도", desc: "가벼운 바람이 얼굴에 느껴지며 나뭇잎이 흔들리는 정도", icon: <WindSpeed3 />, range: "1.6~3.3" },
-    { text: "산들바람", content: "나뭇잎과 가는 가지가 끊임없이 흔들리고 깃발이 가볍게 날리는 정도", desc: "나뭇잎과 가는 가지가 끊임없이 흔들리고 깃발이 가볍게 날리는 정도", icon: <WindSpeed4 />, range: "3.4~5.4" },
-    { text: "건들바람", content: "나무 가지가 흔들리는 정도의 중간바람이 예상됩니다.", desc: "먼지가 일고 종잇조각이 날리며 작은 가지가 흔들리는 정도", icon: <WindSpeed5 />, range: "5.5~7.9" },
-    { text: "흔들바람", content: "작은 나무가 흔들리는 정도의 중간바람이 예상됩니다.", desc: "잎이 무성한 작은 나무 전체가 흔들리고 호수에 물결이 일어나는 정도", icon: <WindSpeed6 />, range: "8.0~10.7" },
-    { text: "된바람", content: "우산을 들기가 곤란한 정도의 강한바람이 예상됩니다.", desc: "큰 나뭇가지가 흔들리고 전선이 울리며 우산을 들기가 곤란한 정도", icon: <WindSpeed7 />, range: "10.8~13.8" },
+    {
+        text: "실바람",
+        content: "풍향은 연기가 날리는 것으로 알 수 있으나, 풍향계가 움직이지 않는 정도",
+        desc: "풍향은 연기가 날리는 것으로 알 수 있으나, 풍향계가 움직이지 않는 정도",
+        icon: <WindSpeed2 />,
+        range: "0.3~1.5"
+    },
+    {
+        text: "남실바람",
+        content: "가벼운 바람이 얼굴에 느껴지며 나뭇잎이 흔들리는 정도",
+        desc: "가벼운 바람이 얼굴에 느껴지며 나뭇잎이 흔들리는 정도",
+        icon: <WindSpeed3 />,
+        range: "1.6~3.3"
+    },
+    {
+        text: "산들바람",
+        content: "나뭇잎과 가는 가지가 끊임없이 흔들리고 깃발이 가볍게 날리는 정도",
+        desc: "나뭇잎과 가는 가지가 끊임없이 흔들리고 깃발이 가볍게 날리는 정도",
+        icon: <WindSpeed4 />,
+        range: "3.4~5.4"
+    },
+    {
+        text: "건들바람",
+        content: "나무 가지가 흔들리는 정도의 중간바람이 예상됩니다.",
+        desc: "먼지가 일고 종잇조각이 날리며 작은 가지가 흔들리는 정도",
+        icon: <WindSpeed5 />,
+        range: "5.5~7.9"
+    },
+    {
+        text: "흔들바람",
+        content: "작은 나무가 흔들리는 정도의 중간바람이 예상됩니다.",
+        desc: "잎이 무성한 작은 나무 전체가 흔들리고 호수에 물결이 일어나는 정도",
+        icon: <WindSpeed6 />,
+        range: "8.0~10.7"
+    },
+    {
+        text: "된바람",
+        content: "우산을 들기가 곤란한 정도의 강한바람이 예상됩니다.",
+        desc: "큰 나뭇가지가 흔들리고 전선이 울리며 우산을 들기가 곤란한 정도",
+        icon: <WindSpeed7 />,
+        range: "10.8~13.8"
+    },
     { text: "센바람", content: "바람을 마주해 걷기 힘든 강한바람이 예상됩니다.", desc: "나무 전체가 흔들려 바람을 마주하여 걷기 힘들 정도", icon: <WindSpeed8 />, range: "13.9~17.1" },
     { text: "큰바람", content: "나무가지가 꺾이는 아주 큰 바람이 예상됩니다.", desc: "작은 나뭇가지가 꺾이며, 바람을 마주하여 걷기 힘들 정도", icon: <WindSpeed9 />, range: "17.2~20.7" },
-    { text: "큰센바람", content: "가옥에 손해가 있을 정도의태풍급 바람이 예상됩니다.", desc: "가옥에 다소 손해가 있을 정도로 굴뚝이 넘어지고 기와가 벗겨짐", icon: <WindSpeed10 />, range: "20.8~" }
+    {
+        text: "큰센바람",
+        content: "가옥에 손해가 있을 정도의태풍급 바람이 예상됩니다.",
+        desc: "가옥에 다소 손해가 있을 정도로 굴뚝이 넘어지고 기와가 벗겨짐",
+        icon: <WindSpeed10 />,
+        range: "20.8~"
+    }
 ]
 
 export const Humidity = (humidity: number) => [

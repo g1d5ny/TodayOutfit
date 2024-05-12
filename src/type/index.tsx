@@ -71,8 +71,9 @@ export interface MY_ADDRSS {
 export interface CURRENT_WEATHER {
     code: number
     temp: number
-    is_day: boolean // true: day, false: night
+    is_day: boolean // 1: day, 0: night
     minIcon: JSX.Element
+    maxIcon: JSX.Element
     backgroundColor: string
 }
 
