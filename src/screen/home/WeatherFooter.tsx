@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
-import { currentWeatherInfoState, hourWeatherInfoState, isTablet } from "../../store"
-import { CommonColor, MobileFont, TabletFont } from "../../style/CommonStyle"
+import { currentDate, currentMonth, currentWeatherInfoState, hourWeatherInfoState, isTablet } from "../../store"
+import { CommonColor, CommonStyle, MobileFont, TabletFont } from "../../style/CommonStyle"
 import { DateView, LocationView, WeatherDetail } from "../../component/MiniCard"
 import { useRecoilValue } from "recoil"
 import UV from "../../asset/icon/icon_uv_index.svg"
@@ -70,9 +70,11 @@ export default () => {
         <View style={[styles.wrapper]}>
             <View style={styles.title}>
                 <Text style={[isTablet ? TabletFont.heading_1 : MobileFont.heading_1]}>일기 예보 상세</Text>
-                <View style={styles.row}>
+                <View style={CommonStyle.row}>
                     <LocationView />
-                    <DateView />
+                    <View style={styles.date}>
+                        <DateView date={currentDate} month={currentMonth} />
+                    </View>
                 </View>
             </View>
             {hourWeather && selectedHour && (
@@ -80,7 +82,7 @@ export default () => {
                     <View style={{ marginTop: isTablet ? 40 : 32 }}>
                         <Text style={[isTablet ? TabletFont.button_1 : MobileFont.body_1]}>시간별 일기 예보</Text>
                         <ScrollView style={styles.scrollView} horizontal={true} showsHorizontalScrollIndicator={false}>
-                            <View style={styles.row}>
+                            <View style={CommonStyle.row}>
                                 {WeatherHourlyCard({
                                     hour: -1,
                                     minIcon: currentWeather.minIcon,
@@ -104,19 +106,21 @@ export default () => {
                                     isClicked: selectedHour.hour === String(-1),
                                     index: -1
                                 })}
-                                {hourWeather.map(({ hour, temp, minIcon, uv, feelslike, windSpeed, rainPercentage, snowPercentage, willItSnow, willItRain, windDir, humidity }, index: number) => {
-                                    const onPress = () => {
-                                        setSelectedHour({ hour, uv, feelslike, minIcon, windSpeed, snowPercentage, rainPercentage, willItRain, willItSnow, windDir, humidity })
+                                {hourWeather.map(
+                                    ({ hour, temp, minIcon, uv, feelslike, windSpeed, rainPercentage, snowPercentage, willItSnow, willItRain, windDir, humidity }, index: number) => {
+                                        const onPress = () => {
+                                            setSelectedHour({ hour, uv, feelslike, minIcon, windSpeed, snowPercentage, rainPercentage, willItRain, willItSnow, windDir, humidity })
+                                        }
+                                        return WeatherHourlyCard({
+                                            hour,
+                                            minIcon,
+                                            temp,
+                                            onPress,
+                                            isClicked: selectedHour.hour === hour,
+                                            index
+                                        })
                                     }
-                                    return WeatherHourlyCard({
-                                        hour,
-                                        minIcon,
-                                        temp,
-                                        onPress,
-                                        isClicked: selectedHour.hour === hour,
-                                        index
-                                    })
-                                })}
+                                )}
                             </View>
                         </ScrollView>
                     </View>
@@ -302,9 +306,8 @@ const styles = StyleSheet.create({
         width: "100%",
         marginTop: 26
     },
-    row: {
-        flexDirection: "row",
-        alignItems: "center"
+    date: {
+        marginLeft: 10
     },
     title: {
         flexDirection: "row",

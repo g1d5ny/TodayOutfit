@@ -4,7 +4,7 @@ import LocationMobile from "../asset/icon/icon_location_mobile.svg"
 import LocationTablet from "../asset/icon/icon_location_tablet.svg"
 import CalendarMobile from "../asset/icon/icon_calendar_mobile.svg"
 import CalendarTablet from "../asset/icon/icon_calendar_tablet.svg"
-import { currentDate, currentMonth, isTablet, myAddressListState } from "../store"
+import { isTablet, myAddressListState } from "../store"
 import { useRecoilValue } from "recoil"
 
 export const LocationView = () => {
@@ -14,19 +14,19 @@ export const LocationView = () => {
         <View style={styles.container}>
             {isTablet ? <LocationTablet /> : <LocationMobile />}
             {myAddressList && (
-                <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.detail_3, { color: CommonColor.basic_gray_dark, marginLeft: 2 }]}>{myAddressList[0].location.split(" ")[0] + " " + myAddressList[0].location.split(" ")[1]}</Text>
+                <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.detail_3, { color: CommonColor.basic_gray_dark, marginLeft: 2 }]}>
+                    {myAddressList[0].location.split(" ")[0] + " " + myAddressList[0].location.split(" ")[1]}
+                </Text>
             )}
         </View>
     )
 }
 
-export const DateView = () => {
+export const DateView = ({ month, date }: { month?: number; date?: number }) => {
     return (
-        <View style={[styles.container, { marginLeft: 10 }]}>
+        <View style={styles.container}>
             {isTablet ? <CalendarTablet /> : <CalendarMobile />}
-            <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.detail_3, { color: CommonColor.basic_gray_dark, marginLeft: 2 }]}>
-                {currentMonth}월 {currentDate}일
-            </Text>
+            <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.detail_3, { color: CommonColor.basic_gray_dark, marginLeft: 2 }]}>{month && date ? `${month}월 ${date}일` : ""}</Text>
         </View>
     )
 }

@@ -50,7 +50,7 @@ export const WeatherCard = ({ day, date, minIcon, text, maxIcon, maxTemp, minTem
                         <View style={[styles.temp, { marginLeft: 8 }]}>
                             <View style={[styles.row, { marginBottom: 8 }]}>
                                 <MinTemp width={10} height={10} />
-                                <Text style={[TabletFont.detail_3, { marginLeft: 4 }]}>최저온도</Text>
+                                <Text style={[isTablet ? TabletFont.detail_3 : MobileFont.detail_3, { marginLeft: 4 }]}>최저온도</Text>
                             </View>
                             <Text style={[isTablet ? TabletFont.main_page_forecast_text : MobileFont.main_page_forecast_text, { color: CommonColor.main_blue }]}>{minTemp}˚</Text>
                         </View>
@@ -58,16 +58,16 @@ export const WeatherCard = ({ day, date, minIcon, text, maxIcon, maxTemp, minTem
                     <View style={[styles.row, styles.temp, { marginTop: 23, justifyContent: "space-between" }]}>
                         <View style={styles.row}>
                             <Sunrise />
-                            <Text style={[TabletFont.detail_2, { color: CommonColor.basic_gray_dark, marginLeft: 8 }]}>일출</Text>
+                            <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.detail_2, { color: CommonColor.basic_gray_dark, marginLeft: 8 }]}>일출</Text>
                         </View>
-                        <Text style={[TabletFont.detail_2, { color: CommonColor.main_black }]}>{sunrise}</Text>
+                        <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.detail_2, { color: CommonColor.main_black }]}>{sunrise}</Text>
                     </View>
                     <View style={[styles.row, styles.temp, { justifyContent: "space-between", marginTop: 15 }]}>
                         <View style={styles.row}>
                             <Sunset />
-                            <Text style={[TabletFont.detail_2, { color: CommonColor.basic_gray_dark, marginLeft: 8 }]}>일몰</Text>
+                            <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.detail_2, { color: CommonColor.basic_gray_dark, marginLeft: 8 }]}>일몰</Text>
                         </View>
-                        <Text style={[TabletFont.detail_2, { color: CommonColor.main_black }]}>{sunset}</Text>
+                        <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.detail_2, { color: CommonColor.main_black }]}>{sunset}</Text>
                     </View>
                 </View>
             </LinearGradient>
@@ -77,8 +77,7 @@ export const WeatherCard = ({ day, date, minIcon, text, maxIcon, maxTemp, minTem
 
 const styles = StyleSheet.create({
     temp: {
-        paddingHorizontal: 8,
-        alignItems: "center"
+        paddingHorizontal: 8
     },
     maxIcon: {
         width: 150,
