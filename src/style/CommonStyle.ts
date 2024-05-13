@@ -61,11 +61,11 @@ export const TabletFont = StyleSheet.create({
         lineHeight: 38
     },
     heading_1: {
-        fontSize: 24,
+        fontSize: 20,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-SemiBold",
-        letterSpacing: dp(-0.48),
-        lineHeight: 30
+        letterSpacing: dp(-0.36),
+        lineHeight: 24
     },
     heading_2: {
         fontSize: 18,
@@ -180,7 +180,7 @@ export const MobileFont = StyleSheet.create({
         color: CommonColor.main_black,
         fontFamily: "Pretendard-SemiBold",
         letterSpacing: dp(-0.32),
-        lineHeight: 22
+        lineHeight: 20
     },
     body_2: {
         fontSize: 16,
@@ -195,6 +195,13 @@ export const MobileFont = StyleSheet.create({
         fontFamily: "Pretendard-SemiBold",
         letterSpacing: dp(-0.36),
         lineHeight: 24
+    },
+    heading_2: {
+        fontSize: 18,
+        color: CommonColor.main_black,
+        fontFamily: "Pretendard-SemiBold",
+        letterSpacing: dp(-0.36),
+        lineHeight: 22
     },
     main_page_forecast_text: {
         fontSize: 24,
@@ -253,11 +260,11 @@ export const MobileFont = StyleSheet.create({
         lineHeight: 16
     },
     button_1: {
-        fontSize: 18,
+        fontSize: 20,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-SemiBold",
         letterSpacing: dp(-0.36),
-        lineHeight: 22
+        lineHeight: 24
     },
     button_2: {
         fontSize: 18,
