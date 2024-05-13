@@ -11,7 +11,7 @@ import SettingOff from "../../../asset/icon/icon_setting_off.svg"
 import { HomeNavigator } from "./tab/home/HomeNavigator"
 import { LocationNavigator } from "./tab/location/LocationNavigator"
 import { WeatherNavigator } from "./tab/weather/WeatherNavigator"
-import { SettingNavigator } from "./tab/setting/SettingNavigator"
+import { MoreNavigator } from "./tab/more/MoreNavigator"
 import { CommonColor } from "../../../style/CommonStyle"
 
 const { Navigator, Screen } = createBottomTabNavigator()
@@ -60,8 +60,8 @@ export const TabNavigator = () => {
                 }}
             />
             <Screen
-                name={"SettingNavigator"}
-                component={SettingNavigator}
+                name={"MoreNavigator"}
+                component={MoreNavigator}
                 options={{
                     tabBarLabel: "더보기",
                     tabBarIcon: ({ focused }: { focused: boolean }) => {

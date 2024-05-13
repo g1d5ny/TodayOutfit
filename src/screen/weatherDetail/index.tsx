@@ -19,7 +19,11 @@ const categoryList = [
         Component: UVScreen
     },
     { title: "체감온도", footer: "체감온도는 기상청의 기상자료개방포털의 정보를 활용했음을 안내해 드립니다.", Component: FeelsLikeScreen },
-    { title: "풍속", footer: "풍속 계급표는 보퍼트 풍력 계급(Beaufort wind force scale)의 육상 상태 계급표와, 기상청의 기상자료개방포털을 참고했음을 안내해드립니다.", Component: WindSpeedScreen },
+    {
+        title: "풍속",
+        footer: "풍속 계급표는 보퍼트 풍력 계급(Beaufort wind force scale)의 육상 상태 계급표와, 기상청의 기상자료개방포털을 참고했음을 안내해드립니다.",
+        Component: WindSpeedScreen
+    },
     { title: "풍향", footer: "풍향 정보는 기상청 날씨누리 생활 기상정보와 ‘Visual Crossing Weather’의 날씨 데이터를 활용 했음을 안내해 드립니다.", Component: WindDirectionScreen },
     { title: "강수확률", footer: "강수 확률은 기상청 날씨누리 생활 기상정보와 ‘Visual Crossing Weather’의 날씨 정보를 활용 했음을 안내해 드립니다.", Component: RainPercentageScreen },
     { title: "습도", footer: "적정 상대 습도의 경우 한국표준과학연구원의 자료와 기상청의 날씨배움터 정보를 활용했음을 안내 해드립니다.", Component: HumidityScreen },
@@ -42,7 +46,9 @@ export const WeatherDetailScreen = ({ route }: { navigation: any; route: any }) 
                         const isSelectedIndex = selectedIndex === index
                         return (
                             <TouchableOpacity key={index} style={[styles.category, isSelectedIndex && styles.selectedCategory]} onPress={() => setCategory(index)}>
-                                <Text style={[isTablet ? TabletFont.button_1 : MobileFont.body_1, { color: isSelectedIndex ? CommonColor.main_black : CommonColor.basic_gray_medium }]}>{title}</Text>
+                                <Text style={[isTablet ? TabletFont.button_1 : MobileFont.body_1, { color: isSelectedIndex ? CommonColor.main_black : CommonColor.basic_gray_medium }]}>
+                                    {title}
+                                </Text>
                             </TouchableOpacity>
                         )
                     })}
@@ -53,7 +59,7 @@ export const WeatherDetailScreen = ({ route }: { navigation: any; route: any }) 
 
     return (
         <View style={CommonStyle.flex}>
-            <Header text='기상정보에 관하여' />
+            <Header text='기상정보에 관하여' hasBack />
             <WeatherHeader />
             <PagerView ref={ref} initialPage={route.params.index} useNext={false} style={CommonStyle.flex} onPageSelected={({ nativeEvent: { position } }) => setSelectedIndex(position)}>
                 {categoryList.map(({ Component, footer }, index) => {
