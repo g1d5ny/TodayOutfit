@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
         marginBottom: isTablet ? 24 : 16
     },
     container: {
-        minWidth: 60,
+        minWidth: 62,
         paddingHorizontal: 8,
         paddingVertical: 6,
         borderRadius: 4,

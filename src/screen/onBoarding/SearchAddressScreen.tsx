@@ -1,16 +1,17 @@
 import { Keyboard, KeyboardAvoidingView, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native"
-import { CommonColor, MobileFont, TabletFont } from "../../style/CommonStyle"
+import { CommonColor, CommonStyle, MobileFont, TabletFont } from "../../style/CommonStyle"
 import { isTablet, resultAdressListState } from "../../store"
 import { useRecoilValue } from "recoil"
-import SearchInput from "../../component/SearchInput"
+import { SearchInput } from "../../component/SearchInput"
 import { isEmpty } from "lodash"
 import { useState } from "react"
-import { useLocationPermissionHook } from "../../hook/useLocationPermissionHook"
+import { useUserLocationHook } from "../../hook/useUserLocationHook"
 import { LocationPermissionModal } from "../../component/LocationPermissionModal"
 import { useAddressHook } from "../../hook/useAddressHook"
 import { MY_ADDRSS } from "../../type"
 
 const selectedAddressInitialValue = {
+    id: "",
     location: "",
     coordinate: {
         longitude: 0,
@@ -23,7 +24,7 @@ export const SearchAddressScreen = ({ navigation }: { navigation: any }) => {
     const [onFocus, setOnFocus] = useState(false)
     const isNotFoundAddress = resultAddress && resultAddress[0] === "NOT_FOUND"
     const [selectedAddress, setSelectedAddress] = useState<MY_ADDRSS>(selectedAddressInitialValue)
-    const { checkOnlyLocationPermission, getUserLocation, setUserLocation } = useLocationPermissionHook()
+    const { checkOnlyLocationPermission, getUserLocation, addUserAddress } = useUserLocationHook()
     const { searchAddress } = useAddressHook()
 
     const onPress = async () => {
@@ -43,14 +44,7 @@ export const SearchAddressScreen = ({ navigation }: { navigation: any }) => {
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <KeyboardAvoidingView
-                style={{
-                    flex: 1,
-                    backgroundColor: "#fff",
-                    justifyContent: "space-between"
-                }}
-                behavior={"padding"}
-            >
+            <KeyboardAvoidingView style={styles.flex} behavior={"padding"}>
                 <View style={styles.container}>
                     <View style={[styles.textContainer]}>
                         <Text style={[styles.subtitle, { color: CommonColor.main_blue }]}>위치 서비스</Text>
@@ -59,24 +53,43 @@ export const SearchAddressScreen = ({ navigation }: { navigation: any }) => {
                         <Text style={[styles.content, { marginTop: isTablet ? 12 : 10, color: CommonColor.basic_gray_dark }]}>상세주소를 제외한 행정구역까지만 입력해주세요.</Text>
                     </View>
                     <View style={styles.addressContainer}>
-                        <SearchInput isInput={true} onPress={onPress} onFocus={onFocus} setOnFocus={setOnFocus} selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress} />
+                        <SearchInput
+                            isInput={true}
+                            getLocation={onPress}
+                            isOnFocus={onFocus}
+                            setIsOnFocus={setOnFocus}
+                            selectedAddress={selectedAddress}
+                            setSelectedAddress={setSelectedAddress}
+                            autoFocus
+                        />
                     </View>
                 </View>
-                {isEmpty(selectedAddress.location) ? (
-                    <TouchableOpacity disabled={isNotFoundAddress} style={[styles.confirmButton, { backgroundColor: isNotFoundAddress ? CommonColor.basic_gray_medium : CommonColor.main_blue }]} onPress={searchAddress}>
-                        <Text style={[isTablet ? TabletFont.button_1 : MobileFont.button_1, { color: "#fff" }]}>확인</Text>
-                    </TouchableOpacity>
-                ) : (
-                    <TouchableOpacity
-                        style={[styles.confirmButton, { paddingHorizontal: isTablet ? 132 : 16, backgroundColor: isNotFoundAddress ? CommonColor.basic_gray_medium : CommonColor.main_blue }]}
-                        onPress={() => {
-                            setUserLocation(selectedAddress.location.trim(), selectedAddress.coordinate)
-                            navigate()
-                        }}
-                    >
-                        <Text style={[isTablet ? TabletFont.button_1 : MobileFont.button_1, { color: "#fff" }]}>앱 구경하러 가기</Text>
-                    </TouchableOpacity>
-                )}
+                <View style={{ justifyContent: "space-between" }}>
+                    <View style={[CommonStyle.row, styles.phase]}>
+                        <View style={styles.selectedPhase} />
+                        <View style={styles.unSelectedPhase} />
+                    </View>
+                    {isEmpty(selectedAddress.location) ? (
+                        <TouchableOpacity
+                            disabled={isNotFoundAddress}
+                            style={[styles.confirmButton, { backgroundColor: isNotFoundAddress ? CommonColor.basic_gray_medium : CommonColor.main_blue }]}
+                            onPress={searchAddress}
+                        >
+                            <Text style={[isTablet ? TabletFont.button_1 : MobileFont.button_1, { color: "#fff" }]}>확인</Text>
+                        </TouchableOpacity>
+                    ) : (
+                        <TouchableOpacity
+                            style={[styles.confirmButton, { backgroundColor: isNotFoundAddress ? CommonColor.basic_gray_medium : CommonColor.main_blue }]}
+                            onPress={() => {
+                                const { id, location, coordinate } = selectedAddress
+                                addUserAddress({ id, location: location.trim(), coordinate })
+                                navigate()
+                            }}
+                        >
+                            <Text style={[isTablet ? TabletFont.button_1 : MobileFont.button_1, { color: "#fff" }]}>앱 구경하러 가기</Text>
+                        </TouchableOpacity>
+                    )}
+                </View>
                 <LocationPermissionModal isVisible={isVisible} setIsVisible={setIsVisible} />
             </KeyboardAvoidingView>
         </TouchableWithoutFeedback>
@@ -84,9 +97,26 @@ export const SearchAddressScreen = ({ navigation }: { navigation: any }) => {
 }
 
 const styles = StyleSheet.create({
+    phase: {
+        alignSelf: "center",
+        marginBottom: 20
+    },
+    unSelectedPhase: {
+        width: 8,
+        height: 8,
+        borderRadius: 4,
+        marginLeft: 8,
+        backgroundColor: CommonColor.basic_gray_medium
+    },
+    selectedPhase: {
+        width: 50,
+        height: 8,
+        backgroundColor: CommonColor.main_blue,
+        borderRadius: 5
+    },
     confirmButton: {
         width: "100%",
-        height: isTablet ? 64 : 56,
+        paddingVertical: isTablet ? 20 : 17,
         alignItems: "center",
         justifyContent: "center"
     },
@@ -127,5 +157,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between",
         backgroundColor: "#fff"
+    },
+    flex: {
+        flex: 1,
+        backgroundColor: "#fff",
+        justifyContent: "space-between"
     }
 })

@@ -1,23 +1,24 @@
 import { Dispatch, SetStateAction, memo, useEffect, useState } from "react"
 import { CommonColor, MobileFont, TabletFont } from "../style/CommonStyle"
-import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
-import { inputAddressState, isTablet, resultAdressListState } from "../store"
+import { ScrollView, StyleSheet, Text, TextInput, TextInputProps, TouchableOpacity, View } from "react-native"
+import { inputAddressState, isTablet, myAddressListState, resultAdressListState } from "../store"
 import { LocationPermissionModal } from "./LocationPermissionModal"
 import Search from "../asset/icon/icon_search.svg"
 import FocusLocation from "../asset/icon/icon_focus_location.svg"
 import FocusOffLocation from "../asset/icon/icon_focus_off_location.svg"
-import { useRecoilState } from "recoil"
+import { useRecoilState, useRecoilValue } from "recoil"
 import { useAddressHook } from "../hook/useAddressHook"
 import { isEmpty } from "lodash"
 import { MY_ADDRSS } from "../type"
 import BlueCheck from "../asset/icon/icon_blue_check.svg"
 import GrayCheck from "../asset/icon/icon_gray_check.svg"
 
-interface InputProps {
+interface InputProps extends TextInputProps {
     isInput: boolean
-    onPress?: () => void
-    onFocus?: boolean
-    setOnFocus?: Dispatch<SetStateAction<boolean>>
+    navigate?: () => void
+    getLocation?: () => void
+    isOnFocus?: boolean
+    setIsOnFocus?: Dispatch<SetStateAction<boolean>>
     selectedAddress?: MY_ADDRSS | undefined
     setSelectedAddress?: Dispatch<SetStateAction<MY_ADDRSS>>
 }
@@ -25,22 +26,23 @@ interface InputProps {
 const mobileResultViewHeight = 59
 const tabletResultViewHeight = 62
 const selectedAddressInitialValue = {
+    id: "",
     location: "",
     coordinate: {
         longitude: 0,
         latitude: 0
     }
 }
-export default memo(({ isInput, onPress, onFocus, setOnFocus, selectedAddress, setSelectedAddress }: InputProps) => {
-    // const [loading, setLoading] = useState(true)
+export const SearchInput = memo(({ isInput, navigate, getLocation, isOnFocus, setIsOnFocus, selectedAddress, setSelectedAddress, ...props }: InputProps) => {
     const [isVisible, setIsVisible] = useState(false)
     const [inputAddress, setInputAddress] = useRecoilState(inputAddressState)
     const [resultAddress, setResultAddress] = useRecoilState(resultAdressListState)
-    const isNotFoundAddress = resultAddress && resultAddress[0] === "NOT_FOUND"
+    const myAddressList = useRecoilValue(myAddressListState)
+    const isNotFoundAddress = resultAddress[0] === "NOT_FOUND"
     const { searchAddress } = useAddressHook()
 
     const border = () => {
-        if (onFocus) {
+        if (isOnFocus) {
             return { borderWidth: 2, borderColor: CommonColor.main_blue }
         }
         if (isNotFoundAddress) {
@@ -75,19 +77,21 @@ export default memo(({ isInput, onPress, onFocus, setOnFocus, selectedAddress, s
                         onChangeText={value => setInputAddress(value)}
                         placeholder='예시: 서울특별시 중구'
                         placeholderTextColor={CommonColor.basic_gray_medium}
-                        autoFocus
-                        onFocus={() => setOnFocus && setOnFocus(true)}
-                        onBlur={() => setOnFocus && setOnFocus(false)}
+                        onFocus={() => setIsOnFocus && setIsOnFocus(true)}
+                        onBlur={() => setIsOnFocus && setIsOnFocus(false)}
                         autoCorrect={false}
                         onSubmitEditing={searchAddress}
+                        {...props}
                         style={[isTablet ? TabletFont.body_2 : MobileFont.body_2, styles.textView]}
                     />
                 ) : (
-                    <TouchableOpacity style={styles.textView} onPress={onPress}>
+                    <TouchableOpacity style={styles.textView} onPress={navigate}>
                         <Text style={[styles.text, { color: CommonColor.basic_gray_medium }]}>예시: 서울특별시 중구</Text>
                     </TouchableOpacity>
                 )}
-                <TouchableOpacity onPress={onPress}>{onFocus ? <FocusOffLocation width={isTablet ? 26 : 22} height={isTablet ? 26 : 22} /> : <FocusLocation width={isTablet ? 26 : 22} height={isTablet ? 26 : 22} />}</TouchableOpacity>
+                <TouchableOpacity onPress={getLocation}>
+                    {isOnFocus ? <FocusOffLocation width={isTablet ? 26 : 22} height={isTablet ? 26 : 22} /> : <FocusLocation width={isTablet ? 26 : 22} height={isTablet ? 26 : 22} />}
+                </TouchableOpacity>
                 {/* {loading ? <Loader style={{ marginTop: 100 }} /> : <></>} */}
             </View>
             {!isEmpty(resultAddress) ? (
@@ -96,31 +100,36 @@ export default memo(({ isInput, onPress, onFocus, setOnFocus, selectedAddress, s
                 ) : (
                     <View style={{ marginTop: 6 }}>
                         <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.detail_2, { color: CommonColor.main_blue }]}>'{inputAddress}' 검색 결과</Text>
-                        <ScrollView style={{ maxHeight: isTablet ? tabletResultViewHeight * 7 : mobileResultViewHeight * 6, marginTop: isTablet ? 24 : 9 }}>
-                            {resultAddress.map(({ address_name, address: { region_1depth_name, region_2depth_name, region_3depth_h_name, region_3depth_name, x, y } }, index) => {
-                                const isSelected = selectedAddress && selectedAddress.coordinate.longitude === Number(x) && selectedAddress && selectedAddress.coordinate.latitude === Number(y)
-                                return (
-                                    <TouchableOpacity
-                                        key={index}
-                                        style={[styles.resultView, { borderColor: isSelected ? CommonColor.main_blue : CommonColor.basic_gray_medium }]}
-                                        onPress={() =>
-                                            setSelectedAddress &&
-                                            setSelectedAddress({
-                                                location: region_1depth_name + " " + region_2depth_name + " " + region_3depth_h_name + " " + region_3depth_name,
-                                                coordinate: { longitude: Number(x), latitude: Number(y) }
-                                            })
-                                        }
-                                    >
-                                        {isSelected ? (
-                                            <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>{address_name}</Text>
-                                        ) : (
-                                            <Text style={isTablet ? TabletFont.body_2 : MobileFont.body_2}>{address_name}</Text>
-                                        )}
-                                        {isSelected ? <BlueCheck /> : <GrayCheck />}
-                                    </TouchableOpacity>
-                                )
-                            })}
-                        </ScrollView>
+                        <View style={{ marginTop: isTablet ? 24 : 9 }}>
+                            <ScrollView style={{ maxHeight: isTablet ? tabletResultViewHeight * 7 : mobileResultViewHeight * 5, marginTop: isTablet ? 24 : 9 }}>
+                                {resultAddress.map(
+                                    ({ address_name, address: { b_code, h_code, region_1depth_name, region_2depth_name, region_3depth_h_name, region_3depth_name, x, y } }, index) => {
+                                        const isSelected = selectedAddress?.coordinate.longitude === Number(x) && selectedAddress?.coordinate.latitude === Number(y)
+                                        return (
+                                            <TouchableOpacity
+                                                key={index}
+                                                style={[styles.resultView, { borderColor: isSelected ? CommonColor.main_blue : CommonColor.basic_gray_medium }]}
+                                                onPress={() =>
+                                                    setSelectedAddress &&
+                                                    setSelectedAddress({
+                                                        id: b_code ?? h_code,
+                                                        location: region_1depth_name + " " + region_2depth_name + " " + region_3depth_h_name + " " + region_3depth_name,
+                                                        coordinate: { longitude: Number(x), latitude: Number(y) }
+                                                    })
+                                                }
+                                            >
+                                                {isSelected ? (
+                                                    <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>{address_name}</Text>
+                                                ) : (
+                                                    <Text style={isTablet ? TabletFont.body_2 : MobileFont.body_2}>{address_name}</Text>
+                                                )}
+                                                {isSelected ? <BlueCheck /> : <GrayCheck />}
+                                            </TouchableOpacity>
+                                        )
+                                    }
+                                )}
+                            </ScrollView>
+                        </View>
                     </View>
                 )
             ) : (
@@ -158,8 +167,7 @@ export const styles = StyleSheet.create({
     input: {
         width: "100%",
         borderRadius: 6,
-        paddingLeft: isTablet ? 24 : 18,
-        paddingRight: isTablet ? 24 : 15,
+        paddingHorizontal: isTablet ? 24 : 18,
         paddingVertical: isTablet ? 20 : 17,
         backgroundColor: CommonColor.basic_gray_light,
         flexDirection: "row",

@@ -7,7 +7,7 @@ import { CommonColor, MobileFont, TabletFont } from "../style/CommonStyle"
 import { useEffect, useState } from "react"
 import { useRecoilValue, useRecoilValueLoadable } from "recoil"
 import Toast from "react-native-toast-message"
-import { useLocationPermissionHook } from "../hook/useLocationPermissionHook"
+import { useUserLocationHook } from "../hook/useUserLocationHook"
 
 interface ModalProps {
     isVisible: boolean
@@ -15,7 +15,7 @@ interface ModalProps {
 }
 export const LocationPermissionModal = ({ isVisible, setIsVisible }: ModalProps) => {
     const { contents: locationPermission } = useRecoilValueLoadable(locationPermissionState)
-    const { checkOnlyLocationPermission, getUserLocation } = useLocationPermissionHook()
+    const { checkOnlyLocationPermission, getUserLocation } = useUserLocationHook()
 
     const checkLocationPermission = async () => {
         if (locationPermission === null) {
@@ -32,7 +32,13 @@ export const LocationPermissionModal = ({ isVisible, setIsVisible }: ModalProps)
     }
 
     return (
-        <Modal isVisible={isVisible} onBackdropPress={() => setIsVisible(false)} useNativeDriver={true} hideModalContentWhileAnimating={true} style={{ alignItems: "center", justifyContent: "center" }}>
+        <Modal
+            isVisible={isVisible}
+            onBackdropPress={() => setIsVisible(false)}
+            useNativeDriver={true}
+            hideModalContentWhileAnimating={true}
+            style={{ alignItems: "center", justifyContent: "center" }}
+        >
             <View
                 style={{
                     width: 312,
@@ -55,7 +61,9 @@ export const LocationPermissionModal = ({ isVisible, setIsVisible }: ModalProps)
                             <Text style={[MobileFont.detail_3, { marginLeft: 12 }]}>실시간 위치 정보에 기반한{"\n"}정확한 날씨 정보 및 콘텐츠 제공</Text>
                         </View>
                     </View>
-                    <Text style={[isTablet ? TabletFont.modal_text_2 : MobileFont.modal_text_2, { color: CommonColor.basic_gray_dark, alignSelf: "center" }]}>동의하지 않으셔도 이용이 가능함을 알려드립니다.</Text>
+                    <Text style={[isTablet ? TabletFont.modal_text_2 : MobileFont.modal_text_2, { color: CommonColor.basic_gray_dark, alignSelf: "center" }]}>
+                        동의하지 않으셔도 이용이 가능함을 알려드립니다.
+                    </Text>
                 </View>
                 <View style={{ position: "absolute", bottom: 40, right: 0 }}>
                     <Map />

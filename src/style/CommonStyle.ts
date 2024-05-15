@@ -100,7 +100,7 @@ export const TabletFont = StyleSheet.create({
         color: CommonColor.main_black,
         fontFamily: "Pretendard-Regular",
         letterSpacing: dp(-0.32),
-        lineHeight: 22
+        lineHeight: 20
     },
     detail_1: {
         fontSize: 14,
@@ -171,7 +171,7 @@ export const MobileFont = StyleSheet.create({
     title_on_boarding: {
         fontSize: 24,
         color: CommonColor.main_black,
-        fontFamily: "Pretendard-Regular",
+        fontFamily: "Pretendard-SemiBold",
         letterSpacing: dp(-0.48),
         lineHeight: 32
     },
@@ -187,7 +187,7 @@ export const MobileFont = StyleSheet.create({
         color: CommonColor.main_black,
         fontFamily: "Pretendard-Regular",
         letterSpacing: dp(-0.32),
-        lineHeight: 22
+        lineHeight: 20
     },
     heading_1: {
         fontSize: 20,
