@@ -1,6 +1,6 @@
 import { FeelsLike, Humidity, RainPercentage, SnowFall, UV, WindDirection, WindSpeed } from "../store"
 
-export const DateFormat = () => {
+export const NowDate = () => {
     const year = new Date().getFullYear()
     const month = new Date().getMonth() + 1
     const date = new Date().getDate()

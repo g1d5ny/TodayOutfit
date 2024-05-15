@@ -165,13 +165,13 @@ export const locationPermissionState = atom<Record<string, boolean> | null>({
     })
 })
 
-export const myAddressListState = atom<MY_ADDRSS[] | null>({
+export const myAddressListState = atom<MY_ADDRSS[]>({
     key: "myAddressListState",
     default: selector({
         key: "myAddressListState/default",
         get: async () => {
             const myAddressList = await getStorage("myAddressList")
-            return myAddressList
+            return myAddressList || []
         },
         cachePolicy_UNSTABLE: {
             eviction: "most-recent"

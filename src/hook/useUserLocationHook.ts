@@ -3,14 +3,13 @@ import { PERMISSIONS, requestMultiple } from "react-native-permissions"
 import Geolocation from "react-native-geolocation-service"
 import { isEmpty } from "lodash"
 import { myAddressListState, setStorage } from "../store"
-import { useRecoilStateLoadable } from "recoil"
-import { DateFormat } from "../utils"
-import { getAddressLocation } from "api/address"
+import { NowDate } from "../utils"
+import { coordinateToAddressApi } from "api/address"
 import { TextAlarm } from "text/AlarmText"
+import { getRecoil, setRecoil } from "recoil-nexus"
+import { MY_ADDRSS } from "type"
 
-export const useLocationPermissionHook = () => {
-    const [{ contents: myAddress }, setMyAddress] = useRecoilStateLoadable(myAddressListState)
-
+export const useUserLocationHook = () => {
     const checkOnlyLocationPermission = async () => {
         try {
             if (Platform.OS === "android") {
@@ -43,34 +42,57 @@ export const useLocationPermissionHook = () => {
 
     // 위도, 경도에 따른 지번, 도로명 주소 가져오기
     const getNowLocation = async (longitude: number, latitude: number) => {
-        getAddressLocation(longitude, latitude)
+        coordinateToAddressApi(longitude, latitude)
             .then(({ documents }: { documents: any }) => {
                 if (isEmpty(documents)) {
                     return
                 }
-                const { region_1depth_name, region_2depth_name, region_3depth_name } = documents[0].address
+                const { b_code, h_code, region_1depth_name, region_2depth_name, region_3depth_name } = documents[0].address
                 const location = region_1depth_name + " " + region_2depth_name + " " + region_3depth_name
                 const coordinate = { longitude, latitude }
-                setUserLocation(location.trim(), coordinate)
+                const addedAddress = { id: b_code ?? h_code, location: location.trim(), coordinate }
+                addUserAddress(addedAddress)
             })
             .catch(rej => {
-                Alert.alert(TextAlarm.error_0, rej)
+                Alert.alert(11 + TextAlarm.error_0, rej)
                 console.error(rej)
             })
     }
 
-    const setUserLocation = (location: string, coordinate: { longitude: number; latitude: number }) => {
-        const myLocationFormat = [{ location, coordinate, date: DateFormat() }]
+    const addUserAddress = (addedAddress: MY_ADDRSS) => {
+        const myAddress = getRecoil(myAddressListState)
+
+        // 내가 설정한 주소가 없으면
         if (isEmpty(myAddress)) {
-            setStorage("myAddressList", myLocationFormat)
-            setMyAddress(myLocationFormat)
-        } else {
-            const locationList = myAddress
-            locationList.unshift(myLocationFormat)
-            setStorage("myAddressList", locationList)
-            setMyAddress(locationList)
+            setStorage("myAddressList", [addedAddress])
+            setRecoil(myAddressListState, [addedAddress])
+            return
+        }
+        const hasAddress = myAddress.find(({ id }) => id === addedAddress.id)
+        let newMyAddress
+        // userLocation에 이미 해당 주소가 있으면
+        if (hasAddress) {
+            newMyAddress = myAddress.filter(({ id }) => id !== addedAddress.id)
+            newMyAddress.unshift(addedAddress)
+        }
+        // userLocation에 해당 주소가 없으면
+        else {
+            newMyAddress = [...myAddress]
+            newMyAddress.unshift(addedAddress)
+        }
+        setStorage("myAddressList", newMyAddress)
+        setRecoil(myAddressListState, newMyAddress)
+    }
+
+    const removeUserAddress = (addedAddress: MY_ADDRSS) => {
+        const myAddress = getRecoil(myAddressListState)
+        const hasAddress = myAddress.find(({ id }) => id === addedAddress.id)
+        if (hasAddress) {
+            const newMyAddress = myAddress.filter(({ id }) => id !== addedAddress.id)
+            setStorage("myAddressList", newMyAddress)
+            setRecoil(myAddressListState, newMyAddress)
         }
     }
 
-    return { checkOnlyLocationPermission, getUserLocation, setUserLocation }
+    return { checkOnlyLocationPermission, getUserLocation, addUserAddress, removeUserAddress }
 }

@@ -60,6 +60,7 @@ export interface TOAST {
 }
 
 export interface MY_ADDRSS {
+    id: string
     location: string
     coordinate: {
         longitude: number

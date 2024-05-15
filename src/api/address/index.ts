@@ -1,6 +1,20 @@
+import { KAKAO_ADDRESS_BASE_URL, KAKAO_ADDRESS_KEY, KAKAO_COORDINATE_BASE_URL } from "asset/key"
 import axios from "axios"
 
-export const getAddressLocation = async (lng: number, lat: number) => {
-    const resp = await axios.get("https://dapi.kakao.com/v2/local/geo/coord2address.json?x=" + lng + "&y=" + lat + "&input_coord=WGS84")
+export const searchAddressApi = async (address: string) => {
+    const resp = await axios.get(KAKAO_ADDRESS_BASE_URL(address), {
+        headers: { Authorization: `KakaoAK ${KAKAO_ADDRESS_KEY}` }
+    })
+
+    return resp.data
+}
+
+export const coordinateToAddressApi = async (lng: number, lat: number) => {
+    const resp = await axios.get(KAKAO_COORDINATE_BASE_URL(lng, lat), {
+        headers: {
+            Authorization: `KakaoAK ${KAKAO_ADDRESS_KEY}`,
+            "Content-type": "application/json"
+        }
+    })
     return resp.data
 }
