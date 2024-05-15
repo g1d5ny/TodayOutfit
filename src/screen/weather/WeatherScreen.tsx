@@ -13,6 +13,7 @@ import UV from "asset/icon/icon_uv_index.svg"
 import WindSpeed from "asset/icon/icon_wind_speed.svg"
 import RainPercentage from "asset/icon/icon_rain_percentage.svg"
 import EmptyCalendar from "asset/icon/icon_empty_calendar.svg"
+import Loader from "component/lottie/Loader"
 
 interface WeatherDetail {
     uv: number
@@ -80,7 +81,7 @@ const EmptyView = () => {
 }
 
 export const WeatherScreen = () => {
-    const weeklyWeatherInfo = useRecoilValue(weeklyWeatherInfoState)
+    const weeklyWeather = useRecoilValue(weeklyWeatherInfoState)
     const [open, setOpen] = useState<Open>()
 
     const MobileView = ({ children }: { children: JSX.Element }) => {
@@ -118,89 +119,111 @@ export const WeatherScreen = () => {
                 <View style={[CommonStyle.title, CommonStyle.padding]}>
                     <Text style={isTablet ? TabletFont.heading_1 : MobileFont.body_1}>이번주 날씨</Text>
                     <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.detail_3, styles.content]}>요일을 선택하면 더 자세한 기상 정보를 확인할 수 있습니다.</Text>
-                    <View style={isTablet && styles.tabletDetail}>
-                        <View style={[styles.cardContainer, isTablet && styles.weatherContainer]}>
-                            {weeklyWeatherInfo.map(
-                                (
-                                    { code, date, day, minIcon, maxIcon, uv, rainPercentage, snowPercentage, willItSnow, maxWindSpeed, minTemp, maxTemp, sunrise, sunset, backgroundColor },
-                                    index
-                                ) => {
-                                    const isFirst = index === 0
-                                    const isLast = index === weeklyWeatherInfo.length - 1
-                                    const color = day === 6 ? CommonColor.main_blue : day === 0 ? CommonColor.etc_red : CommonColor.main_black
-                                    const isOpen = open?.index === index
-
-                                    return isOpen ? (
-                                        <View key={index} style={styles.weatherCard}>
-                                            <WeatherCard
-                                                day={getDay(day)}
-                                                date={new Date(date).getDate()}
-                                                minIcon={minIcon as JSX.Element}
-                                                text={weather(code, true)?.text as string}
-                                                maxIcon={maxIcon as JSX.Element}
-                                                maxTemp={maxTemp}
-                                                minTemp={minTemp}
-                                                sunrise={sunrise}
-                                                sunset={sunset}
-                                                backgroundColor={backgroundColor}
-                                                onPress={() => setOpen(undefined)}
-                                            />
-                                            <MobileView>
-                                                <WeatherDetailComponent
-                                                    uv={uv}
-                                                    maxWindSpeed={maxWindSpeed}
-                                                    willItSnow={willItSnow}
-                                                    snowPercentage={snowPercentage}
-                                                    rainPercentage={rainPercentage}
-                                                />
-                                            </MobileView>
-                                        </View>
-                                    ) : (
-                                        <TouchableOpacity
-                                            key={index}
-                                            style={[CommonStyle.row, styles.weeklyContainer, isFirst && styles.firstWeeklyContainer, isLast && styles.lastWeeklyContainer]}
-                                            onPress={() => setOpen({ index, uv, date, maxWindSpeed, willItSnow, snowPercentage, rainPercentage })}
-                                        >
-                                            <View style={CommonStyle.row}>
-                                                <View style={CommonStyle.row}>
-                                                    <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, styles.day, { color }]}>{getDay(day)}</Text>
-                                                    <Text style={isTablet ? TabletFont.body_2 : MobileFont.body_2}>{new Date(date).getDate()}</Text>
-                                                </View>
-                                                <View style={[CommonStyle.row, styles.weather]}>
-                                                    <View>{weather(code, true)?.minIcon}</View>
-                                                    <Text style={[isTablet ? TabletFont.body_2 : MobileFont.body_2, styles.text]}>{weather(code, true)?.text}</Text>
-                                                </View>
-                                            </View>
-                                            <View style={[CommonStyle.row, styles.tempContainer]}>
-                                                <MinTemp />
-                                                <Text style={[isTablet ? TabletFont.detail_3 : MobileFont.detail_3, styles.interval, { color: CommonColor.basic_gray_dark }]}>
-                                                    {minTemp}˚
-                                                </Text>
-                                                <View style={[styles.line, styles.interval]} />
-                                                <MaxTemp />
-                                                <Text style={[isTablet ? TabletFont.detail_3 : MobileFont.detail_3, styles.interval, { color: CommonColor.basic_gray_dark }]}>
-                                                    {maxTemp}˚
-                                                </Text>
-                                            </View>
-                                        </TouchableOpacity>
-                                    )
-                                }
-                            )}
+                    {!weeklyWeather ? (
+                        <View style={CommonStyle.flex}>
+                            <Loader />
                         </View>
-                        <TabletView>
-                            {open ? (
-                                <WeatherDetailComponent
-                                    uv={open.uv}
-                                    maxWindSpeed={open.maxWindSpeed}
-                                    willItSnow={open.willItSnow}
-                                    snowPercentage={open.snowPercentage}
-                                    rainPercentage={open.rainPercentage}
-                                />
-                            ) : (
-                                <EmptyView />
-                            )}
-                        </TabletView>
-                    </View>
+                    ) : (
+                        <View style={isTablet && styles.tabletDetail}>
+                            <View style={[styles.cardContainer, isTablet && styles.weatherContainer]}>
+                                {weeklyWeather.map(
+                                    (
+                                        {
+                                            code,
+                                            date,
+                                            day,
+                                            minIcon,
+                                            maxIcon,
+                                            uv,
+                                            rainPercentage,
+                                            snowPercentage,
+                                            willItSnow,
+                                            maxWindSpeed,
+                                            minTemp,
+                                            maxTemp,
+                                            sunrise,
+                                            sunset,
+                                            backgroundColor
+                                        },
+                                        index
+                                    ) => {
+                                        const isFirst = index === 0
+                                        const isLast = index === weeklyWeather.length - 1
+                                        const color = day === 6 ? CommonColor.main_blue : day === 0 ? CommonColor.etc_red : CommonColor.main_black
+                                        const isOpen = open?.index === index
+
+                                        return isOpen ? (
+                                            <View key={index} style={styles.weatherCard}>
+                                                <WeatherCard
+                                                    day={getDay(day)}
+                                                    date={new Date(date).getDate()}
+                                                    minIcon={minIcon as JSX.Element}
+                                                    text={weather(code, true)?.text as string}
+                                                    maxIcon={maxIcon as JSX.Element}
+                                                    maxTemp={maxTemp}
+                                                    minTemp={minTemp}
+                                                    sunrise={sunrise}
+                                                    sunset={sunset}
+                                                    backgroundColor={backgroundColor}
+                                                    onPress={() => setOpen(undefined)}
+                                                />
+                                                <MobileView>
+                                                    <WeatherDetailComponent
+                                                        uv={uv}
+                                                        maxWindSpeed={maxWindSpeed}
+                                                        willItSnow={willItSnow}
+                                                        snowPercentage={snowPercentage}
+                                                        rainPercentage={rainPercentage}
+                                                    />
+                                                </MobileView>
+                                            </View>
+                                        ) : (
+                                            <TouchableOpacity
+                                                key={index}
+                                                style={[CommonStyle.row, styles.weeklyContainer, isFirst && styles.firstWeeklyContainer, isLast && styles.lastWeeklyContainer]}
+                                                onPress={() => setOpen({ index, uv, date, maxWindSpeed, willItSnow, snowPercentage, rainPercentage })}
+                                            >
+                                                <View style={CommonStyle.row}>
+                                                    <View style={CommonStyle.row}>
+                                                        <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, styles.day, { color }]}>{getDay(day)}</Text>
+                                                        <Text style={isTablet ? TabletFont.body_2 : MobileFont.body_2}>{new Date(date).getDate()}</Text>
+                                                    </View>
+                                                    <View style={[CommonStyle.row, styles.weather]}>
+                                                        <View>{weather(code, true)?.minIcon}</View>
+                                                        <Text style={[isTablet ? TabletFont.body_2 : MobileFont.body_2, styles.text]}>{weather(code, true)?.text}</Text>
+                                                    </View>
+                                                </View>
+                                                <View style={[CommonStyle.row, styles.tempContainer]}>
+                                                    <MinTemp />
+                                                    <Text style={[isTablet ? TabletFont.detail_3 : MobileFont.detail_3, styles.interval, { color: CommonColor.basic_gray_dark }]}>
+                                                        {minTemp}˚
+                                                    </Text>
+                                                    <View style={[styles.line, styles.interval]} />
+                                                    <MaxTemp />
+                                                    <Text style={[isTablet ? TabletFont.detail_3 : MobileFont.detail_3, styles.interval, { color: CommonColor.basic_gray_dark }]}>
+                                                        {maxTemp}˚
+                                                    </Text>
+                                                </View>
+                                            </TouchableOpacity>
+                                        )
+                                    }
+                                )}
+                            </View>
+                            <TabletView>
+                                {open ? (
+                                    <WeatherDetailComponent
+                                        uv={open.uv}
+                                        maxWindSpeed={open.maxWindSpeed}
+                                        willItSnow={open.willItSnow}
+                                        snowPercentage={open.snowPercentage}
+                                        rainPercentage={open.rainPercentage}
+                                    />
+                                ) : (
+                                    <EmptyView />
+                                )}
+                            </TabletView>
+                        </View>
+                    )}
                 </View>
             </ScrollView>
         </View>

@@ -19,15 +19,6 @@ export const HomeScreen = () => {
     const [arrow, setArrow] = useState("down")
     const { top } = useSafeAreaInsets()
 
-    const { CallCurrentWeather, CallTodayWeather, CallWeeklyWeather, CallHourlyWeather } = useWeatherHook()
-
-    useEffect(() => {
-        CallCurrentWeather()
-        CallTodayWeather()
-        CallWeeklyWeather()
-        CallHourlyWeather()
-    }, [])
-
     return (
         <View style={CommonStyle.flex}>
             {!currentWeather || !hourWeather || !todayWeather ? (

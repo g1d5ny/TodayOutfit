@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import HomeOn from "../../../asset/icon/icon_home_on.svg"
 import HomeOff from "../../../asset/icon/icon_home_off.svg"
@@ -13,10 +13,23 @@ import { LocationNavigator } from "./tab/location/LocationNavigator"
 import { WeatherNavigator } from "./tab/weather/WeatherNavigator"
 import { MoreNavigator } from "./tab/more/MoreNavigator"
 import { CommonColor } from "../../../style/CommonStyle"
+import { useWeatherHook } from "hook/useWeatherHook"
+import { myAddressListState } from "store"
+import { useRecoilValue } from "recoil"
 
 const { Navigator, Screen } = createBottomTabNavigator()
 
 export const TabNavigator = () => {
+    const myAddressList = useRecoilValue(myAddressListState)
+    const { CallCurrentWeather, CallTodayWeather, CallWeeklyWeather, CallHourlyWeather } = useWeatherHook()
+
+    useEffect(() => {
+        CallCurrentWeather()
+        CallTodayWeather()
+        CallWeeklyWeather()
+        CallHourlyWeather()
+    }, [myAddressList])
+
     return (
         <Navigator
             initialRouteName={"HomeNavigator"}
