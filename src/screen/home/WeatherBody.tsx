@@ -14,7 +14,7 @@ export default () => {
     const currentDate = new Date().getDate()
 
     return (
-        <View style={{ flex: 1, justifyContent: "flex-end" }}>
+        <View style={{ flex: 1 }}>
             <View style={styles.character}>
                 <Image source={require("../../asset/image/image_girl.png")} style={{ width: isTablet ? 286 : 186, height: isTablet ? 720 : 470 }} />
                 <View>
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     },
     recomContainer: {
         flexDirection: isTablet ? "row" : "column",
-        alignItems: "center",
+        alignSelf: "flex-end",
         flexWrap: "wrap",
         marginTop: 9
     },

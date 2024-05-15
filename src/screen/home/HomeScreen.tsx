@@ -1,23 +1,37 @@
-import { ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import { ImageBackground, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native"
 import { currentWeatherInfoState, hourWeatherInfoState, isTablet, todayWeatherInfoState } from "../../store"
-import { useWeatherHook } from "../../hook/useWeatherHook"
 import { useRecoilValue } from "recoil"
 import Loader from "../../component/lottie/Loader"
-import { useEffect, useState } from "react"
-import { CommonColor, CommonStyle } from "../../style/CommonStyle"
+import { useRef, useState } from "react"
+import { CommonColor, CommonStyle, screenHeight } from "../../style/CommonStyle"
 import ArrowDown from "../../asset/icon/icon_arrow_down.svg"
 import ArrowUp from "../../asset/icon/icon_arrow_up.svg"
 import WeatherHeader from "./WeatherHeader"
 import WeatherBody from "./WeatherBody"
-import WeatherFooter from "./WeatherFooter"
+import { WeatherFooter } from "./WeatherFooter"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
+const TAB_HEIGHT = 60
 export const HomeScreen = () => {
     const currentWeather = useRecoilValue(currentWeatherInfoState)
     const hourWeather = useRecoilValue(hourWeatherInfoState)
     const todayWeather = useRecoilValue(todayWeatherInfoState)
+    const scrollRef = useRef<ScrollView>(null)
+    const viewRef = useRef<View>(null)
     const [arrow, setArrow] = useState("down")
-    const { top } = useSafeAreaInsets()
+    const { top, bottom } = useSafeAreaInsets()
+
+    const handleScroll = () => {
+        if (arrow === "up") {
+            scrollRef?.current?.scrollTo({ y: 0, animated: true })
+            setArrow("down")
+            return
+        }
+        viewRef?.current?.measureLayout(scrollRef?.current?.getInnerViewNode(), (x, y) => {
+            scrollRef?.current?.scrollTo({ y, animated: true })
+            setArrow("up")
+        })
+    }
 
     return (
         <View style={CommonStyle.flex}>
@@ -26,17 +40,22 @@ export const HomeScreen = () => {
                     <Loader />
                 </View>
             ) : (
-                <ScrollView style={CommonStyle.flex}>
-                    <ImageBackground source={require("../../asset/image/image_background.png")} resizeMode='cover' style={{ flex: 1, paddingHorizontal: isTablet ? 32 : 16 }}>
-                        <SafeAreaView style={{ flex: 1 }}>
-                            <View style={styles.bar} />
+                <View style={CommonStyle.flex}>
+                    <ScrollView ref={scrollRef}>
+                        <ImageBackground
+                            source={require("../../asset/image/image_background.png")}
+                            resizeMode='cover'
+                            style={[CommonStyle.padding, { height: screenHeight - top - bottom - TAB_HEIGHT }]}
+                        >
                             <WeatherHeader />
                             <WeatherBody />
-                            <TouchableOpacity style={styles.scroller}>{arrow === "down" ? <ArrowDown /> : <ArrowUp />}</TouchableOpacity>
-                        </SafeAreaView>
-                    </ImageBackground>
-                    <WeatherFooter />
-                </ScrollView>
+                        </ImageBackground>
+                        <WeatherFooter viewRef={viewRef} />
+                    </ScrollView>
+                    <TouchableOpacity onPress={handleScroll} style={styles.scroller}>
+                        {arrow === "down" ? <ArrowDown /> : <ArrowUp />}
+                    </TouchableOpacity>
+                </View>
             )}
         </View>
     )
@@ -50,7 +69,10 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         alignItems: "center",
         justifyContent: "center",
-        alignSelf: "flex-end"
+        alignSelf: "flex-end",
+        position: "absolute",
+        bottom: 8,
+        right: CommonStyle.padding.paddingHorizontal
     },
     weatherContainer: {
         marginTop: 26
@@ -97,11 +119,5 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between",
         flexDirection: "row"
-    },
-    bar: {
-        width: "100%",
-        height: 2,
-        backgroundColor: "#fff",
-        marginTop: isTablet ? 6 : 11
     }
 })

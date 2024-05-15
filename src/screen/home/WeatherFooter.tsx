@@ -10,7 +10,7 @@ import WindDirection from "../../asset/icon/icon_wind_dir.svg"
 import RainPercentage from "../../asset/icon/icon_rain_percentage.svg"
 import Humidity from "../../asset/icon/icon_humidity.svg"
 import SnowFall from "../../asset/icon/icon_snow_fall.svg"
-import { useCallback, useEffect, useState } from "react"
+import { LegacyRef, useCallback, useEffect, useState } from "react"
 import { FeelsLikeFormat, HumidityFormat, RainPercentageFormat, SnowFallFormat, UVFormat, WindDirectionFormat, WindSpeedFormat } from "../../utils"
 import { navigationRef } from "navigation/RootNavigation"
 import { HOUR_WEATHER } from "type"
@@ -23,7 +23,7 @@ interface WeatherHourlyCard {
     isClicked: boolean
     index?: number
 }
-export default () => {
+export const WeatherFooter = ({ viewRef }: { viewRef: LegacyRef<View> }) => {
     const hourWeather = useRecoilValue(hourWeatherInfoState)
     const currentWeather = useRecoilValue(currentWeatherInfoState)
     const [selectedHour, setSelectedHour] = useState<HOUR_WEATHER>()
@@ -67,9 +67,9 @@ export default () => {
     }, [])
 
     return (
-        <View style={[styles.wrapper]}>
+        <View ref={viewRef} style={[CommonStyle.padding, styles.wrapper]}>
             <View style={styles.title}>
-                <Text style={[isTablet ? TabletFont.heading_1 : MobileFont.heading_1]}>일기 예보 상세</Text>
+                <Text style={[isTablet ? TabletFont.heading_1 : MobileFont.heading_1]}>날씨 정보</Text>
                 <View style={CommonStyle.row}>
                     <LocationView />
                     <View style={styles.date}>
@@ -314,9 +314,6 @@ const styles = StyleSheet.create({
         justifyContent: "space-between"
     },
     wrapper: {
-        width: "100%",
-        backgroundColor: "#fff",
-        paddingHorizontal: isTablet ? 32 : 16,
         marginTop: 50,
         paddingVertical: 15
     }
