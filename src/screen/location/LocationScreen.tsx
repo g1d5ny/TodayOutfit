@@ -10,6 +10,7 @@ import UnCheck from "asset/icon/icon_uncheck_circle.svg"
 import { useState } from "react"
 import { useUserLocationHook } from "hook/useUserLocationHook"
 import { MY_ADDRSS } from "type"
+import { NowDate } from "utils"
 
 export const LocationScreen = () => {
     const myAddressList = useRecoilValue(myAddressListState)
@@ -17,7 +18,7 @@ export const LocationScreen = () => {
 
     const SelectedView = ({ location }: { location: string }) => {
         return (
-            <TouchableOpacity style={[CommonStyle.row, styles.locationContainer, styles.selectedContainer]}>
+            <View style={[CommonStyle.row, styles.locationContainer, styles.selectedContainer]}>
                 <View style={CommonStyle.row}>
                     <LocationOn width={22} />
                     <View style={styles.locationView}>
@@ -26,7 +27,7 @@ export const LocationScreen = () => {
                     </View>
                 </View>
                 <Check />
-            </TouchableOpacity>
+            </View>
         )
     }
 
@@ -34,7 +35,7 @@ export const LocationScreen = () => {
         const { id, location, date, coordinate } = item
 
         return (
-            <TouchableOpacity style={[CommonStyle.row, styles.locationContainer, styles.prevContainer]} onPress={() => addUserAddress({ id, location, coordinate })}>
+            <TouchableOpacity style={[CommonStyle.row, styles.locationContainer, styles.prevContainer]} onPress={() => addUserAddress({ id, location, coordinate, date: NowDate() })}>
                 <View style={CommonStyle.row}>
                     <LocationOff width={22} />
                     <View style={styles.locationView}>

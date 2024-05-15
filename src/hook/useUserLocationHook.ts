@@ -50,7 +50,7 @@ export const useUserLocationHook = () => {
                 const { b_code, h_code, region_1depth_name, region_2depth_name, region_3depth_name } = documents[0].address
                 const location = region_1depth_name + " " + region_2depth_name + " " + region_3depth_name
                 const coordinate = { longitude, latitude }
-                const addedAddress = { id: b_code ?? h_code, location: location.trim(), coordinate }
+                const addedAddress = { id: b_code ?? h_code, location: location.trim(), coordinate, date: NowDate() }
                 addUserAddress(addedAddress)
             })
             .catch(rej => {

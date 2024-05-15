@@ -9,6 +9,7 @@ import { useUserLocationHook } from "../../hook/useUserLocationHook"
 import { LocationPermissionModal } from "../../component/LocationPermissionModal"
 import { useAddressHook } from "../../hook/useAddressHook"
 import { MY_ADDRSS } from "../../type"
+import { NowDate } from "utils"
 
 const selectedAddressInitialValue = {
     id: "",
@@ -16,7 +17,8 @@ const selectedAddressInitialValue = {
     coordinate: {
         longitude: 0,
         latitude: 0
-    }
+    },
+    date: NowDate()
 }
 export const SearchAddressScreen = ({ navigation }: { navigation: any }) => {
     const resultAddress = useRecoilValue(resultAdressListState)
@@ -82,7 +84,7 @@ export const SearchAddressScreen = ({ navigation }: { navigation: any }) => {
                             style={[styles.confirmButton, { backgroundColor: isNotFoundAddress ? CommonColor.basic_gray_medium : CommonColor.main_blue }]}
                             onPress={() => {
                                 const { id, location, coordinate } = selectedAddress
-                                addUserAddress({ id, location: location.trim(), coordinate })
+                                addUserAddress({ id, location: location.trim(), coordinate, date: NowDate() })
                                 navigate()
                             }}
                         >

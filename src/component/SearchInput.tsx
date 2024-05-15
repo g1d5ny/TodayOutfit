@@ -12,6 +12,7 @@ import { isEmpty } from "lodash"
 import { MY_ADDRSS } from "../type"
 import BlueCheck from "../asset/icon/icon_blue_check.svg"
 import GrayCheck from "../asset/icon/icon_gray_check.svg"
+import { NowDate } from "utils"
 
 interface InputProps extends TextInputProps {
     isInput: boolean
@@ -31,7 +32,8 @@ const selectedAddressInitialValue = {
     coordinate: {
         longitude: 0,
         latitude: 0
-    }
+    },
+    date: NowDate()
 }
 export const SearchInput = memo(({ isInput, navigate, getLocation, isOnFocus, setIsOnFocus, selectedAddress, setSelectedAddress, ...props }: InputProps) => {
     const [isVisible, setIsVisible] = useState(false)
@@ -114,7 +116,8 @@ export const SearchInput = memo(({ isInput, navigate, getLocation, isOnFocus, se
                                                     setSelectedAddress({
                                                         id: b_code ?? h_code,
                                                         location: region_1depth_name + " " + region_2depth_name + " " + region_3depth_h_name + " " + region_3depth_name,
-                                                        coordinate: { longitude: Number(x), latitude: Number(y) }
+                                                        coordinate: { longitude: Number(x), latitude: Number(y) },
+                                                        date: NowDate()
                                                     })
                                                 }
                                             >
