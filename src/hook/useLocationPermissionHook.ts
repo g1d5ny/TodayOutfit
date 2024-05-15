@@ -1,16 +1,15 @@
-import { Platform } from "react-native"
+import { Alert, Platform } from "react-native"
 import { PERMISSIONS, requestMultiple } from "react-native-permissions"
 import Geolocation from "react-native-geolocation-service"
-import { useAddressHook } from "./useAddressHook"
 import { isEmpty } from "lodash"
 import { myAddressListState, setStorage } from "../store"
 import { useRecoilStateLoadable } from "recoil"
 import { DateFormat } from "../utils"
-import { MY_ADDRSS } from "../type"
+import { getAddressLocation } from "api/address"
+import { TextAlarm } from "text/AlarmText"
 
 export const useLocationPermissionHook = () => {
     const [{ contents: myAddress }, setMyAddress] = useRecoilStateLoadable(myAddressListState)
-    const { coordinateToAddress } = useAddressHook()
 
     const checkOnlyLocationPermission = async () => {
         try {
@@ -44,17 +43,20 @@ export const useLocationPermissionHook = () => {
 
     // 위도, 경도에 따른 지번, 도로명 주소 가져오기
     const getNowLocation = async (longitude: number, latitude: number) => {
-        coordinateToAddress(longitude, latitude)
-            .then((res: any) => {
-                if (isEmpty(res.documents)) {
+        getAddressLocation(longitude, latitude)
+            .then(({ documents }: { documents: any }) => {
+                if (isEmpty(documents)) {
                     return
                 }
-                const { region_1depth_name, region_2depth_name, region_3depth_name } = res.documents[0].address
+                const { region_1depth_name, region_2depth_name, region_3depth_name } = documents[0].address
                 const location = region_1depth_name + " " + region_2depth_name + " " + region_3depth_name
                 const coordinate = { longitude, latitude }
                 setUserLocation(location.trim(), coordinate)
             })
-            .catch(rej => console.error(rej))
+            .catch(rej => {
+                Alert.alert(TextAlarm.error_0, rej)
+                console.error(rej)
+            })
     }
 
     const setUserLocation = (location: string, coordinate: { longitude: number; latitude: number }) => {
