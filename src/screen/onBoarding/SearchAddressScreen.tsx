@@ -10,6 +10,7 @@ import { LocationPermissionModal } from "../../component/LocationPermissionModal
 import { useAddressHook } from "../../hook/useAddressHook"
 import { MY_ADDRSS } from "../../type"
 import { NowDate } from "utils"
+import { navigationRef } from "navigation/RootNavigation"
 
 const selectedAddressInitialValue = {
     id: "",
@@ -20,7 +21,7 @@ const selectedAddressInitialValue = {
     },
     date: NowDate()
 }
-export const SearchAddressScreen = ({ navigation }: { navigation: any }) => {
+export const SearchAddressScreen = () => {
     const resultAddress = useRecoilValue(resultAdressListState)
     const [isVisible, setIsVisible] = useState(false)
     const [onFocus, setOnFocus] = useState(false)
@@ -41,7 +42,7 @@ export const SearchAddressScreen = ({ navigation }: { navigation: any }) => {
     }
 
     const navigate = () => {
-        navigation.navigate("SelectGenderScreen")
+        navigationRef?.current?.navigate("SelectGenderScreen")
     }
 
     return (

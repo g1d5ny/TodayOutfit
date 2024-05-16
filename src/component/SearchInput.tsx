@@ -114,7 +114,7 @@ export const SearchInput = memo(({ isInput, navigate, getLocation, isOnFocus, se
                                                 onPress={() =>
                                                     setSelectedAddress &&
                                                     setSelectedAddress({
-                                                        id: b_code ?? h_code,
+                                                        id: isEmpty(b_code) ? h_code : b_code,
                                                         location: region_1depth_name + " " + region_2depth_name + " " + region_3depth_h_name + " " + region_3depth_name,
                                                         coordinate: { longitude: Number(x), latitude: Number(y) },
                                                         date: NowDate()

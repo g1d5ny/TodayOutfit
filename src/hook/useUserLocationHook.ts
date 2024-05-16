@@ -54,7 +54,7 @@ export const useUserLocationHook = () => {
                 addUserAddress(addedAddress)
             })
             .catch(rej => {
-                Alert.alert(11 + TextAlarm.error_0, rej)
+                Alert.alert(TextAlarm.error_0, rej)
                 console.error(rej)
             })
     }
