@@ -66,7 +66,7 @@ export interface MY_ADDRSS {
         longitude: number
         latitude: number
     }
-    date: string
+    date?: string
 }
 
 export interface CURRENT_WEATHER {

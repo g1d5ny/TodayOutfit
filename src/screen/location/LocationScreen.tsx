@@ -7,14 +7,27 @@ import LocationOn from "asset/icon/icon_location_on.svg"
 import LocationOff from "asset/icon/icon_location_off.svg"
 import Check from "asset/icon/icon_check_circle.svg"
 import UnCheck from "asset/icon/icon_uncheck_circle.svg"
-import { useState } from "react"
+import Remove from "asset/icon/icon_remove_circle.svg"
+import { useEffect, useState } from "react"
 import { useUserLocationHook } from "hook/useUserLocationHook"
 import { MY_ADDRSS } from "type"
 import { NowDate } from "utils"
+import { SearchHistory } from "component/SearchHistory"
 
+const selectedAddressInitialValue = {
+    id: "",
+    location: "",
+    coordinate: {
+        longitude: 0,
+        latitude: 0
+    },
+    date: NowDate()
+}
 export const LocationScreen = () => {
     const myAddressList = useRecoilValue(myAddressListState)
-    const { addUserAddress, getUserLocation } = useUserLocationHook()
+    const [showRemoveView, setShowRemoveView] = useState<boolean>(false)
+    const [selectedAddress, setSelectedAddress] = useState<MY_ADDRSS>(selectedAddressInitialValue)
+    const { addUserAddress, removeUserAddress, getUserLocation } = useUserLocationHook()
 
     const SelectedView = ({ location }: { location: string }) => {
         return (
@@ -33,9 +46,16 @@ export const LocationScreen = () => {
 
     const PrevView = ({ item }: { item: MY_ADDRSS }) => {
         const { id, location, date, coordinate } = item
+        const add = addUserAddress({ id, location, coordinate, date: NowDate() })
+        const remove = removeUserAddress({ id, location, coordinate })
 
         return (
-            <TouchableOpacity style={[CommonStyle.row, styles.locationContainer, styles.prevContainer]} onPress={() => addUserAddress({ id, location, coordinate, date: NowDate() })}>
+            <TouchableOpacity
+                style={[CommonStyle.row, styles.locationContainer, styles.prevContainer, showRemoveView && styles.removeContainer]}
+                onPress={() => {
+                    showRemoveView ? remove : add
+                }}
+            >
                 <View style={CommonStyle.row}>
                     <LocationOff width={22} />
                     <View style={styles.locationView}>
@@ -43,19 +63,28 @@ export const LocationScreen = () => {
                         <Text style={isTablet ? TabletFont.button_1 : MobileFont.heading_2}>{location}</Text>
                     </View>
                 </View>
-                <UnCheck />
+                {showRemoveView ? <Remove /> : <UnCheck />}
             </TouchableOpacity>
         )
     }
+
+    useEffect(() => {
+        if (selectedAddress.id) {
+            addUserAddress(selectedAddress)
+        }
+    }, [selectedAddress])
 
     return (
         <View style={CommonStyle.flex}>
             <View style={styles.header}>
                 <Text style={[isTablet ? TabletFont.button_1 : MobileFont.heading_1]}>위치 설정</Text>
-                <Text style={[isTablet ? TabletFont.body_2 : MobileFont.body_2, { color: CommonColor.main_blue }]}>편집</Text>
+                <TouchableOpacity onPress={() => setShowRemoveView(!showRemoveView)}>
+                    <Text style={[isTablet ? TabletFont.body_2 : MobileFont.body_2, { color: CommonColor.main_blue }]}>{showRemoveView ? "취소" : "편집"}</Text>
+                </TouchableOpacity>
             </View>
             <View style={CommonStyle.padding}>
-                <SearchInput isInput getLocation={getUserLocation} />
+                <SearchInput isInput getLocation={getUserLocation} selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress} />
+                <SearchHistory />
                 {myAddressList?.map((item, index) => {
                     const { id, location } = item
                     const isSelected = id === myAddressList[0].id
@@ -67,6 +96,10 @@ export const LocationScreen = () => {
 }
 
 const styles = StyleSheet.create({
+    removeContainer: {
+        borderWidth: 2,
+        borderColor: CommonColor.etc_red
+    },
     prevLocation: {
         color: CommonColor.basic_gray_medium,
         marginBottom: 4
