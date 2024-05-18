@@ -1,8 +1,8 @@
 import React, { useState } from "react"
 import { SearchInput } from "component/SearchInput"
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
-import { useRecoilState, useRecoilValue } from "recoil"
-import { isTablet, myAddressListState, resultAdressListState } from "store"
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
+import { inputAddressState, isTablet, myAddressListState, resultAdressListState } from "store"
 import { CommonColor, CommonStyle, MobileFont, TabletFont, screenWidth } from "style/CommonStyle"
 import LocationOn from "asset/icon/icon_location_on.svg"
 import LocationOff from "asset/icon/icon_location_off.svg"
@@ -26,7 +26,7 @@ const selectedAddressInitialValue = {
 }
 export const LocationScreen = () => {
     const myAddressList = useRecoilValue(myAddressListState)
-    const inputAddress = useRecoilValue(resultAdressListState)
+    const setInputAddress = useSetRecoilState(inputAddressState)
     const [resultAddress, setResultAddress] = useRecoilState(resultAdressListState)
     const isNotFoundAddress = resultAddress && resultAddress[0] === "NOT_FOUND"
     const [showRemoveView, setShowRemoveView] = useState<boolean>(false)
@@ -101,7 +101,7 @@ export const LocationScreen = () => {
                         })
                     )}
                 </View>
-                {inputAddress.length > 0 && (
+                {resultAddress.length > 0 && (
                     <TouchableOpacity
                         disabled={isNotFoundAddress}
                         style={[styles.confirmButton, { backgroundColor: isNotFoundAddress ? CommonColor.basic_gray_medium : CommonColor.main_blue }]}
@@ -110,6 +110,7 @@ export const LocationScreen = () => {
                                 addUserAddress({ id: selectedAddress.id, location: selectedAddress.location, coordinate: selectedAddress.coordinate, date: NowDate() })
                                 setSelectedAddress(null)
                                 setResultAddress([])
+                                setInputAddress("")
                             }
                         }}
                     >

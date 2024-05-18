@@ -1,16 +1,28 @@
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import History from "asset/icon/icon_history_record.svg"
 import { CommonColor, CommonStyle, MobileFont, TabletFont } from "style/CommonStyle"
-import { isTablet, myAddressListState } from "store"
-import { useRecoilValue } from "recoil"
+import { inputAddressState, isTablet, myAddressListState, resultAdressListState } from "store"
+import { useRecoilValue, useSetRecoilState } from "recoil"
+import { useUserLocationHook } from "hook/useUserLocationHook"
+import { MY_ADDRSS } from "type"
 
 export const SearchHistory = () => {
     const myAddressList = useRecoilValue(myAddressListState)
+    const setResultAddress = useSetRecoilState(resultAdressListState)
+    const setInputAddress = useSetRecoilState(inputAddressState)
+    const { addUserAddress } = useUserLocationHook()
 
-    const Component = ({ location }: { location: string }) => {
+    const Component = ({ item }: { item: MY_ADDRSS }) => {
         return (
-            <TouchableOpacity style={styles.item}>
-                <Text style={(isTablet ? TabletFont.detail_2 : MobileFont.detail_3, { color: CommonColor.basic_gray_dark })}>{location}</Text>
+            <TouchableOpacity
+                style={styles.item}
+                onPress={() => {
+                    addUserAddress(item)
+                    setResultAddress([])
+                    setInputAddress("")
+                }}
+            >
+                <Text style={(isTablet ? TabletFont.detail_2 : MobileFont.detail_3, { color: CommonColor.basic_gray_dark })}>{item.location}</Text>
             </TouchableOpacity>
         )
     }
@@ -23,11 +35,11 @@ export const SearchHistory = () => {
                         <History />
                     </View>
                 )}
-                {myAddressList.map(({ location }, index) => {
+                {myAddressList.map((item, index) => {
                     if (index === 0) {
                         return
                     }
-                    return <Component key={index} location={location} />
+                    return <Component key={index} item={item} />
                 })}
             </ScrollView>
         </View>
