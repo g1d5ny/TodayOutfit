@@ -26,7 +26,7 @@ export const Header = ({ text, hasBack }: Header) => {
 
 export const WeatherDetailFooter = ({ text }: { text: string }) => {
     return (
-        <View style={[styles.bottomLine, CommonStyle.center, { paddingHorizontal: isTablet ? 100 : 0 }]}>
+        <View style={[styles.bottomLine, CommonStyle.center, CommonStyle.padding]}>
             <Text style={[isTablet ? TabletFont.detail_3 : MobileFont.detail_3, { color: CommonColor.basic_gray_medium }]}>{text}</Text>
         </View>
     )

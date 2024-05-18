@@ -54,7 +54,7 @@ const WeatherDetailComponent = ({ uv, maxWindSpeed, willItSnow, snowPercentage, 
                     content={SnowFallFormat(snowPercentage)?.content as string}
                     desc={SnowFallFormat(snowPercentage)?.text as string}
                     contentIcon={SnowFallFormat(snowPercentage)?.icon}
-                    onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 2 } })}
+                    onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 6 } })}
                 />
             ) : (
                 <WeatherDetail
@@ -63,7 +63,7 @@ const WeatherDetailComponent = ({ uv, maxWindSpeed, willItSnow, snowPercentage, 
                     content={RainPercentageFormat(rainPercentage)?.content as string}
                     desc={RainPercentageFormat(rainPercentage)?.text as string}
                     contentIcon={RainPercentageFormat(rainPercentage)?.icon}
-                    onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 2 } })}
+                    onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 4 } })}
                 />
             )}
         </>
