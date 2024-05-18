@@ -299,6 +299,9 @@ export const TextShadowStyle = {
 }
 
 export const CommonStyle = StyleSheet.create({
+    spread: {
+        justifyContent: "space-between"
+    },
     title: {
         marginTop: 32,
         justifyContent: "space-between"

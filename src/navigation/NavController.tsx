@@ -8,7 +8,6 @@ import { OnBoardingNavigator } from "./onBoardingNavigation/OnBoardingNavigator"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { MainNavigator } from "./MainNavigation/MainNavigor"
 import { CommonStyle } from "style/CommonStyle"
-import { useNavigation } from "@react-navigation/native"
 
 export const NavController = () => {
     const { contents: isLoggedIn, state } = useRecoilValueLoadable(loggedInState)

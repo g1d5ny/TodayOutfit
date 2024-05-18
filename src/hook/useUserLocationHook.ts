@@ -68,18 +68,9 @@ export const useUserLocationHook = () => {
             setRecoil(myAddressListState, [addedAddress])
             return
         }
-        const hasAddress = myAddress.find(({ id }) => id === addedAddress.id)
-        let newMyAddress
         // userLocation에 이미 해당 주소가 있으면
-        if (hasAddress) {
-            newMyAddress = myAddress.filter(({ id }) => id !== addedAddress.id)
-            newMyAddress.unshift(addedAddress)
-        }
-        // userLocation에 해당 주소가 없으면
-        else {
-            newMyAddress = [...myAddress]
-            newMyAddress.unshift(addedAddress)
-        }
+        const newMyAddress = myAddress.filter(({ id }) => id !== addedAddress.id)
+        newMyAddress.unshift(addedAddress)
         setStorage("myAddressList", newMyAddress)
         setRecoil(myAddressListState, newMyAddress)
     }

@@ -16,27 +16,17 @@ export const SearchHistory = () => {
     }
 
     return (
-        <View style={[CommonStyle.row, styles.flex]}>
+        <View style={[CommonStyle.row, myAddressList.length >= 2 && styles.flex]}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                <View style={styles.history}>
-                    <History />
-                </View>
+                {myAddressList.length >= 2 && (
+                    <View style={styles.history}>
+                        <History />
+                    </View>
+                )}
                 {myAddressList.map(({ location }, index) => {
                     if (index === 0) {
                         return
                     }
-                    return <Component key={index} location={location} />
-                })}
-                {myAddressList.map(({ location }, index) => {
-                    return <Component key={index} location={location} />
-                })}
-                {myAddressList.map(({ location }, index) => {
-                    return <Component key={index} location={location} />
-                })}
-                {myAddressList.map(({ location }, index) => {
-                    return <Component key={index} location={location} />
-                })}
-                {myAddressList.map(({ location }, index) => {
                     return <Component key={index} location={location} />
                 })}
             </ScrollView>

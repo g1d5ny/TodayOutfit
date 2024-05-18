@@ -11,6 +11,7 @@ import { useAddressHook } from "../../hook/useAddressHook"
 import { MY_ADDRSS } from "../../type"
 import { NowDate } from "utils"
 import { navigationRef } from "navigation/RootNavigation"
+import { SearchResult } from "component/SearchResult"
 
 const selectedAddressInitialValue = {
     id: "",
@@ -26,7 +27,7 @@ export const SearchAddressScreen = () => {
     const [isVisible, setIsVisible] = useState(false)
     const [onFocus, setOnFocus] = useState(false)
     const isNotFoundAddress = resultAddress && resultAddress[0] === "NOT_FOUND"
-    const [selectedAddress, setSelectedAddress] = useState<MY_ADDRSS>(selectedAddressInitialValue)
+    const [selectedAddress, setSelectedAddress] = useState<MY_ADDRSS | null>(selectedAddressInitialValue)
     const { checkOnlyLocationPermission, getUserLocation, addUserAddress } = useUserLocationHook()
     const { searchAddress } = useAddressHook()
 
@@ -56,15 +57,8 @@ export const SearchAddressScreen = () => {
                         <Text style={[styles.content, { marginTop: isTablet ? 12 : 10, color: CommonColor.basic_gray_dark }]}>상세주소를 제외한 행정구역까지만 입력해주세요.</Text>
                     </View>
                     <View style={styles.addressContainer}>
-                        <SearchInput
-                            isInput={true}
-                            getLocation={onPress}
-                            isOnFocus={onFocus}
-                            setIsOnFocus={setOnFocus}
-                            selectedAddress={selectedAddress}
-                            setSelectedAddress={setSelectedAddress}
-                            autoFocus
-                        />
+                        <SearchInput getLocation={onPress} isOnFocus={onFocus} setIsOnFocus={setOnFocus} autoFocus />
+                        <SearchResult selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress} />
                     </View>
                 </View>
                 <View style={{ justifyContent: "space-between" }}>
@@ -72,7 +66,7 @@ export const SearchAddressScreen = () => {
                         <View style={styles.selectedPhase} />
                         <View style={styles.unSelectedPhase} />
                     </View>
-                    {isEmpty(selectedAddress.location) ? (
+                    {!selectedAddress ? (
                         <TouchableOpacity
                             disabled={isNotFoundAddress}
                             style={[styles.confirmButton, { backgroundColor: isNotFoundAddress ? CommonColor.basic_gray_medium : CommonColor.main_blue }]}
