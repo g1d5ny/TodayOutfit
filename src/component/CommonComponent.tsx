@@ -3,7 +3,7 @@ import { Linking, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import Back from "asset/icon/icon_arrow_back.svg"
 import ArrowRight from "asset/icon/icon_arrow_right.svg"
 import { navigationRef } from "navigation/RootNavigation"
-import { CommonColor, CommonStyle, MobileFont, TabletFont } from "style/CommonStyle"
+import { CommonColor, CommonStyle, MobileFont, TabletFont, screenWidth } from "style/CommonStyle"
 import { isTablet } from "store"
 import Hyperlink from "react-native-hyperlink"
 
@@ -105,9 +105,11 @@ const styles = StyleSheet.create({
         marginRight: 20
     },
     bottomLine: {
+        width: screenWidth,
         borderTopWidth: 8,
         borderTopColor: CommonColor.basic_gray_light,
-        paddingVertical: 24
+        paddingVertical: 24,
+        alignSelf: "center"
     },
     header: {
         width: "100%",

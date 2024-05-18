@@ -62,17 +62,17 @@ export const WeatherDetailScreen = ({ route }: { navigation: any; route: any }) 
             <Header text='기상정보에 관하여' hasBack />
             <WeatherHeader />
             <PagerView ref={ref} initialPage={route.params.index} useNext={false} style={CommonStyle.flex} onPageSelected={({ nativeEvent: { position } }) => setSelectedIndex(position)}>
-                {categoryList.map(({ Component }, index) => {
+                {categoryList.map(({ Component, footer }, index) => {
                     return (
                         <ScrollView key={index} style={styles.padding}>
                             <View style={styles.component}>
                                 <Component key={index} />
                             </View>
+                            <WeatherDetailFooter text={footer} />
                         </ScrollView>
                     )
                 })}
             </PagerView>
-            <WeatherDetailFooter text={categoryList[selectedIndex].footer} />
         </View>
     )
 }
