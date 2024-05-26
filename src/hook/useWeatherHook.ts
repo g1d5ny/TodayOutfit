@@ -1,9 +1,10 @@
 import { useRecoilValue, useSetRecoilState } from "recoil"
 import { currentWeatherInfoState, hourWeatherInfoState, myAddressListState, todayWeatherInfoState, weather, weeklyWeatherInfoState } from "../store"
-import { HOUR_WEATHER, WEEKELY_WEATHER } from "../type"
+import { CURRENT_WEATHER, HOUR_WEATHER, WEEKELY_WEATHER } from "../type"
 import { getCurrentWeather, getDailyWeather } from "api/weather"
 import { Alert } from "react-native"
 import { TextAlarm } from "text/AlarmText"
+import { openAi } from "api/openai"
 
 export const useWeatherHook = () => {
     const myAddressList = useRecoilValue(myAddressListState)
@@ -19,24 +20,9 @@ export const useWeatherHook = () => {
             } = myAddressList[0]
 
             getCurrentWeather(longitude, latitude)
-                .then(
-                    ({
-                        current: {
-                            temp_c,
-                            is_day,
-                            condition: { code }
-                        }
-                    }) => {
-                        setCurrentWeatherInfo({
-                            code,
-                            temp: parseInt(temp_c),
-                            is_day,
-                            maxIcon: weather(code, is_day)?.maxIcon as JSX.Element,
-                            minIcon: weather(code, is_day)?.minIcon as JSX.Element,
-                            backgroundColor: weather(code, is_day)?.backgroundColor as string
-                        })
-                    }
-                )
+                .then(({ current }) => {
+                    setCurrentWeather(current)
+                })
                 .catch(rej => {
                     Alert.alert(TextAlarm.error_0, rej)
                     console.error(rej)
@@ -203,6 +189,36 @@ export const useWeatherHook = () => {
                 setHourWeatherInfo(hourlyWeather)
             })
         }
+    }
+
+    const setCurrentWeather = (current: any) => {
+        const {
+            temp_c,
+            is_day,
+            precip_mm,
+            humidity,
+            feelslike_c,
+            uv,
+            wind_dir,
+            wind_mph,
+            condition: { code }
+        } = current
+
+        openAi(code, temp_c, feelslike_c, humidity, precip_mm, uv, wind_dir, wind_mph).then(({ choices }: any) => {
+            const {
+                message: { content }
+            } = choices[0]
+
+            setCurrentWeatherInfo({
+                code,
+                temp: parseInt(temp_c),
+                is_day,
+                maxIcon: weather(code, is_day)?.maxIcon as JSX.Element,
+                minIcon: weather(code, is_day)?.minIcon as JSX.Element,
+                backgroundColor: weather(code, is_day)?.backgroundColor as string,
+                desc: content
+            })
+        })
     }
 
     return { CallCurrentWeather, CallTodayWeather, CallWeeklyWeather, CallHourlyWeather }

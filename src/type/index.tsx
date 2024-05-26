@@ -76,6 +76,7 @@ export interface CURRENT_WEATHER {
     minIcon: JSX.Element
     maxIcon: JSX.Element
     backgroundColor: string
+    desc?: string // 현재 날씨에 대한 한줄 요약
 }
 
 export interface TODAY_WEATHER {
@@ -118,6 +119,11 @@ export interface WEEKELY_WEATHER extends TODAY_WEATHER {
     date: string
     day: number
     backgroundColor: string
+}
+
+export interface RECOMMEND_COSTUME {
+    top: string // 상의
+    bottom: string // 하의
 }
 
 export type WEATHER_DESC_ENG = "clear-day" | "snow" | "partly-cloudy-day" | "partly-cloudy-night" | "cloudy" | "rain" | "fog"
