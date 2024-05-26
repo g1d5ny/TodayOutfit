@@ -69,6 +69,13 @@ export interface MY_ADDRSS {
     date?: string
 }
 
+export interface COSTUME {
+    top: string
+    topDesc: string
+    bottom: string
+    bottomDesc: string
+}
+
 export interface CURRENT_WEATHER {
     code: number
     temp: number
@@ -76,7 +83,8 @@ export interface CURRENT_WEATHER {
     minIcon: JSX.Element
     maxIcon: JSX.Element
     backgroundColor: string
-    desc?: string // 현재 날씨에 대한 한줄 요약
+    desc: string // 현재 날씨에 대한 한줄 요약
+    costume: COSTUME
 }
 
 export interface TODAY_WEATHER {
@@ -128,3 +136,5 @@ export interface RECOMMEND_COSTUME {
 
 export type WEATHER_DESC_ENG = "clear-day" | "snow" | "partly-cloudy-day" | "partly-cloudy-night" | "cloudy" | "rain" | "fog"
 export type WEATHER_DESC_KOR = "맑음" | "눈" | "구름 조금" | "흐림" | "비" | "안개" | "천둥 번개"
+
+export type GENDER = "W" | "M"

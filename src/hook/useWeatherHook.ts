@@ -4,7 +4,7 @@ import { CURRENT_WEATHER, HOUR_WEATHER, WEEKELY_WEATHER } from "../type"
 import { getCurrentWeather, getDailyWeather } from "api/weather"
 import { Alert } from "react-native"
 import { TextAlarm } from "text/AlarmText"
-import { openAi } from "api/openai"
+import { fetchCurrentDesc } from "api/openai/index"
 
 export const useWeatherHook = () => {
     const myAddressList = useRecoilValue(myAddressListState)
@@ -204,10 +204,16 @@ export const useWeatherHook = () => {
             condition: { code }
         } = current
 
-        openAi(code, temp_c, feelslike_c, humidity, precip_mm, uv, wind_dir, wind_mph).then(({ choices }: any) => {
+        fetchCurrentDesc(code, temp_c, feelslike_c, humidity, precip_mm, uv, wind_dir, wind_mph, is_day, "W").then(({ choices }: any) => {
             const {
                 message: { content }
             } = choices[0]
+
+            const parsedData = JSON.parse(content)
+            const {
+                costume: { top, topDesc, bottom, bottomDesc },
+                desc
+            } = parsedData
 
             setCurrentWeatherInfo({
                 code,
@@ -216,7 +222,8 @@ export const useWeatherHook = () => {
                 maxIcon: weather(code, is_day)?.maxIcon as JSX.Element,
                 minIcon: weather(code, is_day)?.minIcon as JSX.Element,
                 backgroundColor: weather(code, is_day)?.backgroundColor as string,
-                desc: content
+                desc,
+                costume: { top, topDesc, bottom, bottomDesc }
             })
         })
     }

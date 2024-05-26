@@ -8,7 +8,11 @@ import { WeatherCard } from "../../component/WeatherCard"
 import { getDay } from "../../utils"
 
 export default () => {
-    const { maxIcon, backgroundColor } = useRecoilValue(currentWeatherInfoState)
+    const {
+        maxIcon,
+        backgroundColor,
+        costume: { top, topDesc, bottom, bottomDesc }
+    } = useRecoilValue(currentWeatherInfoState)
     const { minIcon, text, maxTemp, minTemp, sunrise, sunset } = useRecoilValue(todayWeatherInfoState)
     const currentDay = getDay(new Date().getDay())
     const currentDate = new Date().getDate()
@@ -25,8 +29,8 @@ export default () => {
                                 <TempClothes width={"90%"} height={"90%"} />
                             </View>
                             <View style={styles.clothesDesc}>
-                                <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>반팔</Text>
-                                <Text style={[isTablet ? TabletFont.body_2 : MobileFont.detail_3, { color: CommonColor.basic_gray_dark }]}>소매가 짧은 상의</Text>
+                                <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>{top}</Text>
+                                <Text style={[isTablet ? TabletFont.body_2 : MobileFont.detail_3, { color: CommonColor.basic_gray_dark }]}>{topDesc} 상의</Text>
                             </View>
                         </View>
                         <View style={styles.recom}>
@@ -34,8 +38,8 @@ export default () => {
                                 <TempPants width={"70%"} height={"70%"} />
                             </View>
                             <View style={styles.clothesDesc}>
-                                <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>반바지</Text>
-                                <Text style={[isTablet ? TabletFont.body_2 : MobileFont.detail_3, { color: CommonColor.basic_gray_dark }]}>소매가 짧은 하의</Text>
+                                <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>{bottom}</Text>
+                                <Text style={[isTablet ? TabletFont.body_2 : MobileFont.detail_3, { color: CommonColor.basic_gray_dark }]}>{bottomDesc} 하의</Text>
                             </View>
                         </View>
                     </View>
