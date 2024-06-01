@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native"
-import { currentWeatherInfoState, isTablet, myAddressListState, todayWeatherInfoState } from "../../store"
+import { currentWeatherInfoState, isTablet, myAddressListState, weeklyWeatherInfoState } from "../../store"
 import { useRecoilValue } from "recoil"
 import { CommonColor, MobileFont, TabletFont, TextShadowStyle } from "../../style/CommonStyle"
 import Location from "../../asset/icon/icon_location_min.svg"
@@ -9,7 +9,8 @@ import MaxTemp from "../../asset/icon/icon_max_temp.svg"
 export default () => {
     const myAddressList = useRecoilValue(myAddressListState)
     const currentWeather = useRecoilValue(currentWeatherInfoState)
-    const todayWeather = useRecoilValue(todayWeatherInfoState)
+    const weeklyWeather = useRecoilValue(weeklyWeatherInfoState)
+    const todayWeather = weeklyWeather[0]
 
     return (
         <View>

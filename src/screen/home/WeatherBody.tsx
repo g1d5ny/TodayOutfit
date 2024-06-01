@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, View } from "react-native"
-import { currentWeatherInfoState, isTablet, todayWeatherInfoState } from "../../store"
+import { currentWeatherInfoState, isTablet, weather, weeklyWeatherInfoState } from "../../store"
 import { CommonColor, MobileFont, TabletFont } from "../../style/CommonStyle"
 import TempClothes from "../../asset/icon/icon_recom_temp_clothes.svg"
 import TempPants from "../../asset/icon/icon_recom_temp_pants.svg"
@@ -11,9 +11,6 @@ export default () => {
     const {
         costume: { top, topDesc, bottom, bottomDesc }
     } = useRecoilValue(currentWeatherInfoState)
-    const { minIcon, text, maxTemp, minTemp, maxIcon, sunrise, sunset, backgroundColor } = useRecoilValue(todayWeatherInfoState)
-    const currentDay = getDay(new Date().getDay())
-    const currentDate = new Date().getDate()
 
     return (
         <View style={{ flex: 1 }}>
@@ -41,14 +38,14 @@ export default () => {
                             </View>
                         </View>
                     </View>
-                    {isTablet && (
+                    {/* {isTablet && (
                         <View>
                             <Text style={[isTablet ? TabletFont.button_1 : MobileFont.button_1, styles.titleText]}>오늘의 날씨</Text>
                             <WeatherCard
                                 day={currentDay}
                                 date={currentDate}
                                 minIcon={minIcon as JSX.Element}
-                                text={text}
+                                text={weather(code, is_day)?.text as string}
                                 maxIcon={maxIcon as JSX.Element}
                                 maxTemp={maxTemp}
                                 minTemp={minTemp}
@@ -57,7 +54,7 @@ export default () => {
                                 backgroundColor={backgroundColor}
                             />
                         </View>
-                    )}
+                    )} */}
                 </View>
             </View>
         </View>

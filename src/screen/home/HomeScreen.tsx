@@ -15,7 +15,6 @@ const TAB_HEIGHT = 60
 export const HomeScreen = () => {
     const currentWeather = useRecoilValue(currentWeatherInfoState)
     const hourWeather = useRecoilValue(hourWeatherInfoState)
-    const todayWeather = useRecoilValue(todayWeatherInfoState)
     const scrollRef = useRef<ScrollView>(null)
     const viewRef = useRef<View>(null)
     const [arrow, setArrow] = useState("down")
@@ -35,7 +34,7 @@ export const HomeScreen = () => {
 
     return (
         <View style={CommonStyle.flex}>
-            {!currentWeather || !hourWeather || !todayWeather ? (
+            {!currentWeather || !hourWeather ? (
                 <View style={CommonStyle.flex}>
                     <Loader />
                 </View>

@@ -21,11 +21,10 @@ const { Navigator, Screen } = createBottomTabNavigator()
 
 export const TabNavigator = () => {
     const myAddressList = useRecoilValue(myAddressListState)
-    const { CallCurrentWeather, CallTodayWeather, CallWeeklyWeather, CallHourlyWeather } = useWeatherHook()
+    const { CallCurrentWeather, CallWeeklyWeather, CallHourlyWeather } = useWeatherHook()
 
     useEffect(() => {
         CallCurrentWeather()
-        CallTodayWeather()
         CallWeeklyWeather()
         CallHourlyWeather()
     }, [myAddressList])

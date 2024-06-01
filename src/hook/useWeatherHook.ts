@@ -1,6 +1,6 @@
 import { useRecoilValue, useSetRecoilState } from "recoil"
 import { currentWeatherInfoState, getStorage, hourWeatherInfoState, myAddressListState, todayWeatherInfoState, weather, weeklyWeatherInfoState } from "../store"
-import { CURRENT_WEATHER, HOUR_WEATHER, WEEKELY_WEATHER } from "../type"
+import { HOUR_WEATHER, WEEKELY_WEATHER } from "../type"
 import { getCurrentWeather, getDailyWeather } from "api/weather"
 import { Alert } from "react-native"
 import { TextAlarm } from "text/AlarmText"
@@ -30,52 +30,52 @@ export const useWeatherHook = () => {
         }
     }
 
-    const CallTodayWeather = async () => {
-        if (myAddressList) {
-            const {
-                coordinate: { longitude, latitude }
-            } = myAddressList[0]
+    // const CallTodayWeather = async () => {
+    //     if (myAddressList) {
+    //         const {
+    //             coordinate: { longitude, latitude }
+    //         } = myAddressList[0]
 
-            getDailyWeather(longitude, latitude, 1).then(({ forecast: { forecastday } }) => {
-                const {
-                    date_epoch,
-                    astro: { sunrise, sunset },
-                    day: {
-                        maxtemp_c,
-                        mintemp_c,
-                        avgtemp_c,
-                        uv,
-                        maxwind_kph,
-                        daily_chance_of_rain,
-                        daily_chance_of_snow,
-                        daily_will_it_rain,
-                        daily_will_it_snow,
-                        condition: { code }
-                    }
-                } = forecastday[0]
+    //         getDailyWeather(longitude, latitude, 1).then(({ forecast: { forecastday } }) => {
+    //             const {
+    //                 date_epoch,
+    //                 astro: { sunrise, sunset },
+    //                 day: {
+    //                     maxtemp_c,
+    //                     mintemp_c,
+    //                     avgtemp_c,
+    //                     uv,
+    //                     maxwind_kph,
+    //                     daily_chance_of_rain,
+    //                     daily_chance_of_snow,
+    //                     daily_will_it_rain,
+    //                     daily_will_it_snow,
+    //                     condition: { code }
+    //                 }
+    //             } = forecastday[0]
 
-                setTodayWeatherInfo({
-                    code,
-                    sunrise,
-                    sunset,
-                    text: weather(code, true)?.text as string,
-                    uv,
-                    maxWindSpeed: maxwind_kph,
-                    willItRain: daily_will_it_rain,
-                    willItSnow: daily_will_it_snow,
-                    rainPercentage: daily_chance_of_rain,
-                    snowPercentage: daily_chance_of_snow,
-                    datetimeEpoch: date_epoch,
-                    avgTemp: parseInt(avgtemp_c),
-                    maxTemp: parseInt(maxtemp_c),
-                    minTemp: parseInt(mintemp_c),
-                    minIcon: weather(code, true)?.minIcon as JSX.Element,
-                    maxIcon: weather(code, true)?.maxIcon as JSX.Element,
-                    backgroundColor: weather(code, true)?.backgroundColor as string
-                })
-            })
-        }
-    }
+    //             setTodayWeatherInfo({
+    //                 code,
+    //                 sunrise,
+    //                 sunset,
+    //                 text: weather(code, true)?.text as string,
+    //                 uv,
+    //                 maxWindSpeed: maxwind_kph,
+    //                 willItRain: daily_will_it_rain,
+    //                 willItSnow: daily_will_it_snow,
+    //                 rainPercentage: daily_chance_of_rain,
+    //                 snowPercentage: daily_chance_of_snow,
+    //                 datetimeEpoch: date_epoch,
+    //                 avgTemp: parseInt(avgtemp_c),
+    //                 maxTemp: parseInt(maxtemp_c),
+    //                 minTemp: parseInt(mintemp_c),
+    //                 minIcon: weather(code, true)?.minIcon as JSX.Element,
+    //                 maxIcon: weather(code, true)?.maxIcon as JSX.Element,
+    //                 backgroundColor: weather(code, true)?.backgroundColor as string
+    //             })
+    //         })
+    //     }
+    // }
 
     const CallWeeklyWeather = async () => {
         if (myAddressList) {
@@ -230,5 +230,5 @@ export const useWeatherHook = () => {
         })
     }
 
-    return { CallCurrentWeather, CallTodayWeather, CallWeeklyWeather, CallHourlyWeather }
+    return { CallCurrentWeather, CallWeeklyWeather, CallHourlyWeather }
 }

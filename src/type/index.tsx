@@ -77,7 +77,7 @@ export interface COSTUME {
 }
 
 export interface CURRENT_WEATHER {
-    code: number
+    code: Weather
     temp: number
     is_day: boolean // 1: day, 0: night
     minIcon: JSX.Element
