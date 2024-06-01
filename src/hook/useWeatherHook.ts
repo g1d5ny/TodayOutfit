@@ -45,7 +45,7 @@ export const useWeatherHook = () => {
                         mintemp_c,
                         avgtemp_c,
                         uv,
-                        maxwind_mph,
+                        maxwind_kph,
                         daily_chance_of_rain,
                         daily_chance_of_snow,
                         daily_will_it_rain,
@@ -60,7 +60,7 @@ export const useWeatherHook = () => {
                     sunset,
                     text: weather(code, true)?.text as string,
                     uv,
-                    maxWindSpeed: maxwind_mph,
+                    maxWindSpeed: maxwind_kph,
                     willItRain: daily_will_it_rain,
                     willItSnow: daily_will_it_snow,
                     rainPercentage: daily_chance_of_rain,
@@ -96,7 +96,7 @@ export const useWeatherHook = () => {
                                 avgtemp_c,
                                 condition: { text, code },
                                 uv,
-                                maxwind_mph,
+                                maxwind_kph,
                                 daily_chance_of_rain,
                                 daily_chance_of_snow,
                                 daily_will_it_rain,
@@ -113,7 +113,7 @@ export const useWeatherHook = () => {
                             sunset,
                             text,
                             uv,
-                            maxWindSpeed: maxwind_mph,
+                            maxWindSpeed: maxwind_kph,
                             rainPercentage: daily_chance_of_rain,
                             snowPercentage: daily_chance_of_snow,
                             willItRain: daily_will_it_rain,
@@ -153,7 +153,7 @@ export const useWeatherHook = () => {
                             uv,
                             feelslike_c,
                             wind_dir,
-                            wind_mph,
+                            wind_kph,
                             precip_mm,
                             humidity,
                             will_it_rain,
@@ -172,7 +172,7 @@ export const useWeatherHook = () => {
                                     uv: parseInt(uv),
                                     feelslike: parseInt(feelslike_c),
                                     windDir: wind_dir,
-                                    windSpeed: parseInt(wind_mph),
+                                    windSpeed: parseInt(wind_kph),
                                     precip_mm: parseInt(precip_mm),
                                     humidity: parseInt(humidity),
                                     willItRain: will_it_rain,
@@ -200,13 +200,13 @@ export const useWeatherHook = () => {
             feelslike_c,
             uv,
             wind_dir,
-            wind_mph,
+            wind_kph,
             condition: { code }
         } = current
 
         const gender = await getStorage("gender")
 
-        fetchCurrentDesc(code, temp_c, feelslike_c, humidity, precip_mm, uv, wind_dir, wind_mph, is_day, gender).then(({ choices }: any) => {
+        fetchCurrentDesc(code, temp_c, feelslike_c, humidity, precip_mm, uv, wind_dir, wind_kph, is_day, gender).then(({ choices }: any) => {
             const {
                 message: { content }
             } = choices[0]

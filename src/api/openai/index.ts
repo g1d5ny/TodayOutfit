@@ -23,7 +23,7 @@ export const fetchCurrentDesc = async (
     비: ${rain} mm
     자외선 지수: ${uv}
     풍향: ${wind_deg}°
-    풍속: ${wind_speed} m/s
+    풍속: ${wind_speed} k/s
     낮 여부: ${Boolean(is_day)}
     사용자 성별: ${gender} ("W"면 여자, "M"이면 남자)
     현재 날짜: ${new Date()} (계절 참고용)
