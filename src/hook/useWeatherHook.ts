@@ -1,5 +1,5 @@
 import { useRecoilValue, useSetRecoilState } from "recoil"
-import { currentWeatherInfoState, hourWeatherInfoState, myAddressListState, todayWeatherInfoState, weather, weeklyWeatherInfoState } from "../store"
+import { currentWeatherInfoState, getStorage, hourWeatherInfoState, myAddressListState, todayWeatherInfoState, weather, weeklyWeatherInfoState } from "../store"
 import { CURRENT_WEATHER, HOUR_WEATHER, WEEKELY_WEATHER } from "../type"
 import { getCurrentWeather, getDailyWeather } from "api/weather"
 import { Alert } from "react-native"
@@ -191,7 +191,7 @@ export const useWeatherHook = () => {
         }
     }
 
-    const setCurrentWeather = (current: any) => {
+    const setCurrentWeather = async (current: any) => {
         const {
             temp_c,
             is_day,
@@ -204,7 +204,9 @@ export const useWeatherHook = () => {
             condition: { code }
         } = current
 
-        fetchCurrentDesc(code, temp_c, feelslike_c, humidity, precip_mm, uv, wind_dir, wind_mph, is_day, "W").then(({ choices }: any) => {
+        const gender = await getStorage("gender")
+
+        fetchCurrentDesc(code, temp_c, feelslike_c, humidity, precip_mm, uv, wind_dir, wind_mph, is_day, gender).then(({ choices }: any) => {
             const {
                 message: { content }
             } = choices[0]
