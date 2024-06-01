@@ -29,10 +29,10 @@ export const RainPercentageScreen = () => {
         <View style={styles.flex}>
             <Text style={[CommonStyle.title, isTablet ? TabletFont.heading_2 : MobileFont.body_1]}>강수확률이란?</Text>
             <Text style={[styles.content, isTablet ? TabletFont.weather_info_main_text : MobileFont.weather_info_main_text]}>
-                강수란 수증기가 응축하여 땅에 내리는 모든 것을 뜻하는 기상학 용어로 비와 눈 뿐만 아니라 우박도 강수에 포함됩니다. 강수확률은 ‘조건과 비슷한 상태의 대기를 가졌을 때, 100번 중 비가 몇 번 왔는지’를 의미하며 다시 말해 특정시간
-                내에 강수예보 지역의 임의지점에서 측정강수가 있음을 확률적으로 정의하여 나타낸 값을 의미합니다.
+                강수란 수증기가 응축하여 땅에 내리는 모든 것을 뜻하는 기상학 용어로 비와 눈 뿐만 아니라 우박도 강수에 포함됩니다. 강수확률은 ‘조건과 비슷한 상태의 대기를 가졌을 때, 100번 중
+                비가 몇 번 왔는지’를 의미하며 다시 말해 특정시간 내에 강수예보 지역의 임의지점에서 측정강수가 있음을 확률적으로 정의하여 나타낸 값을 의미합니다.
             </Text>
-            <View style={CommonStyle.title}>
+            <View style={CommonStyle.infoTitle}>
                 <Text style={[isTablet ? TabletFont.heading_2 : MobileFont.body_1]}>강수확률 단계</Text>
                 <View style={[CommonStyle.row, isTablet ? styles.tabletInterval : styles.mobileInterval]}>
                     {step

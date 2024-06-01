@@ -16,7 +16,7 @@ export const CommonColor = {
     main_white: "#FFFFFF",
     // basic color
     basic_gray_light: "#F6F6F9",
-    basic_gray_medium: "#DADCE0",
+    basic_gray_medium: "#D0D2D5",
     basic_gray_dark: "#596168",
     // etc
     etc_red: "#F03B4C",
@@ -155,7 +155,7 @@ export const TabletFont = StyleSheet.create({
         fontSize: 14,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-Regular",
-        letterSpacing: dp(-0.14),
+        letterSpacing: dp(-0.24),
         lineHeight: 21
     },
     mobile_title: {
@@ -277,7 +277,7 @@ export const MobileFont = StyleSheet.create({
         fontSize: 14,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-Regular",
-        letterSpacing: dp(-0.14),
+        letterSpacing: dp(-0.24),
         lineHeight: 21
     }
 })
@@ -303,7 +303,11 @@ export const CommonStyle = StyleSheet.create({
         justifyContent: "space-between"
     },
     title: {
-        marginTop: 32,
+        marginTop: 32
+        // justifyContent: "space-between"
+    },
+    infoTitle: {
+        marginTop: 26,
         justifyContent: "space-between"
     },
     padding: {

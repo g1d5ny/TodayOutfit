@@ -41,13 +41,13 @@ const FeelsLike = [
 ]
 export const FeelsLikeScreen = () => {
     return (
-        <View style={styles.flex}>
+        <View style={styles.container}>
             <Text style={[CommonStyle.title, isTablet ? TabletFont.heading_2 : MobileFont.body_1]}>체감온도란?</Text>
             <Text style={[styles.content, isTablet ? TabletFont.weather_info_main_text : MobileFont.weather_info_main_text]}>
-                체감 온도는 인체가 느끼는 더위나 추위를 수량적으로 나타낸 것으로 온도, 습도, 풍속, 일사량, 복사등을 바탕으로 계산됩니다. 오늘모입지에서는 여름철에는 일 최고 기온을 바탕으로 불쾌 지수를, 겨울철에는 일 최저 기온을 바탕으로
-                체감온도 지수를 활용하고 있습니다.
+                체감 온도는 인체가 느끼는 더위나 추위를 수량적으로 나타낸 것으로 온도, 습도, 풍속, 일사량, 복사등을 바탕으로 계산됩니다. 오늘모입지에서는 여름철에는 일 최고 기온을 바탕으로
+                불쾌 지수를, 겨울철에는 일 최저 기온을 바탕으로 체감온도 지수를 활용하고 있습니다.
             </Text>
-            <View style={[CommonStyle.title, CommonStyle.row]}>
+            <View style={[CommonStyle.infoTitle, CommonStyle.row]}>
                 <Text style={[isTablet ? TabletFont.heading_2 : MobileFont.body_1]}>체감온도 단계</Text>
                 <Text style={[isTablet ? TabletFont.detail_3 : MobileFont.detail_3, { color: CommonColor.main_blue }]}>단위: %</Text>
             </View>
@@ -74,7 +74,7 @@ export const FeelsLikeScreen = () => {
                             {desc.map((item, index) => (
                                 <View key={index} style={styles.wrap}>
                                     <Text style={[isTablet ? TabletFont.weather_info_main_text : MobileFont.weather_info_main_text]}>· </Text>
-                                    <Text style={[isTablet ? TabletFont.weather_info_main_text : MobileFont.weather_info_main_text]}>{item}</Text>
+                                    <Text style={[isTablet ? TabletFont.weather_info_main_text : MobileFont.weather_info_main_text, styles.flex]}>{item}</Text>
                                 </View>
                             ))}
                         </View>
@@ -92,7 +92,8 @@ const styles = StyleSheet.create({
     },
     wrap: {
         flexDirection: "row",
-        alignItems: "flex-start"
+        alignItems: "flex-start",
+        flexWrap: "wrap"
     },
     row: {
         flexDirection: "row",
@@ -124,7 +125,10 @@ const styles = StyleSheet.create({
     content: {
         marginTop: 8
     },
-    flex: {
+    container: {
         paddingHorizontal: isTablet ? 60 : 0
+    },
+    flex: {
+        flex: 1
     }
 })

@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     header: {
         width: "100%",
         paddingHorizontal: isTablet ? 32 : 16,
-        paddingVertical: isTablet ? 14 : 15,
+        paddingVertical: isTablet ? 14 : 13,
         flexDirection: "row",
         alignItems: "center",
         borderBottomWidth: 1,

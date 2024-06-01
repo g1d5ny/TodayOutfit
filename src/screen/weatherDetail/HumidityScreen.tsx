@@ -41,13 +41,13 @@ const Humidity = [
 ]
 export const HumidityScreen = () => {
     return (
-        <View style={styles.flex}>
+        <View style={styles.container}>
             <Text style={[CommonStyle.title, isTablet ? TabletFont.heading_2 : MobileFont.body_1]}>습도란?</Text>
             <Text style={[styles.content, isTablet ? TabletFont.weather_info_main_text : MobileFont.weather_info_main_text]}>
-                습도란 공기 중에 포함되어 있는 수증기의 비율을 의미하며 오늘모입지에서 제공되는 습도 정보는 노점 온도를 활용한 상대습도를 의미합니다. 기온의 영향으로 계절에 따라 쾌적함을 느끼는 상대습도가 달라지며 여름철엔 50~60%, 겨울철엔
-                40~50%, 봄과 가을에는 50% 정도가 이상적인 상대습도입니다.
+                습도란 공기 중에 포함되어 있는 수증기의 비율을 의미하며 오늘모입지에서 제공되는 습도 정보는 노점 온도를 활용한 상대습도를 의미합니다. 기온의 영향으로 계절에 따라 쾌적함을
+                느끼는 상대습도가 달라지며 여름철엔 50~60%, 겨울철엔 40~50%, 봄과 가을에는 50% 정도가 이상적인 상대습도입니다.
             </Text>
-            <View style={[CommonStyle.title, CommonStyle.row]}>
+            <View style={[CommonStyle.infoTitle, CommonStyle.row]}>
                 <Text style={[isTablet ? TabletFont.heading_2 : MobileFont.body_1]}>습도 단계</Text>
                 <Text style={[isTablet ? TabletFont.detail_3 : MobileFont.detail_3, { color: CommonColor.main_blue }]}>단위: %, C</Text>
             </View>
@@ -74,7 +74,7 @@ export const HumidityScreen = () => {
                             {desc.map((item, index) => (
                                 <View key={index} style={styles.wrap}>
                                     <Text style={[isTablet ? TabletFont.weather_info_main_text : MobileFont.weather_info_main_text]}>· </Text>
-                                    <Text style={[isTablet ? TabletFont.weather_info_main_text : MobileFont.weather_info_main_text]}>{item}</Text>
+                                    <Text style={[isTablet ? TabletFont.weather_info_main_text : MobileFont.weather_info_main_text, styles.flex]}>{item}</Text>
                                 </View>
                             ))}
                         </View>
@@ -92,7 +92,8 @@ const styles = StyleSheet.create({
     },
     wrap: {
         flexDirection: "row",
-        alignItems: "flex-start"
+        alignItems: "flex-start",
+        flexWrap: "wrap"
     },
     row: {
         flexDirection: "row",
@@ -124,7 +125,10 @@ const styles = StyleSheet.create({
     content: {
         marginTop: 8
     },
-    flex: {
+    container: {
         paddingHorizontal: isTablet ? 60 : 0
+    },
+    flex: {
+        flex: 1
     }
 })
