@@ -1,10 +1,10 @@
 import { OPEN_AI_BASE_URL, OPEN_AI_KEY } from "asset/key"
 import axios from "axios"
-import { EtcCostume, EtcWomanCostume, OnePice, Outer, Pants, Skirt, Top, currentDate } from "store"
+import { EtcCostume, EtcWomanCostume, OnePice, Outer, Pants, Skirt, Top, Weather, currentDate } from "store"
 import { GENDER } from "type"
 
 export const fetchCurrentDesc = async (
-    code: string,
+    code: Weather,
     temp: number,
     feels_like: number,
     humidity: number,
@@ -12,7 +12,7 @@ export const fetchCurrentDesc = async (
     uv: number,
     wind_deg: string,
     wind_speed: number,
-    is_day: boolean,
+    is_day: number,
     gender: GENDER
 ) => {
     const prompt = `현재 날씨 정보는 다음과 같습니다.

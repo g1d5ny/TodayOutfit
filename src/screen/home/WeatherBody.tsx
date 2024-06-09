@@ -1,21 +1,36 @@
 import { Image, StyleSheet, Text, View } from "react-native"
-import { currentWeatherInfoState, isTablet, weather, weeklyWeatherInfoState } from "../../store"
+import { currentWeatherInfoState, getStorage, isTablet, weather, weeklyWeatherInfoState } from "../../store"
 import { CommonColor, MobileFont, TabletFont } from "../../style/CommonStyle"
 import TempClothes from "../../asset/icon/icon_recom_temp_clothes.svg"
 import TempPants from "../../asset/icon/icon_recom_temp_pants.svg"
 import { useRecoilValue } from "recoil"
 import { WeatherCard } from "../../component/WeatherCard"
 import { getDay } from "../../utils"
+import Storage from "@react-native-async-storage/async-storage"
+import { useEffect, useState } from "react"
+import { GENDER } from "type"
 
 export default () => {
     const {
         costume: { top, topDesc, bottom, bottomDesc }
     } = useRecoilValue(currentWeatherInfoState)
+    const [gender, setGender] = useState<GENDER>("W")
+
+    useEffect(() => {
+        const myGender = async () => {
+            const gender = await getStorage("gender")
+            setGender(gender)
+        }
+        myGender()
+    }, [])
 
     return (
         <View style={{ flex: 1 }}>
             <View style={styles.character}>
-                <Image source={require("../../asset/image/image_girl.png")} style={{ width: isTablet ? 286 : 186, height: isTablet ? 720 : 470 }} />
+                <Image
+                    source={gender === "W" ? require("asset/image/image_girl.png") : require("asset/image/image_boy.png")}
+                    style={{ width: isTablet ? "40%" : "50%", height: isTablet ? 800 : 470 }}
+                />
                 <View>
                     <Text style={[isTablet ? TabletFont.button_1 : MobileFont.button_1, { color: CommonColor.main_white }]}>기온 맞춤 추천 의상</Text>
                     <View style={styles.recomContainer}>

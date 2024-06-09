@@ -1,8 +1,8 @@
-import { ImageBackground, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native"
-import { currentWeatherInfoState, hourWeatherInfoState, isTablet, myAddressListState, todayWeatherInfoState } from "../../store"
+import { ImageBackground, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native"
+import { currentWeatherInfoState, hourWeatherInfoState, isTablet } from "../../store"
 import { useRecoilValue } from "recoil"
 import Loader from "../../component/lottie/Loader"
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 import { CommonColor, CommonStyle, screenHeight } from "../../style/CommonStyle"
 import ArrowDown from "../../asset/icon/icon_arrow_down.svg"
 import ArrowUp from "../../asset/icon/icon_arrow_up.svg"
@@ -42,8 +42,8 @@ export const HomeScreen = () => {
                 <View style={CommonStyle.flex}>
                     <ScrollView ref={scrollRef}>
                         <ImageBackground
-                            source={require("../../asset/image/image_background.png")}
-                            resizeMode='cover'
+                            source={currentWeather.is_day ? require("asset/image/image_day_background.png") : require("asset/image/image_night_background.png")}
+                            resizeMode='stretch'
                             style={[CommonStyle.padding, { height: screenHeight - top - bottom - TAB_HEIGHT }]}
                         >
                             <WeatherHeader />

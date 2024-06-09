@@ -69,6 +69,35 @@ export interface MY_ADDRSS {
     date?: string
 }
 
+interface ADDRESS {
+    address_name: string
+    main_address_no: string
+    mountain_yn: string
+    region_1depth_name: string
+    region_2depth_name: string
+    region_3depth_name: string
+    sub_address_no: string
+    zip_code: string
+}
+
+interface ROAD_ADDRESS {
+    address_name: string
+    building_name: string
+    main_building_no: string
+    region_1depth_name: string
+    region_2depth_name: string
+    region_3depth_name: string
+    road_name: string
+    sub_building_no: string
+    underground_yn: string
+    zone_no: string
+}
+
+export interface DOCUMENT {
+    address: ADDRESS
+    road_address: ROAD_ADDRESS
+}
+
 export interface COSTUME {
     top: string
     topDesc: string
@@ -138,3 +167,80 @@ export type WEATHER_DESC_ENG = "clear-day" | "snow" | "partly-cloudy-day" | "par
 export type WEATHER_DESC_KOR = "맑음" | "눈" | "구름 조금" | "흐림" | "비" | "안개" | "천둥 번개"
 
 export type GENDER = "W" | "M"
+
+interface CONDITION {
+    code: Weather
+    icon: string
+    text: string
+}
+
+interface ASTRO {
+    sunrise: string
+    sunset: string
+}
+
+interface DAY {
+    avgtemp_c: number
+    condition: CONDITION
+    daily_chance_of_rain: number
+    daily_chance_of_snow: number
+    daily_will_it_rain: number
+    daily_will_it_snow: number
+    maxtemp_c: number
+    maxwind_kph: number
+    mintemp_c: number
+    totalprecip_mm: number
+    totalsnow_cm: number
+    uv: number
+}
+
+export interface FORECAST_DAY {
+    astro: ASTRO
+    date: string
+    date_epoch: number
+    day: DAY
+    hour: HOUR[]
+}
+
+export interface HOUR {
+    chance_of_rain: number
+    chance_of_snow: number
+    condition: CONDITION
+    feelslike_c: string
+    humidity: string
+    is_day: number
+    precip_mm: number
+    snow_cm: number
+    temp_c: number
+    time: string
+    time_epoch: number
+    uv: number
+    will_it_rain: boolean
+    will_it_snow: boolean
+    wind_dir: string
+    wind_kph: number
+}
+
+export interface CURRENT {
+    condition: CONDITION
+    feelslike_c: number
+    humidity: number
+    is_day: number
+    precip_mm: number
+    temp_c: number
+    uv: number
+    wind_dir: string
+    wind_kph: number
+}
+
+interface Message {
+    content: string
+    role: string
+}
+
+export interface Choice {
+    finish_reason: string
+    index: number
+    logprobs: null | any
+    message: Message
+}

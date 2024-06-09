@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Image, StyleSheet, View } from "react-native"
 import LottieView from "lottie-react-native"
 
-const Loader = ({ style }: { style?: any }) => {
+const Loader = () => {
     const [completed, setCompleted] = useState(false)
 
     if (completed) {
@@ -11,7 +11,7 @@ const Loader = ({ style }: { style?: any }) => {
 
     return (
         <View style={styles.view}>
-            <LottieView style={[style, styles.lottie]} source={require("../../asset/lottie/progress.json")} onAnimationFinish={() => setCompleted(true)} autoPlay loop={true} />
+            <LottieView style={styles.lottie} source={require("../../asset/lottie/progress.json")} onAnimationFinish={() => setCompleted(true)} autoPlay loop={true} />
         </View>
     )
 }

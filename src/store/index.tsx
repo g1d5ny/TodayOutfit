@@ -2,7 +2,7 @@ import { atom, selector } from "recoil"
 import { isEmpty } from "lodash"
 import Storage from "@react-native-async-storage/async-storage"
 import DeviceInfo from "react-native-device-info"
-import { RESULT_ADDRESS, MY_ADDRSS, TOAST, CURRENT_WEATHER, HOUR_WEATHER, WEEKELY_WEATHER, WEATHER_DESC_KOR, TODAY_WEATHER, RECOMMEND_COSTUME } from "../type"
+import { RESULT_ADDRESS, MY_ADDRSS, TOAST, CURRENT_WEATHER, HOUR_WEATHER, WEEKELY_WEATHER, WEATHER_DESC_KOR, RECOMMEND_COSTUME } from "../type"
 import { setRecoil } from "recoil-nexus"
 import ClearDay from "../asset/icon/icon_clear_day.svg"
 import ClearNight from "../asset/icon/icon_clear_night.svg"
@@ -181,11 +181,6 @@ export const myAddressListState = atom<MY_ADDRSS[]>({
 
 export const currentWeatherInfoState = atom<CURRENT_WEATHER>({
     key: "currentWeatherInfoState",
-    default: undefined
-})
-
-export const todayWeatherInfoState = atom<TODAY_WEATHER>({
-    key: "todayWeatherInfoState",
     default: undefined
 })
 

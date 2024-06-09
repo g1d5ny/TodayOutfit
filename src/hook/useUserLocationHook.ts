@@ -7,7 +7,7 @@ import { NowDate } from "../utils"
 import { coordinateToAddressApi } from "api/address"
 import { TextAlarm } from "text/AlarmText"
 import { getRecoil, setRecoil } from "recoil-nexus"
-import { MY_ADDRSS } from "type"
+import { MY_ADDRSS, DOCUMENT } from "type"
 
 export const useUserLocationHook = () => {
     const checkOnlyLocationPermission = async () => {
@@ -43,14 +43,14 @@ export const useUserLocationHook = () => {
     // 위도, 경도에 따른 지번, 도로명 주소 가져오기
     const getNowLocation = async (longitude: number, latitude: number) => {
         coordinateToAddressApi(longitude, latitude)
-            .then(({ documents }: { documents: any }) => {
+            .then(({ documents }: { documents: DOCUMENT[] }) => {
                 if (isEmpty(documents)) {
                     return
                 }
-                const { b_code, h_code, region_1depth_name, region_2depth_name, region_3depth_name } = documents[0].address
+                const { region_1depth_name, region_2depth_name, region_3depth_name } = documents[0].address
                 const location = region_1depth_name + " " + region_2depth_name + " " + region_3depth_name
                 const coordinate = { longitude, latitude }
-                const addedAddress = { id: b_code ?? h_code, location: location.trim(), coordinate, date: NowDate() }
+                const addedAddress = { id: String(coordinate), location: location.trim(), coordinate, date: NowDate() }
                 addUserAddress(addedAddress)
             })
             .catch(rej => {

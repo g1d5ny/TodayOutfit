@@ -29,7 +29,7 @@ const categoryList = [
     { title: "습도", footer: "적정 상대 습도의 경우 한국표준과학연구원의 자료와 기상청의 날씨배움터 정보를 활용했음을 안내 해드립니다.", Component: HumidityScreen },
     { title: "적설량", footer: "적설량의 단계 기준의 경우 기상청 날씨누리의 대설 특보, ‘대설 판단 가이던스'를 활용했음을 알려드립니다.", Component: SnowFallScreen }
 ]
-export const WeatherDetailScreen = ({ route }: { navigation: any; route: any }) => {
+export const WeatherDetailScreen = ({ route }: { route: any }) => {
     const [selectedIndex, setSelectedIndex] = useState<number>(route.params.index)
     const ref = useRef<any>(null) // PagerView로 타입해야함
 

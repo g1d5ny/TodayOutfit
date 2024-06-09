@@ -19,7 +19,7 @@ interface WeatherHourlyCard {
     hour?: string | number
     minIcon: JSX.Element
     temp?: string | number
-    onPress: any
+    onPress: () => void
     isClicked: boolean
     index?: number
 }

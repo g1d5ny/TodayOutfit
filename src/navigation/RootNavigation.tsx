@@ -3,6 +3,6 @@ import { RefObject, createRef } from "react"
 
 export const navigationRef: RefObject<NavigationContainerRef<any>> = createRef()
 
-export function navigate(name: any, params?: any) {
+export function navigate(name: string, params?: any) {
     navigationRef.current?.navigate(name, params)
 }

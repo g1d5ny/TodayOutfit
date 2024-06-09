@@ -8,10 +8,11 @@ import { LocationPermissionModal } from "../../component/LocationPermissionModal
 import { useUserLocationHook } from "hook/useUserLocationHook"
 import Search from "asset/icon/icon_search.svg"
 import FocusLocation from "asset/icon/icon_focus_location.svg"
+import { navigate } from "navigation/RootNavigation"
 
 const SEARCH_ICON = isTablet ? 24 : 20
 const COMMON_ICON = isTablet ? 26 : 22
-export const GuideAddressScreen = ({ navigation, param }: { navigation: any; param?: any }) => {
+export const GuideAddressScreen = () => {
     const [isVisible, setIsVisible] = useState(false)
     const { checkOnlyLocationPermission, getUserLocation } = useUserLocationHook()
 
@@ -19,15 +20,11 @@ export const GuideAddressScreen = ({ navigation, param }: { navigation: any; par
         const checkP = await checkOnlyLocationPermission()
         if (checkP) {
             getUserLocation().then(() => {
-                navigation.navigate("SelectGenderScreen")
+                navigate("SelectGenderScreen")
             })
             return
         }
         setIsVisible(true)
-    }
-
-    const navigate = async () => {
-        navigation.navigate("SearchAddressScreen")
     }
 
     return (
@@ -41,7 +38,7 @@ export const GuideAddressScreen = ({ navigation, param }: { navigation: any; par
                 </View>
                 <View style={styles.addressContainer}>
                     <View style={styles.input}>
-                        <TouchableOpacity style={[CommonStyle.row, CommonStyle.flex]} onPress={navigate}>
+                        <TouchableOpacity style={[CommonStyle.row, CommonStyle.flex]} onPress={() => navigate("SearchAddressScreen")}>
                             <View style={styles.searchIcon}>
                                 <Search width={SEARCH_ICON} height={SEARCH_ICON} />
                             </View>

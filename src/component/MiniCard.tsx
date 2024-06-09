@@ -6,6 +6,8 @@ import CalendarMobile from "../asset/icon/icon_calendar_mobile.svg"
 import CalendarTablet from "../asset/icon/icon_calendar_tablet.svg"
 import { isTablet, myAddressListState } from "../store"
 import { useRecoilValue } from "recoil"
+import { SvgProps } from "react-native-svg"
+import { FC, ReactNode } from "react"
 
 export const LocationView = () => {
     const myAddressList = useRecoilValue(myAddressListState)
@@ -32,11 +34,11 @@ export const DateView = ({ month, date }: { month?: number; date?: number }) => 
 }
 
 interface WeatherIcon {
-    titleIcon?: any
+    titleIcon?: ReactNode
     title?: string
     content?: string
     desc?: string
-    contentIcon?: any
+    contentIcon?: ReactNode
     isVisible?: boolean
     onPress?: () => void
 }
