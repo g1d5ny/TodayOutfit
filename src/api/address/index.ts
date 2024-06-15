@@ -1,4 +1,5 @@
-import { KAKAO_ADDRESS_BASE_URL, KAKAO_ADDRESS_KEY, KAKAO_COORDINATE_BASE_URL } from "asset/key"
+import { KAKAO_ADDRESS_KEY } from "@env"
+import { KAKAO_ADDRESS_BASE_URL, KAKAO_COORDINATE_BASE_URL } from "asset/key"
 import axios from "axios"
 
 export const searchAddressApi = async (address: string) => {

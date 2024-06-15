@@ -1,6 +1,6 @@
-import { OPEN_AI_BASE_URL, OPEN_AI_KEY } from "asset/key"
+import { OPEN_AI_BASE_URL, OPEN_AI_KEY } from "@env"
 import axios from "axios"
-import { EtcCostume, EtcWomanCostume, OnePice, Outer, Pants, Skirt, Top, Weather, currentDate } from "store"
+import { Weather } from "store"
 import { GENDER } from "type"
 
 export const fetchCurrentDesc = async (
