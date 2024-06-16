@@ -5,6 +5,7 @@ import { getCurrentWeather, getDailyWeather } from "api/weather"
 import { Alert } from "react-native"
 import { TextAlarm } from "text/AlarmText"
 import { fetchCurrentDesc } from "api/openai/index"
+import { CostumePath } from "store/clothes"
 
 export const useWeatherHook = () => {
     const myAddressList = useRecoilValue(myAddressListState)
@@ -118,9 +119,9 @@ export const useWeatherHook = () => {
                             snowPercentage: daily_chance_of_snow,
                             willItRain: Boolean(daily_will_it_rain),
                             willItSnow: Boolean(daily_will_it_snow),
-                            avgTemp: avgtemp_c,
-                            maxTemp: maxtemp_c,
-                            minTemp: mintemp_c,
+                            avgTemp: Math.trunc(avgtemp_c),
+                            maxTemp: Math.trunc(maxtemp_c),
+                            minTemp: Math.trunc(mintemp_c),
                             maxIcon: weather(code, true)?.maxIcon as JSX.Element,
                             minIcon: weather(code, true)?.minIcon as JSX.Element,
                             backgroundColor: weather(code, true)?.backgroundColor as string
@@ -152,11 +153,23 @@ export const useWeatherHook = () => {
                 message: { content }
             } = choices[0]
 
-            const parsedData = JSON.parse(content)
+            let parsedData
+            if (content.startsWith("```json") && content.endsWith("```")) {
+                parsedData = JSON.parse(content.slice(7, -3).trim())
+            } else {
+                parsedData = JSON.parse(content)
+            }
+
             const {
                 costume: { top, topDesc, bottom, bottomDesc },
                 desc
             } = parsedData
+
+            const topName = top[0].en as string
+            const bottomName = bottom[0].en as string
+            console.log("bottom[0].en: ", bottom[0])
+            parsedData.costume.top[0].path = CostumePath[topName]
+            parsedData.costume.bottom[0].path = CostumePath[bottomName]
 
             setCurrentWeatherInfo({
                 code,

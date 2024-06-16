@@ -1,12 +1,7 @@
 import { Image, StyleSheet, Text, View } from "react-native"
-import { currentWeatherInfoState, getStorage, isTablet, weather, weeklyWeatherInfoState } from "../../store"
+import { currentWeatherInfoState, getStorage, isTablet } from "../../store"
 import { CommonColor, MobileFont, TabletFont } from "../../style/CommonStyle"
-import TempClothes from "../../asset/icon/icon_recom_temp_clothes.svg"
-import TempPants from "../../asset/icon/icon_recom_temp_pants.svg"
 import { useRecoilValue } from "recoil"
-import { WeatherCard } from "../../component/WeatherCard"
-import { getDay } from "../../utils"
-import Storage from "@react-native-async-storage/async-storage"
 import { useEffect, useState } from "react"
 import { GENDER } from "type"
 
@@ -28,7 +23,7 @@ export default () => {
         <View style={{ flex: 1 }}>
             <View style={styles.character}>
                 <Image
-                    source={gender === "W" ? require("asset/image/image_girl.png") : require("asset/image/image_boy.png")}
+                    source={gender === "W" ? require("asset/image/image_girl.png") : require("asset/image/image_t_shirt_shorts_boy.png")}
                     style={{ width: isTablet ? "40%" : "50%", height: isTablet ? 800 : 470 }}
                 />
                 <View>
@@ -36,19 +31,21 @@ export default () => {
                     <View style={styles.recomContainer}>
                         <View style={[styles.recom, { marginBottom: isTablet ? 0 : 8, marginRight: isTablet ? 25 : 0 }]}>
                             <View style={styles.clothes}>
-                                <TempClothes width={"90%"} height={"90%"} />
+                                {/* <TempClothes width={"90%"} height={"90%"} /> */}
+                                <Image source={top[0].path} style={{ width: "90%", height: "90%" }} />
                             </View>
                             <View style={styles.clothesDesc}>
-                                <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>{top}</Text>
+                                <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>{top[0].ko}</Text>
                                 <Text style={[isTablet ? TabletFont.body_2 : MobileFont.detail_3, { color: CommonColor.basic_gray_dark }]}>{topDesc} 상의</Text>
                             </View>
                         </View>
                         <View style={styles.recom}>
                             <View style={styles.clothes}>
-                                <TempPants width={"70%"} height={"70%"} />
+                                {/* <TempPants width={"70%"} height={"70%"} /> */}
+                                <Image source={bottom[0].path} style={{ width: "90%", height: "90%" }} />
                             </View>
                             <View style={styles.clothesDesc}>
-                                <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>{bottom}</Text>
+                                <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>{bottom[0].ko}</Text>
                                 <Text style={[isTablet ? TabletFont.body_2 : MobileFont.detail_3, { color: CommonColor.basic_gray_dark }]}>{bottomDesc} 하의</Text>
                             </View>
                         </View>

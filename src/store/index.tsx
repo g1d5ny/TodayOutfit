@@ -474,11 +474,3 @@ export const handleError = (debuggingMessage: string, func: any, error?: any): E
     }
     return func() || func
 }
-
-export const Outer = ["가디건", "자켓", "코트", "얇은 점퍼", "두꺼운 점퍼", "패딩"]
-export const Top = ["티셔츠", "니트/스웨터", "셔츠/남방", "맨투맨", "기모 없는 후드티", "기모 후드티", "블라우스", "민소매/나시"]
-export const OnePice = ["롱원피스", "미니원피스", "투피스"]
-export const Pants = ["면바지", "청바지", "슬렉스", "데님", "반바지"]
-export const Skirt = ["미니 스커트", "롱 스커트"]
-export const EtcCostume = ["목도리/장갑", "히트텍/내복"]
-export const EtcWomanCostume = ["기모 스타킹", "일반 스티캉", "살색 스타킹", "레깅스"]
