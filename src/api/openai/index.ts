@@ -35,11 +35,11 @@ export const fetchCurrentDesc = async (
 
     상의는 ${JSON.stringify(Outer)}, ${JSON.stringify(Top)}, ${JSON.stringify(OnePice)}
     하의는 ${JSON.stringify(Pants)}, ${JSON.stringify(Skirt)}
-    그 외는 ${JSON.stringify(WinterCostume)}, ${JSON.stringify(WinterWomanCostume)} 이 중에서 두개씩 선택해주세요.
+    그 외는 ${JSON.stringify(WinterCostume)}, ${JSON.stringify(WinterWomanCostume)} 이 중에서 선택해주세요.
     
-    출력 형식: {"costume": { "top":${JSON.stringify(Outer)}, ${JSON.stringify(Top)}, ${JSON.stringify(OnePice)} 중에 하나, "topDesc": "간단한 상의 설명", "bottom": ${JSON.stringify(
+    출력 형식: {"costume": { "top":${JSON.stringify(Outer)}, ${JSON.stringify(Top)}, ${JSON.stringify(OnePice)} 중에 두개, "topDesc": "형용사로 끝나는 상의 설명", "bottom": ${JSON.stringify(
         Pants
-    )}, ${JSON.stringify(Skirt)} 중에 하나, "bottomDesc": "간단한 하의 설명" }, "desc": 한 줄 조언}
+    )}, ${JSON.stringify(Skirt)} 중에 두개, "bottomDesc": "형용사로 끝나는 하의 설명" }, "desc": 한 줄 조언}
     `
     const resp = await axios.post(
         OPEN_AI_BASE_URL + "v1/chat/completions",

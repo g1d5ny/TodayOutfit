@@ -50,23 +50,30 @@ export default () => {
                             </View>
                         </View>
                     </View>
-                    {/* {isTablet && (
-                        <View>
-                            <Text style={[isTablet ? TabletFont.button_1 : MobileFont.button_1, styles.titleText]}>오늘의 날씨</Text>
-                            <WeatherCard
-                                day={currentDay}
-                                date={currentDate}
-                                minIcon={minIcon as JSX.Element}
-                                text={weather(code, is_day)?.text as string}
-                                maxIcon={maxIcon as JSX.Element}
-                                maxTemp={maxTemp}
-                                minTemp={minTemp}
-                                sunrise={sunrise}
-                                sunset={sunset}
-                                backgroundColor={backgroundColor}
-                            />
+                    {isTablet && (
+                        <View style={styles.recomContainer}>
+                            <View style={[styles.recom, { marginBottom: isTablet ? 0 : 8, marginRight: isTablet ? 25 : 0 }]}>
+                                <View style={styles.clothes}>
+                                    {/* <TempClothes width={"90%"} height={"90%"} /> */}
+                                    <Image source={top[1].path} style={{ width: "90%", height: "90%" }} />
+                                </View>
+                                <View style={styles.clothesDesc}>
+                                    <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>{top[1].ko}</Text>
+                                    <Text style={[isTablet ? TabletFont.body_2 : MobileFont.detail_3, { color: CommonColor.basic_gray_dark }]}>{topDesc} 상의</Text>
+                                </View>
+                            </View>
+                            <View style={styles.recom}>
+                                <View style={styles.clothes}>
+                                    {/* <TempPants width={"70%"} height={"70%"} /> */}
+                                    <Image source={bottom[1].path} style={{ width: "90%", height: "90%" }} />
+                                </View>
+                                <View style={styles.clothesDesc}>
+                                    <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>{bottom[1].ko}</Text>
+                                    <Text style={[isTablet ? TabletFont.body_2 : MobileFont.detail_3, { color: CommonColor.basic_gray_dark }]}>{bottomDesc} 하의</Text>
+                                </View>
+                            </View>
                         </View>
-                    )} */}
+                    )}
                 </View>
             </View>
         </View>

@@ -1,3 +1,4 @@
+import { ImageSourcePropType } from "react-native"
 import { Weather } from "store"
 
 export interface RESULT_ADDRESS {
@@ -99,9 +100,9 @@ export interface DOCUMENT {
 }
 
 export interface COSTUME {
-    top: string
+    top: { ko: string; en: string; path: ImageSourcePropType }[]
     topDesc: string
-    bottom: string
+    bottom: { ko: string; en: string; path: ImageSourcePropType }[]
     bottomDesc: string
 }
 

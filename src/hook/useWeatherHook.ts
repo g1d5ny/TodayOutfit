@@ -165,11 +165,10 @@ export const useWeatherHook = () => {
                 desc
             } = parsedData
 
-            const topName = top[0].en as string
-            const bottomName = bottom[0].en as string
-            console.log("bottom[0].en: ", bottom[0])
-            parsedData.costume.top[0].path = CostumePath[topName]
-            parsedData.costume.bottom[0].path = CostumePath[bottomName]
+            parsedData.costume.top[0].path = CostumePath[top[0].en]
+            parsedData.costume.bottom[0].path = CostumePath[bottom[0].en]
+            parsedData.costume.top[1].path = CostumePath[top[1].en]
+            parsedData.costume.bottom[1].path = CostumePath[bottom[1].en]
 
             setCurrentWeatherInfo({
                 code,
