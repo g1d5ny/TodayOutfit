@@ -194,14 +194,14 @@ export const WeatherScreen = () => {
                                                     </View>
                                                 </View>
                                                 <View style={[CommonStyle.row, styles.tempContainer]}>
-                                                    <MinTemp />
-                                                    <Text style={[isTablet ? TabletFont.detail_3 : MobileFont.detail_3, styles.interval, { color: CommonColor.basic_gray_dark }]}>
-                                                        {minTemp}˚
-                                                    </Text>
-                                                    <View style={[styles.line, styles.interval]} />
                                                     <MaxTemp />
                                                     <Text style={[isTablet ? TabletFont.detail_3 : MobileFont.detail_3, styles.interval, { color: CommonColor.basic_gray_dark }]}>
                                                         {maxTemp}˚
+                                                    </Text>
+                                                    <View style={[styles.line, styles.interval]} />
+                                                    <MinTemp />
+                                                    <Text style={[isTablet ? TabletFont.detail_3 : MobileFont.detail_3, styles.interval, { color: CommonColor.basic_gray_dark }]}>
+                                                        {minTemp}˚
                                                     </Text>
                                                 </View>
                                             </TouchableOpacity>
