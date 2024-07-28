@@ -6,7 +6,7 @@ import { useRecoilValueLoadable } from "recoil"
 import { loggedInState } from "../store"
 import { OnBoardingNavigator } from "./onBoardingNavigation/OnBoardingNavigator"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
-import { MainNavigator } from "./MainNavigation/MainNavigor"
+import { MainNavigator } from "./mainNavigation/MainNavigor"
 import { CommonStyle } from "style/CommonStyle"
 
 export const NavController = () => {
