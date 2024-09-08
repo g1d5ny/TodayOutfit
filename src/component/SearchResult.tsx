@@ -15,41 +15,25 @@ interface InputProps extends TextInputProps {
     setSelectedAddress: Dispatch<SetStateAction<MY_ADDRSS | null>>
 }
 
-const mobileResultViewHeight = 59
-const tabletResultViewHeight = 62
+const resultHeight = isTablet ? 62 : 60
+const verticalMargin = 4
+const maxCount = isTablet ? 10 : 6
 export const SearchResult = memo(({ selectedAddress, setSelectedAddress }: InputProps) => {
     const [isVisible, setIsVisible] = useState(false)
-    const [inputAddress, setInputAddress] = useRecoilState(inputAddressState)
-    const [resultAddress, setResultAddress] = useRecoilState(resultAdressListState)
-    const myAddressList = useRecoilValue(myAddressListState)
+    const inputAddress = useRecoilValue(inputAddressState)
+    const resultAddress = useRecoilValue(resultAdressListState)
     const isNotFoundAddress = resultAddress[0] === "NOT_FOUND"
 
-    // useEffect(() => {
-    //     if (isNotFoundAddress && setSelectedAddress) {
-    //         setSelectedAddress(selectedAddressInitialValue)
-    //     }
-    // }, [resultAddress])
-
-    // useEffect(() => {
-    //     return () => {
-    //         if (setSelectedAddress) {
-    //             setSelectedAddress(selectedAddressInitialValue)
-    //         }
-    //         setInputAddress("")
-    //         setResultAddress([])
-    //     }
-    // }, [])
-
     return (
-        <View style={{ width: "100%", justifyContent: "space-between" }}>
+        <View style={{ flex: 1 }}>
             {!isEmpty(resultAddress) ? (
                 isNotFoundAddress ? (
                     <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.detail_2, { color: CommonColor.etc_red, marginTop: 6 }]}>올바르지 않은 주소입니다.</Text>
                 ) : (
                     <View style={{ marginTop: 6 }}>
                         <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.detail_2, { color: CommonColor.main_blue }]}>'{inputAddress}' 검색 결과</Text>
-                        <View style={{ marginTop: isTablet ? 24 : 9 }}>
-                            <ScrollView style={{ maxHeight: isTablet ? tabletResultViewHeight * 7 : mobileResultViewHeight * 5, marginTop: isTablet ? 24 : 9 }}>
+                        <View style={{ maxHeight: resultHeight * maxCount + verticalMargin * (maxCount - 2), marginTop: isTablet ? 26 : 18 }}>
+                            <ScrollView>
                                 {resultAddress.map(
                                     ({ address_name, address: { b_code, h_code, region_1depth_name, region_2depth_name, region_3depth_h_name, region_3depth_name, x, y } }, index) => {
                                         const isSelected = selectedAddress?.coordinate.longitude === Number(x) && selectedAddress?.coordinate.latitude === Number(y)

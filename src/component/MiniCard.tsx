@@ -40,9 +40,10 @@ interface WeatherIcon {
     desc?: string
     contentIcon?: ReactNode
     isVisible?: boolean
+    windSpeed?: number
     onPress?: () => void
 }
-export const WeatherDetail = ({ titleIcon, title, content, desc, contentIcon, isVisible = true, onPress }: WeatherIcon): React.ReactElement => {
+export const WeatherDetail = ({ titleIcon, title, content, desc, contentIcon, isVisible = true, windSpeed, onPress }: WeatherIcon): React.ReactElement => {
     if (!isVisible) {
         return <View style={[styles.weatherDetail, { backgroundColor: "transparent" }]} />
     }
@@ -52,8 +53,10 @@ export const WeatherDetail = ({ titleIcon, title, content, desc, contentIcon, is
                 {titleIcon}
                 <Text style={[isTablet ? TabletFont.detail_1 : MobileFont.detail_1, { marginLeft: 7 }]}>{title}</Text>
             </View>
-            <Text style={[MobileFont.detail_2, { marginVertical: 14 }]}>{content}</Text>
-            <Text style={{ fontSize: 20 }}>{desc}</Text>
+            <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.detail_2, { marginVertical: 14 }]}>{content}</Text>
+            {/* TODO fontstyle */}
+            <Text style={{ fontSize: 22, color: CommonColor.main_black }}>{desc}</Text>
+            {windSpeed && <Text style={[isTablet ? TabletFont.detail_3 : MobileFont.detail_3, { color: CommonColor.basic_gray_dark, marginTop: 2 }]}>{windSpeed} m/s</Text>}
             <View style={styles.detailIcon}>{contentIcon}</View>
         </TouchableOpacity>
     )

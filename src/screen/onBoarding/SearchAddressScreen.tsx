@@ -1,17 +1,19 @@
-import { Keyboard, KeyboardAvoidingView, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native"
-import { CommonColor, CommonStyle, MobileFont, TabletFont } from "../../style/CommonStyle"
-import { isTablet, resultAdressListState } from "../../store"
+import { Keyboard, Platform, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native"
+import { CommonColor, CommonStyle, MobileFont, screenWidth, TabletFont } from "../../style/CommonStyle"
+import { inputAddressState, isTablet, resultAdressListState } from "../../store"
 import { useRecoilValue } from "recoil"
 import { SearchInput } from "../../component/SearchInput"
 import { isEmpty } from "lodash"
 import { useState } from "react"
 import { useUserLocationHook } from "../../hook/useUserLocationHook"
-import { LocationPermissionModal } from "../../component/LocationPermissionModal"
 import { useAddressHook } from "../../hook/useAddressHook"
 import { MY_ADDRSS } from "../../type"
 import { NowDate } from "utils"
 import { navigationRef } from "navigation/RootNavigation"
 import { SearchResult } from "component/SearchResult"
+import { OnBoardingText } from "text/OnBoardingText"
+import { Guide } from "component/Guide"
+import useKeyboardHeight from "hook/useKeyboardHeight"
 
 const selectedAddressInitialValue = {
     id: "",
@@ -22,73 +24,62 @@ const selectedAddressInitialValue = {
     },
     date: NowDate()
 }
+
 export const SearchAddressScreen = () => {
     const resultAddress = useRecoilValue(resultAdressListState)
-    const [isVisible, setIsVisible] = useState(false)
-    const [onFocus, setOnFocus] = useState(false)
-    const isNotFoundAddress = resultAddress && resultAddress[0] === "NOT_FOUND"
+    const inputAddress = useRecoilValue(inputAddressState)
     const [selectedAddress, setSelectedAddress] = useState<MY_ADDRSS | null>(selectedAddressInitialValue)
-    const { checkOnlyLocationPermission, getUserLocation, addUserAddress } = useUserLocationHook()
+    const disabled = resultAddress && resultAddress[0] === "NOT_FOUND"
+    const { addUserAddress } = useUserLocationHook()
     const { searchAddress } = useAddressHook()
+    const { keyboardHeight } = useKeyboardHeight()
 
-    const onPress = async () => {
-        const checkP = await checkOnlyLocationPermission()
-        if (checkP) {
-            getUserLocation().then(() => {
-                navigate()
+    const onPress = () => {
+        Keyboard.dismiss()
+        if (selectedAddress?.id) {
+            const { id, location, coordinate } = selectedAddress
+            addUserAddress({ id, location: location.trim(), coordinate, date: NowDate() }).then(() => {
+                navigationRef?.current?.navigate("SelectGenderScreen")
             })
             return
         }
-        setIsVisible(true)
-    }
-
-    const navigate = () => {
-        navigationRef?.current?.navigate("SelectGenderScreen")
+        searchAddress()
     }
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <KeyboardAvoidingView style={styles.flex} behavior={"padding"}>
-                <View style={styles.container}>
-                    <View style={[styles.textContainer]}>
-                        <Text style={[styles.subtitle, { color: CommonColor.main_blue }]}>위치 서비스</Text>
-                        <Text style={[styles.title, { marginTop: 20 }]}>정확한 날씨 정보를 위해</Text>
-                        <Text style={[styles.title]}>위치 서비스를 {isEmpty(resultAddress) ? "입력" : "선택"}해주세요!</Text>
-                        <Text style={[styles.content, { marginTop: isTablet ? 12 : 10, color: CommonColor.basic_gray_dark }]}>상세주소를 제외한 행정구역까지만 입력해주세요.</Text>
-                    </View>
-                    <View style={styles.addressContainer}>
-                        <SearchInput getLocation={onPress} isOnFocus={onFocus} setIsOnFocus={setOnFocus} autoFocus />
-                        <SearchResult selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress} />
-                    </View>
-                </View>
-                <View style={{ justifyContent: "space-between" }}>
-                    <View style={[CommonStyle.row, styles.phase]}>
-                        <View style={styles.selectedPhase} />
-                        <View style={styles.unSelectedPhase} />
-                    </View>
-                    {!selectedAddress ? (
-                        <TouchableOpacity
-                            disabled={isNotFoundAddress}
-                            style={[styles.confirmButton, { backgroundColor: isNotFoundAddress ? CommonColor.basic_gray_medium : CommonColor.main_blue }]}
-                            onPress={searchAddress}
-                        >
-                            <Text style={[isTablet ? TabletFont.button_1 : MobileFont.button_1, { color: "#fff" }]}>확인</Text>
-                        </TouchableOpacity>
-                    ) : (
-                        <TouchableOpacity
-                            style={[styles.confirmButton, { backgroundColor: isNotFoundAddress ? CommonColor.basic_gray_medium : CommonColor.main_blue }]}
-                            onPress={() => {
-                                const { id, location, coordinate } = selectedAddress
-                                addUserAddress({ id, location: location.trim(), coordinate, date: NowDate() })
-                                navigate()
-                            }}
-                        >
-                            <Text style={[isTablet ? TabletFont.button_1 : MobileFont.button_1, { color: "#fff" }]}>앱 구경하러 가기</Text>
-                        </TouchableOpacity>
-                    )}
-                </View>
-                <LocationPermissionModal isVisible={isVisible} setIsVisible={setIsVisible} />
-            </KeyboardAvoidingView>
+            <View style={styles.container}>
+                <Guide
+                    guideText={OnBoardingText.addressGuideText}
+                    title={OnBoardingText.searchTitle}
+                    subTitle={OnBoardingText.addressTitle}
+                    children={
+                        <>
+                            <SearchInput hasInput />
+                            <View style={{ flex: 1 }}>
+                                <SearchResult selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress} />
+                                {!isEmpty(resultAddress) && (
+                                    <View style={[CommonStyle.row, styles.phase]}>
+                                        <View style={styles.selectedPhase} />
+                                        <View style={styles.unSelectedPhase} />
+                                    </View>
+                                )}
+                                {inputAddress && (
+                                    <TouchableOpacity
+                                        disabled={disabled}
+                                        style={[styles.confirmButton, { backgroundColor: disabled ? CommonColor.basic_gray_medium : CommonColor.main_blue, bottom: keyboardHeight }]}
+                                        onPress={onPress}
+                                    >
+                                        <Text style={[isTablet ? TabletFont.button_1 : MobileFont.button_1, { color: CommonColor.main_white }]}>
+                                            {selectedAddress?.id ? "앱 구경하러 가기" : "확인"}
+                                        </Text>
+                                    </TouchableOpacity>
+                                )}
+                            </View>
+                        </>
+                    }
+                />
+            </View>
         </TouchableWithoutFeedback>
     )
 }
@@ -96,7 +87,7 @@ export const SearchAddressScreen = () => {
 const styles = StyleSheet.create({
     phase: {
         alignSelf: "center",
-        marginBottom: 20
+        marginBottom: 80
     },
     unSelectedPhase: {
         width: 8,
@@ -112,8 +103,10 @@ const styles = StyleSheet.create({
         borderRadius: 5
     },
     confirmButton: {
-        width: "100%",
+        width: screenWidth,
+        position: "absolute",
         paddingVertical: isTablet ? 20 : 17,
+        alignSelf: "center",
         alignItems: "center",
         justifyContent: "center"
     },
@@ -142,7 +135,9 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         paddingHorizontal: isTablet ? 132 : 16
     },
-    content: isTablet ? TabletFont.title_on_boarding : MobileFont.detail_2,
+    content: {
+        flex: 1
+    },
     title: isTablet ? TabletFont.title_on_boarding : MobileFont.title_on_boarding,
     subtitle: isTablet ? TabletFont.body_2 : MobileFont.body_2,
     textContainer: {
@@ -150,14 +145,8 @@ const styles = StyleSheet.create({
         marginTop: isTablet ? 140 : 110
     },
     container: {
-        width: "100%",
-        alignItems: "center",
-        justifyContent: "space-between",
-        backgroundColor: "#fff"
-    },
-    flex: {
         flex: 1,
-        backgroundColor: "#fff",
-        justifyContent: "space-between"
+        alignItems: "center",
+        backgroundColor: "#fff"
     }
 })

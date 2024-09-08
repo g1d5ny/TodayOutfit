@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, memo, useState } from "react"
 import { CommonColor, MobileFont, TabletFont } from "../style/CommonStyle"
-import { StyleSheet, TextInput, TextInputProps, TouchableOpacity, View } from "react-native"
+import { StyleSheet, Text, TextInput, TextInputProps, TouchableOpacity, View } from "react-native"
 import { inputAddressState, isTablet, resultAdressListState } from "../store"
 import { LocationPermissionModal } from "./LocationPermissionModal"
 import Search from "../asset/icon/icon_search.svg"
@@ -8,21 +8,34 @@ import FocusLocation from "../asset/icon/icon_focus_location.svg"
 import FocusOffLocation from "../asset/icon/icon_focus_off_location.svg"
 import { useRecoilState } from "recoil"
 import { useAddressHook } from "../hook/useAddressHook"
-
-interface InputProps extends TextInputProps {
-    getLocation: () => void
-    isOnFocus: boolean
-    setIsOnFocus: Dispatch<SetStateAction<boolean>>
-}
+import { useUserLocationHook } from "hook/useUserLocationHook"
+import { navigationRef } from "navigation/RootNavigation"
 
 const SEARCH_ICON = isTablet ? 24 : 20
 const LOCATION_ICON = isTablet ? 26 : 22
-export const SearchInput = memo(({ getLocation, isOnFocus, setIsOnFocus, ...props }: InputProps) => {
-    const [isVisible, setIsVisible] = useState(false)
+
+interface IProps extends TextInputProps {
+    hasInput: boolean
+}
+export const SearchInput = memo(({ hasInput, ...props }: IProps) => {
     const [inputAddress, setInputAddress] = useRecoilState(inputAddressState)
     const [resultAddress, setResultAddress] = useRecoilState(resultAdressListState)
     const isNotFoundAddress = resultAddress[0] === "NOT_FOUND"
+    const [isVisible, setIsVisible] = useState(false)
+    const [isOnFocus, setIsOnFocus] = useState(hasInput)
     const { searchAddress } = useAddressHook()
+    const { checkOnlyLocationPermission, getUserLocation } = useUserLocationHook()
+
+    const onPressLocation = async () => {
+        const checkP = await checkOnlyLocationPermission()
+        if (checkP) {
+            getUserLocation().then(() => {
+                navigationRef?.current?.navigate("SelectGenderScreen")
+            })
+            return
+        }
+        setIsVisible(true)
+    }
 
     const border = () => {
         if (isOnFocus) {
@@ -33,39 +46,27 @@ export const SearchInput = memo(({ getLocation, isOnFocus, setIsOnFocus, ...prop
         }
     }
 
-    // useEffect(() => {
-    //     if (isNotFoundAddress && setSelectedAddress) {
-    //         setSelectedAddress(selectedAddressInitialValue)
-    //     }
-    // }, [resultAddress])
-
-    // useEffect(() => {
-    //     return () => {
-    //         if (setSelectedAddress) {
-    //             setSelectedAddress(selectedAddressInitialValue)
-    //         }
-    //         setInputAddress("")
-    //         setResultAddress([])
-    //     }
-    // }, [])
-
     return (
-        <View style={{ width: "100%", justifyContent: "space-between" }}>
+        <View style={{ width: "100%" }}>
             <View style={[styles.input, border()]}>
                 <Search width={SEARCH_ICON} height={SEARCH_ICON} />
-                <TextInput
-                    value={inputAddress}
-                    onChangeText={value => setInputAddress(value)}
-                    placeholder='예시: 서울특별시 중구'
-                    placeholderTextColor={CommonColor.basic_gray_medium}
-                    onFocus={() => setIsOnFocus(true)}
-                    onBlur={() => setIsOnFocus(false)}
-                    autoCorrect={false}
-                    onSubmitEditing={searchAddress}
-                    style={(isTablet ? TabletFont.body_2 : MobileFont.body_2, styles.textView)}
-                    {...props}
-                />
-                <TouchableOpacity onPress={getLocation}>
+                {hasInput ? (
+                    <TextInput
+                        value={inputAddress}
+                        onChangeText={value => setInputAddress(value)}
+                        placeholder='예시: 서울특별시 중구'
+                        placeholderTextColor={CommonColor.basic_gray_medium}
+                        onFocus={() => setIsOnFocus(true)}
+                        onBlur={() => setIsOnFocus(false)}
+                        onSubmitEditing={searchAddress}
+                        autoFocus={hasInput}
+                        style={[isTablet ? TabletFont.body_2 : MobileFont.body_2, styles.textView]}
+                        {...props}
+                    />
+                ) : (
+                    <Text style={[isTablet ? TabletFont.body_2 : MobileFont.body_2, styles.textView, { color: CommonColor.basic_gray_medium }]}>예시: 서울특별시 중구</Text>
+                )}
+                <TouchableOpacity onPress={onPressLocation}>
                     {isOnFocus ? <FocusOffLocation width={LOCATION_ICON} height={LOCATION_ICON} /> : <FocusLocation width={LOCATION_ICON} height={LOCATION_ICON} />}
                 </TouchableOpacity>
             </View>
@@ -96,7 +97,8 @@ export const styles = StyleSheet.create({
     textView: {
         flex: 1,
         marginLeft: 15,
-        marginRight: 20
+        marginRight: 20,
+        paddingVertical: 0
     },
     input: {
         width: "100%",

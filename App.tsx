@@ -13,6 +13,7 @@ import { RecoilEnv, RecoilRoot } from "recoil"
 import RecoilNexus from "recoil-nexus"
 import { Splash } from "component/lottie/Splash"
 import SplashScreen from "react-native-splash-screen"
+import Storage from "@react-native-async-storage/async-storage"
 
 if (__DEV__) {
     RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false
@@ -20,12 +21,10 @@ if (__DEV__) {
 
 function App(): JSX.Element {
     const [appLoading, setAppLoading] = useState(true)
-    // useEffect(() => {
-    //     Storage.removeItem("loggedInState")
-    //     Storage.removeItem("myAddressList")
-    // }, [])
 
     useEffect(() => {
+        // Storage.removeItem("loggedInState")
+        // Storage.removeItem("myAddressList")
         SplashScreen.hide()
     }, [])
 

@@ -9,6 +9,8 @@ import UnCheck from "asset/icon/icon_gray_check.svg"
 import { useState } from "react"
 import { isTablet, loggedInState, setStorage } from "../../store"
 import { useSetRecoilState } from "recoil"
+import { Guide } from "component/Guide"
+import { OnBoardingText } from "text/OnBoardingText"
 
 export const SelectGenderScreen = () => {
     const setIsLoggedIn = useSetRecoilState(loggedInState)
@@ -23,33 +25,32 @@ export const SelectGenderScreen = () => {
 
     return (
         <View style={styles.container}>
-            <View>
-                <View style={[styles.textContainer]}>
-                    <Text style={[styles.subtitle, { color: CommonColor.main_blue }]}>캐릭터 만들기</Text>
-                    <Text style={[styles.title, { marginTop: 20 }]}>맞춤 코디를 대신 입어줄</Text>
-                    <Text style={[styles.title]}>캐릭터를 선택해주세요!</Text>
-                    <Text style={[styles.content, { marginTop: isTablet ? 12 : 10, color: CommonColor.basic_gray_dark }]}>이후 설정에서 언제든 변경 가능합니다.</Text>
-                </View>
-                <View style={styles.genderContainer}>
-                    <View style={styles.genderView}>
-                        <TouchableOpacity onPress={() => onPress("man")} style={styles.checkButton}>
-                            {gender === "man" ? <Check /> : <UnCheck />}
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => onPress("man")} style={[styles.gender, gender === "man" ? styles.checked : styles.unChecked]}>
-                            {isTablet ? <TabletMan /> : <Man />}
-                        </TouchableOpacity>
+            <Guide
+                guideText={OnBoardingText.characterGuideText}
+                title={OnBoardingText.characterTitle}
+                subTitle={OnBoardingText.characterSubTitle}
+                children={
+                    <View style={styles.genderContainer}>
+                        <View style={styles.genderView}>
+                            <TouchableOpacity onPress={() => onPress("man")} style={styles.checkButton}>
+                                {gender === "man" ? <Check /> : <UnCheck />}
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => onPress("man")} style={[styles.gender, gender === "man" ? styles.checked : styles.unChecked]}>
+                                {isTablet ? <TabletMan /> : <Man />}
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{ width: isTablet ? 24 : 14, height: isTablet ? 24 : 14 }} />
+                        <View style={styles.genderView}>
+                            <TouchableOpacity onPress={() => onPress("woman")} style={styles.checkButton}>
+                                {gender === "woman" ? <Check /> : <UnCheck />}
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => onPress("woman")} style={[styles.gender, gender === "woman" ? styles.checked : styles.unChecked]}>
+                                {isTablet ? <TabletWoman /> : <Woman />}
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                    <View style={{ width: isTablet ? 24 : 14, height: isTablet ? 24 : 14 }} />
-                    <View style={styles.genderView}>
-                        <TouchableOpacity onPress={() => onPress("woman")} style={styles.checkButton}>
-                            {gender === "woman" ? <Check /> : <UnCheck />}
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => onPress("woman")} style={[styles.gender, gender === "woman" ? styles.checked : styles.unChecked]}>
-                            {isTablet ? <TabletWoman /> : <Woman />}
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </View>
+                }
+            />
             <View style={CommonStyle.row}>
                 <View style={styles.unSelectedPhase} />
                 <View style={styles.selectedPhase} />
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
         padding: 22
     },
     genderContainer: {
-        marginTop: isTablet ? 183 : 95,
+        marginTop: isTablet ? 34 : 16,
         flexDirection: "row",
         alignItems: "center"
     },
@@ -112,6 +113,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
+        paddingBottom: isTablet ? 60 : 30,
         alignItems: "center",
         justifyContent: "space-between",
         backgroundColor: "#fff"

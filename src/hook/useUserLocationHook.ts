@@ -59,7 +59,7 @@ export const useUserLocationHook = () => {
             })
     }
 
-    const addUserAddress = (addedAddress: MY_ADDRSS) => {
+    const addUserAddress = async (addedAddress: MY_ADDRSS) => {
         const myAddress = getRecoil(myAddressListState)
 
         // 내가 설정한 주소가 없으면

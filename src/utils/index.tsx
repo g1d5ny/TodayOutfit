@@ -83,7 +83,7 @@ export const FeelsLikeFormat = (feelsLike: number) => {
     if (feelsLike <= 22) return FeelsLike(feelsLike)[6]
     if (feelsLike <= 28) return FeelsLike(feelsLike)[7]
     if (feelsLike <= 31) return FeelsLike(feelsLike)[8]
-    if (feelsLike > 36) return FeelsLike(feelsLike)[9]
+    if (feelsLike > 31) return FeelsLike(feelsLike)[9]
 }
 
 export const SnowFallFormat = (snowFall: number) => {

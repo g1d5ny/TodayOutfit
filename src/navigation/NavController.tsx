@@ -25,7 +25,7 @@ export const NavController = () => {
     return (
         // TODO HomeScreen에서만 -top 되도록
         <SafeAreaView style={CommonStyle.flex}>
-            <StatusBar barStyle={isDarkMode ? "light-content" : "dark-content"} backgroundColor={CommonStyle.flex.backgroundColor} />
+            <StatusBar />
             <NavigationContainer ref={navigationRef}>{goTo === "main" ? <MainNavigator /> : <OnBoardingNavigator />}</NavigationContainer>
             {/* <ToastComponent/> */}
         </SafeAreaView>
