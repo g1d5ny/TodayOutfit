@@ -39,18 +39,6 @@ export const Skirt = [
     { ko: "롱 스커트", en: "long_skirt" }
 ]
 
-export const WinterCostume = [
-    { ko: "목도리/장갑", en: "scarf_gloves" },
-    { ko: "히트텍/내복", en: "underwear" }
-]
-
-export const WinterWomanCostume = [
-    { ko: "기모 스타킹", en: "brushed_stockings" },
-    { ko: "일반 스타킹", en: "stockings" },
-    { ko: "살색 스타킹", en: "flesh_colored_stockings" },
-    { ko: "레깅스", en: "leggings" }
-]
-
 export const CostumePath: { [key: string]: ImageSourcePropType } = {
     cardigan: require("asset/icon/clothes/icon_clothes_cardigan.png"),
     jacket: require("asset/icon/clothes/icon_clothes_jacket.png"),
@@ -75,13 +63,7 @@ export const CostumePath: { [key: string]: ImageSourcePropType } = {
     denim: require("asset/icon/clothes/icon_clothes_denim.jpeg"),
     shorts: require("asset/icon/clothes/icon_clothes_shorts.png"),
     mini_skirt: require("asset/icon/clothes/icon_clothes_mini_skirt.png"),
-    long_skirt: require("asset/icon/clothes/icon_clothes_long_skirt.png"),
-    scarf_gloves: require("asset/icon/clothes/icon_clothes_scarf_gloves.png"),
-    underwear: require("asset/icon/clothes/icon_clothes_underwear.png"),
-    brushed_stockings: require("asset/icon/clothes/icon_clothes_brushed_stockings.png"),
-    stockings: require("asset/icon/clothes/icon_clothes_stockings.png"),
-    flesh_colored_stockings: require("asset/icon/clothes/icon_clothes_flesh_colored_stockings.jpeg"),
-    leggings: require("asset/icon/clothes/icon_clothes_leggings.png")
+    long_skirt: require("asset/icon/clothes/icon_clothes_long_skirt.png")
 }
 
 // export const CharacterCostumePath: { [key: string]: ImageSourcePropType } = {

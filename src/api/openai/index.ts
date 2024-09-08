@@ -1,7 +1,7 @@
 import { OPEN_AI_BASE_URL, OPEN_AI_KEY } from "@env"
 import axios from "axios"
 import { Weather } from "store"
-import { WinterCostume, WinterWomanCostume, OnePice, Outer, Pants, Skirt, Top } from "store/clothes"
+import { OnePice, Outer, Pants, Skirt, Top } from "store/clothes"
 import { GENDER } from "type"
 
 export const fetchCurrentDesc = async (
@@ -34,8 +34,7 @@ export const fetchCurrentDesc = async (
     사용자가 입어야 할 의상은 상의, 하의이며 상,하의 설명이 필요합니다. 상,하의 설명은 형용사로 끝납니다.
 
     상의는 ${JSON.stringify(Outer)}, ${JSON.stringify(Top)}, ${JSON.stringify(OnePice)}
-    하의는 ${JSON.stringify(Pants)}, ${JSON.stringify(Skirt)}
-    그 외는 ${JSON.stringify(WinterCostume)}, ${JSON.stringify(WinterWomanCostume)} 이 중에서 선택해주세요.
+    하의는 ${JSON.stringify(Pants)}, ${JSON.stringify(Skirt)} 이 중에서 선택해주세요.
     
     출력 형식: {"costume": { "top":${JSON.stringify(Outer)}, ${JSON.stringify(Top)}, ${JSON.stringify(OnePice)} 중에 두개, "topDesc": "형용사로 끝나는 상의 설명", "bottom": ${JSON.stringify(
         Pants

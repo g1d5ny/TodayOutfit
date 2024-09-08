@@ -5,25 +5,33 @@
  * @format
  */
 
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { StyleSheet } from "react-native"
 import { SafeAreaProvider } from "react-native-safe-area-context"
 import { NavController } from "./src/navigation/NavController"
 import { RecoilEnv, RecoilRoot } from "recoil"
 import RecoilNexus from "recoil-nexus"
-import Storage from "@react-native-async-storage/async-storage"
+import { Splash } from "component/lottie/Splash"
+import SplashScreen from "react-native-splash-screen"
 
 if (__DEV__) {
     RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false
 }
 
 function App(): JSX.Element {
+    const [appLoading, setAppLoading] = useState(true)
     // useEffect(() => {
     //     Storage.removeItem("loggedInState")
     //     Storage.removeItem("myAddressList")
     // }, [])
 
-    return (
+    useEffect(() => {
+        SplashScreen.hide()
+    }, [])
+
+    return appLoading ? (
+        <Splash onAnimationFinish={() => setAppLoading(false)} />
+    ) : (
         <RecoilRoot>
             <RecoilNexus />
             <SafeAreaProvider>
