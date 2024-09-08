@@ -181,6 +181,7 @@ export const WeatherFooter = ({ viewRef }: { viewRef: LegacyRef<View> }) => {
                                         content={WindSpeedFormat(selectedHour.windSpeed)?.content as string}
                                         desc={WindSpeedFormat(selectedHour.windSpeed)?.text as string}
                                         contentIcon={WindSpeedFormat(selectedHour.windSpeed)?.icon}
+                                        windSpeed={selectedHour.windSpeed}
                                         onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 2 } })}
                                     />
                                     <WeatherDetail isVisible={false} />
@@ -215,6 +216,7 @@ export const WeatherFooter = ({ viewRef }: { viewRef: LegacyRef<View> }) => {
                                     content={WindSpeedFormat(selectedHour.windSpeed)?.content as string}
                                     desc={WindSpeedFormat(selectedHour.windSpeed)?.text as string}
                                     contentIcon={WindSpeedFormat(selectedHour.windSpeed)?.icon}
+                                    windSpeed={selectedHour.windSpeed}
                                     onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 2 } })}
                                 />
                                 {selectedHour.willItSnow ? (

@@ -45,6 +45,7 @@ const WeatherDetailComponent = ({ uv, maxWindSpeed, willItSnow, snowPercentage, 
                 content={WindSpeedFormat(maxWindSpeed)?.content as string}
                 desc={WindSpeedFormat(maxWindSpeed)?.text as string}
                 contentIcon={WindSpeedFormat(maxWindSpeed)?.icon}
+                windSpeed={maxWindSpeed}
                 onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 2 } })}
             />
             {willItSnow ? (

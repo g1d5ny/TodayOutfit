@@ -12,7 +12,7 @@ export const MoreScreen = () => {
         <View style={CommonStyle.flex}>
             <Header text='더보기' hasBack={false} />
             <View style={[CommonStyle.padding, styles.container]}>
-                <MoreMenu icon={<Push />} text='알림 수신' onPress={() => navigationRef.current?.navigate("PushScreen")} />
+                {/* <MoreMenu icon={<Push />} text='알림 수신' onPress={() => navigationRef.current?.navigate("PushScreen")} /> */}
                 <MoreMenu
                     icon={<Weather />}
                     text='기상 정보에 관하여'
