@@ -23,11 +23,11 @@ export default () => {
         <View style={{ flex: 1 }}>
             <View style={styles.character}>
                 <Image
-                    source={gender === "W" ? require("asset/image/image_girl.png") : require("asset/image/image_t_shirt_shorts_boy.png")}
+                    source={gender === "W" ? require("asset/image/image_girl.png") : require("asset/image/image_hood_boy.png")}
                     style={{ width: isTablet ? "40%" : "50%", height: "80%" }}
                 />
                 <View>
-                    <Text style={[isTablet ? TabletFont.button_1 : MobileFont.button_1, { color: CommonColor.main_black }]}>기온 맞춤 추천 의상</Text>
+                    <Text style={[isTablet ? TabletFont.button_1 : MobileFont.body_1, { color: CommonColor.main_black }]}>기온 맞춤 추천 의상</Text>
                     <View style={styles.recomContainer}>
                         <View style={[styles.recom, { marginBottom: 8, marginRight: isTablet ? 25 : 0 }]}>
                             <View style={styles.clothes}>
