@@ -24,14 +24,13 @@ export default () => {
             <View style={styles.character}>
                 <Image
                     source={gender === "W" ? require("asset/image/image_girl.png") : require("asset/image/image_t_shirt_shorts_boy.png")}
-                    style={{ width: isTablet ? "40%" : "50%", height: isTablet ? 800 : 470 }}
+                    style={{ width: isTablet ? "40%" : "50%", height: "80%" }}
                 />
                 <View>
-                    <Text style={[isTablet ? TabletFont.button_1 : MobileFont.button_1, { color: CommonColor.main_white }]}>기온 맞춤 추천 의상</Text>
+                    <Text style={[isTablet ? TabletFont.button_1 : MobileFont.button_1, { color: CommonColor.main_black }]}>기온 맞춤 추천 의상</Text>
                     <View style={styles.recomContainer}>
-                        <View style={[styles.recom, { marginBottom: isTablet ? 0 : 8, marginRight: isTablet ? 25 : 0 }]}>
+                        <View style={[styles.recom, { marginBottom: 8, marginRight: isTablet ? 25 : 0 }]}>
                             <View style={styles.clothes}>
-                                {/* <TempClothes width={"90%"} height={"90%"} /> */}
                                 <Image source={top[0].path} style={{ width: "90%", height: "90%" }} />
                             </View>
                             <View style={styles.clothesDesc}>
@@ -41,7 +40,6 @@ export default () => {
                         </View>
                         <View style={styles.recom}>
                             <View style={styles.clothes}>
-                                {/* <TempPants width={"70%"} height={"70%"} /> */}
                                 <Image source={bottom[0].path} style={{ width: "90%", height: "90%" }} />
                             </View>
                             <View style={styles.clothesDesc}>
@@ -54,7 +52,6 @@ export default () => {
                         <View style={styles.recomContainer}>
                             <View style={[styles.recom, { marginBottom: isTablet ? 0 : 8, marginRight: isTablet ? 25 : 0 }]}>
                                 <View style={styles.clothes}>
-                                    {/* <TempClothes width={"90%"} height={"90%"} /> */}
                                     <Image source={top[1].path} style={{ width: "90%", height: "90%" }} />
                                 </View>
                                 <View style={styles.clothesDesc}>
@@ -64,7 +61,6 @@ export default () => {
                             </View>
                             <View style={styles.recom}>
                                 <View style={styles.clothes}>
-                                    {/* <TempPants width={"70%"} height={"70%"} /> */}
                                     <Image source={bottom[1].path} style={{ width: "90%", height: "90%" }} />
                                 </View>
                                 <View style={styles.clothesDesc}>
@@ -124,7 +120,11 @@ const styles = StyleSheet.create({
     },
     clothesDesc: {
         paddingVertical: isTablet ? 10 : 9,
-        paddingHorizontal: isTablet ? 10 : 9
+        paddingHorizontal: isTablet ? 10 : 9,
+        gap: isTablet ? 8 : 4,
+        backgroundColor: CommonColor.main_white,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10
     },
     clothes: {
         flex: 1,
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
         width: isTablet ? 174 : 136,
         height: isTablet ? 239 : 186,
         borderRadius: 10,
-        backgroundColor: CommonColor.main_white
+        backgroundColor: "rgba(255, 255, 255, 0.4)"
     },
     recomContainer: {
         flexDirection: isTablet ? "row" : "column",

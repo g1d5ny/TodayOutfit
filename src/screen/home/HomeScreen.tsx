@@ -3,7 +3,7 @@ import { currentWeatherInfoState, hourWeatherInfoState, isTablet } from "../../s
 import { useRecoilValue } from "recoil"
 import Loader from "../../component/lottie/Loader"
 import { useRef, useState } from "react"
-import { CommonColor, CommonStyle, screenHeight } from "../../style/CommonStyle"
+import { CommonColor, CommonStyle, screenHeight, ShadowStyle } from "../../style/CommonStyle"
 import ArrowDown from "../../asset/icon/icon_arrow_down.svg"
 import ArrowUp from "../../asset/icon/icon_arrow_up.svg"
 import WeatherHeader from "./WeatherHeader"
@@ -12,12 +12,13 @@ import { WeatherFooter } from "./WeatherFooter"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 const TAB_HEIGHT = 60
+type ArrowType = "up" | "down"
 export const HomeScreen = () => {
     const currentWeather = useRecoilValue(currentWeatherInfoState)
     const hourWeather = useRecoilValue(hourWeatherInfoState)
     const scrollRef = useRef<ScrollView>(null)
     const viewRef = useRef<View>(null)
-    const [arrow, setArrow] = useState("down")
+    const [arrow, setArrow] = useState<ArrowType>("down")
     const { top, bottom } = useSafeAreaInsets()
 
     const handleScroll = () => {
@@ -40,10 +41,19 @@ export const HomeScreen = () => {
                 </View>
             ) : (
                 <View style={CommonStyle.flex}>
-                    <ScrollView ref={scrollRef}>
+                    <ScrollView
+                        ref={scrollRef}
+                        scrollEventThrottle={0}
+                        onScroll={({
+                            nativeEvent: {
+                                contentOffset: { y },
+                                layoutMeasurement: { height }
+                            }
+                        }) => setArrow(y >= height / 2 ? "up" : "down")}
+                    >
                         <ImageBackground
                             source={currentWeather.is_day ? require("asset/image/image_day_background.png") : require("asset/image/image_night_background.png")}
-                            resizeMode='stretch'
+                            resizeMode='cover'
                             style={[CommonStyle.padding, { height: screenHeight - top - bottom - TAB_HEIGHT }]}
                         >
                             <WeatherHeader />
@@ -51,7 +61,7 @@ export const HomeScreen = () => {
                         </ImageBackground>
                         <WeatherFooter viewRef={viewRef} />
                     </ScrollView>
-                    <TouchableOpacity onPress={handleScroll} style={styles.scroller}>
+                    <TouchableOpacity onPress={handleScroll} style={[styles.scroller, ShadowStyle]}>
                         {arrow === "down" ? <ArrowDown /> : <ArrowUp />}
                     </TouchableOpacity>
                 </View>

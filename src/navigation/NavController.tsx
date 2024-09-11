@@ -8,6 +8,7 @@ import { OnBoardingNavigator } from "./onBoardingNavigation/OnBoardingNavigator"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { MainNavigator } from "./mainNavigation/MainNavigor"
 import { CommonStyle } from "style/CommonStyle"
+import { ToastComponent } from "component/LocationPermissionModal"
 
 export const NavController = () => {
     const { contents: isLoggedIn, state } = useRecoilValueLoadable(loggedInState)
@@ -25,9 +26,10 @@ export const NavController = () => {
     return (
         // TODO HomeScreen에서만 -top 되도록
         <SafeAreaView style={CommonStyle.flex}>
-            <StatusBar />
+            {/* TODO android 확인 예정 */}
+            <StatusBar barStyle={"dark-content"} />
             <NavigationContainer ref={navigationRef}>{goTo === "main" ? <MainNavigator /> : <OnBoardingNavigator />}</NavigationContainer>
-            {/* <ToastComponent/> */}
+            <ToastComponent />
         </SafeAreaView>
     )
 }
