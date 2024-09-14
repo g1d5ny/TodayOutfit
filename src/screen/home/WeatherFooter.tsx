@@ -314,7 +314,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between"
     },
     wrapper: {
-        marginTop: 50,
+        paddingTop: 50,
         paddingVertical: 15
     }
 })

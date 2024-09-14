@@ -27,7 +27,7 @@ export const HomeScreen = () => {
             return
         }
         viewRef?.current?.measureLayout(scrollRef?.current?.getInnerViewNode(), (x, y) => {
-            scrollRef?.current?.scrollTo({ y: y + top + bottom + TAB_HEIGHT, animated: true })
+            scrollRef?.current?.scrollTo({ y, animated: true })
             setArrow("up")
         })
     }
