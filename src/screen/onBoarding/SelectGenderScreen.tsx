@@ -11,12 +11,13 @@ import { isTablet, loggedInState, setStorage } from "../../store"
 import { useSetRecoilState } from "recoil"
 import { Guide } from "component/Guide"
 import { OnBoardingText } from "text/OnBoardingText"
+import { GENDER } from "type"
 
 export const SelectGenderScreen = () => {
     const setIsLoggedIn = useSetRecoilState(loggedInState)
-    const [gender, setGender] = useState<string | undefined>()
+    const [gender, setGender] = useState<GENDER>()
 
-    const onPress = (gender: "man" | "woman") => {
+    const onPress = (gender: GENDER) => {
         setGender(gender)
         setStorage("gender", gender)
         setIsLoggedIn(true)
@@ -32,19 +33,19 @@ export const SelectGenderScreen = () => {
                 children={
                     <View style={styles.genderContainer}>
                         <View style={styles.genderView}>
-                            <TouchableOpacity onPress={() => onPress("man")} style={styles.checkButton}>
-                                {gender === "man" ? <Check /> : <UnCheck />}
+                            <TouchableOpacity onPress={() => onPress("M")} style={styles.checkButton}>
+                                {gender === "M" ? <Check /> : <UnCheck />}
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => onPress("man")} style={[styles.gender, gender === "man" ? styles.checked : styles.unChecked]}>
+                            <TouchableOpacity onPress={() => onPress("M")} style={[styles.gender, gender === "M" ? styles.checked : styles.unChecked]}>
                                 {isTablet ? <TabletMan /> : <Man />}
                             </TouchableOpacity>
                         </View>
                         <View style={{ width: isTablet ? 24 : 14, height: isTablet ? 24 : 14 }} />
                         <View style={styles.genderView}>
-                            <TouchableOpacity onPress={() => onPress("woman")} style={styles.checkButton}>
-                                {gender === "woman" ? <Check /> : <UnCheck />}
+                            <TouchableOpacity onPress={() => onPress("W")} style={styles.checkButton}>
+                                {gender === "W" ? <Check /> : <UnCheck />}
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => onPress("woman")} style={[styles.gender, gender === "woman" ? styles.checked : styles.unChecked]}>
+                            <TouchableOpacity onPress={() => onPress("W")} style={[styles.gender, gender === "W" ? styles.checked : styles.unChecked]}>
                                 {isTablet ? <TabletWoman /> : <Woman />}
                             </TouchableOpacity>
                         </View>
