@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-nati
 import { isTablet } from "../../store"
 import PagerView from "react-native-pager-view"
 import { Header, WeatherDetailFooter } from "../../component/CommonComponent"
-import { CommonColor, CommonStyle, MobileFont, TabletFont, screenWidth } from "../../style/CommonStyle"
+import { CommonColor, CommonStyle, MobileFont, TabletFont, screenHeight, screenWidth } from "../../style/CommonStyle"
 import { UVScreen } from "./UVScreen"
 import { FeelsLikeScreen } from "./FeelsLikeScreen"
 import { WindSpeedScreen } from "./WindSpeedScreen"
@@ -11,6 +11,7 @@ import { WindDirectionScreen } from "./WindDirectionScreen"
 import { RainPercentageScreen } from "./RainPercentageScreen"
 import { HumidityScreen } from "./HumidityScreen"
 import { SnowFallScreen } from "./SnowFallScreen"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 const categoryList = [
     {
@@ -29,9 +30,12 @@ const categoryList = [
     { title: "습도", footer: "적정 상대 습도의 경우 한국표준과학연구원의 자료와 기상청의 날씨배움터 정보를 활용했음을 안내 해드립니다.", Component: HumidityScreen },
     { title: "적설량", footer: "적설량의 단계 기준의 경우 기상청 날씨누리의 대설 특보, ‘대설 판단 가이던스'를 활용했음을 알려드립니다.", Component: SnowFallScreen }
 ]
+const HEADERS = 105
+const FOOTER = 84
 export const WeatherDetailScreen = ({ route }: { route: any }) => {
     const [selectedIndex, setSelectedIndex] = useState<number>(route.params.index)
     const ref = useRef<any>(null) // PagerView로 타입해야함
+    const { top, bottom } = useSafeAreaInsets()
 
     const WeatherHeader = () => {
         const setCategory = (index: number) => {
@@ -64,8 +68,8 @@ export const WeatherDetailScreen = ({ route }: { route: any }) => {
             <PagerView ref={ref} initialPage={route.params.index} useNext={false} style={CommonStyle.flex} onPageSelected={({ nativeEvent: { position } }) => setSelectedIndex(position)}>
                 {categoryList.map(({ Component, footer }, index) => {
                     return (
-                        <ScrollView key={index} style={styles.padding}>
-                            <View style={styles.component}>
+                        <ScrollView key={index}>
+                            <View style={[styles.padding, { minHeight: screenHeight - top - bottom - HEADERS - FOOTER }]}>
                                 <Component key={index} />
                             </View>
                             <WeatherDetailFooter text={footer} />
@@ -78,9 +82,6 @@ export const WeatherDetailScreen = ({ route }: { route: any }) => {
 }
 
 const styles = StyleSheet.create({
-    component: {
-        minHeight: "90%"
-    },
     selectedCategory: {
         borderBottomWidth: 3,
         borderColor: CommonColor.main_blue

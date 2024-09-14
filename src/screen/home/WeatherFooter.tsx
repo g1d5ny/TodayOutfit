@@ -48,20 +48,18 @@ export const WeatherFooter = ({ viewRef }: { viewRef: LegacyRef<View> }) => {
     }, [hourWeather])
 
     const WeatherHourlyCard = useCallback(({ hour, minIcon, temp, onPress, isClicked, index }: WeatherHourlyCard) => {
-        if (isClicked) {
-            return (
-                <TouchableOpacity key={index} style={[styles.hourView, { backgroundColor: CommonColor.basic_gray_light }]} onPress={onPress}>
-                    <Text style={[isTablet ? TabletFont.detail_1 : MobileFont.detail_1, styles.currentText]}>{hour === -1 ? "지금" : hour + "시"}</Text>
-                    <View style={{ marginVertical: 9 }}>{minIcon}</View>
-                    <Text style={[isTablet ? TabletFont.detail_1 : MobileFont.detail_1, styles.currentText]}>{temp}˚</Text>
-                </TouchableOpacity>
-            )
+        const getFont = () => {
+            if (isClicked) {
+                return [isTablet ? TabletFont.detail_1 : MobileFont.detail_1, styles.currentText]
+            }
+            return [isTablet ? TabletFont.detail_2 : MobileFont.detail_2, styles.hourText]
         }
+
         return (
-            <TouchableOpacity key={index} style={[styles.hourView]} onPress={onPress}>
-                <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.detail_2, styles.hourText]}>{hour === -1 ? "지금" : hour + "시"}</Text>
+            <TouchableOpacity key={index} style={[styles.hourView, isClicked && { backgroundColor: CommonColor.basic_gray_light }]} onPress={onPress}>
+                <Text style={getFont()}>{hour === -1 ? "지금" : hour + "시"}</Text>
                 <View style={{ marginVertical: 9 }}>{minIcon}</View>
-                <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.detail_2, styles.hourText]}>{temp}˚</Text>
+                <Text style={getFont()}>{temp}˚</Text>
             </TouchableOpacity>
         )
     }, [])

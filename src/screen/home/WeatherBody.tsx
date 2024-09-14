@@ -7,6 +7,7 @@ import { GENDER } from "type"
 
 export default () => {
     const {
+        is_day,
         costume: { top, topDesc, bottom, bottomDesc }
     } = useRecoilValue(currentWeatherInfoState)
     const [gender, setGender] = useState<GENDER>("W")
@@ -27,7 +28,7 @@ export default () => {
                     style={{ width: isTablet ? "40%" : "50%", height: "80%" }}
                 />
                 <View>
-                    <Text style={[isTablet ? TabletFont.button_1 : MobileFont.body_1, { color: CommonColor.main_black }]}>기온 맞춤 추천 의상</Text>
+                    <Text style={[isTablet ? TabletFont.button_1 : MobileFont.body_1, { color: is_day ? CommonColor.main_black : CommonColor.main_white }]}>기온 맞춤 추천 의상</Text>
                     <View style={styles.recomContainer}>
                         <View style={[styles.recom, { marginBottom: 8, marginRight: isTablet ? 25 : 0 }]}>
                             <View style={styles.clothes}>

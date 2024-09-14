@@ -16,17 +16,36 @@ export default () => {
         <View>
             <View style={[styles.weatherDesc]}>
                 <View style={{ maxWidth: "65%" }}>
-                    <Text style={[isTablet ? TabletFont.body_1 : MobileFont.detail_1, { color: CommonColor.basic_gray_dark }]}>오늘은</Text>
-                    <Text style={[isTablet ? TabletFont.main_page_forecast_text : MobileFont.title_on_boarding, TextShadowStyle, { color: CommonColor.main_black, marginBottom: 4 }]}>
+                    <Text style={[isTablet ? TabletFont.body_1 : MobileFont.detail_1, { color: currentWeather.is_day ? CommonColor.basic_gray_dark : CommonColor.main_white }]}>오늘은</Text>
+                    <Text
+                        style={[
+                            isTablet ? TabletFont.main_page_forecast_text : MobileFont.title_on_boarding,
+                            TextShadowStyle,
+                            { color: currentWeather.is_day ? CommonColor.main_black : CommonColor.main_white, marginBottom: 4 }
+                        ]}
+                    >
                         {currentWeather.desc}
                     </Text>
                 </View>
-                <Text style={[isTablet ? TabletFont.temperature : MobileFont.temperature, TextShadowStyle, { color: CommonColor.basic_gray_dark }]}>{currentWeather.temp}˚</Text>
+                <Text
+                    style={[
+                        isTablet ? TabletFont.temperature : MobileFont.temperature,
+                        TextShadowStyle,
+                        { color: currentWeather.is_day ? CommonColor.basic_gray_dark : CommonColor.main_white }
+                    ]}
+                >
+                    {currentWeather.temp}˚
+                </Text>
             </View>
             <View style={[styles.weatherDesc, { marginTop: 0 }]}>
                 <View style={styles.addrView}>
                     <Location width={isTablet ? 18 : 12} height={isTablet ? 18 : 12} />
-                    <Text style={[isTablet ? TabletFont.body_2 : MobileFont.detail_2, { marginLeft: isTablet ? 4 : 6, color: CommonColor.basic_gray_dark }]}>
+                    <Text
+                        style={[
+                            isTablet ? TabletFont.body_2 : MobileFont.detail_2,
+                            { marginLeft: isTablet ? 4 : 6, color: currentWeather.is_day ? CommonColor.basic_gray_dark : CommonColor.main_white }
+                        ]}
+                    >
                         {myAddressList && myAddressList[0].location}
                     </Text>
                 </View>

@@ -45,9 +45,7 @@ export const WindSpeedScreen = () => {
                                 <Text style={isTablet ? TabletFont.detail_1 : MobileFont.detail_1}>{text}</Text>
                                 <Text style={[isTablet ? TabletFont.detail_3 : MobileFont.detail_3, styles.range]}>{range}</Text>
                             </View>
-                            <Text style={[isTablet ? TabletFont.weather_info_main_text && styles.tabletDesc : MobileFont.weather_info_main_text && CommonStyle.flex, styles.desc]}>
-                                {desc}
-                            </Text>
+                            <Text style={[isTablet ? TabletFont.weather_info_main_text : MobileFont.weather_info_main_text, CommonStyle.flex, styles.desc]}>{desc}</Text>
                         </View>
                     )
                 })}
@@ -57,10 +55,6 @@ export const WindSpeedScreen = () => {
 }
 
 const styles = StyleSheet.create({
-    tabletDesc: {
-        width: 150,
-        marginRight: 24
-    },
     range: {
         marginTop: 8,
         color: CommonColor.main_blue
