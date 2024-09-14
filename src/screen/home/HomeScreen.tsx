@@ -1,4 +1,4 @@
-import { ImageBackground, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native"
+import { ImageBackground, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native"
 import { currentWeatherInfoState, hourWeatherInfoState, isTablet } from "../../store"
 import { useRecoilValue } from "recoil"
 import Loader from "../../component/lottie/Loader"
@@ -36,11 +36,9 @@ export const HomeScreen = () => {
     return (
         <View style={CommonStyle.flex}>
             {!currentWeather || !hourWeather ? (
-                <View style={CommonStyle.flex}>
-                    <Loader />
-                </View>
+                <Loader />
             ) : (
-                <View style={CommonStyle.flex}>
+                <View>
                     <ScrollView
                         ref={scrollRef}
                         scrollEventThrottle={0}
@@ -54,14 +52,14 @@ export const HomeScreen = () => {
                         <ImageBackground
                             source={currentWeather.is_day ? require("asset/image/image_day_background.png") : require("asset/image/image_night_background.png")}
                             resizeMode='cover'
-                            style={[CommonStyle.padding, { height: screenHeight - top - bottom - TAB_HEIGHT }]}
+                            style={[CommonStyle.padding, { height: screenHeight - bottom - TAB_HEIGHT, paddingTop: top }]}
                         >
                             <WeatherHeader />
                             <WeatherBody />
                         </ImageBackground>
                         <WeatherFooter viewRef={viewRef} />
                     </ScrollView>
-                    <TouchableOpacity onPress={handleScroll} style={[styles.scroller, ShadowStyle]}>
+                    <TouchableOpacity onPress={handleScroll} style={[styles.scroller, ShadowStyle, { bottom: bottom + (isTablet ? 21 : 8) }]}>
                         {arrow === "down" ? <ArrowDown /> : <ArrowUp />}
                     </TouchableOpacity>
                 </View>
@@ -80,7 +78,6 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignSelf: "flex-end",
         position: "absolute",
-        bottom: 8,
         right: CommonStyle.padding.paddingHorizontal
     },
     weatherContainer: {

@@ -16,12 +16,14 @@ import { CommonColor } from "../../../style/CommonStyle"
 import { useWeatherHook } from "hook/useWeatherHook"
 import { myAddressListState } from "store"
 import { useRecoilValue } from "recoil"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 const { Navigator, Screen } = createBottomTabNavigator()
 
 export const TabNavigator = () => {
     const myAddressList = useRecoilValue(myAddressListState)
     const { CallCurrentWeather, CallDailyWeather } = useWeatherHook()
+    const { bottom } = useSafeAreaInsets()
 
     useEffect(() => {
         CallCurrentWeather()
@@ -35,7 +37,7 @@ export const TabNavigator = () => {
                 headerShown: false,
                 tabBarActiveTintColor: CommonColor.basic_gray_dark,
                 tabBarInactiveTintColor: CommonColor.basic_gray_medium,
-                tabBarStyle: { height: 60 },
+                tabBarStyle: { height: 60 + bottom },
                 tabBarItemStyle: { height: 60 },
                 tabBarLabelStyle: { fontFamily: "Pretendard-Regular", fontSize: 12 }
             }}
