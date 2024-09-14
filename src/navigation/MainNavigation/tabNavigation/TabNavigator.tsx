@@ -12,7 +12,7 @@ import { HomeNavigator } from "./tab/home/HomeNavigator"
 import { LocationNavigator } from "./tab/location/LocationNavigator"
 import { WeatherNavigator } from "./tab/weather/WeatherNavigator"
 import { MoreNavigator } from "./tab/more/MoreNavigator"
-import { CommonColor } from "../../../style/CommonStyle"
+import { CommonColor, TAB_HEIGHT } from "../../../style/CommonStyle"
 import { useWeatherHook } from "hook/useWeatherHook"
 import { myAddressListState } from "store"
 import { useRecoilValue } from "recoil"
@@ -37,8 +37,8 @@ export const TabNavigator = () => {
                 headerShown: false,
                 tabBarActiveTintColor: CommonColor.basic_gray_dark,
                 tabBarInactiveTintColor: CommonColor.basic_gray_medium,
-                tabBarStyle: { height: 60 + bottom },
-                tabBarItemStyle: { height: 60 },
+                tabBarStyle: { height: TAB_HEIGHT + bottom },
+                tabBarItemStyle: { height: TAB_HEIGHT },
                 tabBarLabelStyle: { fontFamily: "Pretendard-Regular", fontSize: 12 }
             }}
         >

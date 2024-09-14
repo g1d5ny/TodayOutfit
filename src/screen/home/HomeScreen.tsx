@@ -3,7 +3,7 @@ import { currentWeatherInfoState, hourWeatherInfoState, isTablet } from "../../s
 import { useRecoilValue } from "recoil"
 import Loader from "../../component/lottie/Loader"
 import { useRef, useState } from "react"
-import { CommonColor, CommonStyle, screenHeight, ShadowStyle } from "../../style/CommonStyle"
+import { CommonColor, CommonStyle, screenHeight, ShadowStyle, TAB_HEIGHT } from "../../style/CommonStyle"
 import ArrowDown from "../../asset/icon/icon_arrow_down.svg"
 import ArrowUp from "../../asset/icon/icon_arrow_up.svg"
 import WeatherHeader from "./WeatherHeader"
@@ -11,7 +11,6 @@ import WeatherBody from "./WeatherBody"
 import { WeatherFooter } from "./WeatherFooter"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
-const TAB_HEIGHT = 60
 type ArrowType = "up" | "down"
 export const HomeScreen = () => {
     const currentWeather = useRecoilValue(currentWeatherInfoState)
@@ -28,7 +27,7 @@ export const HomeScreen = () => {
             return
         }
         viewRef?.current?.measureLayout(scrollRef?.current?.getInnerViewNode(), (x, y) => {
-            scrollRef?.current?.scrollTo({ y, animated: true })
+            scrollRef?.current?.scrollTo({ y: y + top + bottom + TAB_HEIGHT, animated: true })
             setArrow("up")
         })
     }
@@ -59,7 +58,7 @@ export const HomeScreen = () => {
                         </ImageBackground>
                         <WeatherFooter viewRef={viewRef} />
                     </ScrollView>
-                    <TouchableOpacity onPress={handleScroll} style={[styles.scroller, ShadowStyle, { bottom: bottom + (isTablet ? 21 : 8) }]}>
+                    <TouchableOpacity onPress={handleScroll} style={[styles.scroller, ShadowStyle, { bottom: isTablet ? 21 : 8 }]}>
                         {arrow === "down" ? <ArrowDown /> : <ArrowUp />}
                     </TouchableOpacity>
                 </View>

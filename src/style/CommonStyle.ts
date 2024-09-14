@@ -4,6 +4,7 @@ import { isTablet } from "store"
 const { width, height } = Dimensions.get("window")
 export const screenWidth = width
 export const screenHeight = height
+export const TAB_HEIGHT = 60
 
 export const CommonColor = {
     // main color

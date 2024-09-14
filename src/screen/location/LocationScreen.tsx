@@ -31,8 +31,7 @@ export const LocationScreen = () => {
     const isNotFoundAddress = resultAddress && resultAddress[0] === "NOT_FOUND"
     const [showRemoveView, setShowRemoveView] = useState<boolean>(false)
     const [selectedAddress, setSelectedAddress] = useState<MY_ADDRSS | null>(selectedAddressInitialValue)
-    const [onFocus, setOnFocus] = useState(false)
-    const { addUserAddress, removeUserAddress, getUserLocation } = useUserLocationHook()
+    const { addUserAddress, removeUserAddress } = useUserLocationHook()
 
     const SelectedView = ({ location }: { location: string }) => {
         return (
@@ -71,12 +70,6 @@ export const LocationScreen = () => {
         )
     }
 
-    // useEffect(() => {
-    //     if (selectedAddress.id) {
-    //         addUserAddress(selectedAddress)
-    //     }
-    // }, [selectedAddress])
-
     return (
         <View style={CommonStyle.flex}>
             <View style={styles.header}>
@@ -87,7 +80,7 @@ export const LocationScreen = () => {
             </View>
             <View style={[CommonStyle.padding, CommonStyle.flex, CommonStyle.spread]}>
                 <View>
-                    <SearchInput getLocation={getUserLocation} isOnFocus={onFocus} setIsOnFocus={setOnFocus} />
+                    <SearchInput hasInput />
                     {resultAddress.length > 0 ? (
                         <>
                             <SearchHistory />

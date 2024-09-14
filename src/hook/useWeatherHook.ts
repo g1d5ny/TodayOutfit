@@ -1,5 +1,5 @@
 import { useRecoilValue, useSetRecoilState } from "recoil"
-import { currentWeatherInfoState, getStorage, hourWeatherInfoState, myAddressListState, weather, weeklyWeatherInfoState } from "../store"
+import { currentWeatherInfoState, getStorage, hourWeatherInfoState, isTablet, myAddressListState, weather, weeklyWeatherInfoState } from "../store"
 import { CURRENT, Choice, FORECAST_DAY, HOUR, HOUR_WEATHER, WEEKELY_WEATHER } from "../type"
 import { getCurrentWeather, getDailyWeather } from "api/weather"
 import { Alert } from "react-native"
@@ -165,10 +165,13 @@ export const useWeatherHook = () => {
                 desc
             } = parsedData
 
-            parsedData.costume.top[0].path = CostumePath[top[0].en]
-            parsedData.costume.bottom[0].path = CostumePath[bottom[0].en]
-            parsedData.costume.top[1].path = CostumePath[top[1].en]
-            parsedData.costume.bottom[1].path = CostumePath[bottom[1].en]
+            parsedData.costume.top[0].path = CostumePath[top[0]?.en ?? "t_shirt"]
+            parsedData.costume.bottom[0].path = CostumePath[bottom[0]?.en ?? "jeans"]
+
+            if (isTablet) {
+                parsedData.costume.top[1].path = CostumePath[top[1]?.en ?? "t_sirt"]
+                parsedData.costume.bottom[1].path = CostumePath[bottom[1]?.en ?? "jeans"]
+            }
 
             setCurrentWeatherInfo({
                 code,

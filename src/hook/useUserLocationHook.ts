@@ -60,7 +60,7 @@ export const useUserLocationHook = () => {
     }
 
     const addUserAddress = async (addedAddress: MY_ADDRSS) => {
-        const myAddress = getRecoil(myAddressListState)
+        const myAddress = await getRecoil(myAddressListState)
 
         // 내가 설정한 주소가 없으면
         if (isEmpty(myAddress)) {
@@ -75,8 +75,8 @@ export const useUserLocationHook = () => {
         setRecoil(myAddressListState, newMyAddress)
     }
 
-    const removeUserAddress = (addedAddress: MY_ADDRSS) => {
-        const myAddress = getRecoil(myAddressListState)
+    const removeUserAddress = async (addedAddress: MY_ADDRSS) => {
+        const myAddress = await getRecoil(myAddressListState)
         const hasAddress = myAddress.find(({ id }) => id === addedAddress.id)
         if (hasAddress) {
             const newMyAddress = myAddress.filter(({ id }) => id !== addedAddress.id)
