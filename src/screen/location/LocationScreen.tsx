@@ -14,15 +14,31 @@ import { MY_ADDRSS } from "type"
 import { NowDate } from "utils"
 import { SearchHistory } from "component/SearchHistory"
 import { SearchResult } from "component/SearchResult"
+import { isEmpty } from "lodash"
 
 const selectedAddressInitialValue = {
-    id: "",
+    id: 0,
     location: "",
     coordinate: {
         longitude: 0,
         latitude: 0
     },
     date: NowDate()
+}
+
+const SelectedView = ({ location }: { location: string }) => {
+    return (
+        <View style={[CommonStyle.row, styles.locationContainer, styles.selectedContainer]}>
+            <View style={CommonStyle.row}>
+                <LocationOn width={22} />
+                <View style={styles.locationView}>
+                    <Text style={[isTablet ? TabletFont.body_2 : MobileFont.label1_regular, styles.nowLocation]}>현재 위치</Text>
+                    <Text style={isTablet ? TabletFont.title2_semi_bold2 : MobileFont.body1_bold}>{location}</Text>
+                </View>
+            </View>
+            <Check />
+        </View>
+    )
 }
 export const LocationScreen = () => {
     const myAddressList = useRecoilValue(myAddressListState)
@@ -32,21 +48,6 @@ export const LocationScreen = () => {
     const [showRemoveView, setShowRemoveView] = useState<boolean>(false)
     const [selectedAddress, setSelectedAddress] = useState<MY_ADDRSS | null>(selectedAddressInitialValue)
     const { addUserAddress, removeUserAddress } = useUserLocationHook()
-
-    const SelectedView = ({ location }: { location: string }) => {
-        return (
-            <View style={[CommonStyle.row, styles.locationContainer, styles.selectedContainer]}>
-                <View style={CommonStyle.row}>
-                    <LocationOn width={22} />
-                    <View style={styles.locationView}>
-                        <Text style={[isTablet ? TabletFont.body_2 : MobileFont.label1_regular, styles.nowLocation]}>현재 위치</Text>
-                        <Text style={isTablet ? TabletFont.title2_semi_bold2 : MobileFont.body1_bold}>{location}</Text>
-                    </View>
-                </View>
-                <Check />
-            </View>
-        )
-    }
 
     const PrevView = ({ item }: { item: MY_ADDRSS }) => {
         const { id, location, date, coordinate } = item
@@ -78,10 +79,12 @@ export const LocationScreen = () => {
                     <Text style={[isTablet ? TabletFont.body_2 : MobileFont.body_2, { color: CommonColor.main_blue }]}>{showRemoveView ? "취소" : "편집"}</Text>
                 </TouchableOpacity>
             </View>
-            <View style={[CommonStyle.padding, CommonStyle.flex, CommonStyle.spread]}>
-                <View>
-                    <SearchInput hasInput />
-                    {resultAddress.length > 0 ? (
+            <View style={[CommonStyle.padding, CommonStyle.flex]}>
+                <View style={styles.inputContainer}>
+                    <SearchInput hasInput autoFocus={false} />
+                </View>
+                <View style={[CommonStyle.flex, !isEmpty(resultAddress) && CommonStyle.spread]}>
+                    {!isEmpty(resultAddress) ? (
                         <>
                             <SearchHistory />
                             <SearchResult selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress} />
@@ -90,32 +93,35 @@ export const LocationScreen = () => {
                         myAddressList?.map((item, index) => {
                             const { id, location } = item
                             const isSelected = id === myAddressList[0].id
-                            return isSelected ? <SelectedView key={index} location={location} /> : <PrevView key={index} item={item} />
+                            return <View key={index}>{isSelected ? <SelectedView location={location} /> : <PrevView item={item} />}</View>
                         })
                     )}
+                    {!isEmpty(resultAddress) && (
+                        <TouchableOpacity
+                            disabled={isNotFoundAddress}
+                            style={[styles.confirmButton, { backgroundColor: isNotFoundAddress ? CommonColor.basic_gray_medium : CommonColor.main_blue }]}
+                            onPress={() => {
+                                if (selectedAddress) {
+                                    addUserAddress({ id: selectedAddress.id, location: selectedAddress.location, coordinate: selectedAddress.coordinate, date: NowDate() })
+                                    setSelectedAddress(null)
+                                    setResultAddress([])
+                                    setInputAddress("")
+                                }
+                            }}
+                        >
+                            <Text style={[isTablet ? TabletFont.title2_semi_bold2 : MobileFont.title2_semi_bold2, { color: "#fff" }]}>확인</Text>
+                        </TouchableOpacity>
+                    )}
                 </View>
-                {resultAddress.length > 0 && (
-                    <TouchableOpacity
-                        disabled={isNotFoundAddress}
-                        style={[styles.confirmButton, { backgroundColor: isNotFoundAddress ? CommonColor.basic_gray_medium : CommonColor.main_blue }]}
-                        onPress={() => {
-                            if (selectedAddress) {
-                                addUserAddress({ id: selectedAddress.id, location: selectedAddress.location, coordinate: selectedAddress.coordinate, date: NowDate() })
-                                setSelectedAddress(null)
-                                setResultAddress([])
-                                setInputAddress("")
-                            }
-                        }}
-                    >
-                        <Text style={[isTablet ? TabletFont.title2_semi_bold2 : MobileFont.title2_semi_bold2, { color: "#fff" }]}>확인</Text>
-                    </TouchableOpacity>
-                )}
             </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
+    inputContainer: {
+        marginBottom: 32
+    },
     confirmButton: {
         width: screenWidth,
         paddingVertical: isTablet ? 20 : 17,
@@ -148,8 +154,8 @@ const styles = StyleSheet.create({
         borderRadius: 8
     },
     locationContainer: {
-        marginTop: 32,
         width: "100%",
+        marginBottom: 16,
         paddingHorizontal: isTablet ? 24 : 18,
         paddingVertical: isTablet ? 16 : 13,
         justifyContent: "space-between"

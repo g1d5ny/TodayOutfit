@@ -2,23 +2,10 @@ import { ImageSourcePropType } from "react-native"
 import { Weather } from "store"
 
 export interface RESULT_ADDRESS {
-    address: {
-        address_name: string
-        b_code: string
-        h_code: string
-        main_address_no: string
-        mountain_yn: string
-        region_1depth_name: string
-        region_2depth_name: string
-        region_3depth_h_name: string
-        region_3depth_name: string
-        sub_address_no: string
-        x: string
-        y: string
-    }
+    address?: ADDRESS
+    road_address: ROAD_ADDRESS
     address_name: string
     address_type: string
-    road_address: null
     x: string
     y: string
 }
@@ -61,7 +48,7 @@ export interface TOAST {
 }
 
 export interface MY_ADDRSS {
-    id: string
+    id: number
     location: string
     coordinate: {
         longitude: number
@@ -72,13 +59,17 @@ export interface MY_ADDRSS {
 
 interface ADDRESS {
     address_name: string
+    b_code: string
+    h_code: string
     main_address_no: string
     mountain_yn: string
     region_1depth_name: string
     region_2depth_name: string
+    region_3depth_h_name: string
     region_3depth_name: string
     sub_address_no: string
-    zip_code: string
+    x?: string
+    y?: string
 }
 
 interface ROAD_ADDRESS {
@@ -92,6 +83,8 @@ interface ROAD_ADDRESS {
     sub_building_no: string
     underground_yn: string
     zone_no: string
+    x: string
+    y: string
 }
 
 export interface DOCUMENT {

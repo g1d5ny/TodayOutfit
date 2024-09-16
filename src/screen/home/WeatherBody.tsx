@@ -25,7 +25,7 @@ export default () => {
             <View style={styles.character}>
                 <Image
                     source={gender === "W" ? require("asset/image/image_girl.png") : require("asset/image/image_hood_boy.png")}
-                    style={{ width: isTablet ? "40%" : "50%", height: "80%" }}
+                    style={{ width: isTablet ? "45%" : "50%", height: isTablet ? "100%" : "80%" }}
                 />
                 <View>
                     <Text style={[isTablet ? TabletFont.title2_semi_bold2 : MobileFont.body_1, { color: is_day ? CommonColor.main_black : CommonColor.main_white }]}>

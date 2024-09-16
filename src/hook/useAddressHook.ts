@@ -11,7 +11,7 @@ export const useAddressHook = () => {
     const searchAddress = async () => {
         return searchAddressApi(encodeURIComponent(query))
             .then(({ errorType, meta: { total_count }, documents }) => {
-                if (errorType !== undefined || total_count === 0) {
+                if (!!errorType || total_count === 0) {
                     setResultAddress(["NOT_FOUND"])
                     return
                 }

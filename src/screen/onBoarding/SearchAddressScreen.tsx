@@ -1,7 +1,7 @@
 import { Keyboard, Platform, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native"
 import { CommonColor, CommonStyle, MobileFont, screenWidth, TabletFont } from "../../style/CommonStyle"
 import { inputAddressState, isTablet, resultAdressListState } from "../../store"
-import { useRecoilValue } from "recoil"
+import { useRecoilState } from "recoil"
 import { SearchInput } from "../../component/SearchInput"
 import { isEmpty } from "lodash"
 import { useState } from "react"
@@ -16,7 +16,7 @@ import { Guide } from "component/Guide"
 import useKeyboardHeight from "hook/useKeyboardHeight"
 
 const selectedAddressInitialValue = {
-    id: "",
+    id: 0,
     location: "",
     coordinate: {
         longitude: 0,
@@ -26,8 +26,8 @@ const selectedAddressInitialValue = {
 }
 
 export const SearchAddressScreen = () => {
-    const resultAddress = useRecoilValue(resultAdressListState)
-    const inputAddress = useRecoilValue(inputAddressState)
+    const [resultAddress, setResultAddress] = useRecoilState(resultAdressListState)
+    const [inputAddress, setInputAddress] = useRecoilState(inputAddressState)
     const [selectedAddress, setSelectedAddress] = useState<MY_ADDRSS | null>(selectedAddressInitialValue)
     const disabled = resultAddress && resultAddress[0] === "NOT_FOUND"
     const { addUserAddress } = useUserLocationHook()
@@ -40,6 +40,8 @@ export const SearchAddressScreen = () => {
             const { id, location, coordinate } = selectedAddress
             addUserAddress({ id, location: location.trim(), coordinate, date: NowDate() }).then(() => {
                 navigationRef?.current?.navigate("SelectGenderScreen")
+                setInputAddress("")
+                setResultAddress([])
             })
             return
         }
@@ -55,7 +57,7 @@ export const SearchAddressScreen = () => {
                     subTitle={OnBoardingText.addressTitle}
                     children={
                         <>
-                            <SearchInput hasInput />
+                            <SearchInput hasInput autoFocus isOnboarding />
                             <View style={{ flex: 1 }}>
                                 <SearchResult selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress} />
                                 {!isEmpty(resultAddress) && (

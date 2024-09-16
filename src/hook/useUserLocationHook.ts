@@ -50,7 +50,7 @@ export const useUserLocationHook = () => {
                 const { region_1depth_name, region_2depth_name, region_3depth_name } = documents[0].address
                 const location = region_1depth_name + " " + region_2depth_name + " " + region_3depth_name
                 const coordinate = { longitude, latitude }
-                const addedAddress = { id: String(coordinate), location: location.trim(), coordinate, date: NowDate() }
+                const addedAddress = { id: longitude + latitude, location: location.trim(), coordinate, date: NowDate() }
                 addUserAddress(addedAddress)
             })
             .catch(rej => {
@@ -61,7 +61,6 @@ export const useUserLocationHook = () => {
 
     const addUserAddress = async (addedAddress: MY_ADDRSS) => {
         const myAddress = await getRecoil(myAddressListState)
-
         // 내가 설정한 주소가 없으면
         if (isEmpty(myAddress)) {
             setStorage("myAddressList", [addedAddress])

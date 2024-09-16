@@ -57,7 +57,7 @@ export const WeatherDetail = ({ titleIcon, title, content, desc, contentIcon, is
             </View>
             <Text style={[isTablet ? TabletFont.label1_regular : MobileFont.label1_regular, { marginVertical: 14 }]}>{content}</Text>
             {/* TODO fontstyle */}
-            <Text style={{ fontSize: 22, color: CommonColor.main_black }}>{desc}</Text>
+            <Text style={MobileFont.title1_regular}>{desc}</Text>
             {windSpeed && <Text style={[isTablet ? TabletFont.label2_regular : MobileFont.label2_regular, { color: CommonColor.basic_gray_dark, marginTop: 2 }]}>{windSpeed} m/s</Text>}
             <View style={styles.detailIcon}>{contentIcon}</View>
         </TouchableOpacity>

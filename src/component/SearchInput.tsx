@@ -16,22 +16,27 @@ const LOCATION_ICON = isTablet ? 26 : 22
 
 interface IProps extends TextInputProps {
     hasInput: boolean
+    autoFocus?: boolean
+    isOnboarding?: boolean
 }
-export const SearchInput = memo(({ hasInput, ...props }: IProps) => {
+export const SearchInput = memo(({ hasInput, autoFocus, isOnboarding = false, ...props }: IProps) => {
     const [inputAddress, setInputAddress] = useRecoilState(inputAddressState)
     const [resultAddress, setResultAddress] = useRecoilState(resultAdressListState)
     const isNotFoundAddress = resultAddress[0] === "NOT_FOUND"
     const [isVisible, setIsVisible] = useState(false)
-    const [isOnFocus, setIsOnFocus] = useState(hasInput)
+    const [isOnFocus, setIsOnFocus] = useState(autoFocus)
     const { searchAddress } = useAddressHook()
     const { checkOnlyLocationPermission, getUserLocation } = useUserLocationHook()
 
     const onPressLocation = async () => {
         const checkP = await checkOnlyLocationPermission()
         if (checkP) {
-            getUserLocation().then(() => {
+            await getUserLocation()
+            if (isOnboarding) {
                 navigationRef?.current?.navigate("SelectGenderScreen")
-            })
+            }
+            setInputAddress("")
+            setResultAddress([])
             return
         }
         setIsVisible(true)
@@ -59,7 +64,7 @@ export const SearchInput = memo(({ hasInput, ...props }: IProps) => {
                         onFocus={() => setIsOnFocus(true)}
                         onBlur={() => setIsOnFocus(false)}
                         onSubmitEditing={searchAddress}
-                        autoFocus={hasInput}
+                        autoFocus={autoFocus}
                         style={[isTablet ? TabletFont.body_2 : MobileFont.body_2, styles.textView]}
                         {...props}
                     />
