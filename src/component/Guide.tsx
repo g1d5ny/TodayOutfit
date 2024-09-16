@@ -14,11 +14,11 @@ export const Guide = ({ guideText, title, subTitle, children }: IProps) => {
     return (
         <View style={[CommonStyle.flex, styles.container, isTablet ? styles.tabletContainer : styles.mobileContainer]}>
             <View style={[styles.textContainer, CommonStyle.center]}>
-                <Text style={[isTablet ? TabletFont.button_2 : MobileFont.body_2, { color: CommonColor.main_blue }]}>{guideText}</Text>
+                <Text style={[isTablet ? TabletFont.title2_regular : MobileFont.body_2, { color: CommonColor.main_blue }]}>{guideText}</Text>
                 <View style={[CommonStyle.center, styles.titleContainer]}>
-                    <Text style={[isTablet ? TabletFont.title_on_boarding : MobileFont.title_on_boarding, styles.title]}>{title}</Text>
+                    <Text style={[isTablet ? TabletFont.display_bold : MobileFont.title1_bold, styles.title]}>{title}</Text>
                 </View>
-                <Text style={[isTablet ? TabletFont.button_2 : MobileFont.detail_2, { color: CommonColor.basic_gray_dark }]}>{subTitle}</Text>
+                <Text style={[isTablet ? TabletFont.title2_regular : MobileFont.label1_regular, { color: CommonColor.basic_gray_dark }]}>{subTitle}</Text>
             </View>
             {children}
         </View>

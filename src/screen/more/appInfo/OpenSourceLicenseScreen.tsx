@@ -10,7 +10,7 @@ export const OpenSourceLicenseScreen = () => {
             <Header text={"오픈 소스 라이선스"} hasBack />
             <ScrollView>
                 <View style={CommonStyle.padding}>
-                    <Text style={[isTablet ? TabletFont.weather_info_main_text : MobileFont.weather_info_main_text, styles.padding, { color: CommonColor.basic_gray_dark }]}>
+                    <Text style={[isTablet ? TabletFont.label1_reading_regular : MobileFont.label1_reading_regular, styles.padding, { color: CommonColor.basic_gray_dark }]}>
                         '오늘모입지' 앱에서 사용된 오픈 소스 라이브러리
                     </Text>
                     <View style={[styles.view, styles.padding]}>
@@ -20,7 +20,7 @@ export const OpenSourceLicenseScreen = () => {
                         <OpenSource name={"react-native"} link={"https://reactnative.dev/"} copyright={"Copyright © 2024 Meta Platforms, Inc."} />
                         <OpenSource name={"react-native-svg"} link={"https://github.com/software-mansion/react-native-svg"} copyright={"Copyright © [2015-2016] [Horcrux]"} />
                     </View>
-                    <Text style={[isTablet ? TabletFont.weather_info_main_text : MobileFont.weather_info_main_text, { color: CommonColor.basic_gray_dark }]}>
+                    <Text style={[isTablet ? TabletFont.label1_reading_regular : MobileFont.label1_reading_regular, { color: CommonColor.basic_gray_dark }]}>
                         위에 열거된 오픈 소스 라이브러리들은 모두 MIT 라이선스를 사용하고 있으며, 이를 준수하여 '오늘모입지' 앱을 개발하였습니다. 해당 라이선스에 대한 자세한 내용은 각
                         라이브러리의 문서에서 확인하실 수 있습니다.
                     </Text>

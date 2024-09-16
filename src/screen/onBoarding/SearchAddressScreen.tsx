@@ -70,7 +70,7 @@ export const SearchAddressScreen = () => {
                                         style={[styles.confirmButton, { backgroundColor: disabled ? CommonColor.basic_gray_medium : CommonColor.main_blue, bottom: keyboardHeight }]}
                                         onPress={onPress}
                                     >
-                                        <Text style={[isTablet ? TabletFont.button_1 : MobileFont.button_1, { color: CommonColor.main_white }]}>
+                                        <Text style={[isTablet ? TabletFont.title2_semi_bold2 : MobileFont.title2_semi_bold2, { color: CommonColor.main_white }]}>
                                             {selectedAddress?.id ? "앱 구경하러 가기" : "확인"}
                                         </Text>
                                     </TouchableOpacity>
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     content: {
         flex: 1
     },
-    title: isTablet ? TabletFont.title_on_boarding : MobileFont.title_on_boarding,
+    title: isTablet ? TabletFont.display_bold : MobileFont.title1_bold,
     subtitle: isTablet ? TabletFont.body_2 : MobileFont.body_2,
     textContainer: {
         alignItems: "center",

@@ -105,8 +105,8 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center"
     },
-    content: isTablet ? TabletFont.title_on_boarding : MobileFont.detail_2,
-    title: isTablet ? TabletFont.title_on_boarding : MobileFont.title_on_boarding,
+    content: isTablet ? TabletFont.display_bold : MobileFont.label1_regular,
+    title: isTablet ? TabletFont.display_bold : MobileFont.title1_bold,
     subtitle: isTablet ? TabletFont.body_2 : MobileFont.body_2,
     textContainer: {
         alignItems: "center",

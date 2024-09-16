@@ -28,7 +28,9 @@ export default () => {
                     style={{ width: isTablet ? "40%" : "50%", height: "80%" }}
                 />
                 <View>
-                    <Text style={[isTablet ? TabletFont.button_1 : MobileFont.body_1, { color: is_day ? CommonColor.main_black : CommonColor.main_white }]}>기온 맞춤 추천 의상</Text>
+                    <Text style={[isTablet ? TabletFont.title2_semi_bold2 : MobileFont.body_1, { color: is_day ? CommonColor.main_black : CommonColor.main_white }]}>
+                        기온 맞춤 추천 의상
+                    </Text>
                     <View style={styles.recomContainer}>
                         <View style={[styles.recom, { marginBottom: 8, marginRight: isTablet ? 25 : 0 }]}>
                             <View style={styles.clothes}>
@@ -36,7 +38,7 @@ export default () => {
                             </View>
                             <View style={styles.clothesDesc}>
                                 <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>{top[0].ko}</Text>
-                                <Text style={[isTablet ? TabletFont.body_2 : MobileFont.detail_3, { color: CommonColor.basic_gray_dark }]}>{topDesc} 상의</Text>
+                                <Text style={[isTablet ? TabletFont.body_2 : MobileFont.label2_regular, { color: CommonColor.basic_gray_dark }]}>{topDesc} 상의</Text>
                             </View>
                         </View>
                         <View style={styles.recom}>
@@ -45,7 +47,7 @@ export default () => {
                             </View>
                             <View style={styles.clothesDesc}>
                                 <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>{bottom[0].ko}</Text>
-                                <Text style={[isTablet ? TabletFont.body_2 : MobileFont.detail_3, { color: CommonColor.basic_gray_dark }]}>{bottomDesc} 하의</Text>
+                                <Text style={[isTablet ? TabletFont.body_2 : MobileFont.label2_regular, { color: CommonColor.basic_gray_dark }]}>{bottomDesc} 하의</Text>
                             </View>
                         </View>
                     </View>
@@ -57,7 +59,7 @@ export default () => {
                                 </View>
                                 <View style={styles.clothesDesc}>
                                     <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>{top[1].ko}</Text>
-                                    <Text style={[isTablet ? TabletFont.body_2 : MobileFont.detail_3, { color: CommonColor.basic_gray_dark }]}>{topDesc} 상의</Text>
+                                    <Text style={[isTablet ? TabletFont.body_2 : MobileFont.label2_regular, { color: CommonColor.basic_gray_dark }]}>{topDesc} 상의</Text>
                                 </View>
                             </View>
                             <View style={styles.recom}>
@@ -66,7 +68,7 @@ export default () => {
                                 </View>
                                 <View style={styles.clothesDesc}>
                                     <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>{bottom[1].ko}</Text>
-                                    <Text style={[isTablet ? TabletFont.body_2 : MobileFont.detail_3, { color: CommonColor.basic_gray_dark }]}>{bottomDesc} 하의</Text>
+                                    <Text style={[isTablet ? TabletFont.body_2 : MobileFont.label2_regular, { color: CommonColor.basic_gray_dark }]}>{bottomDesc} 하의</Text>
                                 </View>
                             </View>
                         </View>

@@ -16,10 +16,12 @@ export default () => {
         <View>
             <View style={[styles.weatherDesc]}>
                 <View style={{ maxWidth: "65%" }}>
-                    <Text style={[isTablet ? TabletFont.body_1 : MobileFont.detail_1, { color: currentWeather.is_day ? CommonColor.basic_gray_dark : CommonColor.main_white }]}>오늘은</Text>
+                    <Text style={[isTablet ? TabletFont.body_1 : MobileFont.label1_bold, { color: currentWeather.is_day ? CommonColor.basic_gray_dark : CommonColor.main_white }]}>
+                        오늘은
+                    </Text>
                     <Text
                         style={[
-                            isTablet ? TabletFont.main_page_forecast_text : MobileFont.title_on_boarding,
+                            isTablet ? TabletFont.display_forecast : MobileFont.title1_bold,
                             TextShadowStyle,
                             { color: currentWeather.is_day ? CommonColor.main_black : CommonColor.main_white, marginBottom: 4 }
                         ]}
@@ -29,7 +31,7 @@ export default () => {
                 </View>
                 <Text
                     style={[
-                        isTablet ? TabletFont.temperature : MobileFont.temperature,
+                        isTablet ? TabletFont.display_temperature : MobileFont.display_temperature,
                         TextShadowStyle,
                         { color: currentWeather.is_day ? CommonColor.basic_gray_dark : CommonColor.main_white }
                     ]}
@@ -42,7 +44,7 @@ export default () => {
                     <Location width={isTablet ? 18 : 12} height={isTablet ? 18 : 12} />
                     <Text
                         style={[
-                            isTablet ? TabletFont.body_2 : MobileFont.detail_2,
+                            isTablet ? TabletFont.body_2 : MobileFont.label1_regular,
                             { marginLeft: isTablet ? 4 : 6, color: currentWeather.is_day ? CommonColor.basic_gray_dark : CommonColor.main_white }
                         ]}
                     >
@@ -51,10 +53,10 @@ export default () => {
                 </View>
                 <View style={styles.tempView}>
                     <MinTemp width={isTablet ? 14 : 12} height={isTablet ? 14 : 12} />
-                    <Text style={[isTablet ? TabletFont.body_2 : MobileFont.detail_2, { color: CommonColor.label_text_blue, marginLeft: 8 }]}>{todayWeather.minTemp}˚</Text>
-                    <Text style={[isTablet ? TabletFont.body_2 : MobileFont.detail_2, { color: CommonColor.main_white, marginHorizontal: 8 }]}>|</Text>
+                    <Text style={[isTablet ? TabletFont.body_2 : MobileFont.label1_regular, { color: CommonColor.label_text_blue, marginLeft: 8 }]}>{todayWeather.minTemp}˚</Text>
+                    <Text style={[isTablet ? TabletFont.body_2 : MobileFont.label1_regular, { color: CommonColor.main_white, marginHorizontal: 8 }]}>|</Text>
                     <MaxTemp width={isTablet ? 14 : 12} height={isTablet ? 14 : 12} />
-                    <Text style={[isTablet ? TabletFont.body_2 : MobileFont.detail_2, { color: CommonColor.label_text_red, marginLeft: 8 }]}>{todayWeather.maxTemp}˚</Text>
+                    <Text style={[isTablet ? TabletFont.body_2 : MobileFont.label1_regular, { color: CommonColor.label_text_red, marginLeft: 8 }]}>{todayWeather.maxTemp}˚</Text>
                 </View>
             </View>
         </View>

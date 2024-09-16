@@ -27,14 +27,14 @@ const WindSpeed = [
 export const WindSpeedScreen = () => {
     return (
         <View style={styles.flex}>
-            <Text style={[CommonStyle.title, isTablet ? TabletFont.heading_2 : MobileFont.body_1]}>풍속이란?</Text>
-            <Text style={[styles.content, isTablet ? TabletFont.weather_info_main_text : MobileFont.weather_info_main_text]}>
+            <Text style={[CommonStyle.title, isTablet ? TabletFont.body1_bold : MobileFont.body_1]}>풍속이란?</Text>
+            <Text style={[styles.content, isTablet ? TabletFont.label1_reading_regular : MobileFont.label1_reading_regular]}>
                 풍속은 단위 시간당 이동하는 공기의 속도를 말합니다. 오늘모입지에서는 풍속을 m/s 단위 기준으로 보버트 풍력 계급표에 기초해 구분하였으며 강풍 경보를 미만으로 일상 생활에서의
                 육상 상태를 안내하고 있습니다.
             </Text>
             <View style={[CommonStyle.infoTitle, CommonStyle.row]}>
-                <Text style={[isTablet ? TabletFont.heading_2 : MobileFont.body_1]}>풍속 계급</Text>
-                <Text style={[isTablet ? TabletFont.detail_3 : MobileFont.detail_3, { color: CommonColor.main_blue }]}>단위: k/s</Text>
+                <Text style={[isTablet ? TabletFont.body1_bold : MobileFont.body_1]}>풍속 계급</Text>
+                <Text style={[isTablet ? TabletFont.label2_regular : MobileFont.label2_regular, { color: CommonColor.main_blue }]}>단위: k/s</Text>
             </View>
             <View style={[isTablet ? styles.tabletInterval : styles.mobileInterval]}>
                 {WindSpeed.map(({ text, icon, range, desc }, index) => {
@@ -42,10 +42,10 @@ export const WindSpeedScreen = () => {
                         <View key={index} style={[styles.row, { marginBottom: isTablet ? 50 : 32 }]}>
                             <View style={CommonStyle.center}>{icon}</View>
                             <View style={styles.interval}>
-                                <Text style={isTablet ? TabletFont.detail_1 : MobileFont.detail_1}>{text}</Text>
-                                <Text style={[isTablet ? TabletFont.detail_3 : MobileFont.detail_3, styles.range]}>{range}</Text>
+                                <Text style={isTablet ? TabletFont.label1_bold : MobileFont.label1_bold}>{text}</Text>
+                                <Text style={[isTablet ? TabletFont.label2_regular : MobileFont.label2_regular, styles.range]}>{range}</Text>
                             </View>
-                            <Text style={[isTablet ? TabletFont.weather_info_main_text : MobileFont.weather_info_main_text, CommonStyle.flex, styles.desc]}>{desc}</Text>
+                            <Text style={[isTablet ? TabletFont.label1_reading_regular : MobileFont.label1_reading_regular, CommonStyle.flex, styles.desc]}>{desc}</Text>
                         </View>
                     )
                 })}

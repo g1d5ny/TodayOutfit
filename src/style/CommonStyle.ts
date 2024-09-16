@@ -61,7 +61,7 @@ export const pt = (px: number) => {
 }
 
 export const TabletFont = StyleSheet.create({
-    title_on_boarding: {
+    display_bold: {
         fontSize: 28,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-SemiBold",
@@ -75,26 +75,45 @@ export const TabletFont = StyleSheet.create({
         letterSpacing: Platform.OS === "ios" ? pt(-0.36) : dp(-0.36),
         lineHeight: 24
     },
-    heading_2: {
+    body1_bold: {
         fontSize: 18,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-SemiBold",
         letterSpacing: Platform.OS === "ios" ? pt(-0.36) : dp(-0.36),
         lineHeight: 22
     },
-    main_page_forecast_text: {
+    body1_regular: {
+        fontSize: 18,
+        color: CommonColor.main_black,
+        fontFamily: "Pretendard-Regular",
+        letterSpacing: Platform.OS === "ios" ? pt(-0.36) : dp(-0.36),
+        lineHeight: 22
+    },
+    body2_bold: {
+        fontSize: 16,
+        color: CommonColor.main_black,
+        fontFamily: "Pretendard-SemiBold",
+        letterSpacing: Platform.OS === "ios" ? pt(-0.32) : dp(-0.32),
+        lineHeight: 20
+    },
+    body2_regular: {
+        fontSize: 16,
+        color: CommonColor.main_black,
+        fontFamily: "Pretendard-Regular",
+        letterSpacing: Platform.OS === "ios" ? pt(-0.32) : dp(-0.32),
+        lineHeight: 20
+    },
+    display_forecast: {
         fontSize: 35,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-SemiBold",
         letterSpacing: Platform.OS === "ios" ? dp(-1) : dp(-1),
         lineHeight: 45
     },
-    temperature: {
+    display_temperature: {
         fontSize: 90,
         color: CommonColor.main_black,
-        fontFamily: "Pretendard-SemiBold",
-        letterSpacing: 0,
-        lineHeight: 107
+        fontFamily: "Pretendard-SemiBold"
     },
     body_1: {
         fontSize: 16,
@@ -110,63 +129,70 @@ export const TabletFont = StyleSheet.create({
         letterSpacing: Platform.OS === "ios" ? pt(-0.32) : dp(-0.32),
         lineHeight: 20
     },
-    detail_1: {
+    label1_bold: {
         fontSize: 14,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-SemiBold",
         letterSpacing: Platform.OS === "ios" ? pt(-0.14) : dp(-0.14),
         lineHeight: 20
     },
-    detail_2: {
+    label1_regular: {
         fontSize: 14,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-Regular",
         letterSpacing: Platform.OS === "ios" ? pt(-0.14) : dp(-0.14),
-        lineHeight: 18
+        lineHeight: 20
     },
-    detail_3: {
+    label2_regular: {
         fontSize: 12,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-Regular",
         letterSpacing: Platform.OS === "ios" ? pt(-0.12) : dp(-0.12),
         lineHeight: 14
     },
-    detail_4: {
+    label2_bold: {
         fontSize: 12,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-SemiBold",
         letterSpacing: Platform.OS === "ios" ? pt(-0.12) : dp(-0.12),
         lineHeight: 14
     },
-    modal_text_2: {
+    caption1_regular: {
         fontSize: 10,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-Regular",
         letterSpacing: Platform.OS === "ios" ? pt(-0.12) : dp(-0.12),
         lineHeight: 16
     },
-    button_1: {
+    title2_semi_bold2: {
         fontSize: 20,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-SemiBold",
         letterSpacing: Platform.OS === "ios" ? pt(-0.36) : dp(-0.36),
         lineHeight: 24
     },
-    button_2: {
+    title2_regular: {
         fontSize: 20,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-Regular",
         letterSpacing: Platform.OS === "ios" ? pt(-0.36) : dp(-0.36),
         lineHeight: 24
     },
-    weather_info_main_text: {
+    label1_reading_regular: {
         fontSize: 14,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-Regular",
-        letterSpacing: Platform.OS === "ios" ? pt(-0.24) : dp(-0.24),
-        lineHeight: 21
+        letterSpacing: Platform.OS === "ios" ? pt(-0.14) : dp(-0.14),
+        lineHeight: 24
     },
-    mobile_title: {
+    label2_reading_regular: {
+        fontSize: 12,
+        color: CommonColor.main_black,
+        fontFamily: "Pretendard-Regular",
+        letterSpacing: Platform.OS === "ios" ? pt(-0.12) : dp(-0.12),
+        lineHeight: 16
+    },
+    title2_semi_bold: {
         fontSize: 20,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-SemiBold",
@@ -176,12 +202,18 @@ export const TabletFont = StyleSheet.create({
 })
 
 export const MobileFont = StyleSheet.create({
-    title_on_boarding: {
+    title1_bold: {
         fontSize: 24,
         color: CommonColor.main_black,
-        fontFamily: "Pretendard-SemiBold",
+        fontFamily: "Pretendard-Bold",
         letterSpacing: Platform.OS === "ios" ? pt(-0.48) : dp(-0.48),
-        lineHeight: 32
+        lineHeight: 30
+    },
+    title1_regular: {
+        fontSize: 22,
+        color: CommonColor.main_black,
+        fontFamily: "Pretendard-Regular",
+        letterSpacing: Platform.OS === "ios" ? pt(-0.48) : dp(-0.48)
     },
     body_1: {
         fontSize: 16,
@@ -197,56 +229,83 @@ export const MobileFont = StyleSheet.create({
         letterSpacing: Platform.OS === "ios" ? pt(-0.32) : dp(-0.32),
         lineHeight: 20
     },
-    heading_1: {
+    title2_regular: {
         fontSize: 20,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-SemiBold",
         letterSpacing: Platform.OS === "ios" ? pt(-0.36) : dp(-0.36),
         lineHeight: 24
     },
-    heading_2: {
+    body1_bold: {
         fontSize: 18,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-SemiBold",
         letterSpacing: Platform.OS === "ios" ? pt(-0.36) : dp(-0.36),
         lineHeight: 22
     },
-    main_page_forecast_text: {
+    body1_regular: {
+        fontSize: 18,
+        color: CommonColor.main_black,
+        fontFamily: "Pretendard-Regular",
+        letterSpacing: Platform.OS === "ios" ? pt(-0.36) : dp(-0.36),
+        lineHeight: 22
+    },
+    body2_bold: {
+        fontSize: 16,
+        color: CommonColor.main_black,
+        fontFamily: "Pretendard-SemiBold",
+        letterSpacing: Platform.OS === "ios" ? pt(-0.32) : dp(-0.32),
+        lineHeight: 20
+    },
+    body2_regular: {
+        fontSize: 16,
+        color: CommonColor.main_black,
+        fontFamily: "Pretendard-Regular",
+        letterSpacing: Platform.OS === "ios" ? pt(-0.32) : dp(-0.32),
+        lineHeight: 20
+    },
+    display_forecast: {
         fontSize: 24,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-SemiBold",
         letterSpacing: Platform.OS === "ios" ? pt(-0.48) : dp(-0.48),
         lineHeight: 32
     },
-    temperature: {
+    display_temperature: {
         fontSize: 55,
-        color: CommonColor.main_white,
+        color: CommonColor.main_black,
         fontFamily: "Pretendard-SemiBold",
-        letterSpacing: Platform.OS === "ios" ? dp(-1) : dp(-1),
-        lineHeight: 79
+        letterSpacing: Platform.OS === "ios" ? dp(-1) : dp(-1)
     },
-    detail_1: {
+    label1_bold: {
         fontSize: 14,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-SemiBold",
         letterSpacing: Platform.OS === "ios" ? pt(-0.14) : dp(-0.14),
         lineHeight: 20
     },
-    detail_2: {
+    label1_regular: {
         fontSize: 14,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-Regular",
         letterSpacing: Platform.OS === "ios" ? pt(-0.14) : dp(-0.14),
-        lineHeight: 18
+        lineHeight: 20
     },
-    detail_3: {
+    label2_reading_regular: {
+        fontSize: 12,
+        color: CommonColor.main_black,
+        fontFamily: "Pretendard-Regular",
+        letterSpacing: Platform.OS === "ios" ? pt(-0.12) : dp(-0.12),
+        lineHeight: 16
+    },
+    label2_regular: {
         fontSize: 12,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-Regular",
         letterSpacing: Platform.OS === "ios" ? pt(-0.12) : dp(-0.12),
         lineHeight: 14
     },
-    detail_4: {
+    label2_bold: {
         fontSize: 12,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-SemiBold",
@@ -260,33 +319,26 @@ export const MobileFont = StyleSheet.create({
         letterSpacing: Platform.OS === "ios" ? pt(-0.48) : dp(-0.48),
         lineHeight: 32
     },
-    modal_text_2: {
+    caption1_regular: {
         fontSize: 10,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-Regular",
         letterSpacing: Platform.OS === "ios" ? pt(-0.12) : dp(-0.12),
         lineHeight: 16
     },
-    button_1: {
+    title2_semi_bold2: {
         fontSize: 20,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-SemiBold",
         letterSpacing: Platform.OS === "ios" ? pt(-0.36) : dp(-0.36),
         lineHeight: 24
     },
-    button_2: {
-        fontSize: 18,
-        color: CommonColor.main_black,
-        fontFamily: "Pretendard-Regular",
-        letterSpacing: Platform.OS === "ios" ? pt(-0.36) : dp(-0.36),
-        lineHeight: 22
-    },
-    weather_info_main_text: {
+    label1_reading_regular: {
         fontSize: 14,
         color: CommonColor.main_black,
         fontFamily: "Pretendard-Regular",
-        letterSpacing: Platform.OS === "ios" ? pt(-0.24) : dp(-0.24),
-        lineHeight: 21
+        letterSpacing: Platform.OS === "ios" ? pt(-0.14) : dp(-0.14),
+        lineHeight: 24
     }
 })
 
@@ -312,7 +364,6 @@ export const CommonStyle = StyleSheet.create({
     },
     title: {
         marginTop: 32
-        // justifyContent: "space-between"
     },
     infoTitle: {
         marginTop: 26,

@@ -13,11 +13,11 @@ export const AppInfoScreen = () => {
                 <AppInfoMenu text={"오픈소스 라이선스"} onPress={() => navigationRef.current?.navigate("OpenSourceLicenseScreen")} />
                 <View style={[styles.infoContainer, CommonStyle.row]}>
                     <Text style={[isTablet ? TabletFont.heading_1 : MobileFont.body_1]}>개발자 연락처</Text>
-                    <Text style={[isTablet ? TabletFont.button_2 : MobileFont.body_2, { color: CommonColor.basic_gray_medium }]}>todaysoutfit.developer@gmail.com</Text>
+                    <Text style={[isTablet ? TabletFont.title2_regular : MobileFont.body_2, { color: CommonColor.basic_gray_medium }]}>todaysoutfit.developer@gmail.com</Text>
                 </View>
                 <View style={[styles.infoContainer, CommonStyle.row]}>
                     <Text style={isTablet ? TabletFont.heading_1 : MobileFont.body_1}>앱 버전</Text>
-                    <Text style={[isTablet ? TabletFont.button_2 : MobileFont.body_2, { color: CommonColor.basic_gray_medium }]}>{DeviceInfo.getVersion()}</Text>
+                    <Text style={[isTablet ? TabletFont.title2_regular : MobileFont.body_2, { color: CommonColor.basic_gray_medium }]}>{DeviceInfo.getVersion()}</Text>
                 </View>
             </View>
         </View>

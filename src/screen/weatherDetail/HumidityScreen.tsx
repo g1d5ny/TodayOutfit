@@ -42,14 +42,14 @@ const Humidity = [
 export const HumidityScreen = () => {
     return (
         <View style={styles.container}>
-            <Text style={[CommonStyle.title, isTablet ? TabletFont.heading_2 : MobileFont.body_1]}>습도란?</Text>
-            <Text style={[styles.content, isTablet ? TabletFont.weather_info_main_text : MobileFont.weather_info_main_text]}>
+            <Text style={[CommonStyle.title, isTablet ? TabletFont.body1_bold : MobileFont.body_1]}>습도란?</Text>
+            <Text style={[styles.content, isTablet ? TabletFont.label1_reading_regular : MobileFont.label1_reading_regular]}>
                 습도란 공기 중에 포함되어 있는 수증기의 비율을 의미하며 오늘모입지에서 제공되는 습도 정보는 노점 온도를 활용한 상대습도를 의미합니다. 기온의 영향으로 계절에 따라 쾌적함을
                 느끼는 상대습도가 달라지며 여름철엔 50~60%, 겨울철엔 40~50%, 봄과 가을에는 50% 정도가 이상적인 상대습도입니다.
             </Text>
             <View style={[CommonStyle.infoTitle, CommonStyle.row]}>
-                <Text style={[isTablet ? TabletFont.heading_2 : MobileFont.body_1]}>습도 단계</Text>
-                <Text style={[isTablet ? TabletFont.detail_3 : MobileFont.detail_3, { color: CommonColor.main_blue }]}>단위: %, C</Text>
+                <Text style={[isTablet ? TabletFont.body1_bold : MobileFont.body_1]}>습도 단계</Text>
+                <Text style={[isTablet ? TabletFont.label2_regular : MobileFont.label2_regular, { color: CommonColor.main_blue }]}>단위: %, C</Text>
             </View>
             <View style={[CommonStyle.row, isTablet ? styles.tabletInterval : styles.mobileInterval]}>
                 {Humidity.map(({ icon, text }, index) => {
@@ -57,7 +57,7 @@ export const HumidityScreen = () => {
                     return (
                         <View key={index} style={[CommonStyle.center, !isLast && isTablet && styles.iconInterval]}>
                             {icon}
-                            <Text style={[styles.iconText, isTablet ? TabletFont.detail_1 : MobileFont.detail_1]}>{text}</Text>
+                            <Text style={[styles.iconText, isTablet ? TabletFont.label1_bold : MobileFont.label1_bold]}>{text}</Text>
                         </View>
                     )
                 })}
@@ -67,14 +67,14 @@ export const HumidityScreen = () => {
                 return (
                     <View key={index} style={styles.row}>
                         <View style={styles.left}>
-                            <Text style={isTablet ? TabletFont.detail_1 : MobileFont.detail_1}>{text}</Text>
-                            <Text style={[isTablet ? TabletFont.detail_3 : MobileFont.detail_3, styles.range]}>{range}</Text>
+                            <Text style={isTablet ? TabletFont.label1_bold : MobileFont.label1_bold}>{text}</Text>
+                            <Text style={[isTablet ? TabletFont.label2_regular : MobileFont.label2_regular, styles.range]}>{range}</Text>
                         </View>
                         <View style={CommonStyle.flex}>
                             {desc.map((item, index) => (
                                 <View key={index} style={styles.wrap}>
-                                    <Text style={[isTablet ? TabletFont.weather_info_main_text : MobileFont.weather_info_main_text]}>· </Text>
-                                    <Text style={[isTablet ? TabletFont.weather_info_main_text : MobileFont.weather_info_main_text, styles.flex]}>{item}</Text>
+                                    <Text style={[isTablet ? TabletFont.label1_reading_regular : MobileFont.label1_reading_regular]}>· </Text>
+                                    <Text style={[isTablet ? TabletFont.label1_reading_regular : MobileFont.label1_reading_regular, styles.flex]}>{item}</Text>
                                 </View>
                             ))}
                         </View>

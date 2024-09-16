@@ -19,7 +19,7 @@ export const Header = ({ text, hasBack }: Header) => {
                     <Back />
                 </TouchableOpacity>
             )}
-            <Text style={[isTablet ? TabletFont.button_1 : MobileFont.heading_1]}>{text}</Text>
+            <Text style={[isTablet ? TabletFont.title2_semi_bold2 : MobileFont.title2_regular]}>{text}</Text>
         </View>
     )
 }
@@ -27,7 +27,7 @@ export const Header = ({ text, hasBack }: Header) => {
 export const WeatherDetailFooter = ({ text }: { text: string }) => {
     return (
         <View style={[styles.bottomLine, CommonStyle.center, CommonStyle.padding]}>
-            <Text style={[isTablet ? TabletFont.detail_3 : MobileFont.detail_3, { color: CommonColor.basic_gray_medium }]}>{text}</Text>
+            <Text style={[isTablet ? TabletFont.label2_regular : MobileFont.label2_regular, { color: CommonColor.basic_gray_medium }]}>{text}</Text>
         </View>
     )
 }
@@ -42,7 +42,7 @@ export const MoreMenu = ({ icon, text, onPress }: Menu) => {
         <TouchableOpacity onPress={onPress} style={[styles.menuContainer, CommonStyle.row]}>
             <View style={CommonStyle.row}>
                 <View style={styles.iconView}>{icon}</View>
-                <Text style={[styles.menuText, isTablet ? TabletFont.button_2 : MobileFont.body_2]}>{text}</Text>
+                <Text style={[styles.menuText, isTablet ? TabletFont.title2_regular : MobileFont.body_2]}>{text}</Text>
             </View>
             <ArrowRight />
         </TouchableOpacity>
@@ -69,10 +69,10 @@ export const OpenSource = ({ name, link, copyright }: OpenSource) => {
             <Text style={isTablet ? TabletFont.body_1 : MobileFont.body_1}>{name}</Text>
             <View style={styles.openSourceContent}>
                 <Hyperlink onPress={(url, text) => Linking.openURL(url)} linkText={url => (url === link ? link : url)} linkStyle={{ color: CommonColor.main_blue }}>
-                    <Text style={isTablet ? TabletFont.weather_info_main_text : MobileFont.detail_3}>{link}</Text>
+                    <Text style={isTablet ? TabletFont.label1_reading_regular : MobileFont.label2_regular}>{link}</Text>
                 </Hyperlink>
-                <Text style={isTablet ? TabletFont.weather_info_main_text : MobileFont.detail_3}>{copyright}</Text>
-                <Text style={isTablet ? TabletFont.weather_info_main_text : MobileFont.detail_3}>MIT License</Text>
+                <Text style={isTablet ? TabletFont.label1_reading_regular : MobileFont.label2_regular}>{copyright}</Text>
+                <Text style={isTablet ? TabletFont.label1_reading_regular : MobileFont.label2_regular}>MIT License</Text>
             </View>
         </View>
     )

@@ -51,21 +51,21 @@ const SnowFall = [
 export const SnowFallScreen = () => {
     return (
         <View style={styles.container}>
-            <Text style={[CommonStyle.title, isTablet ? TabletFont.heading_2 : MobileFont.body_1]}>적설량이란?</Text>
-            <Text style={[styles.content, isTablet ? TabletFont.weather_info_main_text : MobileFont.weather_info_main_text]}>
+            <Text style={[CommonStyle.title, isTablet ? TabletFont.body1_bold : MobileFont.body_1]}>적설량이란?</Text>
+            <Text style={[styles.content, isTablet ? TabletFont.label1_reading_regular : MobileFont.label1_reading_regular]}>
                 지면에 쌓인 눈의 깊이를 cm로 나타낸 값으로 오늘모입지에서 제공하는 대설 및 적설 정보는 외부활동에 지장을 줄 수 있는 기상특보를 기초해 제공됩니다. 싸락눈과 진눈깨비와 같은
                 비와 눈이 섞여 내리는 기상 상태도 포함합니다.
             </Text>
             <View style={[CommonStyle.infoTitle, CommonStyle.row]}>
-                <Text style={[isTablet ? TabletFont.heading_2 : MobileFont.body_1]}>적설 단계</Text>
-                <Text style={[isTablet ? TabletFont.detail_3 : MobileFont.detail_3, { color: CommonColor.main_blue }]}>단위: cm</Text>
+                <Text style={[isTablet ? TabletFont.body1_bold : MobileFont.body_1]}>적설 단계</Text>
+                <Text style={[isTablet ? TabletFont.label2_regular : MobileFont.label2_regular, { color: CommonColor.main_blue }]}>단위: cm</Text>
             </View>
             <View style={[CommonStyle.row, isTablet ? styles.tabletInterval : styles.mobileInterval]}>
                 {SnowFall.map(({ icon, text }, index) => {
                     return (
                         <View key={index} style={CommonStyle.center}>
                             {icon}
-                            <Text style={[isTablet ? TabletFont.detail_1 : MobileFont.detail_1]}>{text}</Text>
+                            <Text style={[isTablet ? TabletFont.label1_bold : MobileFont.label1_bold]}>{text}</Text>
                         </View>
                     )
                 })}
@@ -75,14 +75,14 @@ export const SnowFallScreen = () => {
                 return (
                     <View key={index} style={styles.row}>
                         <View style={styles.left}>
-                            <Text style={isTablet ? TabletFont.detail_1 : MobileFont.detail_1}>{text}</Text>
-                            <Text style={[isTablet ? TabletFont.detail_3 : MobileFont.detail_3, styles.range]}>{range}</Text>
+                            <Text style={isTablet ? TabletFont.label1_bold : MobileFont.label1_bold}>{text}</Text>
+                            <Text style={[isTablet ? TabletFont.label2_regular : MobileFont.label2_regular, styles.range]}>{range}</Text>
                         </View>
                         <View style={CommonStyle.flex}>
                             {desc.map((item, index) => (
                                 <View key={index} style={styles.wrap}>
-                                    <Text style={[isTablet ? TabletFont.weather_info_main_text : MobileFont.weather_info_main_text]}>· </Text>
-                                    <Text style={[isTablet ? TabletFont.weather_info_main_text : MobileFont.weather_info_main_text, styles.flex]}>{item}</Text>
+                                    <Text style={[isTablet ? TabletFont.label1_reading_regular : MobileFont.label1_reading_regular]}>· </Text>
+                                    <Text style={[isTablet ? TabletFont.label1_reading_regular : MobileFont.label1_reading_regular, styles.flex]}>{item}</Text>
                                 </View>
                             ))}
                         </View>

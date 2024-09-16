@@ -50,7 +50,9 @@ export const WeatherDetailScreen = ({ route }: { route: any }) => {
                         const isSelectedIndex = selectedIndex === index
                         return (
                             <TouchableOpacity key={index} style={[styles.category, isSelectedIndex && styles.selectedCategory]} onPress={() => setCategory(index)}>
-                                <Text style={[isTablet ? TabletFont.button_1 : MobileFont.body_1, { color: isSelectedIndex ? CommonColor.main_black : CommonColor.basic_gray_medium }]}>
+                                <Text
+                                    style={[isTablet ? TabletFont.title2_semi_bold2 : MobileFont.body_1, { color: isSelectedIndex ? CommonColor.main_black : CommonColor.basic_gray_medium }]}
+                                >
                                     {title}
                                 </Text>
                             </TouchableOpacity>

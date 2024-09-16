@@ -22,7 +22,7 @@ export const SearchHistory = () => {
                     setInputAddress("")
                 }}
             >
-                <Text style={(isTablet ? TabletFont.detail_2 : MobileFont.detail_3, { color: CommonColor.basic_gray_dark })}>{item.location}</Text>
+                <Text style={(isTablet ? TabletFont.label1_regular : MobileFont.label2_regular, { color: CommonColor.basic_gray_dark })}>{item.location}</Text>
             </TouchableOpacity>
         )
     }

@@ -75,8 +75,8 @@ const EmptyView = () => {
     return (
         <View style={[CommonStyle.center, styles.emptyCalendar]}>
             <EmptyCalendar />
-            <Text style={[TabletFont.heading_2, { color: CommonColor.basic_gray_medium }]}>선택된 날짜가 없습니다.</Text>
-            <Text style={[TabletFont.detail_2, { color: CommonColor.basic_gray_medium, marginTop: 12 }]}>날짜를 선택해 요일별 상세{"\n"}기상 정보를 확인해보세요!</Text>
+            <Text style={[TabletFont.body1_bold, { color: CommonColor.basic_gray_medium }]}>선택된 날짜가 없습니다.</Text>
+            <Text style={[TabletFont.label1_regular, { color: CommonColor.basic_gray_medium, marginTop: 12 }]}>날짜를 선택해 요일별 상세{"\n"}기상 정보를 확인해보세요!</Text>
         </View>
     )
 }
@@ -103,7 +103,7 @@ export const WeatherScreen = () => {
             <View style={[styles.cardContainer, styles.weatherContainer, styles.detail]}>
                 <View style={CommonStyle.row}>
                     <DateView date={date} month={month} />
-                    <Text style={[isTablet && TabletFont.heading_2, styles.text]}>의 상세 기상 정보</Text>
+                    <Text style={[isTablet && TabletFont.body1_bold, styles.text]}>의 상세 기상 정보</Text>
                 </View>
                 <View style={styles.detailCard}>{children}</View>
             </View>
@@ -113,13 +113,13 @@ export const WeatherScreen = () => {
     return (
         <View style={CommonStyle.flex}>
             <View style={styles.header}>
-                <Text style={[isTablet ? TabletFont.heading_1 : MobileFont.heading_1]}>날씨 정보</Text>
+                <Text style={[isTablet ? TabletFont.heading_1 : MobileFont.title2_regular]}>날씨 정보</Text>
                 <LocationView />
             </View>
             <ScrollView>
                 <View style={[CommonStyle.title, CommonStyle.padding]}>
                     <Text style={isTablet ? TabletFont.heading_1 : MobileFont.body_1}>이번주 날씨</Text>
-                    <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.detail_3, styles.content]}>요일을 선택하면 더 자세한 기상 정보를 확인할 수 있습니다.</Text>
+                    <Text style={[isTablet ? TabletFont.label1_regular : MobileFont.label2_regular, styles.content]}>요일을 선택하면 더 자세한 기상 정보를 확인할 수 있습니다.</Text>
                     {!weeklyWeather ? (
                         <View style={CommonStyle.flex}>
                             <Loader />
@@ -196,12 +196,12 @@ export const WeatherScreen = () => {
                                                 </View>
                                                 <View style={[CommonStyle.row, styles.tempContainer]}>
                                                     <MaxTemp />
-                                                    <Text style={[isTablet ? TabletFont.detail_3 : MobileFont.detail_3, styles.interval, { color: CommonColor.basic_gray_dark }]}>
+                                                    <Text style={[isTablet ? TabletFont.label2_regular : MobileFont.label2_regular, styles.interval, { color: CommonColor.basic_gray_dark }]}>
                                                         {maxTemp}˚
                                                     </Text>
                                                     <View style={[styles.line, styles.interval]} />
                                                     <MinTemp />
-                                                    <Text style={[isTablet ? TabletFont.detail_3 : MobileFont.detail_3, styles.interval, { color: CommonColor.basic_gray_dark }]}>
+                                                    <Text style={[isTablet ? TabletFont.label2_regular : MobileFont.label2_regular, styles.interval, { color: CommonColor.basic_gray_dark }]}>
                                                         {minTemp}˚
                                                     </Text>
                                                 </View>

@@ -39,8 +39,8 @@ export const LocationScreen = () => {
                 <View style={CommonStyle.row}>
                     <LocationOn width={22} />
                     <View style={styles.locationView}>
-                        <Text style={[isTablet ? TabletFont.body_2 : MobileFont.detail_2, styles.nowLocation]}>현재 위치</Text>
-                        <Text style={isTablet ? TabletFont.button_1 : MobileFont.heading_2}>{location}</Text>
+                        <Text style={[isTablet ? TabletFont.body_2 : MobileFont.label1_regular, styles.nowLocation]}>현재 위치</Text>
+                        <Text style={isTablet ? TabletFont.title2_semi_bold2 : MobileFont.body1_bold}>{location}</Text>
                     </View>
                 </View>
                 <Check />
@@ -61,8 +61,8 @@ export const LocationScreen = () => {
                 <View style={CommonStyle.row}>
                     <LocationOff width={22} />
                     <View style={styles.locationView}>
-                        <Text style={[isTablet ? TabletFont.body_2 : MobileFont.detail_2, styles.prevLocation]}>이전 위치 | {date}</Text>
-                        <Text style={isTablet ? TabletFont.button_1 : MobileFont.heading_2}>{location}</Text>
+                        <Text style={[isTablet ? TabletFont.body_2 : MobileFont.label1_regular, styles.prevLocation]}>이전 위치 | {date}</Text>
+                        <Text style={isTablet ? TabletFont.title2_semi_bold2 : MobileFont.body1_bold}>{location}</Text>
                     </View>
                 </View>
                 {showRemoveView ? <Remove /> : <UnCheck />}
@@ -73,7 +73,7 @@ export const LocationScreen = () => {
     return (
         <View style={CommonStyle.flex}>
             <View style={styles.header}>
-                <Text style={[isTablet ? TabletFont.button_1 : MobileFont.heading_1]}>위치 설정</Text>
+                <Text style={[isTablet ? TabletFont.title2_semi_bold2 : MobileFont.title2_regular]}>위치 설정</Text>
                 <TouchableOpacity onPress={() => setShowRemoveView(!showRemoveView)}>
                     <Text style={[isTablet ? TabletFont.body_2 : MobileFont.body_2, { color: CommonColor.main_blue }]}>{showRemoveView ? "취소" : "편집"}</Text>
                 </TouchableOpacity>
@@ -107,7 +107,7 @@ export const LocationScreen = () => {
                             }
                         }}
                     >
-                        <Text style={[isTablet ? TabletFont.button_1 : MobileFont.button_1, { color: "#fff" }]}>확인</Text>
+                        <Text style={[isTablet ? TabletFont.title2_semi_bold2 : MobileFont.title2_semi_bold2, { color: "#fff" }]}>확인</Text>
                     </TouchableOpacity>
                 )}
             </View>

@@ -52,16 +52,16 @@ export const LocationPermissionModal = ({ isVisible, setIsVisible }: ModalProps)
                     <View>
                         <View style={{ flexDirection: "row", alignItems: "flex-start" }}>
                             <AppName />
-                            <Text style={[isTablet ? TabletFont.mobile_title : MobileFont.mobile_title, { marginLeft: 5 }]}>에서는</Text>
+                            <Text style={[isTablet ? TabletFont.title2_semi_bold : MobileFont.mobile_title, { marginLeft: 5 }]}>에서는</Text>
                         </View>
-                        <Text style={[isTablet ? TabletFont.mobile_title : MobileFont.mobile_title]}>정확한 날씨 정보를 위해{"\n"}위치 접근 허용이 필요합니다.</Text>
-                        <Text style={[MobileFont.detail_1, { color: CommonColor.main_blue, marginTop: 20, marginBottom: 14 }]}>• 선택적 접근 권한 이용내역</Text>
+                        <Text style={[isTablet ? TabletFont.title2_semi_bold : MobileFont.mobile_title]}>정확한 날씨 정보를 위해{"\n"}위치 접근 허용이 필요합니다.</Text>
+                        <Text style={[MobileFont.label1_bold, { color: CommonColor.main_blue, marginTop: 20, marginBottom: 14 }]}>• 선택적 접근 권한 이용내역</Text>
                         <View style={{ flexDirection: "row", alignItems: "flex-start" }}>
-                            <Text style={[isTablet ? TabletFont.detail_4 : MobileFont.detail_4]}>위치정보</Text>
-                            <Text style={[MobileFont.detail_3, { marginLeft: 12 }]}>실시간 위치 정보에 기반한{"\n"}정확한 날씨 정보 및 콘텐츠 제공</Text>
+                            <Text style={[isTablet ? TabletFont.label2_bold : MobileFont.label2_bold]}>위치정보</Text>
+                            <Text style={[MobileFont.label2_regular, { marginLeft: 12 }]}>실시간 위치 정보에 기반한{"\n"}정확한 날씨 정보 및 콘텐츠 제공</Text>
                         </View>
                     </View>
-                    <Text style={[isTablet ? TabletFont.modal_text_2 : MobileFont.modal_text_2, { color: CommonColor.basic_gray_dark, alignSelf: "center" }]}>
+                    <Text style={[isTablet ? TabletFont.caption1_regular : MobileFont.caption1_regular, { color: CommonColor.basic_gray_dark, alignSelf: "center" }]}>
                         동의하지 않으셔도 이용이 가능함을 알려드립니다.
                     </Text>
                 </View>
@@ -83,7 +83,7 @@ export const LocationPermissionModal = ({ isVisible, setIsVisible }: ModalProps)
                         setIsVisible(false)
                     }}
                 >
-                    <Text style={[MobileFont.heading_1, { color: CommonColor.main_white }]}>설정하러 가기</Text>
+                    <Text style={[MobileFont.title2_regular, { color: CommonColor.main_white }]}>설정하러 가기</Text>
                 </TouchableOpacity>
             </View>
         </Modal>
@@ -128,7 +128,7 @@ export const ToastComponent = () => {
                     }}
                 >
                     {/* <Check /> */}
-                    <Text style={[MobileFont.detail_2, { marginLeft: 8, color: CommonColor.main_blue }]}>{toast?.message}</Text>
+                    <Text style={[MobileFont.label1_regular, { marginLeft: 8, color: CommonColor.main_blue }]}>{toast?.message}</Text>
                 </View>
             </View>
         )

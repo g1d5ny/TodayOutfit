@@ -7,12 +7,12 @@ import TabletCompass from "asset/image/image_tablet_compass.svg"
 export const WindDirectionScreen = () => {
     return (
         <View>
-            <Text style={[CommonStyle.title, isTablet ? TabletFont.heading_2 : MobileFont.body_1]}>풍향이란?</Text>
-            <Text style={[styles.content, isTablet ? TabletFont.weather_info_main_text : MobileFont.weather_info_main_text]}>
+            <Text style={[CommonStyle.title, isTablet ? TabletFont.body1_bold : MobileFont.body_1]}>풍향이란?</Text>
+            <Text style={[styles.content, isTablet ? TabletFont.label1_reading_regular : MobileFont.label1_reading_regular]}>
                 풍향은 바람이 불어오는 방향을 의미하며 오늘모입지에서는 8방위각도를 활용해 풍향을 나타냅니다.
             </Text>
             <View style={CommonStyle.infoTitle}>
-                <Text style={[isTablet ? TabletFont.heading_2 : MobileFont.body_1]}>풍향 구분</Text>
+                <Text style={[isTablet ? TabletFont.body1_bold : MobileFont.body_1]}>풍향 구분</Text>
                 <View style={[CommonStyle.center, styles.compass]}>{isTablet ? <TabletCompass /> : <MobileCompass />}</View>
             </View>
         </View>

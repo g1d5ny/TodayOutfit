@@ -28,10 +28,10 @@ export const SearchResult = memo(({ selectedAddress, setSelectedAddress }: Input
         <View style={{ flex: 1 }}>
             {!isEmpty(resultAddress) ? (
                 isNotFoundAddress ? (
-                    <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.detail_2, { color: CommonColor.etc_red, marginTop: 6 }]}>올바르지 않은 주소입니다.</Text>
+                    <Text style={[isTablet ? TabletFont.label1_regular : MobileFont.label1_regular, { color: CommonColor.etc_red, marginTop: 6 }]}>올바르지 않은 주소입니다.</Text>
                 ) : (
                     <View style={{ marginTop: 6 }}>
-                        <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.detail_2, { color: CommonColor.main_blue }]}>'{inputAddress}' 검색 결과</Text>
+                        <Text style={[isTablet ? TabletFont.label1_regular : MobileFont.label1_regular, { color: CommonColor.main_blue }]}>'{inputAddress}' 검색 결과</Text>
                         <View style={{ maxHeight: resultHeight * maxCount + verticalMargin * (maxCount - 2), marginTop: isTablet ? 26 : 18 }}>
                             <ScrollView>
                                 {resultAddress.map(

@@ -16,7 +16,7 @@ export const LocationView = () => {
         <View style={styles.container}>
             {isTablet ? <LocationTablet /> : <LocationMobile />}
             {myAddressList && (
-                <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.detail_3, { color: CommonColor.basic_gray_dark, marginLeft: 2 }]}>
+                <Text style={[isTablet ? TabletFont.label1_regular : MobileFont.label2_regular, { color: CommonColor.basic_gray_dark, marginLeft: 2 }]}>
                     {myAddressList[0].location.split(" ")[0] + " " + myAddressList[0].location.split(" ")[1]}
                 </Text>
             )}
@@ -28,7 +28,9 @@ export const DateView = ({ month, date }: { month?: number; date?: number }) => 
     return (
         <View style={styles.container}>
             {isTablet ? <CalendarTablet /> : <CalendarMobile />}
-            <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.detail_3, { color: CommonColor.basic_gray_dark, marginLeft: 2 }]}>{month && date ? `${month}월 ${date}일` : ""}</Text>
+            <Text style={[isTablet ? TabletFont.label1_regular : MobileFont.label2_regular, { color: CommonColor.basic_gray_dark, marginLeft: 2 }]}>
+                {month && date ? `${month}월 ${date}일` : ""}
+            </Text>
         </View>
     )
 }
@@ -51,12 +53,12 @@ export const WeatherDetail = ({ titleIcon, title, content, desc, contentIcon, is
         <TouchableOpacity style={styles.weatherDetail} onPress={onPress}>
             <View style={styles.row}>
                 {titleIcon}
-                <Text style={[isTablet ? TabletFont.detail_1 : MobileFont.detail_1, { marginLeft: 7 }]}>{title}</Text>
+                <Text style={[isTablet ? TabletFont.label1_bold : MobileFont.label1_bold, { marginLeft: 7 }]}>{title}</Text>
             </View>
-            <Text style={[isTablet ? TabletFont.detail_2 : MobileFont.detail_2, { marginVertical: 14 }]}>{content}</Text>
+            <Text style={[isTablet ? TabletFont.label1_regular : MobileFont.label1_regular, { marginVertical: 14 }]}>{content}</Text>
             {/* TODO fontstyle */}
             <Text style={{ fontSize: 22, color: CommonColor.main_black }}>{desc}</Text>
-            {windSpeed && <Text style={[isTablet ? TabletFont.detail_3 : MobileFont.detail_3, { color: CommonColor.basic_gray_dark, marginTop: 2 }]}>{windSpeed} m/s</Text>}
+            {windSpeed && <Text style={[isTablet ? TabletFont.label2_regular : MobileFont.label2_regular, { color: CommonColor.basic_gray_dark, marginTop: 2 }]}>{windSpeed} m/s</Text>}
             <View style={styles.detailIcon}>{contentIcon}</View>
         </TouchableOpacity>
     )
