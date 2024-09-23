@@ -12,13 +12,11 @@ interface IProps {
 
 export const Guide = ({ guideText, title, subTitle, children }: IProps) => {
     return (
-        <View style={[CommonStyle.flex, styles.container, isTablet ? styles.tabletContainer : styles.mobileContainer]}>
+        <View style={[CommonStyle.flex, styles.container]}>
             <View style={[styles.textContainer, CommonStyle.center]}>
-                <Text style={[isTablet ? TabletFont.title2_regular : MobileFont.body_2, { color: CommonColor.main_blue }]}>{guideText}</Text>
-                <View style={[CommonStyle.center, styles.titleContainer]}>
-                    <Text style={[isTablet ? TabletFont.display_bold : MobileFont.title1_bold, styles.title]}>{title}</Text>
-                </View>
-                <Text style={[isTablet ? TabletFont.title2_regular : MobileFont.label1_regular, { color: CommonColor.basic_gray_dark }]}>{subTitle}</Text>
+                <Text style={[isTablet ? TabletFont.title2_regular : MobileFont.body2_regular, { color: CommonColor.main_blue }]}>{guideText}</Text>
+                <Text style={[styles.titleContainer, isTablet ? TabletFont.display_bold : MobileFont.title1_bold, styles.title]}>{title}</Text>
+                <Text style={[isTablet ? TabletFont.body1_regular : MobileFont.label1_regular, { color: CommonColor.basic_gray_dark }]}>{subTitle}</Text>
             </View>
             {children}
         </View>
@@ -34,18 +32,14 @@ const styles = StyleSheet.create({
         marginBottom: 8
     },
     textContainer: {
-        marginTop: "20%",
-        marginBottom: 40
-    },
-    tabletContainer: {
-        paddingHorizontal: 132
-    },
-    mobileContainer: {
-        paddingHorizontal: 16
+        paddingTop: 40,
+        paddingBottom: isTablet ? 40 : 22,
+        paddingHorizontal: 50
     },
     container: {
         width: "100%",
         height: "100%",
-        alignItems: "center"
+        alignItems: "center",
+        paddingHorizontal: isTablet ? 131 : 16
     }
 })

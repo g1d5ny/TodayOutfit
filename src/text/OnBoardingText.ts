@@ -1,6 +1,6 @@
 export const OnBoardingText = {
-    addressGuideText: "위치서비스",
-    characterGuideText: "캐릭터 만들기",
+    addressGuideText: "위치 정보",
+    characterGuideText: "캐릭터 정보",
     guideTitle: "정확한 날씨 정보를 위해\n위치 서비스를 선택해주세요!",
     searchTitle: "정확한 날씨 정보를 위해\n위치 서비스를 입력해주세요!",
     characterTitle: "맞춤 코디를 대신 입어줄\n캐릭터를 선택해주세요",

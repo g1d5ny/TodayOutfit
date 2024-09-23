@@ -17,9 +17,12 @@ export const SelectGenderScreen = () => {
     const setIsLoggedIn = useSetRecoilState(loggedInState)
     const [gender, setGender] = useState<GENDER>()
 
-    const onPress = (gender: GENDER) => {
+    const selectGender = (gender: GENDER) => {
         setGender(gender)
         setStorage("gender", gender)
+    }
+
+    const navigateMain = () => {
         setIsLoggedIn(true)
         setStorage("loggedInState", true)
     }
@@ -31,38 +34,55 @@ export const SelectGenderScreen = () => {
                 title={OnBoardingText.characterTitle}
                 subTitle={OnBoardingText.characterSubTitle}
                 children={
-                    <View style={styles.genderContainer}>
-                        <View style={styles.genderView}>
-                            <TouchableOpacity onPress={() => onPress("M")} style={styles.checkButton}>
-                                {gender === "M" ? <Check /> : <UnCheck />}
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => onPress("M")} style={[styles.gender, gender === "M" ? styles.checked : styles.unChecked]}>
-                                {isTablet ? <TabletMan /> : <Man />}
-                            </TouchableOpacity>
+                    <View style={[CommonStyle.flex, CommonStyle.center, CommonStyle.spread]}>
+                        <View style={styles.genderContainer}>
+                            <View style={styles.genderView}>
+                                <TouchableOpacity onPress={() => selectGender("M")} style={styles.checkButton}>
+                                    {gender === "M" ? <Check width={isTablet ? 20 : 24} /> : <UnCheck width={isTablet ? 20 : 24} />}
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => selectGender("M")} style={[styles.gender, gender === "M" ? styles.checked : styles.unChecked]}>
+                                    {isTablet ? <TabletMan /> : <Man />}
+                                </TouchableOpacity>
+                            </View>
+                            <View style={styles.genderView}>
+                                <TouchableOpacity onPress={() => selectGender("W")} style={styles.checkButton}>
+                                    {gender === "W" ? <Check width={isTablet ? 20 : 24} /> : <UnCheck width={isTablet ? 20 : 24} />}
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => selectGender("W")} style={[styles.gender, gender === "W" ? styles.checked : styles.unChecked]}>
+                                    {isTablet ? <TabletWoman /> : <Woman />}
+                                </TouchableOpacity>
+                            </View>
                         </View>
-                        <View style={{ width: isTablet ? 24 : 14, height: isTablet ? 24 : 14 }} />
-                        <View style={styles.genderView}>
-                            <TouchableOpacity onPress={() => onPress("W")} style={styles.checkButton}>
-                                {gender === "W" ? <Check /> : <UnCheck />}
+                        {gender ? (
+                            <TouchableOpacity style={styles.confirmButton} onPress={navigateMain}>
+                                <Text style={[isTablet ? TabletFont.title2_semi_bold2 : MobileFont.body1_bold, { color: CommonColor.main_white }]}>앱 구경하러 가기</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => onPress("W")} style={[styles.gender, gender === "W" ? styles.checked : styles.unChecked]}>
-                                {isTablet ? <TabletWoman /> : <Woman />}
-                            </TouchableOpacity>
-                        </View>
+                        ) : (
+                            <View style={CommonStyle.row}>
+                                <View style={styles.unSelectedPhase} />
+                                <View style={styles.selectedPhase} />
+                            </View>
+                        )}
                     </View>
                 }
             />
-            <View style={CommonStyle.row}>
-                <View style={styles.unSelectedPhase} />
-                <View style={styles.selectedPhase} />
-            </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
+    confirmButton: {
+        width: "100%",
+        position: "absolute",
+        bottom: 0,
+        borderRadius: 8,
+        paddingVertical: isTablet ? 20 : 17,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: CommonColor.main_blue
+    },
     checkButton: {
-        marginBottom: 8
+        marginBottom: 12
     },
     genderView: {
         alignItems: "center",
@@ -98,12 +118,14 @@ const styles = StyleSheet.create({
         backgroundColor: CommonColor.basic_gray_light,
         alignItems: "center",
         justifyContent: "center",
-        padding: 22
+        paddingHorizontal: 22,
+        paddingVertical: 16,
+        borderWidth: 2
     },
     genderContainer: {
-        marginTop: isTablet ? 34 : 16,
         flexDirection: "row",
-        alignItems: "center"
+        alignItems: "center",
+        gap: isTablet ? 24 : 14
     },
     content: isTablet ? TabletFont.display_bold : MobileFont.label1_regular,
     title: isTablet ? TabletFont.display_bold : MobileFont.title1_bold,
@@ -114,9 +136,9 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        paddingBottom: isTablet ? 60 : 30,
         alignItems: "center",
         justifyContent: "space-between",
-        backgroundColor: "#fff"
+        backgroundColor: "#fff",
+        paddingBottom: isTablet ? 60 : 28
     }
 })

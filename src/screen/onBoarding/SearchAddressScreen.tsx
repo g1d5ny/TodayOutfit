@@ -4,8 +4,7 @@ import { inputAddressState, isTablet, resultAdressListState } from "../../store"
 import { useRecoilState } from "recoil"
 import { SearchInput } from "../../component/SearchInput"
 import { isEmpty } from "lodash"
-import { useState } from "react"
-import { useUserLocationHook } from "../../hook/useUserLocationHook"
+import { useEffect, useState } from "react"
 import { useAddressHook } from "../../hook/useAddressHook"
 import { MY_ADDRSS } from "../../type"
 import { NowDate } from "utils"
@@ -30,23 +29,20 @@ export const SearchAddressScreen = () => {
     const [inputAddress, setInputAddress] = useRecoilState(inputAddressState)
     const [selectedAddress, setSelectedAddress] = useState<MY_ADDRSS | null>(selectedAddressInitialValue)
     const disabled = resultAddress && resultAddress[0] === "NOT_FOUND"
-    const { addUserAddress } = useUserLocationHook()
     const { searchAddress } = useAddressHook()
     const { keyboardHeight } = useKeyboardHeight()
 
     const onPress = () => {
         Keyboard.dismiss()
-        if (selectedAddress?.id) {
-            const { id, location, coordinate } = selectedAddress
-            addUserAddress({ id, location: location.trim(), coordinate, date: NowDate() }).then(() => {
-                navigationRef?.current?.navigate("SelectGenderScreen")
-                setInputAddress("")
-                setResultAddress([])
-            })
-            return
-        }
         searchAddress()
     }
+
+    useEffect(() => {
+        return () => {
+            setInputAddress("")
+            setResultAddress([])
+        }
+    }, [])
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -58,7 +54,7 @@ export const SearchAddressScreen = () => {
                     children={
                         <>
                             <SearchInput hasInput autoFocus isOnboarding />
-                            <View style={{ flex: 1 }}>
+                            <View style={CommonStyle.flex}>
                                 <SearchResult selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress} />
                                 {!isEmpty(resultAddress) && (
                                     <View style={[CommonStyle.row, styles.phase]}>
@@ -66,15 +62,13 @@ export const SearchAddressScreen = () => {
                                         <View style={styles.unSelectedPhase} />
                                     </View>
                                 )}
-                                {inputAddress && (
+                                {keyboardHeight > 0 && inputAddress && (
                                     <TouchableOpacity
                                         disabled={disabled}
                                         style={[styles.confirmButton, { backgroundColor: disabled ? CommonColor.basic_gray_medium : CommonColor.main_blue, bottom: keyboardHeight }]}
                                         onPress={onPress}
                                     >
-                                        <Text style={[isTablet ? TabletFont.title2_semi_bold2 : MobileFont.title2_semi_bold2, { color: CommonColor.main_white }]}>
-                                            {selectedAddress?.id ? "앱 구경하러 가기" : "확인"}
-                                        </Text>
+                                        <Text style={[isTablet ? TabletFont.title2_semi_bold2 : MobileFont.title2_semi_bold2, { color: CommonColor.main_white }]}>확인</Text>
                                     </TouchableOpacity>
                                 )}
                             </View>
@@ -89,7 +83,7 @@ export const SearchAddressScreen = () => {
 const styles = StyleSheet.create({
     phase: {
         alignSelf: "center",
-        marginBottom: 80
+        marginTop: 26
     },
     unSelectedPhase: {
         width: 8,

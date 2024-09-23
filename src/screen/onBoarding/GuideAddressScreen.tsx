@@ -33,7 +33,7 @@ export const GuideAddressScreen = () => {
                                         <GreenCheck width={COMMON_ICON} height={COMMON_ICON} />
                                     </View>
                                 </View>
-                                <View style={[styles.card, ShadowStyle, { marginLeft: isTablet ? 25 : 20 }]}>
+                                <View style={[styles.card, ShadowStyle]}>
                                     <Text style={[styles.location, isTablet ? TabletFont.body_2 : MobileFont.body_2]}>서울특별시 중구{"\n"}00대로 000길</Text>
                                     <View style={styles.icon}>
                                         <X width={COMMON_ICON} height={COMMON_ICON} />
@@ -85,7 +85,8 @@ const styles = StyleSheet.create({
     addressView: {
         flexDirection: "row",
         alignItems: "center",
-        marginTop: isTablet ? 24 : 30
+        marginVertical: 30,
+        gap: isTablet ? 24 : 20
     },
     container: {
         flex: 1,
