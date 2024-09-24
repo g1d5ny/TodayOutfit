@@ -11,14 +11,8 @@ export const AppInfoScreen = () => {
             <Header text={"앱 정보"} hasBack />
             <View style={[styles.container, CommonStyle.padding]}>
                 <AppInfoMenu text={"오픈소스 라이선스"} onPress={() => navigationRef.current?.navigate("OpenSourceLicenseScreen")} />
-                <View style={[styles.infoContainer, CommonStyle.row]}>
-                    <Text style={[isTablet ? TabletFont.heading_1 : MobileFont.body_1]}>개발자 연락처</Text>
-                    <Text style={[isTablet ? TabletFont.title2_regular : MobileFont.body_2, { color: CommonColor.basic_gray_medium }]}>todaysoutfit.developer@gmail.com</Text>
-                </View>
-                <View style={[styles.infoContainer, CommonStyle.row]}>
-                    <Text style={isTablet ? TabletFont.heading_1 : MobileFont.body_1}>앱 버전</Text>
-                    <Text style={[isTablet ? TabletFont.title2_regular : MobileFont.body_2, { color: CommonColor.basic_gray_medium }]}>{DeviceInfo.getVersion()}</Text>
-                </View>
+                <AppInfoMenu text={"개발자 연락처"} customText='todaysoutfit.developer@gmail.com' />
+                <AppInfoMenu text={"앱 버전"} customText={DeviceInfo.getVersion()} />
             </View>
         </View>
     )
@@ -30,6 +24,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between"
     },
     container: {
-        marginTop: isTablet ? 20 : 16
+        marginTop: isTablet ? 38 : 32,
+        gap: isTablet ? 40 : 32
     }
 })

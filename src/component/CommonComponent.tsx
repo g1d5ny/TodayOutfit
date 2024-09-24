@@ -13,9 +13,9 @@ interface Header {
 }
 export const Header = ({ text, hasBack }: Header) => {
     return (
-        <View style={styles.header}>
+        <View style={[CommonStyle.padding, styles.header]}>
             {hasBack && (
-                <TouchableOpacity style={styles.back} onPress={() => navigationRef?.current?.goBack()}>
+                <TouchableOpacity onPress={() => navigationRef?.current?.goBack()}>
                     <Back />
                 </TouchableOpacity>
             )}
@@ -35,25 +35,26 @@ export const WeatherDetailFooter = ({ text }: { text: string }) => {
 interface Menu {
     icon?: ReactElement
     text: string
-    onPress: () => void
+    onPress?: () => void
+    customText?: string
 }
 export const MoreMenu = ({ icon, text, onPress }: Menu) => {
     return (
         <TouchableOpacity onPress={onPress} style={[styles.menuContainer, CommonStyle.row]}>
             <View style={CommonStyle.row}>
                 <View style={styles.iconView}>{icon}</View>
-                <Text style={[styles.menuText, isTablet ? TabletFont.title2_regular : MobileFont.body_2]}>{text}</Text>
+                <Text style={isTablet ? TabletFont.title2_regular : MobileFont.body2_regular}>{text}</Text>
             </View>
             <ArrowRight />
         </TouchableOpacity>
     )
 }
 
-export const AppInfoMenu = ({ text, onPress }: Menu) => {
+export const AppInfoMenu = ({ text, onPress, customText }: Menu) => {
     return (
         <TouchableOpacity onPress={onPress} style={[styles.infoContainer, CommonStyle.row]}>
             <Text style={isTablet ? TabletFont.heading_1 : MobileFont.body_1}>{text}</Text>
-            <ArrowRight />
+            {customText ? <Text style={[isTablet ? TabletFont.title2_regular : MobileFont.body2_regular, { color: CommonColor.basic_gray_medium }]}>{customText}</Text> : <ArrowRight />}
         </TouchableOpacity>
     )
 }
@@ -66,7 +67,7 @@ interface OpenSource {
 export const OpenSource = ({ name, link, copyright }: OpenSource) => {
     return (
         <View style={styles.openSourceContainer}>
-            <Text style={isTablet ? TabletFont.body_1 : MobileFont.body_1}>{name}</Text>
+            <Text style={[isTablet ? TabletFont.body2_bold : MobileFont.body2_bold, { color: CommonColor.basic_gray_dark }]}>{name}</Text>
             <View style={styles.openSourceContent}>
                 <Hyperlink onPress={(url, text) => Linking.openURL(url)} linkText={url => (url === link ? link : url)} linkStyle={{ color: CommonColor.main_blue }}>
                     <Text style={isTablet ? TabletFont.label1_reading_regular : MobileFont.label2_regular}>{link}</Text>
@@ -80,29 +81,22 @@ export const OpenSource = ({ name, link, copyright }: OpenSource) => {
 
 const styles = StyleSheet.create({
     openSourceContent: {
-        paddingLeft: 16,
-        marginTop: 8
+        paddingLeft: 16
     },
     openSourceContainer: {
+        // flex: 1
         width: isTablet ? "48%" : "100%",
-        marginBottom: 32
+        gap: 8
     },
     infoContainer: {
-        marginVertical: isTablet ? 20 : 16,
         justifyContent: "space-between"
-    },
-    menuText: {
-        marginLeft: 8
     },
     iconView: {
-        paddingLeft: 14
+        marginRight: isTablet ? 17 : 14
     },
     menuContainer: {
-        paddingVertical: isTablet ? 24 : 20,
+        paddingHorizontal: 8,
         justifyContent: "space-between"
-    },
-    back: {
-        marginRight: 20
     },
     bottomLine: {
         width: screenWidth,
@@ -113,11 +107,11 @@ const styles = StyleSheet.create({
     },
     header: {
         width: "100%",
-        paddingHorizontal: isTablet ? 32 : 16,
-        paddingVertical: isTablet ? 14 : 13,
+        paddingVertical: isTablet ? 14 : 15,
         flexDirection: "row",
         alignItems: "center",
         borderBottomWidth: 1,
-        borderColor: CommonColor.basic_gray_light
+        borderColor: CommonColor.basic_gray_light,
+        gap: 20
     }
 })

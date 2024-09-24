@@ -142,22 +142,3 @@ export const ToastComponent = () => {
 
     return <Toast config={toastConfig} visibilityTime={toast?.duration ?? 1000} />
 }
-
-export const styles = StyleSheet.create({
-    text: isTablet ? TabletFont.body_2 : MobileFont.body_2,
-    textView: {
-        flex: 1,
-        marginLeft: 15,
-        marginRight: 20
-    },
-    input: {
-        width: "100%",
-        height: isTablet ? 66 : 56,
-        borderRadius: 6,
-        paddingHorizontal: isTablet ? 24 : 18,
-        paddingVertical: isTablet ? 20 : 17,
-        backgroundColor: CommonColor.basic_gray_light,
-        flexDirection: "row",
-        alignItems: "center"
-    }
-})

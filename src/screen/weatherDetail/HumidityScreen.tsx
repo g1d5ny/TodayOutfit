@@ -47,6 +47,7 @@ export const HumidityScreen = () => {
                 습도란 공기 중에 포함되어 있는 수증기의 비율을 의미하며 오늘모입지에서 제공되는 습도 정보는 노점 온도를 활용한 상대습도를 의미합니다. 기온의 영향으로 계절에 따라 쾌적함을
                 느끼는 상대습도가 달라지며 여름철엔 50~60%, 겨울철엔 40~50%, 봄과 가을에는 50% 정도가 이상적인 상대습도입니다.
             </Text>
+            <View style={CommonStyle.weatherInfoSplit} />
             <View style={[CommonStyle.infoTitle, CommonStyle.row]}>
                 <Text style={[isTablet ? TabletFont.body1_bold : MobileFont.body_1]}>습도 단계</Text>
                 <Text style={[isTablet ? TabletFont.label2_regular : MobileFont.label2_regular, { color: CommonColor.main_blue }]}>단위: %, C</Text>

@@ -26,6 +26,7 @@ export const MoreScreen = () => {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: isTablet ? 16 : 12
+        marginVertical: isTablet ? 40 : 32,
+        gap: isTablet ? 48 : 40
     }
 })

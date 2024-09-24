@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Text, View } from "react-native"
 import { currentWeatherInfoState, getStorage, isTablet } from "../../store"
-import { CommonColor, MobileFont, TabletFont } from "../../style/CommonStyle"
+import { CommonColor, CommonStyle, MobileFont, TabletFont } from "../../style/CommonStyle"
 import { useRecoilValue } from "recoil"
 import { useEffect, useState } from "react"
 import { GENDER } from "type"
@@ -21,65 +21,59 @@ export default () => {
     }, [])
 
     return (
-        <View style={{ flex: 1 }}>
-            <View style={styles.character}>
-                <Image
-                    source={gender === "W" ? require("asset/image/image_girl.png") : require("asset/image/image_hood_boy.png")}
-                    style={{ width: isTablet ? "45%" : "50%", height: isTablet ? "100%" : "80%" }}
-                />
-                <View>
-                    <Text style={[isTablet ? TabletFont.title2_semi_bold2 : MobileFont.body_1, { color: is_day ? CommonColor.main_black : CommonColor.main_white }]}>
-                        기온 맞춤 추천 의상
-                    </Text>
-                    <View style={styles.recomContainer}>
-                        <View style={[styles.recom, { marginBottom: 8, marginRight: isTablet ? 25 : 0 }]}>
-                            <View style={styles.clothes}>
-                                <Image source={top[0].path} style={{ width: "90%", height: "90%" }} />
-                            </View>
+        <View style={styles.character}>
+            <View style={styles.cardDesc}>
+                <Image source={gender === "W" ? require("asset/image/image_girl.png") : require("asset/image/image_hood_boy.png")} style={styles.charaterImage} />
+            </View>
+            <View>
+                <Text style={[isTablet ? TabletFont.title2_semi_bold2 : MobileFont.body2_bold, { color: is_day ? CommonColor.main_black : CommonColor.main_white }]}>
+                    기온 맞춤 추천 의상
+                </Text>
+                <View style={[styles.recomContainer, { gap: isTablet ? 25 : 9 }]}>
+                    <View style={[styles.recom, { marginBottom: isTablet ? 25 : 0 }]}>
+                        <Image source={top[0].path} style={styles.clothes} />
+                        <View style={styles.clothesDesc}>
+                            <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>{top[0].ko}</Text>
+                            <Text style={[isTablet ? TabletFont.body2_regular : MobileFont.label2_regular, { color: CommonColor.basic_gray_dark }]}>{topDesc} 상의</Text>
+                        </View>
+                    </View>
+                    <View style={styles.recom}>
+                        <Image source={bottom[0].path} style={styles.clothes} />
+                        <View style={styles.clothesDesc}>
+                            <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>{bottom[0].ko}</Text>
+                            <Text style={[isTablet ? TabletFont.body2_regular : MobileFont.label2_regular, { color: CommonColor.basic_gray_dark }]}>{bottomDesc} 하의</Text>
+                        </View>
+                    </View>
+                </View>
+                {isTablet && (
+                    <View style={[styles.recomContainer, { gap: 25 }]}>
+                        <View style={[styles.recom, { marginBottom: 25 }]}>
+                            <Image source={top[1].path} style={styles.clothes} />
                             <View style={styles.clothesDesc}>
-                                <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>{top[0].ko}</Text>
-                                <Text style={[isTablet ? TabletFont.body_2 : MobileFont.label2_regular, { color: CommonColor.basic_gray_dark }]}>{topDesc} 상의</Text>
+                                <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>{top[1].ko}</Text>
+                                <Text style={[isTablet ? TabletFont.body2_regular : MobileFont.label2_regular, { color: CommonColor.basic_gray_dark }]}>{topDesc} 상의</Text>
                             </View>
                         </View>
                         <View style={styles.recom}>
-                            <View style={styles.clothes}>
-                                <Image source={bottom[0].path} style={{ width: "90%", height: "90%" }} />
-                            </View>
+                            <Image source={bottom[1].path} style={styles.clothes} />
                             <View style={styles.clothesDesc}>
-                                <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>{bottom[0].ko}</Text>
-                                <Text style={[isTablet ? TabletFont.body_2 : MobileFont.label2_regular, { color: CommonColor.basic_gray_dark }]}>{bottomDesc} 하의</Text>
+                                <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>{bottom[1].ko}</Text>
+                                <Text style={[isTablet ? TabletFont.body2_regular : MobileFont.label2_regular, { color: CommonColor.basic_gray_dark }]}>{bottomDesc} 하의</Text>
                             </View>
                         </View>
                     </View>
-                    {isTablet && (
-                        <View style={styles.recomContainer}>
-                            <View style={[styles.recom, { marginBottom: isTablet ? 0 : 8, marginRight: isTablet ? 25 : 0 }]}>
-                                <View style={styles.clothes}>
-                                    <Image source={top[1].path} style={{ width: "90%", height: "90%" }} />
-                                </View>
-                                <View style={styles.clothesDesc}>
-                                    <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>{top[1].ko}</Text>
-                                    <Text style={[isTablet ? TabletFont.body_2 : MobileFont.label2_regular, { color: CommonColor.basic_gray_dark }]}>{topDesc} 상의</Text>
-                                </View>
-                            </View>
-                            <View style={styles.recom}>
-                                <View style={styles.clothes}>
-                                    <Image source={bottom[1].path} style={{ width: "90%", height: "90%" }} />
-                                </View>
-                                <View style={styles.clothesDesc}>
-                                    <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>{bottom[1].ko}</Text>
-                                    <Text style={[isTablet ? TabletFont.body_2 : MobileFont.label2_regular, { color: CommonColor.basic_gray_dark }]}>{bottomDesc} 하의</Text>
-                                </View>
-                            </View>
-                        </View>
-                    )}
-                </View>
+                )}
             </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
+    clothes: {
+        flex: 1,
+        width: "90%",
+        height: "90%"
+    },
     titleText: {
         marginTop: 26,
         marginBottom: 8,
@@ -129,11 +123,6 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10
     },
-    clothes: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center"
-    },
     recom: {
         width: isTablet ? 174 : 136,
         height: isTablet ? 239 : 186,
@@ -146,11 +135,16 @@ const styles = StyleSheet.create({
         flexWrap: "wrap",
         marginTop: 9
     },
+    charaterImage: {
+        width: isTablet ? 450 : 200,
+        height: "100%"
+    },
     character: {
         flex: 1,
         justifyContent: "space-between",
-        alignItems: isTablet ? "flex-start" : "center",
+        alignItems: "flex-start",
         flexDirection: "row",
-        marginTop: isTablet ? 40 : 20
+        marginTop: isTablet ? 40 : 33,
+        gap: 28
     }
 })

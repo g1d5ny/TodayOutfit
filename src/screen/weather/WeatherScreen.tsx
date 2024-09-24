@@ -100,7 +100,7 @@ export const WeatherScreen = () => {
         const date = open?.date ? new Date(open?.date).getDate() : undefined
 
         return (
-            <View style={[styles.cardContainer, styles.weatherContainer, styles.detail]}>
+            <View style={[styles.cardContainer, { gap: 14 }]}>
                 <View style={CommonStyle.row}>
                     <DateView date={date} month={month} />
                     <Text style={[isTablet && TabletFont.body1_bold, styles.text]}>의 상세 기상 정보</Text>
@@ -126,7 +126,7 @@ export const WeatherScreen = () => {
                         </View>
                     ) : (
                         <View style={isTablet && styles.tabletDetail}>
-                            <View style={[styles.cardContainer, isTablet && styles.weatherContainer]}>
+                            <View style={styles.cardContainer}>
                                 {weeklyWeather.map(
                                     (
                                         {
@@ -185,21 +185,21 @@ export const WeatherScreen = () => {
                                                 onPress={() => setOpen({ index, uv, date, maxWindSpeed, willItSnow, snowPercentage, rainPercentage })}
                                             >
                                                 <View style={CommonStyle.row}>
-                                                    <View style={CommonStyle.row}>
-                                                        <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, styles.day, { color }]}>{getDay(day)}</Text>
-                                                        <Text style={isTablet ? TabletFont.body_2 : MobileFont.body_2}>{new Date(date).getDate()}</Text>
+                                                    <View style={[CommonStyle.row, styles.gap]}>
+                                                        <Text style={[isTablet ? TabletFont.body2_bold : MobileFont.body2_bold, { color }]}>{getDay(day)}</Text>
+                                                        <Text style={isTablet ? TabletFont.body2_regular : MobileFont.body2_regular}>{new Date(date).getDate()}</Text>
                                                     </View>
                                                     <View style={[CommonStyle.row, styles.weather]}>
-                                                        <View>{weather(code, true)?.minIcon}</View>
-                                                        <Text style={[isTablet ? TabletFont.body_2 : MobileFont.body_2, styles.text]}>{weather(code, true)?.text}</Text>
+                                                        {weather(code, true)?.minIcon}
+                                                        <Text style={[isTablet ? TabletFont.body2_regular : MobileFont.body2_regular, styles.text]}>{weather(code, true)?.text}</Text>
                                                     </View>
                                                 </View>
-                                                <View style={[CommonStyle.row, styles.tempContainer]}>
+                                                <View style={CommonStyle.row}>
                                                     <MaxTemp />
                                                     <Text style={[isTablet ? TabletFont.label2_regular : MobileFont.label2_regular, styles.interval, { color: CommonColor.basic_gray_dark }]}>
                                                         {maxTemp}˚
                                                     </Text>
-                                                    <View style={[styles.line, styles.interval]} />
+                                                    <View style={styles.line} />
                                                     <MinTemp />
                                                     <Text style={[isTablet ? TabletFont.label2_regular : MobileFont.label2_regular, styles.interval, { color: CommonColor.basic_gray_dark }]}>
                                                         {minTemp}˚
@@ -238,35 +238,28 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         backgroundColor: CommonColor.basic_gray_light
     },
-    detail: {
-        marginLeft: 24
-    },
     tabletDetail: {
         flexDirection: "row",
         alignItems: "flex-start",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        gap: 24
     },
     weatherCard: {
+        gap: 8,
         marginBottom: 8
     },
-    weatherContainer: {
-        width: "48%"
-    },
     detailCard: {
+        gap: isTablet ? 27 : 14,
+        rowGap: isTablet ? 16 : 14,
         flexWrap: "wrap",
         flexDirection: "row",
-        alignItems: "flex-start",
-        justifyContent: "space-between",
-        marginTop: 16
-    },
-    tempContainer: {
-        height: "50%"
+        alignItems: "flex-start"
     },
     line: {
-        height: "100%",
-        borderWidth: 1,
+        height: 16,
+        borderLeftWidth: 1,
         borderColor: CommonColor.basic_gray_medium,
-        marginRight: 10
+        marginHorizontal: 8
     },
     weather: {
         marginLeft: 20
@@ -277,8 +270,8 @@ const styles = StyleSheet.create({
     text: {
         marginLeft: 8
     },
-    day: {
-        marginRight: 6
+    gap: {
+        gap: 6
     },
     lastWeeklyContainer: {
         borderBottomLeftRadius: 10,
@@ -296,7 +289,8 @@ const styles = StyleSheet.create({
         marginBottom: 8
     },
     cardContainer: {
-        marginTop: 24
+        flex: 1,
+        marginTop: isTablet ? 22 : 24
     },
     content: {
         marginTop: 8,

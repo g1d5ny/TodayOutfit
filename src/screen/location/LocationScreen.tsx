@@ -29,10 +29,10 @@ const selectedAddressInitialValue = {
 const SelectedView = ({ location }: { location: string }) => {
     return (
         <View style={[CommonStyle.row, styles.locationContainer, styles.selectedContainer]}>
-            <View style={CommonStyle.row}>
+            <View style={[CommonStyle.row, { gap: isTablet ? 16 : 18 }]}>
                 <LocationOn width={22} />
-                <View style={styles.locationView}>
-                    <Text style={[isTablet ? TabletFont.body_2 : MobileFont.label1_regular, styles.nowLocation]}>현재 위치</Text>
+                <View>
+                    <Text style={[isTablet ? TabletFont.body2_regular : MobileFont.label1_regular, styles.nowLocation]}>현재 위치</Text>
                     <Text style={isTablet ? TabletFont.title2_semi_bold2 : MobileFont.body1_bold}>{location}</Text>
                 </View>
             </View>
@@ -59,11 +59,11 @@ export const LocationScreen = () => {
                     showRemoveView ? (removeUserAddress({ id, location, coordinate }), setShowRemoveView(false)) : addUserAddress({ id, location, coordinate, date: NowDate() })
                 }}
             >
-                <View style={CommonStyle.row}>
+                <View style={[CommonStyle.row, { gap: isTablet ? 16 : 18 }]}>
                     <LocationOff width={22} />
-                    <View style={styles.locationView}>
-                        <Text style={[isTablet ? TabletFont.body_2 : MobileFont.label1_regular, styles.prevLocation]}>이전 위치 | {date}</Text>
-                        <Text style={isTablet ? TabletFont.title2_semi_bold2 : MobileFont.body1_bold}>{location}</Text>
+                    <View>
+                        <Text style={[isTablet ? TabletFont.body2_regular : MobileFont.label1_regular, styles.prevLocation]}>이전 위치 | {date}</Text>
+                        <Text style={[isTablet ? TabletFont.title2_semi_bold2 : MobileFont.body1_bold, { color: CommonColor.basic_gray_dark }]}>{location}</Text>
                     </View>
                 </View>
                 {showRemoveView ? <Remove /> : <UnCheck />}
@@ -73,13 +73,13 @@ export const LocationScreen = () => {
 
     return (
         <View style={CommonStyle.flex}>
-            <View style={styles.header}>
-                <Text style={[isTablet ? TabletFont.title2_semi_bold2 : MobileFont.title2_regular]}>위치 설정</Text>
+            <View style={[CommonStyle.padding, styles.header]}>
+                <Text style={isTablet ? TabletFont.title1_bold : MobileFont.title2_semi_bold2}>위치 설정</Text>
                 <TouchableOpacity onPress={() => setShowRemoveView(!showRemoveView)}>
-                    <Text style={[isTablet ? TabletFont.body_2 : MobileFont.body_2, { color: CommonColor.main_blue }]}>{showRemoveView ? "취소" : "편집"}</Text>
+                    <Text style={[isTablet ? TabletFont.body1_regular : MobileFont.body2_regular, { color: CommonColor.main_blue }]}>{showRemoveView ? "취소" : "편집"}</Text>
                 </TouchableOpacity>
             </View>
-            <View style={[CommonStyle.padding, CommonStyle.flex]}>
+            <View style={[CommonStyle.flex, CommonStyle.padding]}>
                 <View style={styles.inputContainer}>
                     <SearchInput hasInput autoFocus={false} />
                 </View>
@@ -90,11 +90,13 @@ export const LocationScreen = () => {
                             <SearchResult selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress} />
                         </>
                     ) : (
-                        myAddressList?.map((item, index) => {
-                            const { id, location } = item
-                            const isSelected = id === myAddressList[0].id
-                            return <View key={index}>{isSelected ? <SelectedView location={location} /> : <PrevView item={item} />}</View>
-                        })
+                        <View style={styles.myAddressGap}>
+                            {myAddressList?.map((item, index) => {
+                                const { id, location } = item
+                                const isSelected = id === myAddressList[0].id
+                                return <View key={index}>{isSelected ? <SelectedView location={location} /> : <PrevView item={item} />}</View>
+                            })}
+                        </View>
                     )}
                     {!isEmpty(resultAddress) && (
                         <TouchableOpacity
@@ -119,8 +121,12 @@ export const LocationScreen = () => {
 }
 
 const styles = StyleSheet.create({
+    myAddressGap: {
+        gap: 16
+    },
     inputContainer: {
-        marginBottom: 32
+        marginTop: isTablet ? 24 : 18,
+        marginBottom: isTablet ? 30 : 32
     },
     confirmButton: {
         width: screenWidth,
@@ -141,28 +147,22 @@ const styles = StyleSheet.create({
         color: CommonColor.main_blue,
         marginBottom: 4
     },
-    locationView: {
-        marginLeft: 18
-    },
     prevContainer: {
-        backgroundColor: CommonColor.basic_gray_light,
-        borderRadius: 6
+        backgroundColor: CommonColor.basic_gray_light
     },
     selectedContainer: {
         borderWidth: 2,
-        borderColor: CommonColor.main_blue,
-        borderRadius: 8
+        borderColor: CommonColor.main_blue
     },
     locationContainer: {
         width: "100%",
-        marginBottom: 16,
+        borderRadius: 6,
         paddingHorizontal: isTablet ? 24 : 18,
         paddingVertical: isTablet ? 16 : 13,
         justifyContent: "space-between"
     },
     header: {
         width: "100%",
-        paddingHorizontal: isTablet ? 32 : 16,
         paddingVertical: isTablet ? 14 : 15,
         flexDirection: "row",
         alignItems: "center",

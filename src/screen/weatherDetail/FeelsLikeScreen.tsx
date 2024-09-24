@@ -47,6 +47,7 @@ export const FeelsLikeScreen = () => {
                 체감 온도는 인체가 느끼는 더위나 추위를 수량적으로 나타낸 것으로 온도, 습도, 풍속, 일사량, 복사등을 바탕으로 계산됩니다. 오늘모입지에서는 여름철에는 일 최고 기온을 바탕으로
                 불쾌 지수를, 겨울철에는 일 최저 기온을 바탕으로 체감온도 지수를 활용하고 있습니다.
             </Text>
+            <View style={CommonStyle.weatherInfoSplit} />
             <View style={[CommonStyle.infoTitle, CommonStyle.row]}>
                 <Text style={[isTablet ? TabletFont.body1_bold : MobileFont.body_1]}>체감온도 단계</Text>
                 <Text style={[isTablet ? TabletFont.label2_regular : MobileFont.label2_regular, { color: CommonColor.main_blue }]}>단위: %</Text>

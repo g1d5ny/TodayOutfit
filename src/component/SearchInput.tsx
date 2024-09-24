@@ -59,17 +59,17 @@ export const SearchInput = memo(({ hasInput, autoFocus, isOnboarding = false, ..
                     <TextInput
                         value={inputAddress}
                         onChangeText={value => setInputAddress(value)}
-                        placeholder='예시: 서울특별시 중구'
+                        placeholder='위치를 입력하세요'
                         placeholderTextColor={CommonColor.basic_gray_medium}
                         onFocus={() => setIsOnFocus(true)}
                         onBlur={() => setIsOnFocus(false)}
                         onSubmitEditing={searchAddress}
                         autoFocus={autoFocus}
-                        style={[isTablet ? TabletFont.body_2 : MobileFont.body_2, styles.textView]}
+                        style={[isTablet ? TabletFont.body1_regular : MobileFont.body2_regular, styles.textView]}
                         {...props}
                     />
                 ) : (
-                    <Text style={[isTablet ? TabletFont.body_2 : MobileFont.body_2, styles.textView, { color: CommonColor.basic_gray_medium }]}>예시: 서울특별시 중구</Text>
+                    <Text style={[isTablet ? TabletFont.body1_regular : MobileFont.body2_regular, styles.textView, { color: CommonColor.basic_gray_medium }]}>위치를 입력하세요</Text>
                 )}
                 <TouchableOpacity onPress={onPressLocation}>
                     {isOnFocus ? <FocusOffLocation width={LOCATION_ICON} height={LOCATION_ICON} /> : <FocusLocation width={LOCATION_ICON} height={LOCATION_ICON} />}
@@ -98,12 +98,9 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between"
     },
-    text: isTablet ? TabletFont.body_2 : MobileFont.body_2,
     textView: {
         flex: 1,
-        marginLeft: 15,
-        marginRight: 20,
-        paddingVertical: 0
+        marginLeft: isTablet ? 16 : 14
     },
     input: {
         width: "100%",

@@ -28,13 +28,13 @@ export const GuideAddressScreen = () => {
                             </TouchableOpacity>
                             <View style={styles.addressView}>
                                 <View style={[styles.card, ShadowStyle]}>
-                                    <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>서울특별시 중구</Text>
+                                    <Text style={[isTablet ? TabletFont.body2_bold : MobileFont.body2_bold, { color: CommonColor.main_blue }]}>서울특별시 중구</Text>
                                     <View style={styles.icon}>
                                         <GreenCheck width={COMMON_ICON} height={COMMON_ICON} />
                                     </View>
                                 </View>
                                 <View style={[styles.card, ShadowStyle]}>
-                                    <Text style={[styles.location, isTablet ? TabletFont.body_2 : MobileFont.body_2]}>서울특별시 중구{"\n"}00대로 000길</Text>
+                                    <Text style={[styles.location, isTablet ? TabletFont.body2_regular : MobileFont.body2_regular]}>서울특별시 중구{"\n"}00대로 000길</Text>
                                     <View style={styles.icon}>
                                         <X width={COMMON_ICON} height={COMMON_ICON} />
                                     </View>

@@ -44,14 +44,17 @@ export const WeatherDetailScreen = ({ route }: { route: any }) => {
         }
 
         return (
-            <View style={[styles.view, styles.padding]}>
+            <View style={[styles.view, CommonStyle.padding]}>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                     {categoryList.map(({ title }, index) => {
                         const isSelectedIndex = selectedIndex === index
                         return (
                             <TouchableOpacity key={index} style={[styles.category, isSelectedIndex && styles.selectedCategory]} onPress={() => setCategory(index)}>
                                 <Text
-                                    style={[isTablet ? TabletFont.title2_semi_bold2 : MobileFont.body_1, { color: isSelectedIndex ? CommonColor.main_black : CommonColor.basic_gray_medium }]}
+                                    style={[
+                                        isTablet ? TabletFont.title2_semi_bold2 : MobileFont.body2_bold,
+                                        { color: isSelectedIndex ? CommonColor.main_black : CommonColor.basic_gray_medium }
+                                    ]}
                                 >
                                     {title}
                                 </Text>
@@ -71,7 +74,7 @@ export const WeatherDetailScreen = ({ route }: { route: any }) => {
                 {categoryList.map(({ Component, footer }, index) => {
                     return (
                         <ScrollView key={index}>
-                            <View style={[styles.padding, { minHeight: screenHeight - top - bottom - HEADERS - FOOTER }]}>
+                            <View style={[CommonStyle.padding, { minHeight: screenHeight - top - bottom - HEADERS - FOOTER }]}>
                                 <Component key={index} />
                             </View>
                             <WeatherDetailFooter text={footer} />
@@ -96,8 +99,5 @@ const styles = StyleSheet.create({
         width: screenWidth,
         borderBottomWidth: 1,
         borderColor: CommonColor.basic_gray_light
-    },
-    padding: {
-        paddingHorizontal: isTablet ? 76 : 14
     }
 })

@@ -106,40 +106,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center"
     },
-    icon: {
-        position: "absolute",
-        bottom: isTablet ? -13 : -13
-    },
-    card: {
-        width: isTablet ? 174 : 152,
-        height: isTablet ? 112 : 98,
-        borderRadius: 10,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#fff"
-    },
-    addressView: {
-        flexDirection: "row",
-        alignItems: "center",
-        marginTop: isTablet ? 24 : 32
-    },
-    text: isTablet ? TabletFont.body_2 : MobileFont.body_2,
-    addressContainer: {
-        width: "100%",
-        marginTop: isTablet ? 47 : 40,
-        alignItems: "center",
-        justifyContent: "center",
-        paddingHorizontal: isTablet ? 132 : 16
-    },
-    content: {
-        flex: 1
-    },
-    title: isTablet ? TabletFont.display_bold : MobileFont.title1_bold,
-    subtitle: isTablet ? TabletFont.body_2 : MobileFont.body_2,
-    textContainer: {
-        alignItems: "center",
-        marginTop: isTablet ? 140 : 110
-    },
     container: {
         flex: 1,
         alignItems: "center",

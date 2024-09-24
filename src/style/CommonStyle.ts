@@ -164,6 +164,13 @@ export const TabletFont = StyleSheet.create({
         letterSpacing: Platform.OS === "ios" ? pt(-0.12) : dp(-0.12),
         lineHeight: 16
     },
+    title1_bold: {
+        fontSize: 24,
+        color: CommonColor.main_black,
+        fontFamily: "Pretendard-SemiBold",
+        letterSpacing: Platform.OS === "ios" ? pt(-0.48) : dp(-0.48),
+        lineHeight: 32
+    },
     title2_semi_bold2: {
         fontSize: 20,
         color: CommonColor.main_black,
@@ -359,6 +366,12 @@ export const TextShadowStyle = {
 }
 
 export const CommonStyle = StyleSheet.create({
+    weatherInfoSplit: {
+        width: "100%",
+        borderBottomWidth: 1,
+        borderColor: CommonColor.basic_gray_light,
+        marginVertical: 24
+    },
     spread: {
         justifyContent: "space-between"
     },
@@ -366,7 +379,6 @@ export const CommonStyle = StyleSheet.create({
         marginTop: 32
     },
     infoTitle: {
-        marginTop: 26,
         justifyContent: "space-between"
     },
     padding: {

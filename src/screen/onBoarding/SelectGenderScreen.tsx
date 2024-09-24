@@ -127,13 +127,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         gap: isTablet ? 24 : 14
     },
-    content: isTablet ? TabletFont.display_bold : MobileFont.label1_regular,
-    title: isTablet ? TabletFont.display_bold : MobileFont.title1_bold,
-    subtitle: isTablet ? TabletFont.body_2 : MobileFont.body_2,
-    textContainer: {
-        alignItems: "center",
-        marginTop: isTablet ? 140 : 110
-    },
     container: {
         flex: 1,
         alignItems: "center",

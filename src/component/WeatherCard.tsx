@@ -28,12 +28,12 @@ export const WeatherCard = ({ day, date, minIcon, text, maxIcon, maxTemp, minTem
         <View style={styles.weatherCard}>
             <TouchableOpacity disabled={!onPress} style={styles.cardHeader} onPress={onPress}>
                 <View style={styles.row}>
-                    <Text style={[TabletFont.body_1, { color }]}>{day}</Text>
-                    <Text style={[TabletFont.body_2, { marginLeft: 6 }]}>{date}</Text>
+                    <Text style={[isTablet ? TabletFont.body2_bold : MobileFont.body2_bold, { color }]}>{day}</Text>
+                    <Text style={[isTablet ? TabletFont.body2_regular : MobileFont.body2_regular, { marginLeft: 6 }]}>{date}</Text>
                 </View>
                 <View style={[styles.row, { marginLeft: 20 }]}>
                     {minIcon}
-                    <Text style={{ marginLeft: 4 }}>{text}</Text>
+                    <Text style={isTablet ? TabletFont.body2_regular : MobileFont.body2_regular}>{text}</Text>
                 </View>
             </TouchableOpacity>
             <LinearGradient colors={[backgroundColor, "#fff"]} style={styles.gradient}>

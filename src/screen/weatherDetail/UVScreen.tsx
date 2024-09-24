@@ -5,24 +5,23 @@ import { UV, isTablet } from "../../store"
 export const UVScreen = () => {
     return (
         <View style={styles.container}>
-            <Text style={[CommonStyle.title, isTablet ? TabletFont.body1_bold : MobileFont.body_1]}>UV 지수란?</Text>
+            <Text style={[CommonStyle.title, isTablet ? TabletFont.body1_bold : MobileFont.body1_bold]}>UV 지수란?</Text>
             <Text style={[styles.content, isTablet ? TabletFont.label1_reading_regular : MobileFont.label1_reading_regular]}>
                 UV 지수(Ultraviolet Index)는 피부 손상 가능성을 나타내는 지표로 일광화상을 유발하는 자외선 복사 강도의 국제 표준 측정 값입니다. 태양고도가 최대인 남중시각(南中時刻)때 지표에
                 도달하는 자외선 B 영역의 복사량을 지수식으로 환산한 것이며 10등급으로 구분됩니다.
             </Text>
-            <Text style={[CommonStyle.infoTitle, isTablet ? TabletFont.body1_bold : MobileFont.body_1]}>UV 지수 단계</Text>
-            <View style={[CommonStyle.row, isTablet ? styles.tabletInterval : styles.mobileInterval]}>
+            <View style={CommonStyle.weatherInfoSplit} />
+            <Text style={[CommonStyle.infoTitle, isTablet ? TabletFont.body1_bold : MobileFont.body1_bold]}>UV 지수 단계</Text>
+            <View style={[CommonStyle.row, styles.interval]}>
                 {UV.map(({ icon, text }, index) => {
-                    const isLast = index === UV.length - 1
                     return (
-                        <View key={index} style={[CommonStyle.center, !isLast && isTablet && styles.iconInterval]}>
+                        <View key={index} style={CommonStyle.center}>
                             {icon}
                             <Text style={[styles.iconText, isTablet ? TabletFont.label1_bold : MobileFont.label1_bold]}>{text}</Text>
                         </View>
                     )
                 })}
             </View>
-            <View style={[styles.border, CommonStyle.bottomLine]} />
             {UV.map(({ text, range, desc }, index) => {
                 return (
                     <View key={index} style={styles.row}>
@@ -46,6 +45,9 @@ export const UVScreen = () => {
 }
 
 const styles = StyleSheet.create({
+    vertical: {
+        marginTop: 24
+    },
     range: {
         marginTop: 6,
         color: CommonColor.main_blue
@@ -58,29 +60,20 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: "row",
         alignItems: "flex-start",
-        marginBottom: 32
+        marginBottom: 26
     },
     left: {
         width: 52,
         marginRight: 14
     },
-    border: {
-        marginVertical: 32
-    },
     iconText: {
         marginTop: 8
     },
-    iconInterval: {
-        marginRight: 22
-    },
-    tabletInterval: {
-        justifyContent: "center",
-        marginTop: 18
-    },
-    mobileInterval: {
-        width: "100%",
+    interval: {
+        alignSelf: "center",
         justifyContent: "space-between",
-        marginTop: 18
+        marginVertical: 24,
+        gap: isTablet ? 22 : 10
     },
     content: {
         marginTop: 8

@@ -56,7 +56,7 @@ export const SearchResult = memo(({ selectedAddress, setSelectedAddress }: Input
                 {isSelected ? (
                     <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>{address_name}</Text>
                 ) : (
-                    <Text style={isTablet ? TabletFont.body_2 : MobileFont.body_2}>{address_name}</Text>
+                    <Text style={isTablet ? TabletFont.body1_regular : MobileFont.body2_regular}>{address_name}</Text>
                 )}
                 {isSelected ? <BlueCheck /> : <GrayCheck />}
             </TouchableOpacity>
@@ -102,13 +102,7 @@ export const SearchResult = memo(({ selectedAddress, setSelectedAddress }: Input
     )
 })
 
-export const styles = StyleSheet.create({
-    confirmButton: {
-        width: "100%",
-        height: isTablet ? 64 : 56,
-        alignItems: "center",
-        justifyContent: "center"
-    },
+const styles = StyleSheet.create({
     resultView: {
         width: "100%",
         borderLeftWidth: 2,
@@ -120,20 +114,5 @@ export const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between"
-    },
-    text: isTablet ? TabletFont.body_2 : MobileFont.body_2,
-    textView: {
-        flex: 1,
-        marginLeft: 15,
-        marginRight: 20
-    },
-    input: {
-        width: "100%",
-        borderRadius: 6,
-        paddingHorizontal: isTablet ? 24 : 18,
-        paddingVertical: isTablet ? 20 : 17,
-        backgroundColor: CommonColor.basic_gray_light,
-        flexDirection: "row",
-        alignItems: "center"
     }
 })

@@ -11,6 +11,7 @@ export const WindDirectionScreen = () => {
             <Text style={[styles.content, isTablet ? TabletFont.label1_reading_regular : MobileFont.label1_reading_regular]}>
                 풍향은 바람이 불어오는 방향을 의미하며 오늘모입지에서는 8방위각도를 활용해 풍향을 나타냅니다.
             </Text>
+            <View style={CommonStyle.weatherInfoSplit} />
             <View style={CommonStyle.infoTitle}>
                 <Text style={[isTablet ? TabletFont.body1_bold : MobileFont.body_1]}>풍향 구분</Text>
                 <View style={[CommonStyle.center, styles.compass]}>{isTablet ? <TabletCompass /> : <MobileCompass />}</View>

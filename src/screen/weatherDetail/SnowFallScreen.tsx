@@ -56,6 +56,7 @@ export const SnowFallScreen = () => {
                 지면에 쌓인 눈의 깊이를 cm로 나타낸 값으로 오늘모입지에서 제공하는 대설 및 적설 정보는 외부활동에 지장을 줄 수 있는 기상특보를 기초해 제공됩니다. 싸락눈과 진눈깨비와 같은
                 비와 눈이 섞여 내리는 기상 상태도 포함합니다.
             </Text>
+            <View style={CommonStyle.weatherInfoSplit} />
             <View style={[CommonStyle.infoTitle, CommonStyle.row]}>
                 <Text style={[isTablet ? TabletFont.body1_bold : MobileFont.body_1]}>적설 단계</Text>
                 <Text style={[isTablet ? TabletFont.label2_regular : MobileFont.label2_regular, { color: CommonColor.main_blue }]}>단위: cm</Text>

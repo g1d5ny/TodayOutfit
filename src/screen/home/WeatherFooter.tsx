@@ -122,149 +122,68 @@ export const WeatherFooter = ({ viewRef }: { viewRef: LegacyRef<View> }) => {
                             </View>
                         </ScrollView>
                     </View>
-                    {isTablet ? (
-                        <>
-                            <View style={[styles.foreDetailRow]}>
-                                <View style={styles.foreDetailTablet}>
-                                    <WeatherDetail
-                                        titleIcon={<UV />}
-                                        title={"UV 지수"}
-                                        content={UVFormat(selectedHour.uv)?.content as string}
-                                        desc={UVFormat(selectedHour.uv)?.text as string}
-                                        contentIcon={UVFormat(selectedHour.uv)?.icon}
-                                        onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 0 } })}
-                                    />
-                                    <WeatherDetail
-                                        titleIcon={<WindDirection />}
-                                        title={"풍향"}
-                                        content={WindDirectionFormat(selectedHour.windDir)?.content as string}
-                                        desc={WindDirectionFormat(selectedHour.windDir)?.text as string}
-                                        contentIcon={WindDirectionFormat(selectedHour.windDir)?.icon}
-                                        onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 3 } })}
-                                    />
-                                </View>
-                                <View style={styles.foreDetailTablet}>
-                                    <WeatherDetail
-                                        titleIcon={<FeelsLike />}
-                                        title={"체감 온도"}
-                                        content={FeelsLikeFormat(selectedHour.feelslike)?.content as string}
-                                        desc={FeelsLikeFormat(selectedHour.feelslike)?.text as string}
-                                        contentIcon={FeelsLikeFormat(selectedHour.feelslike)?.icon}
-                                        onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 1 } })}
-                                    />
-                                    {selectedHour.willItSnow ? (
-                                        <WeatherDetail
-                                            titleIcon={<SnowFall />}
-                                            title={"적설량"}
-                                            content={SnowFallFormat(selectedHour.snowPercentage as number)?.content as string}
-                                            desc={SnowFallFormat(selectedHour.snowPercentage as number)?.text as string}
-                                            contentIcon={SnowFallFormat(selectedHour.snowPercentage as number)?.icon}
-                                            onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 6 } })}
-                                        />
-                                    ) : (
-                                        <WeatherDetail
-                                            titleIcon={<RainPercentage />}
-                                            title={"강수 확률"}
-                                            content={RainPercentageFormat(selectedHour.rainPercentage as number)?.content as string}
-                                            desc={RainPercentageFormat(selectedHour.rainPercentage as number)?.text as string}
-                                            contentIcon={RainPercentageFormat(selectedHour.rainPercentage as number)?.icon}
-                                            onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 4 } })}
-                                        />
-                                    )}
-                                </View>
-                                <View style={styles.foreDetailTablet}>
-                                    <WeatherDetail
-                                        titleIcon={<WindSpeed />}
-                                        title={"풍속"}
-                                        content={WindSpeedFormat(selectedHour.windSpeed)?.content as string}
-                                        desc={WindSpeedFormat(selectedHour.windSpeed)?.text as string}
-                                        contentIcon={WindSpeedFormat(selectedHour.windSpeed)?.icon}
-                                        windSpeed={selectedHour.windSpeed}
-                                        onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 2 } })}
-                                    />
-                                    <WeatherDetail isVisible={false} />
-                                </View>
-                                <View style={styles.foreDetailTablet}>
-                                    <WeatherDetail
-                                        titleIcon={<Humidity />}
-                                        title={"습도"}
-                                        content={HumidityFormat(selectedHour.humidity)?.content as string}
-                                        desc={HumidityFormat(selectedHour.humidity)?.text as string}
-                                        contentIcon={HumidityFormat(selectedHour.humidity)?.icon}
-                                        onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 5 } })}
-                                    />
-                                    <WeatherDetail isVisible={false} />
-                                </View>
-                            </View>
-                        </>
-                    ) : (
-                        <View style={styles.foreDetailRow}>
-                            <View style={[styles.foreDetail]}>
-                                <WeatherDetail
-                                    titleIcon={<UV />}
-                                    title={"UV 지수"}
-                                    content={UVFormat(selectedHour.uv)?.content as string}
-                                    desc={UVFormat(selectedHour.uv)?.text as string}
-                                    contentIcon={UVFormat(selectedHour.uv)?.icon}
-                                    onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 0 } })}
-                                />
-                                <WeatherDetail
-                                    titleIcon={<WindSpeed />}
-                                    title={"풍속"}
-                                    content={WindSpeedFormat(selectedHour.windSpeed)?.content as string}
-                                    desc={WindSpeedFormat(selectedHour.windSpeed)?.text as string}
-                                    contentIcon={WindSpeedFormat(selectedHour.windSpeed)?.icon}
-                                    windSpeed={selectedHour.windSpeed}
-                                    onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 2 } })}
-                                />
-                                {selectedHour.willItSnow ? (
-                                    <WeatherDetail
-                                        titleIcon={<SnowFall />}
-                                        title={"적설량"}
-                                        content={SnowFallFormat(selectedHour.snowPercentage as number)?.content as string}
-                                        desc={SnowFallFormat(selectedHour.snowPercentage as number)?.text as string}
-                                        contentIcon={SnowFallFormat(selectedHour.snowPercentage as number)?.icon}
-                                        onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 6 } })}
-                                    />
-                                ) : (
-                                    <WeatherDetail
-                                        titleIcon={<RainPercentage />}
-                                        title={"강수 확률"}
-                                        content={RainPercentageFormat(selectedHour.rainPercentage as number)?.content as string}
-                                        desc={RainPercentageFormat(selectedHour.rainPercentage as number)?.text as string}
-                                        contentIcon={RainPercentageFormat(selectedHour.rainPercentage as number)?.icon}
-                                        onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 4 } })}
-                                    />
-                                )}
-                            </View>
-                            <View style={[styles.foreDetail]}>
-                                <WeatherDetail
-                                    titleIcon={<FeelsLike />}
-                                    title={"체감 온도"}
-                                    content={FeelsLikeFormat(selectedHour.feelslike)?.content as string}
-                                    desc={FeelsLikeFormat(selectedHour.feelslike)?.text as string}
-                                    contentIcon={FeelsLikeFormat(selectedHour.feelslike)?.icon}
-                                    onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 1 } })}
-                                />
-                                <WeatherDetail
-                                    titleIcon={<WindDirection />}
-                                    title={"풍향"}
-                                    content={WindDirectionFormat(selectedHour.windDir)?.content as string}
-                                    desc={WindDirectionFormat(selectedHour.windDir)?.text as string}
-                                    contentIcon={WindDirectionFormat(selectedHour.windDir)?.icon}
-                                    onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 3 } })}
-                                />
-                                <WeatherDetail
-                                    titleIcon={<Humidity />}
-                                    title={"습도"}
-                                    content={HumidityFormat(selectedHour.humidity)?.content as string}
-                                    desc={HumidityFormat(selectedHour.humidity)?.text as string}
-                                    contentIcon={HumidityFormat(selectedHour.humidity)?.icon}
-                                    onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 5 } })}
-                                />
-                            </View>
-                        </View>
-                    )}
+                    <View style={styles.foreDetailRow}>
+                        <WeatherDetail
+                            titleIcon={<UV />}
+                            title={"UV 지수"}
+                            content={UVFormat(selectedHour.uv)?.content as string}
+                            desc={UVFormat(selectedHour.uv)?.text as string}
+                            contentIcon={UVFormat(selectedHour.uv)?.icon}
+                            onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 0 } })}
+                        />
+                        <WeatherDetail
+                            titleIcon={<WindSpeed />}
+                            title={"풍속"}
+                            content={WindSpeedFormat(selectedHour.windSpeed)?.content as string}
+                            desc={WindSpeedFormat(selectedHour.windSpeed)?.text as string}
+                            contentIcon={WindSpeedFormat(selectedHour.windSpeed)?.icon}
+                            windSpeed={selectedHour.windSpeed}
+                            onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 2 } })}
+                        />
+                        {selectedHour.willItSnow ? (
+                            <WeatherDetail
+                                titleIcon={<SnowFall />}
+                                title={"적설량"}
+                                content={SnowFallFormat(selectedHour.snowPercentage as number)?.content as string}
+                                desc={SnowFallFormat(selectedHour.snowPercentage as number)?.text as string}
+                                contentIcon={SnowFallFormat(selectedHour.snowPercentage as number)?.icon}
+                                onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 6 } })}
+                            />
+                        ) : (
+                            <WeatherDetail
+                                titleIcon={<RainPercentage />}
+                                title={"강수 확률"}
+                                content={RainPercentageFormat(selectedHour.rainPercentage as number)?.content as string}
+                                desc={RainPercentageFormat(selectedHour.rainPercentage as number)?.text as string}
+                                contentIcon={RainPercentageFormat(selectedHour.rainPercentage as number)?.icon}
+                                onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 4 } })}
+                            />
+                        )}
+                        <WeatherDetail
+                            titleIcon={<FeelsLike />}
+                            title={"체감 온도"}
+                            content={FeelsLikeFormat(selectedHour.feelslike)?.content as string}
+                            desc={FeelsLikeFormat(selectedHour.feelslike)?.text as string}
+                            contentIcon={FeelsLikeFormat(selectedHour.feelslike)?.icon}
+                            onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 1 } })}
+                        />
+                        <WeatherDetail
+                            titleIcon={<WindDirection />}
+                            title={"풍향"}
+                            content={WindDirectionFormat(selectedHour.windDir)?.content as string}
+                            desc={WindDirectionFormat(selectedHour.windDir)?.text as string}
+                            contentIcon={WindDirectionFormat(selectedHour.windDir)?.icon}
+                            onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 3 } })}
+                        />
+                        <WeatherDetail
+                            titleIcon={<Humidity />}
+                            title={"습도"}
+                            content={HumidityFormat(selectedHour.humidity)?.content as string}
+                            desc={HumidityFormat(selectedHour.humidity)?.text as string}
+                            contentIcon={HumidityFormat(selectedHour.humidity)?.icon}
+                            onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 5 } })}
+                        />
+                    </View>
                 </>
             )}
         </View>
@@ -273,20 +192,14 @@ export const WeatherFooter = ({ viewRef }: { viewRef: LegacyRef<View> }) => {
 
 const styles = StyleSheet.create({
     foreDetailRow: {
-        marginTop: 24,
+        marginVertical: 24,
+        marginBottom: 32,
+
         flexDirection: "row",
         alignItems: "flex-start",
-        justifyContent: "space-between"
-    },
-    foreDetailTablet: {
         flexWrap: "wrap",
-        justifyContent: "space-between",
-        alignItems: "flex-start"
-    },
-    foreDetail: {
-        flexWrap: "wrap",
-        justifyContent: "space-between",
-        alignItems: "flex-start"
+        gap: isTablet ? 27 : 14,
+        rowGap: isTablet ? 16 : 14
     },
     hourText: {
         color: CommonColor.basic_gray_dark
@@ -311,10 +224,11 @@ const styles = StyleSheet.create({
     },
     title: {
         flexDirection: "row",
-        justifyContent: "space-between"
+        alignItems: "center",
+        justifyContent: "space-between",
+        paddingVertical: 13
     },
     wrapper: {
-        paddingTop: 50,
-        paddingVertical: 15
+        paddingTop: 50
     }
 })
