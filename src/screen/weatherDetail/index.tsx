@@ -12,28 +12,41 @@ import { RainPercentageScreen } from "./RainPercentageScreen"
 import { HumidityScreen } from "./HumidityScreen"
 import { SnowFallScreen } from "./SnowFallScreen"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
+import { FeelsLikeInfo, HumidityInfo, RainPercentageInfo, SnowFallInfo, UVInfo, WindDirectionInfo, WindSpeedInfo } from "text/DetailInfoText"
 
 const categoryList = [
     {
-        title: "UV 지수",
-        footer: "자외선 지수는 WHO, WMO등 국제기구에서 제안하는 “Global Solar UV Index”의 가이드 라인과 질병관리청의 건강 위해 정보, 기상청 날씨누리 생활기상정보를 활용 했음을 안내해 드립니다.",
+        title: UVInfo.title,
+        footer: UVInfo.footer,
         Component: UVScreen
     },
-    { title: "체감온도", footer: "체감온도는 기상청의 기상자료개방포털의 정보를 활용했음을 안내해 드립니다.", Component: FeelsLikeScreen },
     {
-        title: "풍속",
-        footer: "풍속 계급표는 보퍼트 풍력 계급(Beaufort wind force scale)의 육상 상태 계급표와, 기상청의 기상자료개방포털을 참고했음을 안내해드립니다.",
+        title: FeelsLikeInfo.title,
+        footer: FeelsLikeInfo.footer,
+        Component: FeelsLikeScreen
+    },
+    {
+        title: WindSpeedInfo.title,
+        footer: WindSpeedInfo.footer,
         Component: WindSpeedScreen
     },
-    { title: "풍향", footer: "풍향 정보는 기상청 날씨누리 생활 기상정보와 ‘Visual Crossing Weather’의 날씨 데이터를 활용 했음을 안내해 드립니다.", Component: WindDirectionScreen },
-    { title: "강수확률", footer: "강수 확률은 기상청 날씨누리 생활 기상정보와 ‘Visual Crossing Weather’의 날씨 정보를 활용 했음을 안내해 드립니다.", Component: RainPercentageScreen },
-    { title: "습도", footer: "적정 상대 습도의 경우 한국표준과학연구원의 자료와 기상청의 날씨배움터 정보를 활용했음을 안내 해드립니다.", Component: HumidityScreen },
-    { title: "적설량", footer: "적설량의 단계 기준의 경우 기상청 날씨누리의 대설 특보, ‘대설 판단 가이던스'를 활용했음을 알려드립니다.", Component: SnowFallScreen }
+    { title: WindDirectionInfo.title, footer: WindDirectionInfo.footer, Component: WindDirectionScreen },
+    { title: RainPercentageInfo.title, footer: RainPercentageInfo.footer, Component: RainPercentageScreen },
+    {
+        title: HumidityInfo.title,
+        footer: HumidityInfo.footer,
+        Component: HumidityScreen
+    },
+    {
+        title: SnowFallInfo.title,
+        footer: SnowFallInfo.footer,
+        Component: SnowFallScreen
+    }
 ]
-const HEADERS = 105
-const FOOTER = 84
+const HEADERS = isTablet ? 116 : 104
+const FOOTER = isTablet ? 108 : 104
 export const WeatherDetailScreen = ({ route }: { route: any }) => {
-    const [selectedIndex, setSelectedIndex] = useState<number>(route.params.index)
+    const [selectedIndex, setSelectedIndex] = useState<number>(route.params.index ?? 0)
     const ref = useRef<any>(null) // PagerView로 타입해야함
     const { top, bottom } = useSafeAreaInsets()
 
@@ -44,12 +57,18 @@ export const WeatherDetailScreen = ({ route }: { route: any }) => {
         }
 
         return (
-            <View style={[styles.view, CommonStyle.padding]}>
-                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <View style={styles.view}>
+                <ScrollView
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={{
+                        paddingHorizontal: isTablet ? 32 : 16
+                    }}
+                >
                     {categoryList.map(({ title }, index) => {
                         const isSelectedIndex = selectedIndex === index
                         return (
-                            <TouchableOpacity key={index} style={[styles.category, isSelectedIndex && styles.selectedCategory]} onPress={() => setCategory(index)}>
+                            <TouchableOpacity key={index} style={styles.category} onPress={() => setCategory(index)}>
                                 <Text
                                     style={[
                                         isTablet ? TabletFont.title2_semi_bold2 : MobileFont.body2_bold,
@@ -58,6 +77,7 @@ export const WeatherDetailScreen = ({ route }: { route: any }) => {
                                 >
                                     {title}
                                 </Text>
+                                {isSelectedIndex && <View style={styles.selectedCategory} />}
                             </TouchableOpacity>
                         )
                     })}
@@ -70,11 +90,11 @@ export const WeatherDetailScreen = ({ route }: { route: any }) => {
         <View style={CommonStyle.flex}>
             <Header text='기상정보에 관하여' hasBack />
             <WeatherHeader />
-            <PagerView ref={ref} initialPage={route.params.index} useNext={false} style={CommonStyle.flex} onPageSelected={({ nativeEvent: { position } }) => setSelectedIndex(position)}>
+            <PagerView ref={ref} initialPage={route.params.index} useNext={false} style={CommonStyle.flex}>
                 {categoryList.map(({ Component, footer }, index) => {
                     return (
                         <ScrollView key={index}>
-                            <View style={[CommonStyle.padding, { minHeight: screenHeight - top - bottom - HEADERS - FOOTER }]}>
+                            <View style={[styles.container, { minHeight: screenHeight - top - bottom - HEADERS - FOOTER }]}>
                                 <Component key={index} />
                             </View>
                             <WeatherDetailFooter text={footer} />
@@ -87,13 +107,17 @@ export const WeatherDetailScreen = ({ route }: { route: any }) => {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        paddingHorizontal: isTablet ? 131 : 16
+    },
     selectedCategory: {
         borderBottomWidth: 3,
-        borderColor: CommonColor.main_blue
+        borderColor: CommonColor.main_blue,
+        marginTop: 11
     },
     category: {
         paddingHorizontal: 8,
-        paddingVertical: 14
+        paddingTop: 18
     },
     view: {
         width: screenWidth,

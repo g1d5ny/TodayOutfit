@@ -1,4 +1,5 @@
-import { FeelsLike, Humidity, RainPercentage, SnowFall, UV, WindDirection, WindSpeed } from "../store"
+import { UV, WindSpeed } from "text/DetailInfoText"
+import { FeelsLikeContent, Humidity, RainPercentage, SnowFall, WindDirection } from "../store"
 
 export const NowDate = () => {
     const year = new Date().getFullYear()
@@ -44,16 +45,16 @@ export const RainPercentageFormat = (precip: number) => {
 }
 
 export const WindSpeedFormat = (windspeed: number) => {
-    if (windspeed <= 0.2) return WindSpeed[0]
-    if (windspeed <= 1.5) return WindSpeed[1]
-    if (windspeed <= 3.3) return WindSpeed[2]
-    if (windspeed <= 5.4) return WindSpeed[3]
-    if (windspeed <= 7.9) return WindSpeed[4]
-    if (windspeed <= 10.7) return WindSpeed[5]
-    if (windspeed <= 13.8) return WindSpeed[6]
-    if (windspeed <= 17.1) return WindSpeed[7]
-    if (windspeed <= 20.7) return WindSpeed[8]
-    if (windspeed > 20.7) return WindSpeed[9]
+    if (windspeed < 1) return WindSpeed()[0]
+    if (windspeed < 5) return WindSpeed()[1]
+    if (windspeed < 11) return WindSpeed()[2]
+    if (windspeed < 19) return WindSpeed()[3]
+    if (windspeed < 28) return WindSpeed()[4]
+    if (windspeed < 38) return WindSpeed()[5]
+    if (windspeed < 49) return WindSpeed()[6]
+    if (windspeed < 61) return WindSpeed()[7]
+    if (windspeed < 74) return WindSpeed()[8]
+    if (windspeed >= 75) return WindSpeed()[9]
 }
 
 export const UVFormat = (uvIndex: number) => {
@@ -74,16 +75,16 @@ export const HumidityFormat = (humidity: number) => {
 }
 
 export const FeelsLikeFormat = (feelsLike: number) => {
-    if (feelsLike <= -10) return FeelsLike(feelsLike)[0]
-    if (feelsLike <= -20) return FeelsLike(feelsLike)[1]
-    if (feelsLike <= -3) return FeelsLike(feelsLike)[2]
-    if (feelsLike <= 5) return FeelsLike(feelsLike)[3]
-    if (feelsLike <= 10) return FeelsLike(feelsLike)[4]
-    if (feelsLike <= 18) return FeelsLike(feelsLike)[5]
-    if (feelsLike <= 22) return FeelsLike(feelsLike)[6]
-    if (feelsLike <= 28) return FeelsLike(feelsLike)[7]
-    if (feelsLike <= 31) return FeelsLike(feelsLike)[8]
-    if (feelsLike > 31) return FeelsLike(feelsLike)[9]
+    if (feelsLike <= -10) return FeelsLikeContent(feelsLike)[0]
+    if (feelsLike <= -20) return FeelsLikeContent(feelsLike)[1]
+    if (feelsLike <= -3) return FeelsLikeContent(feelsLike)[2]
+    if (feelsLike <= 5) return FeelsLikeContent(feelsLike)[3]
+    if (feelsLike <= 10) return FeelsLikeContent(feelsLike)[4]
+    if (feelsLike <= 18) return FeelsLikeContent(feelsLike)[5]
+    if (feelsLike <= 22) return FeelsLikeContent(feelsLike)[6]
+    if (feelsLike <= 28) return FeelsLikeContent(feelsLike)[7]
+    if (feelsLike <= 31) return FeelsLikeContent(feelsLike)[8]
+    if (feelsLike > 31) return FeelsLikeContent(feelsLike)[9]
 }
 
 export const SnowFallFormat = (snowFall: number) => {

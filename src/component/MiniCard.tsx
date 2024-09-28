@@ -39,7 +39,6 @@ interface WeatherIcon {
     content?: string
     desc?: string
     contentIcon?: ReactNode
-
     windSpeed?: number
     onPress?: () => void
 }

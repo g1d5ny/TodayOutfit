@@ -29,11 +29,6 @@ import MaxFogNight from "../asset/icon/3d/weather/night/icon_3d_fog.svg"
 import MaxMoon from "../asset/icon/3d/weather/night/icon_3d_moon.svg"
 import Thunder from "../asset/icon/icon_thunder.svg"
 import MaxThunder from "../asset/icon/3d/weather/icon_3d_thunder.svg"
-import UV1 from "../asset/icon/uv_index/icon_uv_index_1.svg"
-import UV2 from "../asset/icon/uv_index/icon_uv_index_2.svg"
-import UV3 from "../asset/icon/uv_index/icon_uv_index_3.svg"
-import UV4 from "../asset/icon/uv_index/icon_uv_index_4.svg"
-import UV5 from "../asset/icon/uv_index/icon_uv_index_5.svg"
 import SW from "../asset/icon/wind_direction/icon_wind_direction_1.svg"
 import SE from "../asset/icon/wind_direction/icon_wind_direction_2.svg"
 import NE from "../asset/icon/wind_direction/icon_wind_direction_3.svg"
@@ -316,48 +311,6 @@ export const weatherDesc: { [key: string]: { minIcon: JSX.Element; maxIcon: JSX.
     thunder: { minIcon: <Thunder />, maxIcon: <MaxThunder width={"100%"} height={"100%"} />, text: "천둥 번개", backgroundColor: "rgb(228, 230, 242)" }
 }
 
-export const UV = [
-    {
-        text: "위험",
-        content: "피부 화상을 입을 수 있어 가능한 실내에 머물러야합니다.",
-        desc: ["햇볕에 노출 시 수십 분 이내에도 피부 화상을 입을 수 있어 가장 위험합니다.", "가능한 실내에 머물러야 합니다.", "외출 시 긴 소매 옷, 선글라스 이용을 권장합니다."],
-        icon: <UV5 />,
-        range: "11~"
-    },
-    {
-        text: "매우 높음",
-        content: "자외선 차단제를 정기적으로 발라야 합니다.",
-        desc: [
-            "햇볕에 노출 시 수십 분 이내에도 피부 화상을 입을 수 있어 매우 위험합니다.",
-            "오전 10시부터 오후 3시까지 외출을 피하고 실내나 그늘에 머물러야 합니다.",
-            "외출 시 긴소매 옷, 선글라스 착용을 권장합니다."
-        ],
-        icon: <UV4 />,
-        range: "8~10"
-    },
-    {
-        text: "높음",
-        content: "자외선 차단제를 정기적으로 발라야 합니다.",
-        desc: ["햇볕에 노출 시 1~2시간 이내에도 피부 화상을 입을 수 있어 가장 위험합니다.", "한낮에는 그늘에 머무르는 것을 권장 합니다."],
-        icon: <UV3 />,
-        range: "6~7"
-    },
-    {
-        text: "보통",
-        content: "자외선 차단제를 바르는 것을 권장합니다.",
-        desc: ["2~3시간 햇볕에 노출 시에  피부 화상을 입을 수 있습니다."],
-        icon: <UV2 />,
-        range: "3~5"
-    },
-    {
-        text: "낮음",
-        content: "햇볕 노출에 대한 보호조치가 필요하지 않은 정도의 낮은 수준입니다.",
-        desc: ["햇볕 노출에 대한 보호조치가 필요하지 않습니다.", "그러나 햇볕에 민감한 피부를 가진 사람은 자외선 차단제를 발라야 합니다."],
-        icon: <UV1 />,
-        range: "~2"
-    }
-]
-
 export const WindDirection = [
     { text: "남서풍", content: "남서쪽으로 바람이 붑니다.", icon: <SW /> },
     { text: "남동풍", content: "남동쪽으로 바람이 붑니다.", icon: <SE /> },
@@ -383,61 +336,6 @@ export const RainPercentage = (precip: number) => [
     { text: precip + "%", content: "강수 확률이 매우 높아 우산  휴대가 필수입니다", icon: <Precip10 /> }
 ]
 
-export const WindSpeed = [
-    { text: "고요", content: "바람이 불지 않는 고요한 상태가 예상됩니다.", desc: "연기가 수직으로 올라가는 정도로 바람이 없는 수준", icon: <WindSpeed1 />, range: "0~0.02" },
-    {
-        text: "실바람",
-        content: "풍향은 연기가 날리는 것으로 알 수 있으나, 풍향계가 움직이지 않는 정도",
-        desc: "풍향은 연기가 날리는 것으로 알 수 있으나, 풍향계가 움직이지 않는 정도",
-        icon: <WindSpeed2 />,
-        range: "0.3~1.5"
-    },
-    {
-        text: "남실바람",
-        content: "가벼운 바람이 얼굴에 느껴지며 나뭇잎이 흔들리는 정도",
-        desc: "가벼운 바람이 얼굴에 느껴지며 나뭇잎이 흔들리는 정도",
-        icon: <WindSpeed3 />,
-        range: "1.6~3.3"
-    },
-    {
-        text: "산들바람",
-        content: "나뭇잎과 가는 가지가 끊임없이 흔들리고 깃발이 가볍게 날리는 정도",
-        desc: "나뭇잎과 가는 가지가 끊임없이 흔들리고 깃발이 가볍게 날리는 정도",
-        icon: <WindSpeed4 />,
-        range: "3.4~5.4"
-    },
-    {
-        text: "건들바람",
-        content: "나무 가지가 흔들리는 정도의 중간바람이 예상됩니다.",
-        desc: "먼지가 일고 종잇조각이 날리며 작은 가지가 흔들리는 정도",
-        icon: <WindSpeed5 />,
-        range: "5.5~7.9"
-    },
-    {
-        text: "흔들바람",
-        content: "작은 나무가 흔들리는 정도의 중간바람이 예상됩니다.",
-        desc: "잎이 무성한 작은 나무 전체가 흔들리고 호수에 물결이 일어나는 정도",
-        icon: <WindSpeed6 />,
-        range: "8.0~10.7"
-    },
-    {
-        text: "된바람",
-        content: "우산을 들기가 곤란한 정도의 강한바람이 예상됩니다.",
-        desc: "큰 나뭇가지가 흔들리고 전선이 울리며 우산을 들기가 곤란한 정도",
-        icon: <WindSpeed7 />,
-        range: "10.8~13.8"
-    },
-    { text: "센바람", content: "바람을 마주해 걷기 힘든 강한바람이 예상됩니다.", desc: "나무 전체가 흔들려 바람을 마주하여 걷기 힘들 정도", icon: <WindSpeed8 />, range: "13.9~17.1" },
-    { text: "큰바람", content: "나무가지가 꺾이는 아주 큰 바람이 예상됩니다.", desc: "작은 나뭇가지가 꺾이며, 바람을 마주하여 걷기 힘들 정도", icon: <WindSpeed9 />, range: "17.2~20.7" },
-    {
-        text: "큰센바람",
-        content: "가옥에 손해가 있을 정도의태풍급 바람이 예상됩니다.",
-        desc: "가옥에 다소 손해가 있을 정도로 굴뚝이 넘어지고 기와가 벗겨짐",
-        icon: <WindSpeed10 />,
-        range: "20.8~"
-    }
-]
-
 export const Humidity = (humidity: number) => [
     { text: humidity + "%", content: "매우 건조한 상태로 호흡기 환자는 주의해야 합니다.", icon: <Humidity1 /> },
     { text: humidity + "%", content: "건조한 상태로 주의가 필요합니다.", icon: <Humidity2 /> },
@@ -447,7 +345,7 @@ export const Humidity = (humidity: number) => [
     { text: humidity + "%", content: "습도가 매우 높아 주의가 필요합니다.", icon: <Humidity6 /> }
 ]
 
-export const FeelsLike = (feelsLike: number) => [
+export const FeelsLikeContent = (feelsLike: number) => [
     { text: feelsLike + "°C", content: "한파주의보에 해당하는 기온으로 저체온증 위험이 있어 주의가 필요합니다.", icon: <FeelsLike2 /> },
     { text: feelsLike + "°C", content: "한파 경보에 해당하는 기온으로 야외활동시 저체온 위험이 커 주의해야 합니다.", icon: <FeelsLike1 /> },
     { text: feelsLike + "°C", content: "노출된 피부에 찬 기운이 느껴지는 정도로 방풍기능이 있는 옷을 착용해야합니다.", icon: <FeelsLike3 /> },
