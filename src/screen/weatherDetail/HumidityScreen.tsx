@@ -10,7 +10,7 @@ import { CommonColor, CommonStyle, MobileFont, TabletFont } from "style/CommonSt
 const Humidity = [
     {
         text: "매우 높음",
-        desc: ["세균과 곰팡이 증식을 촉진해 특정 병원균에 관한 질병 확산률이 높아집니다", "호흡기 환자에게 치명적일 수 있습니다."],
+        desc: ["세균과 곰팡이 증식을 촉진해 특정 병원균에 관한 질병 확산율이 높아집니다", "호흡기 환자에게 치명적일 수 있습니다."],
         icon: <Humidity6 width={48} height={48} />,
         range: "~100"
     },
@@ -34,7 +34,7 @@ const Humidity = [
     },
     {
         text: "매우 건조",
-        desc: ["알레르기 반응을 악화시킬 수 있습니다.", "호흡기 문제를 유발시킬 수 있습니다.", "목재를 수축시키고 정전기가 자주 발생합니다."],
+        desc: ["알레르기 반응을 악화시킬 수 있습니다.", "호흡기 문제를 유발할 수 있습니다.", "목재를 수축시키고 정전기가 자주 발생합니다."],
         icon: <Humidity0 width={48} height={48} />,
         range: "~20"
     }

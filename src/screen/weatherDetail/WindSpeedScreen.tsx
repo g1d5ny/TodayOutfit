@@ -29,7 +29,7 @@ export const WindSpeedScreen = () => {
         <View style={styles.flex}>
             <Text style={[CommonStyle.title, isTablet ? TabletFont.body1_bold : MobileFont.body_1]}>풍속이란?</Text>
             <Text style={[styles.content, isTablet ? TabletFont.label1_reading_regular : MobileFont.label1_reading_regular]}>
-                풍속은 단위 시간당 이동하는 공기의 속도를 말합니다. 오늘모입지에서는 풍속을 m/s 단위 기준으로 보버트 풍력 계급표에 기초해 구분하였으며 강풍 경보를 미만으로 일상 생활에서의
+                풍속은 단위 시간당 이동하는 공기의 속도를 말합니다. 오늘모입지에서는 풍속을 m/s 단위 기준으로 보퍼트 풍력 계급표에 기초해 구분하였으며 강풍 경보를 미만으로 일상생활에서의
                 육상 상태를 안내하고 있습니다.
             </Text>
             <View style={CommonStyle.weatherInfoSplit} />

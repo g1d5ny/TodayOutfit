@@ -16,13 +16,13 @@ const FeelsLike = [
     },
     {
         text: "높음",
-        desc: ["최대 폭염 주의보 수준의 체감온도로 외출을 피하는 것을 권장합니다.", "장기 외부활동시 일사병이나 탈수가 일어날 수 있으니 주의해야 합니다."],
+        desc: ["최대 폭염 주의보 수준의 체감온도로 외출을 피하는 것을 권장합니다.", "장기 외부 활동시 일사병이나 탈수가 일어날 수 있으니 주의해야 합니다."],
         icon: <FeelsLike8 />,
         range: "~80"
     },
     {
         text: "보통",
-        desc: ["평균 기온에 해당하는 적정한 체감온도 입니다.", "사람의 체질에 따라 다르게 느낄 수 있습니다."],
+        desc: ["평균 기온에 해당하는 체감온도 입니다.", "사람의 체질에 따라 다르게 느낄 수 있습니다."],
         icon: <FeelsLike6 />,
         range: "~60"
     },
@@ -34,7 +34,7 @@ const FeelsLike = [
     },
     {
         text: "매우 낮음",
-        desc: ["노출된 피부에 매우 찬 기운이 느껴지는 정도로 장기 야외 활동시 저체온증 위험이 있습니다."],
+        desc: ["노출된 피부에 매우 찬 기운이 느껴지는 정도로 활동시 저체온증 위험이 있습니다."],
         icon: <FeelsLike2 />,
         range: "~20"
     }
@@ -44,8 +44,8 @@ export const FeelsLikeScreen = () => {
         <View style={styles.container}>
             <Text style={[CommonStyle.title, isTablet ? TabletFont.body1_bold : MobileFont.body_1]}>체감온도란?</Text>
             <Text style={[styles.content, isTablet ? TabletFont.label1_reading_regular : MobileFont.label1_reading_regular]}>
-                체감 온도는 인체가 느끼는 더위나 추위를 수량적으로 나타낸 것으로 온도, 습도, 풍속, 일사량, 복사등을 바탕으로 계산됩니다. 오늘모입지에서는 여름철에는 일 최고 기온을 바탕으로
-                불쾌 지수를, 겨울철에는 일 최저 기온을 바탕으로 체감온도 지수를 활용하고 있습니다.
+                체감 온도는 인체가 느끼는 더위나 추위를 수량적으로 나타낸 것으로 온도, 습도, 풍속, 일사량, 복사량 등을 바탕으로 계산됩니다. 오늘모입지에서는 여름철에는 일 최고 기온을
+                바탕으로 불쾌지수를, 겨울철에는 일 최저 기온을 바탕으로 체감온도 지수를 활용하고 있습니다.
             </Text>
             <View style={CommonStyle.weatherInfoSplit} />
             <View style={[CommonStyle.infoTitle, CommonStyle.row]}>

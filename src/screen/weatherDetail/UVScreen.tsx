@@ -7,7 +7,7 @@ export const UVScreen = () => {
         <View style={styles.container}>
             <Text style={[CommonStyle.title, isTablet ? TabletFont.body1_bold : MobileFont.body1_bold]}>UV 지수란?</Text>
             <Text style={[styles.content, isTablet ? TabletFont.label1_reading_regular : MobileFont.label1_reading_regular]}>
-                UV 지수(Ultraviolet Index)는 피부 손상 가능성을 나타내는 지표로 일광화상을 유발하는 자외선 복사 강도의 국제 표준 측정 값입니다. 태양고도가 최대인 남중시각(南中時刻)때 지표에
+                UV 지수(Ultraviolet Index)는 피부 손상 가능성을 나타내는 지표로 일광화상을 유발하는 자외선 복사 강도의 국제 표준 측정값입니다. 태양고도가 최대인 남중시각(南中時刻) 때 지표에
                 도달하는 자외선 B 영역의 복사량을 지수식으로 환산한 것이며 10등급으로 구분됩니다.
             </Text>
             <View style={CommonStyle.weatherInfoSplit} />

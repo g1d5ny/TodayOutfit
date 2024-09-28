@@ -330,7 +330,7 @@ export const UV = [
         desc: [
             "햇볕에 노출 시 수십 분 이내에도 피부 화상을 입을 수 있어 매우 위험합니다.",
             "오전 10시부터 오후 3시까지 외출을 피하고 실내나 그늘에 머물러야 합니다.",
-            "외출 시 긴 소매 옷, 선글라스 착용을 권장합니다."
+            "외출 시 긴소매 옷, 선글라스 착용을 권장합니다."
         ],
         icon: <UV4 />,
         range: "8~10"
@@ -439,7 +439,7 @@ export const WindSpeed = [
 ]
 
 export const Humidity = (humidity: number) => [
-    { text: humidity + "%", content: "매우 건조한 상태로 호흡기 환자는 주의해야합니다.", icon: <Humidity1 /> },
+    { text: humidity + "%", content: "매우 건조한 상태로 호흡기 환자는 주의해야 합니다.", icon: <Humidity1 /> },
     { text: humidity + "%", content: "건조한 상태로 주의가 필요합니다.", icon: <Humidity2 /> },
     { text: humidity + "%", content: "다소 건조함을 느낄 수 있는 정도 입니다.", icon: <Humidity3 /> },
     { text: humidity + "%", content: "쾌적한 상태인 적정 습도 단계입니다.", icon: <Humidity4 /> },
@@ -453,18 +453,18 @@ export const FeelsLike = (feelsLike: number) => [
     { text: feelsLike + "°C", content: "노출된 피부에 찬 기운이 느껴지는 정도로 방풍기능이 있는 옷을 착용해야합니다.", icon: <FeelsLike3 /> },
     { text: feelsLike + "°C", content: "겨울의 평균 기온에 해당하며 따뜻한 옷을 착용하는 것을 권장합니다.", icon: <FeelsLike4 /> },
     { text: feelsLike + "°C", content: "봄 평균 기온에 해당하며 추위가 느껴질 수 있어 따뜻한 옷 착용을 권장합니다.", icon: <FeelsLike5 /> },
-    { text: feelsLike + "°C", content: "가을 평균기온에 해당하는 적정한 체감온도입니다.", icon: <FeelsLike6 /> },
-    { text: feelsLike + "°C", content: "여름 평균기온에 해당하는 적정한 체감온도입니다.", icon: <FeelsLike7 /> },
-    { text: feelsLike + "°C", content: "장기 외부활동시 일사병이나 탈수가 일어날 수 있으니 주의해야합니다.", icon: <FeelsLike8 /> },
+    { text: feelsLike + "°C", content: "가을 평균기온에 해당하는 체감온도입니다.", icon: <FeelsLike6 /> },
+    { text: feelsLike + "°C", content: "여름 평균기온에 해당하는 체감온도입니다.", icon: <FeelsLike7 /> },
+    { text: feelsLike + "°C", content: "장기 외부 활동 시 일사병이나 탈수가 일어날 수 있으니 주의해야 합니다.", icon: <FeelsLike8 /> },
     { text: feelsLike + "°C", content: "직사광선을 오래 받을 시 온열질환이 발생할 가능성이 높습니다.", icon: <FeelsLike9 /> },
     { text: feelsLike + "°C", content: "폭염 특보 수준의 체감 온도로 더위 질병에 주의하며 야외 활동을 자제해야 합니다.", icon: <FeelsLike10 /> }
 ]
 
 export const SnowFall = (snowFall: number) => [
     { text: snowFall + "cm", content: "겨우 발자국이 날만한, 적은 양의 자국눈이 예상됩니다.", icon: <SnowFall1 /> },
-    { text: snowFall + "cm", content: "대설경보 직전 단계로 교통 혼잡과 산간지역의 눈사태에 주의해야합니다.", icon: <SnowFall2 /> },
+    { text: snowFall + "cm", content: "대설경보 직전 단계로 교통 혼잡과 산간지역의 눈사태에 주의해야 합니다.", icon: <SnowFall2 /> },
     { text: snowFall + "cm", content: "재해 피해가 예상되는 대설주의보 단계로 주의해야 합니다.", icon: <SnowFall3 /> },
-    { text: snowFall + "cm", content: "재해 피해가 예상되는 대설경보 단계로 주의해야합니다.", icon: <SnowFall4 /> }
+    { text: snowFall + "cm", content: "재해 피해가 예상되는 대설경보 단계로 주의해야 합니다.", icon: <SnowFall4 /> }
 ]
 
 export const handleError = (debuggingMessage: string, func: any, error?: any): ErrorConstructor => {
