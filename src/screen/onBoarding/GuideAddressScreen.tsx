@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import { Platform, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { CommonColor, CommonStyle, FontStyle, ShadowStyle } from "../../style/CommonStyle"
 import { useState } from "react"
 import { isTablet } from "../../store"
@@ -9,10 +9,12 @@ import { Guide } from "component/Guide"
 import { OnBoardingText } from "text/OnBoardingText"
 import { SearchInput } from "component/SearchInput"
 import { navigate } from "navigation/RootNavigation"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 
-const COMMON_ICON = isTablet ? 26 : 22
+const COMMON_ICON = isTablet ? 27 : 24
 export const GuideAddressScreen = () => {
     const [isVisible, setIsVisible] = useState(false)
+    const { bottom } = useSafeAreaInsets()
 
     return (
         <View style={styles.container}>
@@ -43,10 +45,10 @@ export const GuideAddressScreen = () => {
                         </>
                     }
                 />
-            </View>
-            <View style={CommonStyle.row}>
-                <View style={styles.selectedPhase} />
-                <View style={styles.unSelectedPhase} />
+                <View style={[CommonStyle.center, CommonStyle.row, { marginBottom: Platform.OS === "ios" ? (isTablet ? 60 : 0) : 28 }]}>
+                    <View style={styles.selectedPhase} />
+                    <View style={styles.unSelectedPhase} />
+                </View>
             </View>
             <LocationPermissionModal isVisible={isVisible} setIsVisible={setIsVisible} />
         </View>

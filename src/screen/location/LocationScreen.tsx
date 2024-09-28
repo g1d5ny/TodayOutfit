@@ -87,7 +87,7 @@ export const LocationScreen = () => {
                     {!isEmpty(resultAddress) ? (
                         <>
                             <SearchHistory />
-                            <SearchResult selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress} />
+                            <SearchResult selectedAddress={selectedAddress} />
                         </>
                     ) : (
                         <View style={styles.myAddressGap}>

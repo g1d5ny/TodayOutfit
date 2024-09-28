@@ -32,9 +32,7 @@ const styles = StyleSheet.create({
         marginBottom: 8
     },
     textContainer: {
-        paddingTop: 40,
-        paddingBottom: isTablet ? 40 : 22,
-        paddingHorizontal: 50
+        paddingVertical: 40
     },
     container: {
         width: "100%",

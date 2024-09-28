@@ -14,7 +14,6 @@ import { navigationRef } from "navigation/RootNavigation"
 
 interface InputProps extends TextInputProps {
     selectedAddress: MY_ADDRSS | null
-    setSelectedAddress: Dispatch<SetStateAction<MY_ADDRSS | null>>
 }
 
 interface Result {
@@ -30,7 +29,7 @@ interface Result {
 const resultHeight = isTablet ? 62 : 60
 const verticalMargin = 4
 const maxCount = isTablet ? 10 : 7
-export const SearchResult = memo(({ selectedAddress, setSelectedAddress }: InputProps) => {
+export const SearchResult = memo(({ selectedAddress }: InputProps) => {
     const [isVisible, setIsVisible] = useState(false)
     const inputAddress = useRecoilValue(inputAddressState)
     const resultAddress = useRecoilValue(resultAdressListState)
