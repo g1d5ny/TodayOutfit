@@ -1,5 +1,5 @@
 import { Keyboard, Platform, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native"
-import { CommonColor, CommonStyle, MobileFont, screenWidth, TabletFont } from "../../style/CommonStyle"
+import { CommonColor, CommonStyle, FontStyle, screenWidth } from "../../style/CommonStyle"
 import { inputAddressState, isTablet, resultAdressListState } from "../../store"
 import { useRecoilState } from "recoil"
 import { SearchInput } from "../../component/SearchInput"
@@ -68,7 +68,7 @@ export const SearchAddressScreen = () => {
                                         style={[styles.confirmButton, { backgroundColor: disabled ? CommonColor.basic_gray_medium : CommonColor.main_blue, bottom: keyboardHeight }]}
                                         onPress={onPress}
                                     >
-                                        <Text style={[isTablet ? TabletFont.title2_semi_bold2 : MobileFont.title2_semi_bold2, { color: CommonColor.main_white }]}>확인</Text>
+                                        <Text style={[FontStyle.title2.semibold2, { color: CommonColor.main_white }]}>확인</Text>
                                     </TouchableOpacity>
                                 )}
                             </View>

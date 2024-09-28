@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
-import { CommonColor, MobileFont, TabletFont } from "../style/CommonStyle"
+import { CommonColor, FontStyle } from "../style/CommonStyle"
 import LinearGradient from "react-native-linear-gradient"
 import MinTemp from "../asset/icon/icon_min_temp.svg"
 import MaxTemp from "../asset/icon/icon_max_temp.svg"
@@ -28,12 +28,12 @@ export const WeatherCard = ({ day, date, minIcon, text, maxIcon, maxTemp, minTem
         <View style={styles.weatherCard}>
             <TouchableOpacity disabled={!onPress} style={styles.cardHeader} onPress={onPress}>
                 <View style={styles.row}>
-                    <Text style={[isTablet ? TabletFont.body2_bold : MobileFont.body2_bold, { color }]}>{day}</Text>
-                    <Text style={[isTablet ? TabletFont.body2_regular : MobileFont.body2_regular, { marginLeft: 6 }]}>{date}</Text>
+                    <Text style={[FontStyle.body2.bold, { color }]}>{day}</Text>
+                    <Text style={[FontStyle.body2.regular, { marginLeft: 6 }]}>{date}</Text>
                 </View>
                 <View style={[styles.row, { marginLeft: 20 }]}>
                     {minIcon}
-                    <Text style={isTablet ? TabletFont.body2_regular : MobileFont.body2_regular}>{text}</Text>
+                    <Text style={FontStyle.body2.regular}>{text}</Text>
                 </View>
             </TouchableOpacity>
             <LinearGradient colors={[backgroundColor, "#fff"]} style={styles.gradient}>
@@ -43,31 +43,31 @@ export const WeatherCard = ({ day, date, minIcon, text, maxIcon, maxTemp, minTem
                         <View style={styles.temp}>
                             <View style={[styles.row, { marginBottom: 8 }]}>
                                 <MaxTemp width={10} height={10} />
-                                <Text style={[isTablet ? TabletFont.label2_regular : MobileFont.label2_regular, { marginLeft: 4 }]}>최고온도</Text>
+                                <Text style={[FontStyle.label2.regular, { marginLeft: 4 }]}>최고온도</Text>
                             </View>
-                            <Text style={[isTablet ? TabletFont.display_forecast : MobileFont.display_forecast, { color: CommonColor.etc_red }]}>{maxTemp}˚</Text>
+                            <Text style={[FontStyle.display.forecast_tablet, { color: CommonColor.etc_red }]}>{maxTemp}˚</Text>
                         </View>
                         <View style={[styles.temp, { marginLeft: 8 }]}>
                             <View style={[styles.row, { marginBottom: 8 }]}>
                                 <MinTemp width={10} height={10} />
-                                <Text style={[isTablet ? TabletFont.label2_regular : MobileFont.label2_regular, { marginLeft: 4 }]}>최저온도</Text>
+                                <Text style={[FontStyle.label2.regular, { marginLeft: 4 }]}>최저온도</Text>
                             </View>
-                            <Text style={[isTablet ? TabletFont.display_forecast : MobileFont.display_forecast, { color: CommonColor.main_blue }]}>{minTemp}˚</Text>
+                            <Text style={[FontStyle.display.forecast_tablet, { color: CommonColor.main_blue }]}>{minTemp}˚</Text>
                         </View>
                     </View>
                     <View style={[styles.row, styles.temp, { marginTop: 23, justifyContent: "space-between" }]}>
                         <View style={styles.row}>
                             <Sunrise />
-                            <Text style={[isTablet ? TabletFont.label1_regular : MobileFont.label1_regular, { color: CommonColor.basic_gray_dark, marginLeft: 8 }]}>일출</Text>
+                            <Text style={[FontStyle.label1.regular, { color: CommonColor.basic_gray_dark, marginLeft: 8 }]}>일출</Text>
                         </View>
-                        <Text style={[isTablet ? TabletFont.label1_regular : MobileFont.label1_regular, { color: CommonColor.main_black }]}>{sunrise}</Text>
+                        <Text style={[FontStyle.label1.regular, { color: CommonColor.main_black }]}>{sunrise}</Text>
                     </View>
                     <View style={[styles.row, styles.temp, { justifyContent: "space-between", marginTop: 15 }]}>
                         <View style={styles.row}>
                             <Sunset />
-                            <Text style={[isTablet ? TabletFont.label1_regular : MobileFont.label1_regular, { color: CommonColor.basic_gray_dark, marginLeft: 8 }]}>일몰</Text>
+                            <Text style={[FontStyle.label1.regular, { color: CommonColor.basic_gray_dark, marginLeft: 8 }]}>일몰</Text>
                         </View>
-                        <Text style={[isTablet ? TabletFont.label1_regular : MobileFont.label1_regular, { color: CommonColor.main_black }]}>{sunset}</Text>
+                        <Text style={[FontStyle.label1.regular, { color: CommonColor.main_black }]}>{sunset}</Text>
                     </View>
                 </View>
             </LinearGradient>

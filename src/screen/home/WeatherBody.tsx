@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Text, View } from "react-native"
 import { currentWeatherInfoState, getStorage, isTablet } from "../../store"
-import { CommonColor, CommonStyle, MobileFont, TabletFont } from "../../style/CommonStyle"
+import { CommonColor, CommonStyle, FontStyle } from "../../style/CommonStyle"
 import { useRecoilValue } from "recoil"
 import { useEffect, useState } from "react"
 import { GENDER } from "type"
@@ -26,22 +26,20 @@ export default () => {
                 <Image source={gender === "W" ? require("asset/image/image_girl.png") : require("asset/image/image_hood_boy.png")} style={styles.charaterImage} />
             </View>
             <View>
-                <Text style={[isTablet ? TabletFont.title2_semi_bold2 : MobileFont.body2_bold, { color: is_day ? CommonColor.main_black : CommonColor.main_white }]}>
-                    기온 맞춤 추천 의상
-                </Text>
+                <Text style={[isTablet ? FontStyle.title2.semibold2 : FontStyle.body2.bold, { color: is_day ? CommonColor.main_black : CommonColor.main_white }]}>기온 맞춤 추천 의상</Text>
                 <View style={[styles.recomContainer, { gap: isTablet ? 25 : 9 }]}>
                     <View style={[styles.recom, { marginBottom: isTablet ? 25 : 0 }]}>
                         <Image source={top[0].path} style={styles.clothes} />
                         <View style={styles.clothesDesc}>
-                            <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>{top[0].ko}</Text>
-                            <Text style={[isTablet ? TabletFont.body2_regular : MobileFont.label2_regular, { color: CommonColor.basic_gray_dark }]}>{topDesc} 상의</Text>
+                            <Text style={[isTablet ? FontStyle.body1.bold : FontStyle.body2.bold, { color: CommonColor.main_blue }]}>{top[0].ko}</Text>
+                            <Text style={[isTablet ? FontStyle.body2.regular : FontStyle.label2.regular, { color: CommonColor.basic_gray_dark }]}>{topDesc} 상의</Text>
                         </View>
                     </View>
                     <View style={styles.recom}>
                         <Image source={bottom[0].path} style={styles.clothes} />
                         <View style={styles.clothesDesc}>
-                            <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>{bottom[0].ko}</Text>
-                            <Text style={[isTablet ? TabletFont.body2_regular : MobileFont.label2_regular, { color: CommonColor.basic_gray_dark }]}>{bottomDesc} 하의</Text>
+                            <Text style={[isTablet ? FontStyle.body1.bold : FontStyle.body2.bold, { color: CommonColor.main_blue }]}>{bottom[0].ko}</Text>
+                            <Text style={[isTablet ? FontStyle.body2.regular : FontStyle.label2.regular, { color: CommonColor.basic_gray_dark }]}>{bottomDesc} 하의</Text>
                         </View>
                     </View>
                 </View>
@@ -50,15 +48,15 @@ export default () => {
                         <View style={[styles.recom, { marginBottom: 25 }]}>
                             <Image source={top[1].path} style={styles.clothes} />
                             <View style={styles.clothesDesc}>
-                                <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>{top[1].ko}</Text>
-                                <Text style={[isTablet ? TabletFont.body2_regular : MobileFont.label2_regular, { color: CommonColor.basic_gray_dark }]}>{topDesc} 상의</Text>
+                                <Text style={[isTablet ? FontStyle.body1.bold : FontStyle.body2.bold, { color: CommonColor.main_blue }]}>{top[1].ko}</Text>
+                                <Text style={[isTablet ? FontStyle.body2.regular : FontStyle.label2.regular, { color: CommonColor.basic_gray_dark }]}>{topDesc} 상의</Text>
                             </View>
                         </View>
                         <View style={styles.recom}>
                             <Image source={bottom[1].path} style={styles.clothes} />
                             <View style={styles.clothesDesc}>
-                                <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>{bottom[1].ko}</Text>
-                                <Text style={[isTablet ? TabletFont.body2_regular : MobileFont.label2_regular, { color: CommonColor.basic_gray_dark }]}>{bottomDesc} 하의</Text>
+                                <Text style={[isTablet ? FontStyle.body1.bold : FontStyle.body2.bold, { color: CommonColor.main_blue }]}>{bottom[1].ko}</Text>
+                                <Text style={[isTablet ? FontStyle.body2.regular : FontStyle.label2.regular, { color: CommonColor.basic_gray_dark }]}>{bottomDesc} 하의</Text>
                             </View>
                         </View>
                     </View>
@@ -136,8 +134,8 @@ const styles = StyleSheet.create({
         marginTop: 9
     },
     charaterImage: {
-        width: isTablet ? 450 : 200,
-        height: "100%"
+        width: isTablet ? 450 : 170,
+        height: "90%"
     },
     character: {
         flex: 1,

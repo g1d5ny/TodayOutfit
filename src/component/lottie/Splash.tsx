@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from "react"
 import { StyleSheet, Text, View } from "react-native"
 import LottieView from "lottie-react-native"
-import { CommonColor, MobileFont } from "style/CommonStyle"
+import { CommonColor } from "style/CommonStyle"
 
 interface SplashProps {
     onAnimationFinish: () => void

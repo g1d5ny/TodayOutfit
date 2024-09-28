@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-nati
 import { isTablet } from "../../store"
 import PagerView from "react-native-pager-view"
 import { Header, WeatherDetailFooter } from "../../component/CommonComponent"
-import { CommonColor, CommonStyle, MobileFont, TabletFont, screenHeight, screenWidth } from "../../style/CommonStyle"
+import { CommonColor, CommonStyle, FontStyle, screenHeight, screenWidth } from "../../style/CommonStyle"
 import { UVScreen } from "./UVScreen"
 import { FeelsLikeScreen } from "./FeelsLikeScreen"
 import { WindSpeedScreen } from "./WindSpeedScreen"
@@ -71,7 +71,7 @@ export const WeatherDetailScreen = ({ route }: { route: any }) => {
                             <TouchableOpacity key={index} style={styles.category} onPress={() => setCategory(index)}>
                                 <Text
                                     style={[
-                                        isTablet ? TabletFont.title2_semi_bold2 : MobileFont.body2_bold,
+                                        isTablet ? FontStyle.title2.semibold2 : FontStyle.body2.bold,
                                         { color: isSelectedIndex ? CommonColor.main_black : CommonColor.basic_gray_medium }
                                     ]}
                                 >

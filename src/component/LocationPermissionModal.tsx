@@ -3,7 +3,7 @@ import Modal from "react-native-modal"
 import AppName from "../asset/icon/icon_small_app_name.svg"
 import Map from "../asset/icon/icon_modal_map.svg"
 import { isTablet, locationPermissionState, setStorage, toastState } from "../store"
-import { CommonColor, MobileFont, TabletFont } from "../style/CommonStyle"
+import { CommonColor, FontStyle } from "../style/CommonStyle"
 import { useEffect, useState } from "react"
 import { useRecoilValue, useRecoilValueLoadable } from "recoil"
 import Toast from "react-native-toast-message"
@@ -52,18 +52,19 @@ export const LocationPermissionModal = ({ isVisible, setIsVisible }: ModalProps)
                     <View>
                         <View style={{ flexDirection: "row", alignItems: "flex-start" }}>
                             <AppName />
-                            <Text style={[isTablet ? TabletFont.title2_semi_bold : MobileFont.mobile_title, { marginLeft: 5 }]}>에서는</Text>
+                            <Text style={[isTablet ? FontStyle.title1.bold : FontStyle.title2.semibold, { marginLeft: 5 }]}>에서는</Text>
                         </View>
-                        <Text style={[isTablet ? TabletFont.title2_semi_bold : MobileFont.mobile_title]}>정확한 날씨 정보를 위해{"\n"}위치 접근 허용이 필요합니다.</Text>
-                        <Text style={[MobileFont.label1_bold, { color: CommonColor.main_blue, marginTop: 20, marginBottom: 14 }]}>• 선택적 접근 권한 이용내역</Text>
+                        <Text style={[isTablet ? FontStyle.title1.bold : FontStyle.title2.semibold]}>정확한 날씨 정보를 위해{"\n"}위치 접근 허용이 필요합니다.</Text>
+                        <Text style={[isTablet ? FontStyle.body1.bold : FontStyle.label1.bold, { color: CommonColor.main_blue, marginTop: 20, marginBottom: 14 }]}>
+                            선택적 접근 권한 이용내역
+                        </Text>
                         <View style={{ flexDirection: "row", alignItems: "flex-start" }}>
-                            <Text style={[isTablet ? TabletFont.label2_bold : MobileFont.label2_bold]}>위치정보</Text>
-                            <Text style={[MobileFont.label2_regular, { marginLeft: 12 }]}>실시간 위치 정보에 기반한{"\n"}정확한 날씨 정보 및 콘텐츠 제공</Text>
+                            <Text style={[isTablet ? FontStyle.body2.bold : FontStyle.label2.bold, { color: CommonColor.basic_gray_dark }]}>위치정보</Text>
+                            <Text style={[isTablet ? FontStyle.body2.regular : FontStyle.label2.reading_regular, { marginLeft: 12 }]}>
+                                실시간 위치 정보에 기반한{"\n"}정확한 날씨 정보 및 콘텐츠 제공
+                            </Text>
                         </View>
                     </View>
-                    <Text style={[isTablet ? TabletFont.caption1_regular : MobileFont.caption1_regular, { color: CommonColor.basic_gray_dark, alignSelf: "center" }]}>
-                        동의하지 않으셔도 이용이 가능함을 알려드립니다.
-                    </Text>
                 </View>
                 <View style={{ position: "absolute", bottom: 40, right: 0 }}>
                     <Map />
@@ -83,7 +84,7 @@ export const LocationPermissionModal = ({ isVisible, setIsVisible }: ModalProps)
                         setIsVisible(false)
                     }}
                 >
-                    <Text style={[MobileFont.title2_regular, { color: CommonColor.main_white }]}>설정하러 가기</Text>
+                    <Text style={[isTablet ? FontStyle.title2.semibold2 : FontStyle.body1.bold, { color: CommonColor.main_white }]}>설정으로 가기</Text>
                 </TouchableOpacity>
             </View>
         </Modal>
@@ -128,7 +129,7 @@ export const ToastComponent = () => {
                     }}
                 >
                     {/* <Check /> */}
-                    <Text style={[MobileFont.label1_regular, { marginLeft: 8, color: CommonColor.main_blue }]}>{toast?.message}</Text>
+                    <Text style={[FontStyle.label1.regular, { marginLeft: 8, color: CommonColor.main_blue }]}>{toast?.message}</Text>
                 </View>
             </View>
         )

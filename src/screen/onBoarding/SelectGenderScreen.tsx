@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
-import { CommonColor, CommonStyle, MobileFont, TabletFont } from "../../style/CommonStyle"
+import { CommonColor, CommonStyle, FontStyle } from "../../style/CommonStyle"
 import Man from "../../asset/icon/3d/icon_3d_gender_man.svg"
 import Woman from "../../asset/icon/3d/icon_3d_gender_woman.svg"
 import TabletMan from "../../asset/icon/3d/icon_3d_gender_man_tablet.svg"
@@ -55,7 +55,7 @@ export const SelectGenderScreen = () => {
                         </View>
                         {gender ? (
                             <TouchableOpacity style={styles.confirmButton} onPress={navigateMain}>
-                                <Text style={[isTablet ? TabletFont.title2_semi_bold2 : MobileFont.body1_bold, { color: CommonColor.main_white }]}>앱 구경하러 가기</Text>
+                                <Text style={[isTablet ? FontStyle.title2.semibold2 : FontStyle.body1.bold, { color: CommonColor.main_white }]}>앱 구경하러 가기</Text>
                             </TouchableOpacity>
                         ) : (
                             <View style={CommonStyle.row}>

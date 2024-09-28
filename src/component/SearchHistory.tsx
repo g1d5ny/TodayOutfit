@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import History from "asset/icon/icon_history_record.svg"
-import { CommonColor, CommonStyle, MobileFont, TabletFont } from "style/CommonStyle"
+import { CommonColor, CommonStyle, FontStyle } from "style/CommonStyle"
 import { inputAddressState, isTablet, myAddressListState, resultAdressListState } from "store"
 import { useRecoilValue, useSetRecoilState } from "recoil"
 import { useUserLocationHook } from "hook/useUserLocationHook"
@@ -22,7 +22,7 @@ export const SearchHistory = () => {
                     setInputAddress("")
                 }}
             >
-                <Text style={(isTablet ? TabletFont.label1_regular : MobileFont.label2_regular, { color: CommonColor.basic_gray_dark })}>{item.location}</Text>
+                <Text style={(isTablet ? FontStyle.label1.regular : FontStyle.label2.regular, { color: CommonColor.basic_gray_dark })}>{item.location}</Text>
             </TouchableOpacity>
         )
     }

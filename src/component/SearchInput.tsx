@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, memo, useState } from "react"
-import { CommonColor, MobileFont, TabletFont } from "../style/CommonStyle"
+import { CommonColor, FontStyle } from "../style/CommonStyle"
 import { StyleSheet, Text, TextInput, TextInputProps, TouchableOpacity, View } from "react-native"
 import { inputAddressState, isTablet, resultAdressListState } from "../store"
 import { LocationPermissionModal } from "./LocationPermissionModal"
@@ -65,11 +65,11 @@ export const SearchInput = memo(({ hasInput, autoFocus, isOnboarding = false, ..
                         onBlur={() => setIsOnFocus(false)}
                         onSubmitEditing={searchAddress}
                         autoFocus={autoFocus}
-                        style={[isTablet ? TabletFont.body1_regular : MobileFont.body2_regular, styles.textView]}
+                        style={[isTablet ? FontStyle.body1.regular : FontStyle.body2.regular, styles.textView]}
                         {...props}
                     />
                 ) : (
-                    <Text style={[isTablet ? TabletFont.body1_regular : MobileFont.body2_regular, styles.textView, { color: CommonColor.basic_gray_medium }]}>위치를 입력하세요</Text>
+                    <Text style={[isTablet ? FontStyle.body1.regular : FontStyle.body2.regular, styles.textView, { color: CommonColor.basic_gray_medium }]}>위치를 입력하세요</Text>
                 )}
                 <TouchableOpacity onPress={onPressLocation}>
                     {isOnFocus ? <FocusOffLocation width={LOCATION_ICON} height={LOCATION_ICON} /> : <FocusLocation width={LOCATION_ICON} height={LOCATION_ICON} />}

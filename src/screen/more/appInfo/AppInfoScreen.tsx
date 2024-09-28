@@ -3,7 +3,7 @@ import { navigationRef } from "navigation/RootNavigation"
 import { StyleSheet, Text, View } from "react-native"
 import DeviceInfo from "react-native-device-info"
 import { isTablet } from "store"
-import { CommonColor, CommonStyle, MobileFont, TabletFont } from "style/CommonStyle"
+import { CommonColor, CommonStyle } from "style/CommonStyle"
 
 export const AppInfoScreen = () => {
     return (

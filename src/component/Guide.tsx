@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native"
 import { isTablet } from "store"
-import { CommonColor, CommonStyle, MobileFont, TabletFont } from "style/CommonStyle"
+import { CommonColor, CommonStyle, FontStyle } from "style/CommonStyle"
 import { SearchInput } from "./SearchInput"
 
 interface IProps {
@@ -14,9 +14,9 @@ export const Guide = ({ guideText, title, subTitle, children }: IProps) => {
     return (
         <View style={[CommonStyle.flex, styles.container]}>
             <View style={[styles.textContainer, CommonStyle.center]}>
-                <Text style={[isTablet ? TabletFont.title2_regular : MobileFont.body2_regular, { color: CommonColor.main_blue }]}>{guideText}</Text>
-                <Text style={[styles.titleContainer, isTablet ? TabletFont.display_bold : MobileFont.title1_bold, styles.title]}>{title}</Text>
-                <Text style={[isTablet ? TabletFont.body1_regular : MobileFont.label1_regular, { color: CommonColor.basic_gray_dark }]}>{subTitle}</Text>
+                <Text style={[isTablet ? FontStyle.title2.regular : FontStyle.body2.regular, { color: CommonColor.main_blue }]}>{guideText}</Text>
+                <Text style={[styles.titleContainer, isTablet ? FontStyle.display.bold : FontStyle.title1.bold, styles.title]}>{title}</Text>
+                <Text style={[isTablet ? FontStyle.body1.regular : FontStyle.label1.regular, { color: CommonColor.basic_gray_dark }]}>{subTitle}</Text>
             </View>
             {children}
         </View>

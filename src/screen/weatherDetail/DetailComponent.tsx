@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native"
-import { CommonColor, CommonStyle, MobileFont, TabletFont } from "../../style/CommonStyle"
+import { CommonColor, CommonStyle, FontStyle } from "../../style/CommonStyle"
 import { isTablet } from "../../store"
 import { SnowFallInfo } from "text/DetailInfoText"
 
@@ -14,22 +14,22 @@ export const DetailComponent = ({ title, content, step, unit }: IProps) => {
 
     return (
         <View style={styles.container}>
-            <Text style={[CommonStyle.title, isTablet ? TabletFont.body1_bold : MobileFont.body1_bold]}>
+            <Text style={[CommonStyle.title, FontStyle.body1.bold]}>
                 {title}
                 {isSnowFallComponent && "이"}란?
             </Text>
-            <Text style={[styles.content, isTablet ? TabletFont.label1_reading_regular : MobileFont.label1_reading_regular]}>{content}</Text>
+            <Text style={[styles.content, FontStyle.label1.reading_regular]}>{content}</Text>
             <View style={CommonStyle.weatherInfoSplit} />
             <View style={[CommonStyle.row, CommonStyle.spread]}>
-                <Text style={[CommonStyle.infoTitle, isTablet ? TabletFont.body1_bold : MobileFont.body1_bold]}>{title} 단계</Text>
-                {unit && <Text style={[isTablet ? TabletFont.label2_regular : MobileFont.label2_regular, { color: CommonColor.main_blue }]}>단위: {unit}</Text>}
+                <Text style={[CommonStyle.infoTitle, FontStyle.body1.bold]}>{title} 단계</Text>
+                {unit && <Text style={[FontStyle.label2.regular, { color: CommonColor.main_blue }]}>단위: {unit}</Text>}
             </View>
             <View style={[CommonStyle.row, styles.interval, isTablet ? { gap: 22 } : { width: "100%" }]}>
                 {step.map(({ icon, text }, index) => {
                     return (
                         <View key={index} style={[CommonStyle.center, { width: isSnowFallComponent ? 80 : undefined }]}>
                             {icon}
-                            <Text style={[styles.iconText, isTablet ? TabletFont.label1_bold : MobileFont.label1_bold]}>{text}</Text>
+                            <Text style={[styles.iconText, FontStyle.label1.bold]}>{text}</Text>
                         </View>
                     )
                 })}
@@ -39,14 +39,14 @@ export const DetailComponent = ({ title, content, step, unit }: IProps) => {
                     return (
                         <View key={index} style={styles.step}>
                             <View style={{ width: isSnowFallComponent ? 64 : 52 }}>
-                                <Text style={isTablet ? TabletFont.label1_bold : MobileFont.label1_bold}>{text.replace(",", ",\t")}</Text>
-                                <Text style={[isTablet ? TabletFont.label2_regular : MobileFont.label2_regular, styles.range]}>{range}</Text>
+                                <Text style={FontStyle.label1.bold}>{text.replace(",", ",\t")}</Text>
+                                <Text style={[FontStyle.label2.regular, styles.range]}>{range}</Text>
                             </View>
                             <View style={CommonStyle.flex}>
                                 {desc.map((item, index) => (
                                     <View key={index} style={styles.wrap}>
-                                        <Text style={[isTablet ? TabletFont.label1_reading_regular : MobileFont.label1_reading_regular]}>· </Text>
-                                        <Text style={[isTablet ? TabletFont.label1_reading_regular : MobileFont.label1_reading_regular, styles.flex]}>{item}</Text>
+                                        <Text style={FontStyle.label1.reading_regular}>· </Text>
+                                        <Text style={[FontStyle.label1.reading_regular, styles.flex]}>{item}</Text>
                                     </View>
                                 ))}
                             </View>

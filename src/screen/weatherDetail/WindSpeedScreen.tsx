@@ -1,17 +1,17 @@
 import { StyleSheet, Text, View } from "react-native"
-import { CommonColor, CommonStyle, MobileFont, TabletFont } from "../../style/CommonStyle"
+import { CommonColor, CommonStyle, FontStyle } from "../../style/CommonStyle"
 import { isTablet } from "../../store"
 import { WindSpeed, WindSpeedInfo } from "text/DetailInfoText"
 
 export const WindSpeedScreen = () => {
     return (
         <View style={styles.container}>
-            <Text style={[CommonStyle.title, isTablet ? TabletFont.body1_bold : MobileFont.body1_bold]}>{WindSpeedInfo.title}이란?</Text>
-            <Text style={[styles.content, isTablet ? TabletFont.label1_reading_regular : MobileFont.label1_reading_regular]}>{WindSpeedInfo.content}</Text>
+            <Text style={[CommonStyle.title, FontStyle.body1.bold]}>{WindSpeedInfo.title}이란?</Text>
+            <Text style={[styles.content, FontStyle.label1.reading_regular]}>{WindSpeedInfo.content}</Text>
             <View style={CommonStyle.weatherInfoSplit} />
             <View style={[CommonStyle.row, CommonStyle.spread]}>
-                <Text style={[CommonStyle.infoTitle, isTablet ? TabletFont.body1_bold : MobileFont.body1_bold]}>{WindSpeedInfo.title} 계급</Text>
-                <Text style={[isTablet ? TabletFont.label2_regular : MobileFont.label2_regular, { color: CommonColor.main_blue }]}>단위: {WindSpeedInfo.unit}</Text>
+                <Text style={[CommonStyle.infoTitle, FontStyle.body1.bold]}>{WindSpeedInfo.title} 계급</Text>
+                <Text style={[FontStyle.label2.regular, { color: CommonColor.main_blue }]}>단위: {WindSpeedInfo.unit}</Text>
             </View>
             <View style={[isTablet ? styles.tabletContainer : styles.mobileContainer]}>
                 {WindSpeed(48).map(({ text, icon, range, desc }, index) => {
@@ -20,12 +20,10 @@ export const WindSpeedScreen = () => {
                             <View style={styles.icon}>{icon}</View>
                             <View style={styles.view}>
                                 <View style={styles.textContainer}>
-                                    <Text style={isTablet ? TabletFont.label1_bold : MobileFont.label1_bold}>{text}</Text>
-                                    <Text style={[isTablet ? TabletFont.label2_regular : MobileFont.label2_regular, { color: CommonColor.main_blue }]}>{range}</Text>
+                                    <Text style={FontStyle.label1.bold}>{text}</Text>
+                                    <Text style={[FontStyle.label2.regular, { color: CommonColor.main_blue }]}>{range}</Text>
                                 </View>
-                                <Text style={[isTablet ? TabletFont.label1_reading_regular : MobileFont.label1_reading_regular, isTablet ? styles.tabletDesc : styles.mobileDesc]}>
-                                    {desc}
-                                </Text>
+                                <Text style={[FontStyle.label1.reading_regular, isTablet ? styles.tabletDesc : styles.mobileDesc]}>{desc}</Text>
                             </View>
                         </View>
                     )

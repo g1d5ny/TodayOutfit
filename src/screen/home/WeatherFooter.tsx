@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { currentDate, currentMonth, currentWeatherInfoState, hourWeatherInfoState, isTablet } from "../../store"
-import { CommonColor, CommonStyle, MobileFont, TabletFont } from "../../style/CommonStyle"
+import { CommonColor, CommonStyle, FontStyle } from "../../style/CommonStyle"
 import { DateView, LocationView, WeatherDetail } from "../../component/MiniCard"
 import { useRecoilValue } from "recoil"
 import UV from "../../asset/icon/icon_uv_index.svg"
@@ -50,9 +50,9 @@ export const WeatherFooter = ({ viewRef }: { viewRef: LegacyRef<View> }) => {
     const WeatherHourlyCard = useCallback(({ hour, minIcon, temp, onPress, isClicked, index }: WeatherHourlyCard) => {
         const getFont = () => {
             if (isClicked) {
-                return [isTablet ? TabletFont.label1_bold : MobileFont.label1_bold, styles.currentText]
+                return [FontStyle.label1.bold, styles.currentText]
             }
-            return [isTablet ? TabletFont.label1_regular : MobileFont.label1_regular, styles.hourText]
+            return [FontStyle.label1.regular, styles.hourText]
         }
 
         return (
@@ -67,18 +67,22 @@ export const WeatherFooter = ({ viewRef }: { viewRef: LegacyRef<View> }) => {
     return (
         <View ref={viewRef} style={[CommonStyle.padding, styles.wrapper]}>
             <View style={styles.title}>
-                <Text style={[isTablet ? TabletFont.heading_1 : MobileFont.title2_regular]}>날씨 정보</Text>
+                <Text style={[isTablet ? FontStyle.title1.bold : FontStyle.title2.semibold2]}>날씨 정보</Text>
                 <View style={CommonStyle.row}>
-                    <LocationView />
                     <View style={styles.date}>
-                        <DateView date={currentDate} month={currentMonth} />
+                        <DateView
+                            date={currentDate}
+                            month={currentMonth}
+                            fontStyle={[isTablet ? FontStyle.label1.regular : FontStyle.label2.regular, { color: CommonColor.basic_gray_dark }]}
+                        />
                     </View>
+                    <LocationView />
                 </View>
             </View>
             {hourWeather && selectedHour && (
                 <>
                     <View style={{ marginTop: isTablet ? 40 : 32 }}>
-                        <Text style={[isTablet ? TabletFont.title2_semi_bold2 : MobileFont.body_1]}>시간별 일기 예보</Text>
+                        <Text style={[isTablet ? FontStyle.title2.semibold2 : FontStyle.body2.bold]}>시간별 일기 예보</Text>
                         <ScrollView style={styles.scrollView} horizontal={true} showsHorizontalScrollIndicator={false}>
                             <View style={CommonStyle.row}>
                                 {WeatherHourlyCard({
@@ -220,7 +224,7 @@ const styles = StyleSheet.create({
         marginTop: 26
     },
     date: {
-        marginLeft: 10
+        marginRight: 10
     },
     title: {
         flexDirection: "row",

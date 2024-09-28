@@ -2,7 +2,7 @@ import { DateView, LocationView, WeatherDetail } from "component/MiniCard"
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { useRecoilValue } from "recoil"
 import { isTablet, weather, weeklyWeatherInfoState } from "store"
-import { CommonColor, CommonStyle, MobileFont, TabletFont } from "style/CommonStyle"
+import { CommonColor, CommonStyle, FontStyle } from "style/CommonStyle"
 import { RainPercentageFormat, SnowFallFormat, UVFormat, WindSpeedFormat, getDay } from "utils"
 import MinTemp from "asset/icon/icon_min_temp.svg"
 import MaxTemp from "asset/icon/icon_max_temp.svg"
@@ -75,8 +75,8 @@ const EmptyView = () => {
     return (
         <View style={[CommonStyle.center, styles.emptyCalendar]}>
             <EmptyCalendar />
-            <Text style={[TabletFont.body1_bold, { color: CommonColor.basic_gray_medium }]}>선택된 날짜가 없습니다.</Text>
-            <Text style={[TabletFont.label1_regular, { color: CommonColor.basic_gray_medium, marginTop: 12 }]}>날짜를 선택해 요일별 상세{"\n"}기상 정보를 확인해보세요!</Text>
+            <Text style={[FontStyle.body1.bold, { color: CommonColor.basic_gray_medium }]}>선택된 날짜가 없습니다.</Text>
+            <Text style={[FontStyle.label1.regular, { color: CommonColor.basic_gray_medium, marginTop: 12 }]}>날짜를 선택해 요일별 상세{"\n"}기상 정보를 확인해보세요!</Text>
         </View>
     )
 }
@@ -102,8 +102,8 @@ export const WeatherScreen = () => {
         return (
             <View style={[styles.cardContainer, { gap: 14 }]}>
                 <View style={CommonStyle.row}>
-                    <DateView date={date} month={month} />
-                    <Text style={[isTablet && TabletFont.body1_bold, styles.text]}>의 상세 기상 정보</Text>
+                    <DateView date={date} month={month} fontStyle={[FontStyle.label1.bold, { color: CommonColor.main_black }]} />
+                    <Text style={[FontStyle.body1.bold, styles.text]}>의 상세 기상 정보</Text>
                 </View>
                 <View style={styles.detailCard}>{children}</View>
             </View>
@@ -113,13 +113,13 @@ export const WeatherScreen = () => {
     return (
         <View style={CommonStyle.flex}>
             <View style={styles.header}>
-                <Text style={[isTablet ? TabletFont.heading_1 : MobileFont.title2_regular]}>날씨 정보</Text>
+                <Text style={[isTablet ? FontStyle.title1.bold : FontStyle.title2.semibold2]}>날씨 정보</Text>
                 <LocationView />
             </View>
             <ScrollView>
                 <View style={[CommonStyle.title, CommonStyle.padding]}>
-                    <Text style={isTablet ? TabletFont.heading_1 : MobileFont.body_1}>이번주 날씨</Text>
-                    <Text style={[isTablet ? TabletFont.label1_regular : MobileFont.label2_regular, styles.content]}>요일을 선택하면 더 자세한 기상 정보를 확인할 수 있습니다.</Text>
+                    <Text style={isTablet ? FontStyle.title2.regular : FontStyle.body2.bold}>이번주 날씨</Text>
+                    <Text style={[isTablet ? FontStyle.label1.regular : FontStyle.label2.regular, styles.content]}>요일을 선택하면 더 자세한 기상 정보를 확인할 수 있습니다.</Text>
                     {!weeklyWeather ? (
                         <View style={CommonStyle.flex}>
                             <Loader />
@@ -186,24 +186,20 @@ export const WeatherScreen = () => {
                                             >
                                                 <View style={CommonStyle.row}>
                                                     <View style={[CommonStyle.row, styles.gap]}>
-                                                        <Text style={[isTablet ? TabletFont.body2_bold : MobileFont.body2_bold, { color }]}>{getDay(day)}</Text>
-                                                        <Text style={isTablet ? TabletFont.body2_regular : MobileFont.body2_regular}>{new Date(date).getDate()}</Text>
+                                                        <Text style={[FontStyle.body2.bold, { color }]}>{getDay(day)}</Text>
+                                                        <Text style={FontStyle.body2.regular}>{new Date(date).getDate()}</Text>
                                                     </View>
                                                     <View style={[CommonStyle.row, styles.weather]}>
                                                         {weather(code, true)?.minIcon}
-                                                        <Text style={[isTablet ? TabletFont.body2_regular : MobileFont.body2_regular, styles.text]}>{weather(code, true)?.text}</Text>
+                                                        <Text style={[FontStyle.body2.regular, styles.text]}>{weather(code, true)?.text}</Text>
                                                     </View>
                                                 </View>
                                                 <View style={CommonStyle.row}>
                                                     <MaxTemp />
-                                                    <Text style={[isTablet ? TabletFont.label2_regular : MobileFont.label2_regular, styles.interval, { color: CommonColor.basic_gray_dark }]}>
-                                                        {maxTemp}˚
-                                                    </Text>
+                                                    <Text style={[FontStyle.label2.regular, styles.interval, { color: CommonColor.basic_gray_dark }]}>{maxTemp}˚</Text>
                                                     <View style={styles.line} />
                                                     <MinTemp />
-                                                    <Text style={[isTablet ? TabletFont.label2_regular : MobileFont.label2_regular, styles.interval, { color: CommonColor.basic_gray_dark }]}>
-                                                        {minTemp}˚
-                                                    </Text>
+                                                    <Text style={[FontStyle.label2.regular, styles.interval, { color: CommonColor.basic_gray_dark }]}>{minTemp}˚</Text>
                                                 </View>
                                             </TouchableOpacity>
                                         )

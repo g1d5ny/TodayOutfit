@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, memo, useState } from "react"
-import { CommonColor, MobileFont, TabletFont } from "../style/CommonStyle"
+import { CommonColor, FontStyle } from "../style/CommonStyle"
 import { ScrollView, StyleSheet, Text, TextInputProps, TouchableOpacity, View } from "react-native"
 import { inputAddressState, isTablet, myAddressListState, resultAdressListState } from "../store"
 import { LocationPermissionModal } from "./LocationPermissionModal"
@@ -54,9 +54,9 @@ export const SearchResult = memo(({ selectedAddress, setSelectedAddress }: Input
                 }}
             >
                 {isSelected ? (
-                    <Text style={[isTablet ? TabletFont.body_1 : MobileFont.body_1, { color: CommonColor.main_blue }]}>{address_name}</Text>
+                    <Text style={[isTablet ? FontStyle.body1.bold : FontStyle.body2.bold, { color: CommonColor.main_blue }]}>{address_name}</Text>
                 ) : (
-                    <Text style={isTablet ? TabletFont.body1_regular : MobileFont.body2_regular}>{address_name}</Text>
+                    <Text style={isTablet ? FontStyle.body1.regular : FontStyle.body2.regular}>{address_name}</Text>
                 )}
                 {isSelected ? <BlueCheck /> : <GrayCheck />}
             </TouchableOpacity>
@@ -67,10 +67,10 @@ export const SearchResult = memo(({ selectedAddress, setSelectedAddress }: Input
         <View style={{ flex: 1 }}>
             {!isEmpty(resultAddress) ? (
                 isNotFoundAddress ? (
-                    <Text style={[isTablet ? TabletFont.label1_regular : MobileFont.label1_regular, { color: CommonColor.etc_red, marginTop: 6 }]}>올바르지 않은 주소입니다.</Text>
+                    <Text style={[FontStyle.label1.regular, { color: CommonColor.etc_red, marginTop: 6 }]}>올바르지 않은 주소입니다.</Text>
                 ) : (
                     <View style={{ marginTop: 4 }}>
-                        <Text style={[isTablet ? TabletFont.label1_regular : MobileFont.label1_regular, { color: CommonColor.main_blue }]}>'{inputAddress}' 검색 결과</Text>
+                        <Text style={[FontStyle.label1.regular, { color: CommonColor.main_blue }]}>'{inputAddress}' 검색 결과</Text>
                         <View style={{ maxHeight: resultHeight * maxCount + verticalMargin * (maxCount - 2), marginTop: isTablet ? 26 : 16 }}>
                             <ScrollView>
                                 {resultAddress.map(({ road_address, address }, index) => {

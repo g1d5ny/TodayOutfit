@@ -3,7 +3,7 @@ import { SearchInput } from "component/SearchInput"
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
 import { inputAddressState, isTablet, myAddressListState, resultAdressListState } from "store"
-import { CommonColor, CommonStyle, MobileFont, TabletFont, screenWidth } from "style/CommonStyle"
+import { CommonColor, CommonStyle, FontStyle, screenWidth } from "style/CommonStyle"
 import LocationOn from "asset/icon/icon_location_on.svg"
 import LocationOff from "asset/icon/icon_location_off.svg"
 import Check from "asset/icon/icon_check_circle.svg"
@@ -32,8 +32,8 @@ const SelectedView = ({ location }: { location: string }) => {
             <View style={[CommonStyle.row, { gap: isTablet ? 16 : 18 }]}>
                 <LocationOn width={22} />
                 <View>
-                    <Text style={[isTablet ? TabletFont.body2_regular : MobileFont.label1_regular, styles.nowLocation]}>현재 위치</Text>
-                    <Text style={isTablet ? TabletFont.title2_semi_bold2 : MobileFont.body1_bold}>{location}</Text>
+                    <Text style={[isTablet ? FontStyle.body2.regular : FontStyle.label1.regular, styles.nowLocation]}>현재 위치</Text>
+                    <Text style={isTablet ? FontStyle.title2.semibold2 : FontStyle.body1.bold}>{location}</Text>
                 </View>
             </View>
             <Check />
@@ -62,8 +62,8 @@ export const LocationScreen = () => {
                 <View style={[CommonStyle.row, { gap: isTablet ? 16 : 18 }]}>
                     <LocationOff width={22} />
                     <View>
-                        <Text style={[isTablet ? TabletFont.body2_regular : MobileFont.label1_regular, styles.prevLocation]}>이전 위치 | {date}</Text>
-                        <Text style={[isTablet ? TabletFont.title2_semi_bold2 : MobileFont.body1_bold, { color: CommonColor.basic_gray_dark }]}>{location}</Text>
+                        <Text style={[isTablet ? FontStyle.body2.regular : FontStyle.label1.regular, styles.prevLocation]}>이전 위치 | {date}</Text>
+                        <Text style={[isTablet ? FontStyle.title2.semibold2 : FontStyle.body1.bold, { color: CommonColor.basic_gray_dark }]}>{location}</Text>
                     </View>
                 </View>
                 {showRemoveView ? <Remove /> : <UnCheck />}
@@ -74,9 +74,9 @@ export const LocationScreen = () => {
     return (
         <View style={CommonStyle.flex}>
             <View style={[CommonStyle.padding, styles.header]}>
-                <Text style={isTablet ? TabletFont.title1_bold : MobileFont.title2_semi_bold2}>위치 설정</Text>
+                <Text style={isTablet ? FontStyle.title1.bold : FontStyle.title2.semibold2}>위치 설정</Text>
                 <TouchableOpacity onPress={() => setShowRemoveView(!showRemoveView)}>
-                    <Text style={[isTablet ? TabletFont.body1_regular : MobileFont.body2_regular, { color: CommonColor.main_blue }]}>{showRemoveView ? "취소" : "편집"}</Text>
+                    <Text style={[isTablet ? FontStyle.body1.regular : FontStyle.body2.regular, { color: CommonColor.main_blue }]}>{showRemoveView ? "취소" : "편집"}</Text>
                 </TouchableOpacity>
             </View>
             <View style={[CommonStyle.flex, CommonStyle.padding]}>
@@ -111,7 +111,7 @@ export const LocationScreen = () => {
                                 }
                             }}
                         >
-                            <Text style={[isTablet ? TabletFont.title2_semi_bold2 : MobileFont.title2_semi_bold2, { color: "#fff" }]}>확인</Text>
+                            <Text style={[isTablet ? FontStyle.title2.semibold2 : FontStyle.title2.semibold2, { color: "#fff" }]}>확인</Text>
                         </TouchableOpacity>
                     )}
                 </View>

@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native"
 import { isTablet } from "store"
-import { CommonStyle, MobileFont, TabletFont } from "style/CommonStyle"
+import { CommonStyle, FontStyle } from "style/CommonStyle"
 import Rain1 from "asset/icon/rain_percentage/icon_rain_percentage_1.svg"
 import Rain2 from "asset/icon/rain_percentage/icon_rain_percentage_2.svg"
 import Rain3 from "asset/icon/rain_percentage/icon_rain_percentage_3.svg"
@@ -28,16 +28,16 @@ const step = [
 export const RainPercentageScreen = () => {
     return (
         <View style={styles.container}>
-            <Text style={[CommonStyle.title, isTablet ? TabletFont.body1_bold : MobileFont.body1_bold]}>{RainPercentageInfo.title}이란?</Text>
-            <Text style={[styles.content, isTablet ? TabletFont.label1_reading_regular : MobileFont.label1_reading_regular]}>{RainPercentageInfo.content}</Text>
+            <Text style={[CommonStyle.title, FontStyle.body1.bold]}>{RainPercentageInfo.title}이란?</Text>
+            <Text style={[styles.content, FontStyle.label1.reading_regular]}>{RainPercentageInfo.content}</Text>
             <View style={CommonStyle.weatherInfoSplit} />
-            <Text style={[CommonStyle.infoTitle, isTablet ? TabletFont.body1_bold : MobileFont.body1_bold]}>{RainPercentageInfo.title} 단계</Text>
+            <Text style={[CommonStyle.infoTitle, FontStyle.body1.bold]}>{RainPercentageInfo.title} 단계</Text>
             <View style={[CommonStyle.row, styles.interval, isTablet ? styles.tabletInterval : styles.mobileInterval]}>
                 {step.map(({ percentage, icon }, index) => {
                     return (
                         <View key={index} style={CommonStyle.center}>
                             {icon}
-                            <Text style={[isTablet ? TabletFont.label1_bold : MobileFont.label1_bold, styles.percentage]}>{percentage}%</Text>
+                            <Text style={[FontStyle.label1.bold, styles.percentage]}>{percentage}%</Text>
                         </View>
                     )
                 })}

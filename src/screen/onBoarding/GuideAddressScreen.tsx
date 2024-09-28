@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
-import { CommonColor, CommonStyle, MobileFont, ShadowStyle, TabletFont } from "../../style/CommonStyle"
+import { CommonColor, CommonStyle, FontStyle, ShadowStyle } from "../../style/CommonStyle"
 import { useState } from "react"
 import { isTablet } from "../../store"
 import GreenCheck from "../../asset/icon/icon_green_check.svg"
@@ -28,13 +28,13 @@ export const GuideAddressScreen = () => {
                             </TouchableOpacity>
                             <View style={styles.addressView}>
                                 <View style={[styles.card, ShadowStyle]}>
-                                    <Text style={[isTablet ? TabletFont.body2_bold : MobileFont.body2_bold, { color: CommonColor.main_blue }]}>서울특별시 중구</Text>
+                                    <Text style={[FontStyle.body2.bold, { color: CommonColor.main_blue }]}>서울특별시 중구</Text>
                                     <View style={styles.icon}>
                                         <GreenCheck width={COMMON_ICON} height={COMMON_ICON} />
                                     </View>
                                 </View>
                                 <View style={[styles.card, ShadowStyle]}>
-                                    <Text style={[styles.location, isTablet ? TabletFont.body2_regular : MobileFont.body2_regular]}>서울특별시 중구{"\n"}00대로 000길</Text>
+                                    <Text style={[styles.location, FontStyle.body2.regular]}>서울특별시 중구{"\n"}00대로 000길</Text>
                                     <View style={styles.icon}>
                                         <X width={COMMON_ICON} height={COMMON_ICON} />
                                     </View>
