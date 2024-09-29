@@ -146,20 +146,6 @@ export const setToast = (message: TOAST) => {
     setRecoil(toastState, message)
 }
 
-export const locationPermissionState = atom<Record<string, boolean> | null>({
-    key: "locationPermissionState",
-    default: selector({
-        key: "locationPermissionState/default",
-        get: async () => {
-            const locationPermission = await getStorage("locationPermission")
-            return locationPermission
-        },
-        cachePolicy_UNSTABLE: {
-            eviction: "most-recent"
-        }
-    })
-})
-
 export const myAddressListState = atom<MY_ADDRSS[]>({
     key: "myAddressListState",
     default: selector({

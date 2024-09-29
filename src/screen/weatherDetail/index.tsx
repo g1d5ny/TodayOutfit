@@ -58,13 +58,7 @@ export const WeatherDetailScreen = ({ route }: { route: any }) => {
 
         return (
             <View style={styles.view}>
-                <ScrollView
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={{
-                        paddingHorizontal: isTablet ? 32 : 16
-                    }}
-                >
+                <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={CommonStyle.padding}>
                     {categoryList.map(({ title }, index) => {
                         const isSelectedIndex = selectedIndex === index
                         return (

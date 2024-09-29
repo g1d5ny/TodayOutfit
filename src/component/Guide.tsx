@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View } from "react-native"
 import { isTablet } from "store"
 import { CommonColor, CommonStyle, FontStyle } from "style/CommonStyle"
-import { SearchInput } from "./SearchInput"
 
 interface IProps {
     guideText: string

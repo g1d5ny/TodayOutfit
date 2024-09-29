@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
         marginTop: 9
     },
     charaterImage: {
-        width: isTablet ? 450 : 170,
+        width: isTablet ? 330 : 220,
         height: "90%"
     },
     character: {

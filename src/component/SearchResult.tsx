@@ -12,13 +12,8 @@ import { NowDate } from "utils"
 import { useUserLocationHook } from "hook/useUserLocationHook"
 import { navigationRef } from "navigation/RootNavigation"
 
-interface InputProps extends TextInputProps {
-    selectedAddress: MY_ADDRSS | null
-}
-
 interface Result {
     id: number
-    isSelected: boolean
     coordinate: {
         longitude: number
         latitude: number
@@ -26,31 +21,27 @@ interface Result {
     address_name: string
 }
 
+interface IProps {
+    selectedAddress: MY_ADDRSS | null
+    setSelectedAddress: Dispatch<SetStateAction<MY_ADDRSS | null>>
+}
+
 const resultHeight = isTablet ? 62 : 60
 const verticalMargin = 4
 const maxCount = isTablet ? 10 : 6
-export const SearchResult = memo(({ selectedAddress }: InputProps) => {
+export const SearchResult = memo(({ selectedAddress, setSelectedAddress }: IProps) => {
     const [isVisible, setIsVisible] = useState(false)
     const inputAddress = useRecoilValue(inputAddressState)
     const resultAddress = useRecoilValue(resultAdressListState)
     const isNotFoundAddress = resultAddress[0] === "NOT_FOUND"
-    const { addUserAddress } = useUserLocationHook()
 
-    const navigateNext = () => {
-        navigationRef?.current?.navigate("SelectGenderScreen")
-    }
+    const ResultView = ({ id, coordinate, address_name }: Result) => {
+        const isSelected = address_name === selectedAddress?.location
 
-    const ResultView = ({ isSelected, id, coordinate, address_name }: Result) => {
-        const saveAddress = async () => {
-            addUserAddress({ id, location: address_name.trim(), coordinate, date: NowDate() })
-        }
         return (
             <TouchableOpacity
                 style={[styles.resultView, { borderColor: isSelected ? CommonColor.main_blue : CommonColor.basic_gray_medium }]}
-                onPress={async () => {
-                    await saveAddress()
-                    navigateNext()
-                }}
+                onPress={() => setSelectedAddress({ id, location: address_name, coordinate })}
             >
                 {isSelected ? (
                     <Text style={[isTablet ? FontStyle.body1.bold : FontStyle.body2.bold, { color: CommonColor.main_blue }]}>{address_name}</Text>
@@ -61,12 +52,11 @@ export const SearchResult = memo(({ selectedAddress }: InputProps) => {
             </TouchableOpacity>
         )
     }
-
     return (
         <View style={{ flex: 1 }}>
             {!isEmpty(resultAddress) ? (
                 isNotFoundAddress ? (
-                    <Text style={[FontStyle.label1.regular, { color: CommonColor.etc_red, marginTop: 6 }]}>올바르지 않은 주소입니다.</Text>
+                    <Text style={[isTablet ? FontStyle.body2.regular : FontStyle.label1.regular, { color: CommonColor.etc_red, marginTop: 6 }]}>올바르지 않은 주소입니다.</Text>
                 ) : (
                     <View style={{ flex: 1, marginTop: 4 }}>
                         <Text style={[FontStyle.label1.regular, { color: CommonColor.main_blue }]}>'{inputAddress}' 검색 결과</Text>
@@ -75,7 +65,6 @@ export const SearchResult = memo(({ selectedAddress }: InputProps) => {
                                 {resultAddress.map(({ road_address, address }, index) => {
                                     const coordinate = { longitude: Number(address?.x ?? road_address?.x), latitude: Number(address?.y ?? road_address?.y) }
                                     const resultId = Number(road_address?.x ?? address?.x) + Number(road_address?.y ?? address?.y)
-                                    const isSelected = resultId === selectedAddress?.id
                                     let address_name = ""
                                     if (address) {
                                         address_name =
@@ -87,7 +76,7 @@ export const SearchResult = memo(({ selectedAddress }: InputProps) => {
                                     } else {
                                         address_name = road_address?.region_1depth_name + " " + road_address?.region_2depth_name + " " + road_address?.region_3depth_name
                                     }
-                                    return <ResultView key={index} isSelected={isSelected} id={resultId} coordinate={coordinate} address_name={address_name} />
+                                    return <ResultView key={index} id={resultId} coordinate={coordinate} address_name={address_name} />
                                 })}
                             </ScrollView>
                         </View>

@@ -15,7 +15,7 @@ export default () => {
     return (
         <View>
             <View style={styles.weatherDesc}>
-                <View style={{ maxWidth: "65%" }}>
+                <View style={{ maxWidth: "70%" }}>
                     <Text style={[isTablet ? FontStyle.body1.bold : FontStyle.label1.bold, { color: currentWeather.is_day ? CommonColor.basic_gray_dark : CommonColor.main_white }]}>
                         오늘은
                     </Text>

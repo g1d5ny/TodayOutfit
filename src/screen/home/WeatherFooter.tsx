@@ -65,8 +65,8 @@ export const WeatherFooter = ({ viewRef }: { viewRef: LegacyRef<View> }) => {
     }, [])
 
     return (
-        <View ref={viewRef} style={[CommonStyle.padding, styles.wrapper]}>
-            <View style={styles.title}>
+        <View ref={viewRef} style={styles.wrapper}>
+            <View style={[CommonStyle.padding, styles.title]}>
                 <Text style={[isTablet ? FontStyle.title1.bold : FontStyle.title2.semibold2]}>날씨 정보</Text>
                 <View style={CommonStyle.row}>
                     <View style={styles.date}>
@@ -82,8 +82,8 @@ export const WeatherFooter = ({ viewRef }: { viewRef: LegacyRef<View> }) => {
             {hourWeather && selectedHour && (
                 <>
                     <View style={{ marginTop: isTablet ? 40 : 32 }}>
-                        <Text style={[isTablet ? FontStyle.title2.semibold2 : FontStyle.body2.bold]}>시간별 일기 예보</Text>
-                        <ScrollView style={styles.scrollView} horizontal={true} showsHorizontalScrollIndicator={false}>
+                        <Text style={[CommonStyle.padding, isTablet ? FontStyle.title2.semibold2 : FontStyle.body2.bold]}>시간별 일기 예보</Text>
+                        <ScrollView style={styles.scrollView} horizontal={true} showsHorizontalScrollIndicator={false} contentContainerStyle={CommonStyle.padding}>
                             <View style={CommonStyle.row}>
                                 {WeatherHourlyCard({
                                     hour: -1,
@@ -126,7 +126,7 @@ export const WeatherFooter = ({ viewRef }: { viewRef: LegacyRef<View> }) => {
                             </View>
                         </ScrollView>
                     </View>
-                    <View style={styles.foreDetailRow}>
+                    <View style={[CommonStyle.padding, styles.foreDetailRow]}>
                         <WeatherDetail
                             titleIcon={<UV />}
                             title={"UV 지수"}
@@ -198,12 +198,13 @@ const styles = StyleSheet.create({
     foreDetailRow: {
         marginVertical: 24,
         marginBottom: 32,
-
         flexDirection: "row",
         alignItems: "flex-start",
+        justifyContent: "space-between",
         flexWrap: "wrap",
         gap: isTablet ? 27 : 14,
-        rowGap: isTablet ? 16 : 14
+        rowGap: isTablet ? 16 : 14,
+        borderWidth: 2
     },
     hourText: {
         color: CommonColor.basic_gray_dark

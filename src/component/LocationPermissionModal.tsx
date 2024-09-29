@@ -2,8 +2,8 @@ import { Linking, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import Modal from "react-native-modal"
 import AppName from "../asset/icon/icon_small_app_name.svg"
 import Map from "../asset/icon/icon_modal_map.svg"
-import { isTablet, locationPermissionState, setStorage, toastState } from "../store"
-import { CommonColor, FontStyle } from "../style/CommonStyle"
+import { isTablet, setStorage, toastState } from "../store"
+import { CommonColor, CommonStyle, FontStyle } from "../style/CommonStyle"
 import { useEffect, useState } from "react"
 import { useRecoilValue, useRecoilValueLoadable } from "recoil"
 import Toast from "react-native-toast-message"
@@ -14,73 +14,34 @@ interface ModalProps {
     setIsVisible: React.Dispatch<React.SetStateAction<boolean>>
 }
 export const LocationPermissionModal = ({ isVisible, setIsVisible }: ModalProps) => {
-    const { contents: locationPermission } = useRecoilValueLoadable(locationPermissionState)
-    const { checkOnlyLocationPermission, getUserLocation } = useUserLocationHook()
-
-    const checkLocationPermission = async () => {
-        if (locationPermission === null) {
-            const checkP = await checkOnlyLocationPermission()
-            if (checkP) {
-                getUserLocation()
-                setStorage("locationPermission", String(checkP))
-            }
-        }
-        if (locationPermission === "false") {
-            Linking.openSettings()
-            return
-        }
-    }
-
     return (
-        <Modal
-            isVisible={isVisible}
-            onBackdropPress={() => setIsVisible(false)}
-            useNativeDriver={true}
-            hideModalContentWhileAnimating={true}
-            style={{ alignItems: "center", justifyContent: "center" }}
-        >
-            <View
-                style={{
-                    width: 312,
-                    height: 339,
-                    backgroundColor: CommonColor.main_white,
-                    justifyContent: "space-between",
-                    borderRadius: 20
-                }}
-            >
-                <View style={{ flex: 1, justifyContent: "space-between", paddingLeft: 20, paddingTop: 40, marginBottom: 8 }}>
+        <Modal isVisible={isVisible} onBackdropPress={() => setIsVisible(false)} useNativeDriver={true} hideModalContentWhileAnimating={true} style={CommonStyle.center}>
+            <View style={styles.modalView}>
+                <View style={styles.topView}>
                     <View>
-                        <View style={{ flexDirection: "row", alignItems: "flex-start" }}>
-                            <AppName />
+                        <View style={CommonStyle.row}>
+                            <AppName width={isTablet ? 125 : 120} />
                             <Text style={[isTablet ? FontStyle.title1.bold : FontStyle.title2.semibold, { marginLeft: 5 }]}>에서는</Text>
                         </View>
                         <Text style={[isTablet ? FontStyle.title1.bold : FontStyle.title2.semibold]}>정확한 날씨 정보를 위해{"\n"}위치 접근 허용이 필요합니다.</Text>
-                        <Text style={[isTablet ? FontStyle.body1.bold : FontStyle.label1.bold, { color: CommonColor.main_blue, marginTop: 20, marginBottom: 14 }]}>
-                            선택적 접근 권한 이용내역
-                        </Text>
-                        <View style={{ flexDirection: "row", alignItems: "flex-start" }}>
+                    </View>
+                    <View>
+                        <Text style={[isTablet ? FontStyle.body1.bold : FontStyle.label1.bold, { color: CommonColor.main_blue }]}>선택적 접근 권한 이용내역</Text>
+                        <View style={styles.modalTextView}>
                             <Text style={[isTablet ? FontStyle.body2.bold : FontStyle.label2.bold, { color: CommonColor.basic_gray_dark }]}>위치정보</Text>
-                            <Text style={[isTablet ? FontStyle.body2.regular : FontStyle.label2.reading_regular, { marginLeft: 12 }]}>
+                            <Text style={[isTablet ? FontStyle.body2.regular : FontStyle.label2.reading_regular, { color: CommonColor.basic_gray_dark }]}>
                                 실시간 위치 정보에 기반한{"\n"}정확한 날씨 정보 및 콘텐츠 제공
                             </Text>
                         </View>
                     </View>
                 </View>
-                <View style={{ position: "absolute", bottom: 40, right: 0 }}>
+                {/* <View style={{ position: "absolute", bottom: 40, right: 0 }}>
                     <Map />
-                </View>
+                </View> */}
                 <TouchableOpacity
-                    style={{
-                        width: "100%",
-                        height: 60,
-                        borderBottomLeftRadius: 20,
-                        borderBottomRightRadius: 20,
-                        backgroundColor: CommonColor.main_blue,
-                        alignItems: "center",
-                        justifyContent: "center"
-                    }}
+                    style={[CommonStyle.center, styles.settingButton]}
                     onPress={() => {
-                        checkLocationPermission()
+                        Linking.openSettings()
                         setIsVisible(false)
                     }}
                 >
@@ -143,3 +104,31 @@ export const ToastComponent = () => {
 
     return <Toast config={toastConfig} visibilityTime={toast?.duration ?? 1000} />
 }
+
+const styles = StyleSheet.create({
+    settingButton: {
+        width: "100%",
+        paddingVertical: isTablet ? 22 : 20,
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
+        backgroundColor: CommonColor.main_blue
+    },
+    modalTextView: {
+        marginTop: isTablet ? 14 : 12,
+        gap: isTablet ? 4 : 2
+    },
+    topView: {
+        flex: 1,
+        paddingLeft: isTablet ? 32 : 24,
+        paddingTop: isTablet ? 40 : 32,
+        paddingBottom: 58,
+        gap: isTablet ? 27 : 22
+    },
+    modalView: {
+        width: isTablet ? 392 : 316,
+        height: isTablet ? 408 : 348,
+        backgroundColor: CommonColor.main_white,
+        justifyContent: "space-between",
+        borderRadius: 25
+    }
+})

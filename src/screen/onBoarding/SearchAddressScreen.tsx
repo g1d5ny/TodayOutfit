@@ -4,7 +4,7 @@ import { inputAddressState, isTablet, resultAdressListState } from "../../store"
 import { useRecoilState } from "recoil"
 import { SearchInput } from "../../component/SearchInput"
 import { isEmpty } from "lodash"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useAddressHook } from "../../hook/useAddressHook"
 import { isIos, NowDate } from "utils"
 import { SearchResult } from "component/SearchResult"
@@ -12,6 +12,9 @@ import { OnBoardingText } from "text/OnBoardingText"
 import { Guide } from "component/Guide"
 import useKeyboardHeight from "hook/useKeyboardHeight"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
+import { navigate } from "navigation/RootNavigation"
+import { useUserLocationHook } from "hook/useUserLocationHook"
+import { MY_ADDRSS } from "type"
 
 const selectedAddressInitialValue = {
     id: 0,
@@ -26,10 +29,12 @@ const selectedAddressInitialValue = {
 export const SearchAddressScreen = () => {
     const [resultAddress, setResultAddress] = useRecoilState(resultAdressListState)
     const [inputAddress, setInputAddress] = useRecoilState(inputAddressState)
-    const disabled = resultAddress && resultAddress[0] === "NOT_FOUND"
+    const [selectedAddress, setSelectedAddress] = useState<MY_ADDRSS | null>(null)
+    const inputDisabled = inputAddress.length === 0
+    const completeButtonVisible = !isEmpty(resultAddress) && resultAddress[0] !== "NOT_FOUND"
     const { searchAddress } = useAddressHook()
     const { keyboardHeight } = useKeyboardHeight()
-    const { bottom } = useSafeAreaInsets()
+    const { addUserAddress } = useUserLocationHook()
 
     const onPress = () => {
         Keyboard.dismiss()
@@ -53,22 +58,39 @@ export const SearchAddressScreen = () => {
                     children={
                         <>
                             <SearchInput hasInput autoFocus isOnboarding />
-                            <View style={CommonStyle.flex}>
-                                <SearchResult selectedAddress={selectedAddressInitialValue} />
-                                {!isEmpty(resultAddress) && (
-                                    <View style={[CommonStyle.row, CommonStyle.center, styles.phase, { marginBottom: isIos ? (isTablet ? 60 : 0) : 28 }]}>
-                                        <View style={styles.selectedPhase} />
-                                        <View style={styles.unSelectedPhase} />
-                                    </View>
-                                )}
-                                {keyboardHeight > 0 && inputAddress && (
+                            <View style={{ flex: 1, width: "100%" }}>
+                                <SearchResult selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress} />
+                                {completeButtonVisible ? (
                                     <TouchableOpacity
-                                        disabled={disabled}
-                                        style={[styles.confirmButton, { backgroundColor: disabled ? CommonColor.basic_gray_medium : CommonColor.main_blue, bottom: keyboardHeight }]}
-                                        onPress={onPress}
+                                        disabled={!selectedAddress?.id}
+                                        style={[
+                                            styles.completeButton,
+                                            { backgroundColor: !selectedAddress?.id ? CommonColor.basic_gray_medium : CommonColor.main_blue, bottom: keyboardHeight }
+                                        ]}
+                                        onPress={async () => {
+                                            if (selectedAddress) {
+                                                const { id, location: location, coordinate } = selectedAddress
+                                                await addUserAddress({ id, location: location.trim(), coordinate, date: NowDate() })
+                                                setSelectedAddress(null)
+                                                navigate("SelectGenderScreen")
+                                            }
+                                        }}
                                     >
-                                        <Text style={[FontStyle.title2.semibold2, { color: CommonColor.main_white }]}>확인</Text>
+                                        <Text style={[isTablet ? FontStyle.title2.semibold2 : FontStyle.body1.bold, { color: CommonColor.main_white }]}>완료</Text>
                                     </TouchableOpacity>
+                                ) : (
+                                    keyboardHeight > 0 && (
+                                        <TouchableOpacity
+                                            disabled={inputDisabled}
+                                            style={[
+                                                styles.confirmButton,
+                                                { backgroundColor: inputDisabled ? CommonColor.basic_gray_medium : CommonColor.main_blue, bottom: isIos ? keyboardHeight : 0 }
+                                            ]}
+                                            onPress={onPress}
+                                        >
+                                            <Text style={[isTablet ? FontStyle.title2.semibold2 : FontStyle.body1.bold, { color: CommonColor.main_white }]}>확인</Text>
+                                        </TouchableOpacity>
+                                    )
                                 )}
                             </View>
                         </>
@@ -95,6 +117,16 @@ const styles = StyleSheet.create({
         height: 8,
         backgroundColor: CommonColor.main_blue,
         borderRadius: 5
+    },
+    completeButton: {
+        width: "100%",
+        paddingVertical: isTablet ? 20 : 17,
+        marginTop: isTablet ? 26 : 22,
+        marginBottom: isTablet ? 100 : 28,
+        borderRadius: isTablet ? 8 : 6,
+        alignItems: "center",
+        alignSelf: "center",
+        justifyContent: "center"
     },
     confirmButton: {
         width: screenWidth,

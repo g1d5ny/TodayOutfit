@@ -26,17 +26,27 @@ export const SearchInput = memo(({ hasInput, autoFocus, isOnboarding = false, ..
     const [isVisible, setIsVisible] = useState(false)
     const [isOnFocus, setIsOnFocus] = useState(autoFocus)
     const { searchAddress } = useAddressHook()
-    const { checkOnlyLocationPermission, getUserLocation } = useUserLocationHook()
+    const { requestLocationPermission, checkLocationPermission, getUserLocation } = useUserLocationHook()
+
+    const getLocation = async () => {
+        await getUserLocation()
+        console.log("isOnboarding: ", isOnboarding)
+        if (isOnboarding) {
+            navigationRef?.current?.navigate("SelectGenderScreen")
+        }
+        setInputAddress("")
+        setResultAddress([])
+    }
 
     const onPressLocation = async () => {
-        const checkP = await checkOnlyLocationPermission()
+        const checkP = await checkLocationPermission()
         if (checkP) {
-            await getUserLocation()
-            if (isOnboarding) {
-                navigationRef?.current?.navigate("SelectGenderScreen")
-            }
-            setInputAddress("")
-            setResultAddress([])
+            getLocation()
+            return
+        }
+        const reqP = await requestLocationPermission()
+        if (reqP) {
+            getLocation()
             return
         }
         setIsVisible(true)
@@ -65,11 +75,15 @@ export const SearchInput = memo(({ hasInput, autoFocus, isOnboarding = false, ..
                         onBlur={() => setIsOnFocus(false)}
                         onSubmitEditing={searchAddress}
                         autoFocus={autoFocus}
-                        style={[isTablet ? FontStyle.body1.regular : FontStyle.body2.regular, styles.textView]}
+                        style={[isTablet ? FontStyle.body1.regular : FontStyle.body2.regular, styles.textView, { paddingVertical: 0 }]}
                         {...props}
                     />
                 ) : (
-                    <Text style={[isTablet ? FontStyle.body1.regular : FontStyle.body2.regular, styles.textView, { color: CommonColor.basic_gray_medium }]}>위치를 입력하세요</Text>
+                    <Text
+                        style={[isTablet ? FontStyle.body1.regular : FontStyle.body2.regular, styles.textView, { color: CommonColor.basic_gray_medium, paddingVertical: isTablet ? 20 : 17 }]}
+                    >
+                        위치를 입력하세요
+                    </Text>
                 )}
                 <TouchableOpacity onPress={onPressLocation}>
                     {isOnFocus ? <FocusOffLocation width={LOCATION_ICON} height={LOCATION_ICON} /> : <FocusLocation width={LOCATION_ICON} height={LOCATION_ICON} />}
@@ -100,13 +114,14 @@ export const styles = StyleSheet.create({
     },
     textView: {
         flex: 1,
+        height: "100%",
         marginLeft: isTablet ? 16 : 14
     },
     input: {
         width: "100%",
+        height: isTablet ? 66 : 56,
         borderRadius: 6,
         paddingHorizontal: isTablet ? 24 : 18,
-        paddingVertical: isTablet ? 20 : 17,
         backgroundColor: CommonColor.basic_gray_light,
         flexDirection: "row",
         alignItems: "center"

@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
         gap: 8
     },
     container: {
-        minWidth: 90,
+        // minWidth: 90,
         gap: 2,
         paddingHorizontal: 8,
         paddingVertical: 6,

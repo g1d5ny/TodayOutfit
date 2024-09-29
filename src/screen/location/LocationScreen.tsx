@@ -87,7 +87,7 @@ export const LocationScreen = () => {
                     {!isEmpty(resultAddress) ? (
                         <>
                             <SearchHistory />
-                            <SearchResult selectedAddress={selectedAddress} />
+                            <SearchResult selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress} />
                         </>
                     ) : (
                         <View style={styles.myAddressGap}>
@@ -102,9 +102,9 @@ export const LocationScreen = () => {
                         <TouchableOpacity
                             disabled={isNotFoundAddress}
                             style={[styles.confirmButton, { backgroundColor: isNotFoundAddress ? CommonColor.basic_gray_medium : CommonColor.main_blue }]}
-                            onPress={() => {
+                            onPress={async () => {
                                 if (selectedAddress) {
-                                    addUserAddress({ id: selectedAddress.id, location: selectedAddress.location, coordinate: selectedAddress.coordinate, date: NowDate() })
+                                    await addUserAddress({ id: selectedAddress.id, location: selectedAddress.location, coordinate: selectedAddress.coordinate, date: NowDate() })
                                     setSelectedAddress(null)
                                     setResultAddress([])
                                     setInputAddress("")
