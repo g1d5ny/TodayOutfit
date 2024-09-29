@@ -31,42 +31,54 @@ export const RainPercentageScreen = () => {
             <Text style={[CommonStyle.title, FontStyle.body1.bold]}>{RainPercentageInfo.title}이란?</Text>
             <Text style={[styles.content, FontStyle.label1.reading_regular]}>{RainPercentageInfo.content}</Text>
             <View style={CommonStyle.weatherInfoSplit} />
-            <Text style={[CommonStyle.infoTitle, FontStyle.body1.bold]}>{RainPercentageInfo.title} 단계</Text>
-            <View style={[CommonStyle.row, styles.interval, isTablet ? styles.tabletInterval : styles.mobileInterval]}>
-                {step.map(({ percentage, icon }, index) => {
-                    return (
-                        <View key={index} style={CommonStyle.center}>
-                            {icon}
-                            <Text style={[FontStyle.label1.bold, styles.percentage]}>{percentage}%</Text>
-                        </View>
-                    )
-                })}
+            <Text style={[CommonStyle.infoTitle, FontStyle.body1.bold, styles.stepText]}>{RainPercentageInfo.title} 단계</Text>
+            <View style={[styles.setpGap, isTablet && styles.tabletInterval]}>
+                <View style={[CommonStyle.row, styles.interval]}>
+                    {step.slice(0, 5).map(({ percentage, icon }, index) => {
+                        return (
+                            <View key={index} style={[CommonStyle.center, styles.icon]}>
+                                {icon}
+                                <Text style={[FontStyle.label1.bold, styles.percentage]}>{percentage}%</Text>
+                            </View>
+                        )
+                    })}
+                </View>
+                <View style={[CommonStyle.row, styles.interval]}>
+                    {step.slice(5, 10).map(({ percentage, icon }, index) => {
+                        return (
+                            <View key={index} style={[CommonStyle.center, styles.icon]}>
+                                {icon}
+                                <Text style={[FontStyle.label1.bold, styles.percentage]}>{percentage}%</Text>
+                            </View>
+                        )
+                    })}
+                </View>
             </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
+    setpGap: {
+        gap: 20
+    },
+    stepText: {
+        marginBottom: 24
+    },
+    icon: {
+        width: 70
+    },
     percentage: {
         marginTop: 7
     },
     tabletInterval: {
-        width: "50%",
-        rowGap: 20,
-        columnGap: 26,
-        alignSelf: "center"
-    },
-    mobileInterval: {
-        width: "100%",
-        rowGap: 20,
-        columnGap: 24,
-        justifyContent: "space-between"
+        paddingHorizontal: 100
     },
     interval: {
-        marginTop: 24,
-        flexWrap: "wrap",
+        width: "100%",
         flexDirection: "row",
-        alignItems: "center"
+        alignItems: "center",
+        justifyContent: "space-between"
     },
     content: {
         marginTop: 8

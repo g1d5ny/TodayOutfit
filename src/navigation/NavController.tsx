@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native"
 import React, { useEffect, useState } from "react"
-import { Platform, StatusBar, useColorScheme, View } from "react-native"
+import { StatusBar, useColorScheme, View } from "react-native"
 import { navigationRef } from "./RootNavigation"
 import { useRecoilValueLoadable } from "recoil"
 import { loggedInState } from "../store"
@@ -8,6 +8,7 @@ import { OnBoardingNavigator } from "./onBoardingNavigation/OnBoardingNavigator"
 import { MainNavigator } from "./mainNavigation/MainNavigor"
 import { CommonStyle } from "style/CommonStyle"
 import { ToastComponent } from "component/LocationPermissionModal"
+import { isIos } from "utils"
 
 export const NavController = () => {
     const { contents: isLoggedIn, state } = useRecoilValueLoadable(loggedInState)
@@ -22,7 +23,7 @@ export const NavController = () => {
 
     return (
         <View style={CommonStyle.flex}>
-            <StatusBar barStyle={Platform.OS === "ios" ? "dark-content" : "light-content"} />
+            <StatusBar barStyle={isIos ? "dark-content" : "light-content"} />
             <NavigationContainer ref={navigationRef}>{goTo === "main" ? <MainNavigator /> : <OnBoardingNavigator />}</NavigationContainer>
             <ToastComponent />
         </View>

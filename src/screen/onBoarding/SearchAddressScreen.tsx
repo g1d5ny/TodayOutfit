@@ -1,4 +1,4 @@
-import { Keyboard, Platform, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native"
+import { Keyboard, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native"
 import { CommonColor, CommonStyle, FontStyle, screenWidth } from "../../style/CommonStyle"
 import { inputAddressState, isTablet, resultAdressListState } from "../../store"
 import { useRecoilState } from "recoil"
@@ -6,7 +6,7 @@ import { SearchInput } from "../../component/SearchInput"
 import { isEmpty } from "lodash"
 import { useEffect } from "react"
 import { useAddressHook } from "../../hook/useAddressHook"
-import { NowDate } from "utils"
+import { isIos, NowDate } from "utils"
 import { SearchResult } from "component/SearchResult"
 import { OnBoardingText } from "text/OnBoardingText"
 import { Guide } from "component/Guide"
@@ -56,7 +56,7 @@ export const SearchAddressScreen = () => {
                             <View style={CommonStyle.flex}>
                                 <SearchResult selectedAddress={selectedAddressInitialValue} />
                                 {!isEmpty(resultAddress) && (
-                                    <View style={[CommonStyle.row, CommonStyle.center, styles.phase, { marginBottom: Platform.OS === "ios" ? (isTablet ? 60 : 0) : 28 }]}>
+                                    <View style={[CommonStyle.row, CommonStyle.center, styles.phase, { marginBottom: isIos ? (isTablet ? 60 : 0) : 28 }]}>
                                         <View style={styles.selectedPhase} />
                                         <View style={styles.unSelectedPhase} />
                                     </View>
@@ -81,7 +81,7 @@ export const SearchAddressScreen = () => {
 
 const styles = StyleSheet.create({
     phase: {
-        marginTop: 26
+        paddingTop: 26
     },
     unSelectedPhase: {
         width: 8,

@@ -28,7 +28,7 @@ interface Result {
 
 const resultHeight = isTablet ? 62 : 60
 const verticalMargin = 4
-const maxCount = isTablet ? 10 : 7
+const maxCount = isTablet ? 10 : 6
 export const SearchResult = memo(({ selectedAddress }: InputProps) => {
     const [isVisible, setIsVisible] = useState(false)
     const inputAddress = useRecoilValue(inputAddressState)
@@ -68,9 +68,9 @@ export const SearchResult = memo(({ selectedAddress }: InputProps) => {
                 isNotFoundAddress ? (
                     <Text style={[FontStyle.label1.regular, { color: CommonColor.etc_red, marginTop: 6 }]}>올바르지 않은 주소입니다.</Text>
                 ) : (
-                    <View style={{ marginTop: 4 }}>
+                    <View style={{ flex: 1, marginTop: 4 }}>
                         <Text style={[FontStyle.label1.regular, { color: CommonColor.main_blue }]}>'{inputAddress}' 검색 결과</Text>
-                        <View style={{ maxHeight: resultHeight * maxCount + verticalMargin * (maxCount - 2), marginTop: isTablet ? 26 : 16 }}>
+                        <View style={styles.scrollViewContainer}>
                             <ScrollView>
                                 {resultAddress.map(({ road_address, address }, index) => {
                                     const coordinate = { longitude: Number(address?.x ?? road_address?.x), latitude: Number(address?.y ?? road_address?.y) }
@@ -102,6 +102,10 @@ export const SearchResult = memo(({ selectedAddress }: InputProps) => {
 })
 
 const styles = StyleSheet.create({
+    scrollViewContainer: {
+        flex: 1,
+        marginTop: isTablet ? 26 : 16
+    },
     resultView: {
         width: "100%",
         borderLeftWidth: 2,

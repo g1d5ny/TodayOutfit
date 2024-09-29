@@ -1,10 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React, { useEffect, useState } from "react"
 import { StyleSheet } from "react-native"
 import { SafeAreaProvider } from "react-native-safe-area-context"

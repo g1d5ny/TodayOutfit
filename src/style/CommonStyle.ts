@@ -1,5 +1,6 @@
 import { Dimensions, PixelRatio, Platform, StyleSheet } from "react-native"
 import { isTablet } from "store"
+import { isIos } from "utils"
 
 const { width, height } = Dimensions.get("window")
 export const screenWidth = width
@@ -66,7 +67,7 @@ export const FontStyle = {
             fontSize: 55,
             color: CommonColor.main_black,
             fontFamily: "Pretendard-SemiBold",
-            letterSpacing: Platform.OS === "ios" ? dp(-1) : dp(-1)
+            letterSpacing: isIos ? dp(-1) : dp(-1)
         },
         temperature_tablet: {
             fontSize: 90,
@@ -77,14 +78,14 @@ export const FontStyle = {
             fontSize: 35,
             color: CommonColor.main_black,
             fontFamily: "Pretendard-SemiBold",
-            letterSpacing: Platform.OS === "ios" ? dp(-1) : dp(-1),
+            letterSpacing: isIos ? dp(-1) : dp(-1),
             lineHeight: 45
         },
         bold: {
             fontSize: 28,
             color: CommonColor.main_black,
             fontFamily: "Pretendard-SemiBold",
-            letterSpacing: Platform.OS === "ios" ? pt(-0.56) : dp(-0.56),
+            letterSpacing: isIos ? pt(-0.56) : dp(-0.56),
             lineHeight: 38
         }
     },
@@ -93,14 +94,14 @@ export const FontStyle = {
             fontSize: 24,
             color: CommonColor.main_black,
             fontFamily: "Pretendard-SemiBold",
-            letterSpacing: Platform.OS === "ios" ? pt(-0.48) : dp(-0.48),
+            letterSpacing: isIos ? pt(-0.48) : dp(-0.48),
             lineHeight: 32
         },
         regular: {
             fontSize: 22,
             color: CommonColor.main_black,
             fontFamily: "Pretendard-Regular",
-            letterSpacing: Platform.OS === "ios" ? pt(-0.48) : dp(-0.48)
+            letterSpacing: isIos ? pt(-0.48) : dp(-0.48)
         }
     },
     title2: {
@@ -108,21 +109,21 @@ export const FontStyle = {
             fontSize: 20,
             color: CommonColor.main_black,
             fontFamily: "Pretendard-Regular",
-            letterSpacing: Platform.OS === "ios" ? pt(-0.36) : dp(-0.36),
+            letterSpacing: isIos ? pt(-0.36) : dp(-0.36),
             lineHeight: 24
         },
         semibold: {
             fontSize: 20,
             color: CommonColor.main_black,
             fontFamily: "Pretendard-SemiBold",
-            letterSpacing: Platform.OS === "ios" ? pt(-0.36) : dp(-0.36),
+            letterSpacing: isIos ? pt(-0.36) : dp(-0.36),
             lineHeight: 26
         },
         semibold2: {
             fontSize: 20,
             color: CommonColor.main_black,
             fontFamily: "Pretendard-SemiBold",
-            letterSpacing: Platform.OS === "ios" ? pt(-0.36) : dp(-0.36),
+            letterSpacing: isIos ? pt(-0.36) : dp(-0.36),
             lineHeight: 24
         }
     },
@@ -131,14 +132,14 @@ export const FontStyle = {
             fontSize: 20,
             color: CommonColor.main_black,
             fontFamily: "Pretendard-Regular",
-            letterSpacing: Platform.OS === "ios" ? pt(-0.36) : dp(-0.36),
+            letterSpacing: isIos ? pt(-0.36) : dp(-0.36),
             lineHeight: 24
         },
         bold: {
             fontSize: 18,
             color: CommonColor.main_black,
             fontFamily: "Pretendard-SemiBold",
-            letterSpacing: Platform.OS === "ios" ? pt(-0.36) : dp(-0.36),
+            letterSpacing: isIos ? pt(-0.36) : dp(-0.36),
             lineHeight: 22
         }
     },
@@ -147,14 +148,14 @@ export const FontStyle = {
             fontSize: 16,
             color: CommonColor.main_black,
             fontFamily: "Pretendard-Regular",
-            letterSpacing: Platform.OS === "ios" ? pt(-0.32) : dp(-0.32),
+            letterSpacing: isIos ? pt(-0.32) : dp(-0.32),
             lineHeight: 20
         },
         bold: {
             fontSize: 16,
             color: CommonColor.main_black,
             fontFamily: "Pretendard-SemiBold",
-            letterSpacing: Platform.OS === "ios" ? pt(-0.32) : dp(-0.32),
+            letterSpacing: isIos ? pt(-0.32) : dp(-0.32),
             lineHeight: 20
         }
     },
@@ -163,21 +164,21 @@ export const FontStyle = {
             fontSize: 14,
             color: CommonColor.main_black,
             fontFamily: "Pretendard-Regular",
-            letterSpacing: Platform.OS === "ios" ? pt(-0.14) : dp(-0.14),
+            letterSpacing: isIos ? pt(-0.14) : dp(-0.14),
             lineHeight: 24
         },
         regular: {
             fontSize: 14,
             color: CommonColor.main_black,
             fontFamily: "Pretendard-Regular",
-            letterSpacing: Platform.OS === "ios" ? pt(-0.14) : dp(-0.14),
+            letterSpacing: isIos ? pt(-0.14) : dp(-0.14),
             lineHeight: 20
         },
         bold: {
             fontSize: 14,
             color: CommonColor.main_black,
             fontFamily: "Pretendard-SemiBold",
-            letterSpacing: Platform.OS === "ios" ? pt(-0.14) : dp(-0.14),
+            letterSpacing: isIos ? pt(-0.14) : dp(-0.14),
             lineHeight: 20
         }
     },
@@ -186,21 +187,21 @@ export const FontStyle = {
             fontSize: 12,
             color: CommonColor.main_black,
             fontFamily: "Pretendard-Regular",
-            letterSpacing: Platform.OS === "ios" ? pt(-0.12) : dp(-0.12),
+            letterSpacing: isIos ? pt(-0.12) : dp(-0.12),
             lineHeight: 16
         },
         regular: {
             fontSize: 12,
             color: CommonColor.main_black,
             fontFamily: "Pretendard-Regular",
-            letterSpacing: Platform.OS === "ios" ? pt(-0.12) : dp(-0.12),
+            letterSpacing: isIos ? pt(-0.12) : dp(-0.12),
             lineHeight: 14
         },
         bold: {
             fontSize: 12,
             color: CommonColor.main_black,
             fontFamily: "Pretendard-SemiBold",
-            letterSpacing: Platform.OS === "ios" ? pt(-0.12) : dp(-0.12),
+            letterSpacing: isIos ? pt(-0.12) : dp(-0.12),
             lineHeight: 14
         }
     },
@@ -209,7 +210,7 @@ export const FontStyle = {
             fontSize: 10,
             color: CommonColor.main_black,
             fontFamily: "Pretendard-Regular",
-            letterSpacing: Platform.OS === "ios" ? pt(-0.12) : dp(-0.12),
+            letterSpacing: isIos ? pt(-0.12) : dp(-0.12),
             lineHeight: 12
         }
     }

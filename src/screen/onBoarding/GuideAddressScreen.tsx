@@ -1,4 +1,4 @@
-import { Platform, StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { CommonColor, CommonStyle, FontStyle, ShadowStyle } from "../../style/CommonStyle"
 import { useState } from "react"
 import { isTablet } from "../../store"
@@ -10,6 +10,7 @@ import { OnBoardingText } from "text/OnBoardingText"
 import { SearchInput } from "component/SearchInput"
 import { navigate } from "navigation/RootNavigation"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
+import { isIos } from "utils"
 
 const COMMON_ICON = isTablet ? 27 : 24
 export const GuideAddressScreen = () => {
@@ -45,7 +46,7 @@ export const GuideAddressScreen = () => {
                         </>
                     }
                 />
-                <View style={[CommonStyle.center, CommonStyle.row, { marginBottom: Platform.OS === "ios" ? (isTablet ? 60 : 0) : 28 }]}>
+                <View style={[CommonStyle.center, CommonStyle.row, { marginBottom: isIos ? (isTablet ? 60 : 0) : 28 }]}>
                     <View style={styles.selectedPhase} />
                     <View style={styles.unSelectedPhase} />
                 </View>

@@ -24,10 +24,10 @@ export const DetailComponent = ({ title, content, step, unit }: IProps) => {
                 <Text style={[CommonStyle.infoTitle, FontStyle.body1.bold]}>{title} 단계</Text>
                 {unit && <Text style={[FontStyle.label2.regular, { color: CommonColor.main_blue }]}>단위: {unit}</Text>}
             </View>
-            <View style={[CommonStyle.row, styles.interval, isTablet ? { gap: 22 } : { width: "100%" }]}>
+            <View style={[CommonStyle.row, styles.interval]}>
                 {step.map(({ icon, text }, index) => {
                     return (
-                        <View key={index} style={[CommonStyle.center, { width: isSnowFallComponent ? 80 : undefined }]}>
+                        <View key={index} style={[CommonStyle.center, { width: isSnowFallComponent ? 80 : 70 }]}>
                             {icon}
                             <Text style={[styles.iconText, FontStyle.label1.bold]}>{text}</Text>
                         </View>
@@ -83,8 +83,10 @@ const styles = StyleSheet.create({
         marginTop: 8
     },
     interval: {
+        width: "100%",
         alignSelf: "center",
         marginVertical: 24,
+        paddingHorizontal: isTablet ? 100 : 0,
         justifyContent: "space-between"
     },
     content: {
