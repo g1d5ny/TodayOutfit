@@ -33,21 +33,21 @@ export const WeatherCard = ({ day, date, minIcon, text, maxIcon, maxTemp, minTem
                 </View>
                 <View style={[styles.row, { marginLeft: 20 }]}>
                     {minIcon}
-                    <Text style={FontStyle.body2.regular}>{text}</Text>
+                    <Text style={[FontStyle.body2.regular, { marginLeft: 8 }]}>{text}</Text>
                 </View>
             </TouchableOpacity>
             <LinearGradient colors={[backgroundColor, "#fff"]} style={styles.gradient}>
                 <View style={styles.maxIcon}>{maxIcon}</View>
                 <View style={styles.cardDesc}>
-                    <View style={[styles.row, { justifyContent: "space-between" }]}>
-                        <View style={styles.temp}>
+                    <View style={[styles.row, { gap: 24, justifyContent: "space-between" }]}>
+                        <View>
                             <View style={[styles.row, { marginBottom: 8 }]}>
                                 <MaxTemp width={10} height={10} />
                                 <Text style={[FontStyle.label2.regular, { marginLeft: 4 }]}>최고온도</Text>
                             </View>
                             <Text style={[FontStyle.display.forecast_tablet, { color: CommonColor.etc_red }]}>{maxTemp}˚</Text>
                         </View>
-                        <View style={[styles.temp, { marginLeft: 8 }]}>
+                        <View>
                             <View style={[styles.row, { marginBottom: 8 }]}>
                                 <MinTemp width={10} height={10} />
                                 <Text style={[FontStyle.label2.regular, { marginLeft: 4 }]}>최저온도</Text>
@@ -55,14 +55,14 @@ export const WeatherCard = ({ day, date, minIcon, text, maxIcon, maxTemp, minTem
                             <Text style={[FontStyle.display.forecast_tablet, { color: CommonColor.main_blue }]}>{minTemp}˚</Text>
                         </View>
                     </View>
-                    <View style={[styles.row, styles.temp, { marginTop: 23, justifyContent: "space-between" }]}>
+                    <View style={[styles.row, { justifyContent: "space-between" }]}>
                         <View style={styles.row}>
                             <Sunrise />
                             <Text style={[FontStyle.label1.regular, { color: CommonColor.basic_gray_dark, marginLeft: 8 }]}>일출</Text>
                         </View>
                         <Text style={[FontStyle.label1.regular, { color: CommonColor.main_black }]}>{sunrise}</Text>
                     </View>
-                    <View style={[styles.row, styles.temp, { justifyContent: "space-between", marginTop: 15 }]}>
+                    <View style={[styles.row, { justifyContent: "space-between" }]}>
                         <View style={styles.row}>
                             <Sunset />
                             <Text style={[FontStyle.label1.regular, { color: CommonColor.basic_gray_dark, marginLeft: 8 }]}>일몰</Text>
@@ -76,20 +76,18 @@ export const WeatherCard = ({ day, date, minIcon, text, maxIcon, maxTemp, minTem
 }
 
 const styles = StyleSheet.create({
-    temp: {
-        paddingHorizontal: 8
-    },
     maxIcon: {
-        width: 150,
-        height: "100%"
+        width: 160,
+        height: 160
     },
     cardDesc: {
-        flex: 1,
-        marginLeft: 14
+        marginLeft: 34,
+        gap: 17
     },
     gradient: {
         flex: 1,
-        padding: 14,
+        paddingVertical: 16,
+        paddingHorizontal: 22,
         justifyContent: "space-between",
         borderRadius: 10,
         borderTopLeftRadius: 0,
@@ -108,8 +106,8 @@ const styles = StyleSheet.create({
         alignItmes: "center"
     },
     weatherCard: {
-        width: "100%",
-        height: 250,
+        // width: "100%",
+        // height: 193,
         backgroundColor: "#fff",
         borderRadius: 10,
         borderWidth: 2,

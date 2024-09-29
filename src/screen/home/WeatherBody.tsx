@@ -23,20 +23,22 @@ export default () => {
     return (
         <View style={styles.character}>
             <View style={styles.cardDesc}>
-                <Image source={gender === "W" ? require("asset/image/image_girl.png") : require("asset/image/image_hood_boy.png")} style={styles.charaterImage} />
+                <Image source={gender === "W" ? require("asset/image/image_girl.png") : require("asset/image/image_t_shirt_shorts_boy.png")} style={styles.charaterImage} />
             </View>
             <View>
-                <Text style={[isTablet ? FontStyle.title2.semibold2 : FontStyle.body2.bold, { color: is_day ? CommonColor.main_black : CommonColor.main_white }]}>기온 맞춤 추천 의상</Text>
-                <View style={[styles.recomContainer, { gap: isTablet ? 25 : 9 }]}>
-                    <View style={[styles.recom, { marginBottom: isTablet ? 25 : 0 }]}>
-                        <Image source={top[0].path} style={styles.clothes} />
+                <Text style={[isTablet ? FontStyle.title2.semibold : FontStyle.body2.bold, styles.recomText, { color: is_day ? CommonColor.main_black : CommonColor.main_white }]}>
+                    기온 맞춤 추천 의상
+                </Text>
+                <View style={[styles.recomContainer, isTablet ? styles.tabletClothes : styles.mobileClothes]}>
+                    <View style={styles.recom}>
+                        <Image source={top[0].path} style={styles.clothes} resizeMode='contain' />
                         <View style={styles.clothesDesc}>
                             <Text style={[isTablet ? FontStyle.body1.bold : FontStyle.body2.bold, { color: CommonColor.main_blue }]}>{top[0].ko}</Text>
                             <Text style={[isTablet ? FontStyle.body2.regular : FontStyle.label2.regular, { color: CommonColor.basic_gray_dark }]}>{topDesc} 상의</Text>
                         </View>
                     </View>
                     <View style={styles.recom}>
-                        <Image source={bottom[0].path} style={styles.clothes} />
+                        <Image source={bottom[0].path} style={styles.clothes} resizeMode='contain' />
                         <View style={styles.clothesDesc}>
                             <Text style={[isTablet ? FontStyle.body1.bold : FontStyle.body2.bold, { color: CommonColor.main_blue }]}>{bottom[0].ko}</Text>
                             <Text style={[isTablet ? FontStyle.body2.regular : FontStyle.label2.regular, { color: CommonColor.basic_gray_dark }]}>{bottomDesc} 하의</Text>
@@ -44,16 +46,16 @@ export default () => {
                     </View>
                 </View>
                 {isTablet && (
-                    <View style={[styles.recomContainer, { gap: 25 }]}>
-                        <View style={[styles.recom, { marginBottom: 25 }]}>
-                            <Image source={top[1].path} style={styles.clothes} />
+                    <View style={[styles.recomContainer, styles.tabletClothes, { marginTop: 20 }]}>
+                        <View style={styles.recom}>
+                            <Image source={top[1].path} style={styles.clothes} resizeMode='contain' />
                             <View style={styles.clothesDesc}>
                                 <Text style={[isTablet ? FontStyle.body1.bold : FontStyle.body2.bold, { color: CommonColor.main_blue }]}>{top[1].ko}</Text>
                                 <Text style={[isTablet ? FontStyle.body2.regular : FontStyle.label2.regular, { color: CommonColor.basic_gray_dark }]}>{topDesc} 상의</Text>
                             </View>
                         </View>
                         <View style={styles.recom}>
-                            <Image source={bottom[1].path} style={styles.clothes} />
+                            <Image source={bottom[1].path} style={styles.clothes} resizeMode='contain' />
                             <View style={styles.clothesDesc}>
                                 <Text style={[isTablet ? FontStyle.body1.bold : FontStyle.body2.bold, { color: CommonColor.main_blue }]}>{bottom[1].ko}</Text>
                                 <Text style={[isTablet ? FontStyle.body2.regular : FontStyle.label2.regular, { color: CommonColor.basic_gray_dark }]}>{bottomDesc} 하의</Text>
@@ -67,10 +69,21 @@ export default () => {
 }
 
 const styles = StyleSheet.create({
+    mobileClothes: {
+        gap: 9
+    },
+    tabletClothes: {
+        width: 373,
+        justifyContent: "space-between"
+    },
+    recomText: {
+        marginBottom: isTablet ? 8 : 9
+    },
     clothes: {
         flex: 1,
         width: "90%",
-        height: "90%"
+        height: "90%",
+        margin: 10
     },
     titleText: {
         marginTop: 26,
@@ -122,19 +135,17 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 10
     },
     recom: {
-        width: isTablet ? 174 : 136,
-        height: isTablet ? 239 : 186,
+        width: isTablet ? 170 : 146,
+        height: isTablet ? 230 : 186,
         borderRadius: 10,
         backgroundColor: "rgba(255, 255, 255, 0.4)"
     },
     recomContainer: {
-        flexDirection: isTablet ? "row" : "column",
-        alignSelf: "flex-end",
-        flexWrap: "wrap",
-        marginTop: 9
+        flexDirection: isTablet ? "row" : "column"
     },
     charaterImage: {
-        width: isTablet ? 330 : 220,
+        // width: isTablet ? 340 : 200,
+        aspectRatio: 0.42,
         height: "90%"
     },
     character: {

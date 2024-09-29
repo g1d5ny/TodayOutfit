@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
         gap: 10
     },
     addrView: {
-        marginTop: 8,
+        marginTop: isTablet ? 16 : 8,
         flexDirection: "row",
         alignItems: "center"
     },

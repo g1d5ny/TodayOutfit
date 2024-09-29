@@ -30,7 +30,6 @@ export const SearchInput = memo(({ hasInput, autoFocus, isOnboarding = false, ..
 
     const getLocation = async () => {
         await getUserLocation()
-        console.log("isOnboarding: ", isOnboarding)
         if (isOnboarding) {
             navigationRef?.current?.navigate("SelectGenderScreen")
         }

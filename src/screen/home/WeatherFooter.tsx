@@ -83,6 +83,9 @@ export const WeatherFooter = ({ viewRef }: { viewRef: LegacyRef<View> }) => {
                 <>
                     <View style={{ marginTop: isTablet ? 40 : 32 }}>
                         <Text style={[CommonStyle.padding, isTablet ? FontStyle.title2.semibold2 : FontStyle.body2.bold]}>시간별 일기 예보</Text>
+                        <Text style={[CommonStyle.padding, isTablet ? FontStyle.label1.regular : FontStyle.label2.regular, styles.detail, { color: CommonColor.basic_gray_dark }]}>
+                            시간을 선택시 상세 기상 정보를 확인할 수 있습니다.
+                        </Text>
                         <ScrollView style={styles.scrollView} horizontal={true} showsHorizontalScrollIndicator={false} contentContainerStyle={CommonStyle.padding}>
                             <View style={CommonStyle.row}>
                                 {WeatherHourlyCard({
@@ -195,12 +198,15 @@ export const WeatherFooter = ({ viewRef }: { viewRef: LegacyRef<View> }) => {
 }
 
 const styles = StyleSheet.create({
+    detail: {
+        marginTop: 8
+    },
     foreDetailRow: {
         marginVertical: 24,
         marginBottom: 32,
         flexDirection: "row",
         alignItems: "flex-start",
-        justifyContent: "space-between",
+        // justifyContent: "space-between",
         flexWrap: "wrap",
         gap: isTablet ? 27 : 14,
         rowGap: isTablet ? 16 : 14,
@@ -222,7 +228,7 @@ const styles = StyleSheet.create({
     },
     scrollView: {
         width: "100%",
-        marginTop: 26
+        marginTop: 16
     },
     date: {
         marginRight: 10
@@ -231,7 +237,9 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        paddingVertical: 13
+        paddingVertical: isTablet ? 14 : 13,
+        borderBottomWidth: 1,
+        borderColor: CommonColor.basic_gray_light
     },
     wrapper: {
         paddingTop: 50

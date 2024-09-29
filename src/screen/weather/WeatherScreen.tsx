@@ -102,7 +102,9 @@ export const WeatherScreen = () => {
         return (
             <View style={[styles.cardContainer, { gap: 14 }]}>
                 <View style={CommonStyle.row}>
-                    <DateView date={date} month={month} fontStyle={[FontStyle.label1.bold, { color: CommonColor.main_black }]} />
+                    <View style={{ minWidth: 90 }}>
+                        <DateView date={date} month={month} fontStyle={[FontStyle.label1.bold, { color: CommonColor.main_black }]} />
+                    </View>
                     <Text style={[FontStyle.body1.bold, styles.text]}>의 상세 기상 정보</Text>
                 </View>
                 <View style={styles.detailCard}>{children}</View>
@@ -119,14 +121,14 @@ export const WeatherScreen = () => {
             <ScrollView>
                 <View style={[CommonStyle.title, CommonStyle.padding]}>
                     <Text style={isTablet ? FontStyle.title2.regular : FontStyle.body2.bold}>이번주 날씨</Text>
-                    <Text style={[isTablet ? FontStyle.label1.regular : FontStyle.label2.regular, styles.content]}>요일을 선택하면 더 자세한 기상 정보를 확인할 수 있습니다.</Text>
+                    <Text style={[isTablet ? FontStyle.label1.regular : FontStyle.label2.regular, styles.content]}>요일을 선택시 더 자세한 기상 정보를 확인할 수 있습니다.</Text>
                     {!weeklyWeather ? (
                         <View style={CommonStyle.flex}>
                             <Loader />
                         </View>
                     ) : (
                         <View style={isTablet && styles.tabletDetail}>
-                            <View style={styles.cardContainer}>
+                            <View style={[styles.cardContainer]}>
                                 {weeklyWeather.map(
                                     (
                                         {
@@ -237,6 +239,7 @@ const styles = StyleSheet.create({
     tabletDetail: {
         flexDirection: "row",
         alignItems: "flex-start",
+        paddingBottom: 22,
         justifyContent: "space-between",
         gap: 24
     },
@@ -253,7 +256,6 @@ const styles = StyleSheet.create({
     },
     line: {
         height: 16,
-        borderLeftWidth: 1,
         borderColor: CommonColor.basic_gray_medium,
         marginHorizontal: 8
     },
@@ -285,11 +287,11 @@ const styles = StyleSheet.create({
         marginBottom: 8
     },
     cardContainer: {
-        flex: 1,
-        marginTop: isTablet ? 22 : 24
+        flex: 1
     },
     content: {
         marginTop: 8,
+        marginBottom: isTablet ? 24 : 22,
         color: CommonColor.basic_gray_dark
     },
     header: {
