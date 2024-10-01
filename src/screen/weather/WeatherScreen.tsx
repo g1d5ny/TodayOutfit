@@ -128,7 +128,7 @@ export const WeatherScreen = () => {
                         </View>
                     ) : (
                         <View style={isTablet && styles.tabletDetail}>
-                            <View style={[styles.cardContainer]}>
+                            <View style={styles.cardContainer}>
                                 {weeklyWeather.map(
                                     (
                                         {
