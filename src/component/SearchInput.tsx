@@ -18,8 +18,10 @@ interface IProps extends TextInputProps {
     hasInput: boolean
     autoFocus?: boolean
     isOnboarding?: boolean
+    onFocus?: () => void
+    onBlur?: () => void
 }
-export const SearchInput = memo(({ hasInput, autoFocus, isOnboarding = false, ...props }: IProps) => {
+export const SearchInput = memo(({ hasInput, autoFocus, isOnboarding = false, onFocus, onBlur, ...props }: IProps) => {
     const [inputAddress, setInputAddress] = useRecoilState(inputAddressState)
     const [resultAddress, setResultAddress] = useRecoilState(resultAdressListState)
     const isNotFoundAddress = resultAddress[0] === "NOT_FOUND"
@@ -33,7 +35,7 @@ export const SearchInput = memo(({ hasInput, autoFocus, isOnboarding = false, ..
         if (isOnboarding) {
             navigationRef?.current?.navigate("SelectGenderScreen")
         }
-        setInputAddress("")
+        setInputAddress({ value: "", isEditing: false })
         setResultAddress([])
     }
 
@@ -66,12 +68,19 @@ export const SearchInput = memo(({ hasInput, autoFocus, isOnboarding = false, ..
                 <Search width={SEARCH_ICON} height={SEARCH_ICON} />
                 {hasInput ? (
                     <TextInput
-                        value={inputAddress}
-                        onChangeText={value => setInputAddress(value)}
+                        value={inputAddress.value}
+                        onChangeText={value => setInputAddress({ value, isEditing: true })}
                         placeholder='위치를 입력하세요'
                         placeholderTextColor={CommonColor.basic_gray_medium}
-                        onFocus={() => setIsOnFocus(true)}
-                        onBlur={() => setIsOnFocus(false)}
+                        onFocus={() => {
+                            setIsOnFocus(true)
+                            onFocus && onFocus()
+                        }}
+                        onBlur={() => {
+                            setIsOnFocus(false)
+                            setInputAddress({ value: inputAddress.value, isEditing: false })
+                            onBlur && onBlur()
+                        }}
                         onSubmitEditing={searchAddress}
                         autoFocus={autoFocus}
                         style={[isTablet ? FontStyle.body1.regular : FontStyle.body2.regular, styles.textView, { paddingVertical: 0 }]}
@@ -84,7 +93,7 @@ export const SearchInput = memo(({ hasInput, autoFocus, isOnboarding = false, ..
                         위치를 입력하세요
                     </Text>
                 )}
-                <TouchableOpacity onPress={onPressLocation}>
+                <TouchableOpacity disabled={isOnFocus} onPress={onPressLocation}>
                     {isOnFocus ? <FocusOffLocation width={LOCATION_ICON} height={LOCATION_ICON} /> : <FocusLocation width={LOCATION_ICON} height={LOCATION_ICON} />}
                 </TouchableOpacity>
             </View>

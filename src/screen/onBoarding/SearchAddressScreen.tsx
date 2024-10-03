@@ -30,7 +30,7 @@ export const SearchAddressScreen = () => {
     const [resultAddress, setResultAddress] = useRecoilState(resultAdressListState)
     const [inputAddress, setInputAddress] = useRecoilState(inputAddressState)
     const [selectedAddress, setSelectedAddress] = useState<MY_ADDRSS | null>(null)
-    const inputDisabled = inputAddress.length === 0
+    const inputDisabled = inputAddress.value.length === 0
     const completeButtonVisible = !isEmpty(resultAddress) && resultAddress[0] !== "NOT_FOUND"
     const { searchAddress } = useAddressHook()
     const { keyboardHeight } = useKeyboardHeight()
@@ -43,7 +43,8 @@ export const SearchAddressScreen = () => {
 
     useEffect(() => {
         return () => {
-            setInputAddress("")
+            setSelectedAddress(null)
+            setInputAddress({ value: "", isEditing: false })
             setResultAddress([])
         }
     }, [])

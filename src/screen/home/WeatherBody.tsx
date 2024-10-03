@@ -25,7 +25,7 @@ export default () => {
             <View style={styles.cardDesc}>
                 <Image source={gender === "W" ? require("asset/image/image_girl.png") : require("asset/image/image_t_shirt_shorts_boy.png")} style={styles.charaterImage} />
             </View>
-            <View>
+            <View style={styles.cardDesc}>
                 <Text style={[isTablet ? FontStyle.title2.semibold : FontStyle.body2.bold, styles.recomText, { color: is_day ? CommonColor.main_black : CommonColor.main_white }]}>
                     기온 맞춤 추천 의상
                 </Text>
@@ -45,7 +45,7 @@ export default () => {
                         </View>
                     </View>
                 </View>
-                {isTablet && (
+                {isTablet && top[1] && bottom[1] && (
                     <View style={[styles.recomContainer, styles.tabletClothes, { marginTop: 20 }]}>
                         <View style={styles.recom}>
                             <Image source={top[1].path} style={styles.clothes} resizeMode='contain' />
@@ -70,10 +70,10 @@ export default () => {
 
 const styles = StyleSheet.create({
     mobileClothes: {
-        gap: 9
+        gap: 8
     },
     tabletClothes: {
-        width: 373,
+        gap: 16,
         justifyContent: "space-between"
     },
     recomText: {
@@ -95,7 +95,8 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     cardDesc: {
-        flex: 1
+        flex: 1,
+        borderWidth: 2
     },
     gradient: {
         flex: 1,
@@ -144,16 +145,19 @@ const styles = StyleSheet.create({
         flexDirection: isTablet ? "row" : "column"
     },
     charaterImage: {
-        // width: isTablet ? 340 : 200,
+        flex: 1,
         aspectRatio: 0.42,
-        height: "90%"
+        height: "90%",
+        alignSelf: "center"
     },
     character: {
         flex: 1,
+        borderWidth: 2,
         justifyContent: "space-between",
         alignItems: "flex-start",
         flexDirection: "row",
         marginTop: isTablet ? 40 : 33,
-        gap: 28
+        gap: 10
+        // gap: 28
     }
 })

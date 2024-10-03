@@ -250,3 +250,8 @@ export interface WEATHER_ICON {
     onPress?: () => void
     style?: StyleProp<ViewStyle>
 }
+
+export interface INPUT_ADDRESS {
+    value: string
+    isEditing: boolean
+}

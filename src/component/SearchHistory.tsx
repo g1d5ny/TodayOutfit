@@ -5,6 +5,7 @@ import { inputAddressState, isTablet, myAddressListState, resultAdressListState 
 import { useRecoilValue, useSetRecoilState } from "recoil"
 import { useUserLocationHook } from "hook/useUserLocationHook"
 import { MY_ADDRSS } from "type"
+import { navigationRef } from "navigation/RootNavigation"
 
 export const SearchHistory = () => {
     const myAddressList = useRecoilValue(myAddressListState)
@@ -19,7 +20,8 @@ export const SearchHistory = () => {
                 onPress={() => {
                     addUserAddress(item)
                     setResultAddress([])
-                    setInputAddress("")
+                    setInputAddress({ value: "", isEditing: false })
+                    navigationRef.current?.navigate("LocationNavigator", { screen: "LocationScreen" })
                 }}
             >
                 <Text style={(isTablet ? FontStyle.label1.regular : FontStyle.label2.regular, { color: CommonColor.basic_gray_dark })}>{item.location}</Text>
@@ -28,38 +30,43 @@ export const SearchHistory = () => {
     }
 
     return (
-        <View style={[CommonStyle.row, myAddressList.length >= 2 && styles.flex]}>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                {myAddressList.length >= 2 && (
-                    <View style={styles.history}>
-                        <History />
+        <View style={[myAddressList.length >= 2 && styles.flex]}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={CommonStyle.padding}>
+                <View style={CommonStyle.row}>
+                    {myAddressList.length >= 2 && (
+                        <View style={styles.history}>
+                            <History />
+                        </View>
+                    )}
+                    <View style={[CommonStyle.row, styles.itemGap]}>
+                        {myAddressList.map((item, index) => {
+                            if (index === 0) {
+                                return
+                            }
+                            return <Component key={index} item={item} />
+                        })}
                     </View>
-                )}
-                {myAddressList.map((item, index) => {
-                    if (index === 0) {
-                        return
-                    }
-                    return <Component key={index} item={item} />
-                })}
+                </View>
             </ScrollView>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
+    itemGap: {
+        gap: 8
+    },
     item: {
         paddingHorizontal: 8,
         paddingVertical: 6,
         backgroundColor: CommonColor.basic_gray_light,
-        borderRadius: 4,
-        marginRight: 8
+        borderRadius: 4
     },
     history: {
-        marginRight: 14
+        marginRight: 10
     },
     flex: {
         width: "100%",
-        marginTop: 12,
-        marginBottom: 18
+        marginTop: isTablet ? 12 : 8
     }
 })

@@ -51,7 +51,7 @@ export const HomeScreen = () => {
                         <ImageBackground
                             source={currentWeather.is_day ? require("asset/image/image_day_background.png") : require("asset/image/image_night_background.png")}
                             resizeMode='cover'
-                            style={[CommonStyle.padding, { height: screenHeight - bottom - TAB_HEIGHT, paddingTop: top }]}
+                            style={[CommonStyle.padding, { height: screenHeight - bottom - TAB_HEIGHT, paddingTop: top + styles.vertical.paddingVertical }]}
                         >
                             <WeatherHeader />
                             <WeatherBody />
@@ -68,6 +68,9 @@ export const HomeScreen = () => {
 }
 
 const styles = StyleSheet.create({
+    vertical: {
+        paddingVertical: isTablet ? 54 : 26
+    },
     scroller: {
         width: 52,
         height: 52,

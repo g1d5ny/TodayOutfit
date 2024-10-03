@@ -2,7 +2,7 @@ import { atom, selector } from "recoil"
 import { isEmpty } from "lodash"
 import Storage from "@react-native-async-storage/async-storage"
 import DeviceInfo from "react-native-device-info"
-import { RESULT_ADDRESS, MY_ADDRSS, TOAST, CURRENT_WEATHER, HOUR_WEATHER, WEEKELY_WEATHER, WEATHER_DESC_KOR, RECOMMEND_COSTUME } from "../type"
+import { RESULT_ADDRESS, MY_ADDRSS, TOAST, CURRENT_WEATHER, HOUR_WEATHER, WEEKELY_WEATHER, WEATHER_DESC_KOR, RECOMMEND_COSTUME, INPUT_ADDRESS } from "../type"
 import { setRecoil } from "recoil-nexus"
 import ClearDay from "../asset/icon/icon_clear_day.svg"
 import ClearNight from "../asset/icon/icon_clear_night.svg"
@@ -37,16 +37,7 @@ import S from "../asset/icon/wind_direction/icon_wind_direction_5.svg"
 import E from "../asset/icon/wind_direction/icon_wind_direction_6.svg"
 import W from "../asset/icon/wind_direction/icon_wind_direction_7.svg"
 import N from "../asset/icon/wind_direction/icon_wind_direction_8.svg"
-import WindSpeed1 from "../asset/icon/wind_speed/icon_wind_speed_1.svg"
-import WindSpeed2 from "../asset/icon/wind_speed/icon_wind_speed_2.svg"
-import WindSpeed3 from "../asset/icon/wind_speed/icon_wind_speed_3.svg"
-import WindSpeed4 from "../asset/icon/wind_speed/icon_wind_speed_4.svg"
-import WindSpeed5 from "../asset/icon/wind_speed/icon_wind_speed_5.svg"
-import WindSpeed6 from "../asset/icon/wind_speed/icon_wind_speed_6.svg"
-import WindSpeed7 from "../asset/icon/wind_speed/icon_wind_speed_7.svg"
-import WindSpeed8 from "../asset/icon/wind_speed/icon_wind_speed_8.svg"
-import WindSpeed9 from "../asset/icon/wind_speed/icon_wind_speed_9.svg"
-import WindSpeed10 from "../asset/icon/wind_speed/icon_wind_speed_10.svg"
+
 import Precip0 from "../asset/icon/rain_percentage/icon_rain_percentage_0.svg"
 import Precip1 from "../asset/icon/rain_percentage/icon_rain_percentage_1.svg"
 import Precip2 from "../asset/icon/rain_percentage/icon_rain_percentage_2.svg"
@@ -78,9 +69,10 @@ import SnowFall1 from "../asset/icon/snow_fall/icon_snow_fall_1.svg"
 import SnowFall2 from "../asset/icon/snow_fall/icon_snow_fall_2.svg"
 import SnowFall3 from "../asset/icon/snow_fall/icon_snow_fall_3.svg"
 import SnowFall4 from "../asset/icon/snow_fall/icon_snow_fall_4.svg"
-import { Alert } from "react-native"
+import { Alert, Dimensions } from "react-native"
 
-export const isTablet = DeviceInfo.isTablet()
+const { width } = Dimensions.get("window")
+export const isTablet = DeviceInfo.isTablet() || width >= 600
 export const currentMonth = new Date().getMonth() + 1
 export const currentDate = new Date().getDate()
 
@@ -127,9 +119,9 @@ export const loggedInState = atom<boolean | null>({
     })
 })
 
-export const inputAddressState = atom<string>({
+export const inputAddressState = atom<INPUT_ADDRESS>({
     key: "inputAddressState",
-    default: ""
+    default: { value: "", isEditing: false }
 })
 
 export const resultAdressListState = atom<[RESULT_ADDRESS] | [] | ["NOT_FOUND"]>({

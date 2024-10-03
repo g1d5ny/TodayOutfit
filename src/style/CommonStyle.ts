@@ -222,7 +222,7 @@ export const ShadowStyle = {
         width: 0,
         height: 0
     },
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.15,
     shadowRadius: 6.68,
     elevation: 11
 }

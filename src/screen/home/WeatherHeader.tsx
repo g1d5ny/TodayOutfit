@@ -13,7 +13,7 @@ export default () => {
     const todayWeather = weeklyWeather[0]
 
     return (
-        <View>
+        <View style={styles.container}>
             <View style={styles.weatherDesc}>
                 <View style={{ maxWidth: "70%" }}>
                     <Text style={[isTablet ? FontStyle.body1.bold : FontStyle.label1.bold, { color: currentWeather.is_day ? CommonColor.basic_gray_dark : CommonColor.main_white }]}>
@@ -21,8 +21,9 @@ export default () => {
                     </Text>
                     <Text
                         style={[
+                            styles.desc,
                             isTablet ? FontStyle.display.forecast_tablet : FontStyle.title1.bold,
-                            { color: currentWeather.is_day ? CommonColor.main_black : CommonColor.main_white, marginBottom: 4 }
+                            { color: currentWeather.is_day ? CommonColor.main_black : CommonColor.main_white }
                         ]}
                     >
                         {currentWeather.desc}
@@ -75,7 +76,6 @@ const styles = StyleSheet.create({
         gap: 10
     },
     addrView: {
-        marginTop: isTablet ? 16 : 8,
         flexDirection: "row",
         alignItems: "center"
     },
@@ -83,5 +83,11 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between",
         flexDirection: "row"
+    },
+    desc: {
+        marginTop: isTablet ? 4 : 0
+    },
+    container: {
+        gap: isTablet ? 16 : 8
     }
 })

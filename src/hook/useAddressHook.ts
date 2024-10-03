@@ -6,10 +6,10 @@ import { coordinateToAddressApi, searchAddressApi } from "api/address"
 
 export const useAddressHook = () => {
     const setResultAddress = useSetRecoilState(resultAdressListState)
-    const query = useRecoilValue(inputAddressState)
+    const { value } = useRecoilValue(inputAddressState)
 
     const searchAddress = async () => {
-        return searchAddressApi(encodeURIComponent(query))
+        return searchAddressApi(encodeURIComponent(value))
             .then(({ errorType, meta: { total_count }, documents }) => {
                 if (!!errorType || total_count === 0) {
                     setResultAddress(["NOT_FOUND"])

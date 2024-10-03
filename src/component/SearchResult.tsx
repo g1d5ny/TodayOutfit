@@ -26,12 +26,9 @@ interface IProps {
     setSelectedAddress: Dispatch<SetStateAction<MY_ADDRSS | null>>
 }
 
-const resultHeight = isTablet ? 62 : 60
-const verticalMargin = 4
-const maxCount = isTablet ? 10 : 6
 export const SearchResult = memo(({ selectedAddress, setSelectedAddress }: IProps) => {
     const [isVisible, setIsVisible] = useState(false)
-    const inputAddress = useRecoilValue(inputAddressState)
+    const { value, isEditing } = useRecoilValue(inputAddressState)
     const resultAddress = useRecoilValue(resultAdressListState)
     const isNotFoundAddress = resultAddress[0] === "NOT_FOUND"
 
@@ -59,7 +56,7 @@ export const SearchResult = memo(({ selectedAddress, setSelectedAddress }: IProp
                     <Text style={[isTablet ? FontStyle.body2.regular : FontStyle.label1.regular, { color: CommonColor.etc_red, marginTop: 6 }]}>올바르지 않은 주소입니다.</Text>
                 ) : (
                     <View style={{ flex: 1, marginTop: 4 }}>
-                        <Text style={[FontStyle.label1.regular, { color: CommonColor.main_blue }]}>'{inputAddress}' 검색 결과</Text>
+                        {!isEditing && <Text style={[FontStyle.label1.regular, { color: CommonColor.main_blue }]}>'{value}' 검색 결과</Text>}
                         <View style={styles.scrollViewContainer}>
                             <ScrollView>
                                 {resultAddress.map(({ road_address, address }, index) => {
