@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { currentDate, currentMonth, currentWeatherInfoState, hourWeatherInfoState, isTablet } from "../../store"
-import { CommonColor, CommonStyle, FontStyle } from "../../style/CommonStyle"
+import { CommonColor, CommonStyle, FontStyle, screenWidth } from "../../style/CommonStyle"
 import { DateView, LocationView, WeatherDetail } from "../../component/MiniCard"
 import { useRecoilValue } from "recoil"
 import UV from "../../asset/icon/icon_uv_index.svg"
@@ -23,6 +23,67 @@ interface WeatherHourlyCard {
     isClicked: boolean
     index?: number
 }
+
+const weatherItem = (selectedHour: HOUR_WEATHER) => [
+    {
+        titleIcon: <UV />,
+        title: "UV 지수",
+        content: UVFormat(selectedHour.uv)?.content as string,
+        desc: UVFormat(selectedHour.uv)?.text as string,
+        contentIcon: UVFormat(selectedHour.uv)?.icon,
+        onPress: () => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 0 } })
+    },
+    {
+        titleIcon: <FeelsLike />,
+        title: "체감 온도",
+        content: FeelsLikeFormat(selectedHour.feelslike)?.content as string,
+        desc: FeelsLikeFormat(selectedHour.feelslike)?.text as string,
+        contentIcon: FeelsLikeFormat(selectedHour.feelslike)?.icon,
+        onPress: () => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 1 } })
+    },
+    {
+        titleIcon: <WindSpeed />,
+        title: "풍속",
+        content: WindSpeedFormat(selectedHour.windSpeed)?.content as string,
+        desc: WindSpeedFormat(selectedHour.windSpeed)?.text as string,
+        contentIcon: WindSpeedFormat(selectedHour.windSpeed)?.icon,
+        windSpeed: selectedHour.windSpeed,
+        onPress: () => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 2 } })
+    },
+    selectedHour.willItSnow
+        ? {
+              titleIcon: <SnowFall />,
+              title: "적설량",
+              content: SnowFallFormat(selectedHour.snowPercentage as number)?.content as string,
+              desc: SnowFallFormat(selectedHour.snowPercentage as number)?.text as string,
+              contentIcon: SnowFallFormat(selectedHour.snowPercentage as number)?.icon,
+              onPress: () => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 6 } })
+          }
+        : {
+              titleIcon: <RainPercentage />,
+              title: "강수 확률",
+              content: RainPercentageFormat(selectedHour.rainPercentage as number)?.content as string,
+              desc: RainPercentageFormat(selectedHour.rainPercentage as number)?.text as string,
+              contentIcon: RainPercentageFormat(selectedHour.rainPercentage as number)?.icon,
+              onPress: () => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 4 } })
+          },
+    {
+        titleIcon: <Humidity />,
+        title: "습도",
+        content: HumidityFormat(selectedHour.humidity)?.content as string,
+        desc: HumidityFormat(selectedHour.humidity)?.text as string,
+        contentIcon: HumidityFormat(selectedHour.humidity)?.icon,
+        onPress: () => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 5 } })
+    },
+    {
+        titleIcon: <WindDirection />,
+        title: "풍향",
+        content: WindDirectionFormat(selectedHour.windDir)?.content as string,
+        desc: WindDirectionFormat(selectedHour.windDir)?.text as string,
+        contentIcon: WindDirectionFormat(selectedHour.windDir)?.icon,
+        onPress: () => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 3 } })
+    }
+]
 export const WeatherFooter = ({ viewRef }: { viewRef: LegacyRef<View> }) => {
     const hourWeather = useRecoilValue(hourWeatherInfoState)
     const currentWeather = useRecoilValue(currentWeatherInfoState)
@@ -63,6 +124,26 @@ export const WeatherFooter = ({ viewRef }: { viewRef: LegacyRef<View> }) => {
             </TouchableOpacity>
         )
     }, [])
+
+    const WeatherDetailComponent = useCallback(() => {
+        const numRows = isTablet ? 4 : 2
+        const padding = CommonStyle.padding.paddingHorizontal * 2
+        const entireWidth = screenWidth - padding
+        const gapWidth = (isTablet ? 27 : 14) * (numRows - 1)
+        const rowWidth = entireWidth - gapWidth
+
+        if (!selectedHour) {
+            return
+        }
+        return weatherItem(selectedHour).map((item, index) => {
+            const { titleIcon, title, content, desc, contentIcon, windSpeed, onPress } = item
+            return (
+                <View key={index} style={{ width: rowWidth / numRows }}>
+                    <WeatherDetail titleIcon={titleIcon} title={title} content={content} desc={desc} windSpeed={windSpeed} contentIcon={contentIcon} onPress={onPress} />
+                </View>
+            )
+        })
+    }, [selectedHour])
 
     return (
         <View ref={viewRef} style={styles.wrapper}>
@@ -130,66 +211,7 @@ export const WeatherFooter = ({ viewRef }: { viewRef: LegacyRef<View> }) => {
                         </ScrollView>
                     </View>
                     <View style={[CommonStyle.padding, styles.foreDetailRow]}>
-                        <WeatherDetail
-                            titleIcon={<UV />}
-                            title={"UV 지수"}
-                            content={UVFormat(selectedHour.uv)?.content as string}
-                            desc={UVFormat(selectedHour.uv)?.text as string}
-                            contentIcon={UVFormat(selectedHour.uv)?.icon}
-                            onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 0 } })}
-                        />
-                        <WeatherDetail
-                            titleIcon={<WindSpeed />}
-                            title={"풍속"}
-                            content={WindSpeedFormat(selectedHour.windSpeed)?.content as string}
-                            desc={WindSpeedFormat(selectedHour.windSpeed)?.text as string}
-                            contentIcon={WindSpeedFormat(selectedHour.windSpeed)?.icon}
-                            windSpeed={selectedHour.windSpeed}
-                            onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 2 } })}
-                        />
-                        {selectedHour.willItSnow ? (
-                            <WeatherDetail
-                                titleIcon={<SnowFall />}
-                                title={"적설량"}
-                                content={SnowFallFormat(selectedHour.snowPercentage as number)?.content as string}
-                                desc={SnowFallFormat(selectedHour.snowPercentage as number)?.text as string}
-                                contentIcon={SnowFallFormat(selectedHour.snowPercentage as number)?.icon}
-                                onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 6 } })}
-                            />
-                        ) : (
-                            <WeatherDetail
-                                titleIcon={<RainPercentage />}
-                                title={"강수 확률"}
-                                content={RainPercentageFormat(selectedHour.rainPercentage as number)?.content as string}
-                                desc={RainPercentageFormat(selectedHour.rainPercentage as number)?.text as string}
-                                contentIcon={RainPercentageFormat(selectedHour.rainPercentage as number)?.icon}
-                                onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 4 } })}
-                            />
-                        )}
-                        <WeatherDetail
-                            titleIcon={<FeelsLike />}
-                            title={"체감 온도"}
-                            content={FeelsLikeFormat(selectedHour.feelslike)?.content as string}
-                            desc={FeelsLikeFormat(selectedHour.feelslike)?.text as string}
-                            contentIcon={FeelsLikeFormat(selectedHour.feelslike)?.icon}
-                            onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 1 } })}
-                        />
-                        <WeatherDetail
-                            titleIcon={<WindDirection />}
-                            title={"풍향"}
-                            content={WindDirectionFormat(selectedHour.windDir)?.content as string}
-                            desc={WindDirectionFormat(selectedHour.windDir)?.text as string}
-                            contentIcon={WindDirectionFormat(selectedHour.windDir)?.icon}
-                            onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 3 } })}
-                        />
-                        <WeatherDetail
-                            titleIcon={<Humidity />}
-                            title={"습도"}
-                            content={HumidityFormat(selectedHour.humidity)?.content as string}
-                            desc={HumidityFormat(selectedHour.humidity)?.text as string}
-                            contentIcon={HumidityFormat(selectedHour.humidity)?.icon}
-                            onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 5 } })}
-                        />
+                        <WeatherDetailComponent />
                     </View>
                 </>
             )}
@@ -206,11 +228,9 @@ const styles = StyleSheet.create({
         marginBottom: 32,
         flexDirection: "row",
         alignItems: "flex-start",
-        // justifyContent: "space-between",
         flexWrap: "wrap",
         gap: isTablet ? 27 : 14,
-        rowGap: isTablet ? 16 : 14,
-        borderWidth: 2
+        rowGap: isTablet ? 16 : 14
     },
     hourText: {
         color: CommonColor.basic_gray_dark

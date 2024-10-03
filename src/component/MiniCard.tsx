@@ -6,8 +6,7 @@ import CalendarMobile from "../asset/icon/icon_calendar_mobile.svg"
 import CalendarTablet from "../asset/icon/icon_calendar_tablet.svg"
 import { isTablet, myAddressListState } from "../store"
 import { useRecoilValue } from "recoil"
-import { SvgProps } from "react-native-svg"
-import { FC, ReactNode } from "react"
+import { WEATHER_ICON } from "type"
 
 export const LocationView = () => {
     const myAddressList = useRecoilValue(myAddressListState)
@@ -33,18 +32,9 @@ export const DateView = ({ month, date, fontStyle }: { month?: number; date?: nu
     )
 }
 
-interface WeatherIcon {
-    titleIcon?: ReactNode
-    title?: string
-    content?: string
-    desc?: string
-    contentIcon?: ReactNode
-    windSpeed?: number
-    onPress?: () => void
-}
-export const WeatherDetail = ({ titleIcon, title, content, desc, contentIcon, windSpeed, onPress }: WeatherIcon): React.ReactElement => {
+export const WeatherDetail = ({ titleIcon, title, content, desc, contentIcon, windSpeed, onPress, style }: WEATHER_ICON): React.ReactElement => {
     return (
-        <TouchableOpacity style={styles.weatherDetail} onPress={onPress}>
+        <TouchableOpacity style={[styles.weatherDetail, style]} onPress={onPress}>
             <View style={styles.gap}>
                 <View style={styles.row}>
                     {titleIcon}
@@ -79,14 +69,12 @@ const styles = StyleSheet.create({
         gap: 6
     },
     weatherDetail: {
-        width: 172,
         borderRadius: 10,
         backgroundColor: CommonColor.basic_gray_light,
         paddingHorizontal: 12,
         paddingVertical: 14
     },
     container: {
-        // minWidth: 90,
         gap: 2,
         paddingHorizontal: 8,
         paddingVertical: 6,

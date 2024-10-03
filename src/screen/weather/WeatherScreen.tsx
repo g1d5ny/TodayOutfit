@@ -31,42 +31,51 @@ interface Open extends WeatherDetail {
 const WeatherDetailComponent = ({ uv, maxWindSpeed, willItSnow, snowPercentage, rainPercentage }: WeatherDetail) => {
     return (
         <>
-            <WeatherDetail
-                titleIcon={<UV />}
-                title={"UV 지수"}
-                content={UVFormat(uv)?.content as string}
-                desc={UVFormat(uv)?.text as string}
-                contentIcon={UVFormat(uv)?.icon}
-                onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 0 } })}
-            />
-            <WeatherDetail
-                titleIcon={<WindSpeed />}
-                title={"풍속"}
-                content={WindSpeedFormat(maxWindSpeed)?.content as string}
-                desc={WindSpeedFormat(maxWindSpeed)?.text as string}
-                contentIcon={WindSpeedFormat(maxWindSpeed)?.icon}
-                windSpeed={maxWindSpeed}
-                onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 2 } })}
-            />
-            {willItSnow ? (
+            <View style={styles.detailCard}>
                 <WeatherDetail
-                    titleIcon={<RainPercentage />}
-                    title={"적설량"}
-                    content={SnowFallFormat(snowPercentage)?.content as string}
-                    desc={SnowFallFormat(snowPercentage)?.text as string}
-                    contentIcon={SnowFallFormat(snowPercentage)?.icon}
-                    onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 6 } })}
+                    titleIcon={<UV />}
+                    title={"UV 지수"}
+                    content={UVFormat(uv)?.content as string}
+                    desc={UVFormat(uv)?.text as string}
+                    contentIcon={UVFormat(uv)?.icon}
+                    onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 0 } })}
+                    style={styles.cardContainer}
                 />
-            ) : (
                 <WeatherDetail
-                    titleIcon={<RainPercentage />}
-                    title={"강수 확률"}
-                    content={RainPercentageFormat(rainPercentage)?.content as string}
-                    desc={RainPercentageFormat(rainPercentage)?.text as string}
-                    contentIcon={RainPercentageFormat(rainPercentage)?.icon}
-                    onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 4 } })}
+                    titleIcon={<WindSpeed />}
+                    title={"풍속"}
+                    content={WindSpeedFormat(maxWindSpeed)?.content as string}
+                    desc={WindSpeedFormat(maxWindSpeed)?.text as string}
+                    contentIcon={WindSpeedFormat(maxWindSpeed)?.icon}
+                    windSpeed={maxWindSpeed}
+                    onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 2 } })}
+                    style={styles.cardContainer}
                 />
-            )}
+            </View>
+            <View style={styles.detailCard}>
+                {willItSnow ? (
+                    <WeatherDetail
+                        titleIcon={<RainPercentage />}
+                        title={"적설량"}
+                        content={SnowFallFormat(snowPercentage)?.content as string}
+                        desc={SnowFallFormat(snowPercentage)?.text as string}
+                        contentIcon={SnowFallFormat(snowPercentage)?.icon}
+                        onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 6 } })}
+                        style={styles.cardContainer}
+                    />
+                ) : (
+                    <WeatherDetail
+                        titleIcon={<RainPercentage />}
+                        title={"강수 확률"}
+                        content={RainPercentageFormat(rainPercentage)?.content as string}
+                        desc={RainPercentageFormat(rainPercentage)?.text as string}
+                        contentIcon={RainPercentageFormat(rainPercentage)?.icon}
+                        onPress={() => navigationRef.current?.navigate("WeatherDetailNavigator", { screen: "WeatherDetailScreen", params: { index: 4 } })}
+                        style={styles.cardContainer}
+                    />
+                )}
+                <View style={styles.cardContainer} />
+            </View>
         </>
     )
 }
@@ -89,7 +98,7 @@ export const WeatherScreen = () => {
         if (isTablet) {
             return
         }
-        return <View style={styles.detailCard}>{children}</View>
+        return children
     }
 
     const TabletView = ({ children }: { children: JSX.Element }) => {
@@ -107,7 +116,7 @@ export const WeatherScreen = () => {
                     </View>
                     <Text style={[FontStyle.body1.bold, styles.text]}>의 상세 기상 정보</Text>
                 </View>
-                <View style={styles.detailCard}>{children}</View>
+                {children}
             </View>
         )
     }
@@ -249,7 +258,7 @@ const styles = StyleSheet.create({
     },
     detailCard: {
         gap: isTablet ? 27 : 14,
-        rowGap: isTablet ? 16 : 14,
+        marginBottom: isTablet ? 16 : 14,
         flexWrap: "wrap",
         flexDirection: "row",
         alignItems: "flex-start"

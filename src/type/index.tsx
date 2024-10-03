@@ -1,4 +1,5 @@
-import { ImageSourcePropType } from "react-native"
+import { ReactNode } from "react"
+import { ImageSourcePropType, StyleProp, ViewStyle } from "react-native"
 import { Weather } from "store"
 
 export interface RESULT_ADDRESS {
@@ -237,4 +238,15 @@ export interface Choice {
     index: number
     logprobs: null | any
     message: Message
+}
+
+export interface WEATHER_ICON {
+    titleIcon?: ReactNode
+    title?: string
+    content?: string
+    desc?: string
+    contentIcon?: ReactNode
+    windSpeed?: number
+    onPress?: () => void
+    style?: StyleProp<ViewStyle>
 }
