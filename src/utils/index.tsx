@@ -49,16 +49,16 @@ export const RainPercentageFormat = (precip: number) => {
 }
 
 export const WindSpeedFormat = (windspeed: number) => {
-    if (windspeed < 1) return WindSpeed()[0]
-    if (windspeed < 5) return WindSpeed()[1]
-    if (windspeed < 11) return WindSpeed()[2]
-    if (windspeed < 19) return WindSpeed()[3]
-    if (windspeed < 28) return WindSpeed()[4]
-    if (windspeed < 38) return WindSpeed()[5]
-    if (windspeed < 49) return WindSpeed()[6]
-    if (windspeed < 61) return WindSpeed()[7]
-    if (windspeed < 74) return WindSpeed()[8]
-    if (windspeed >= 75) return WindSpeed()[9]
+    if (windspeed < 1) return WindSpeed(63)[0]
+    if (windspeed < 5) return WindSpeed(63)[1]
+    if (windspeed < 11) return WindSpeed(63)[2]
+    if (windspeed < 19) return WindSpeed(63)[3]
+    if (windspeed < 28) return WindSpeed(63)[4]
+    if (windspeed < 38) return WindSpeed(63)[5]
+    if (windspeed < 49) return WindSpeed(63)[6]
+    if (windspeed < 61) return WindSpeed(63)[7]
+    if (windspeed < 74) return WindSpeed(63)[8]
+    if (windspeed >= 75) return WindSpeed(63)[9]
 }
 
 export const UVFormat = (uvIndex: number) => {

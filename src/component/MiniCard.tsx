@@ -45,25 +45,18 @@ export const WeatherDetail = ({ titleIcon, title, content, desc, contentIcon, wi
                 <Text style={FontStyle.title1.regular}>{desc}</Text>
                 {windSpeed && <Text style={[FontStyle.label2.regular, { color: CommonColor.basic_gray_dark, marginTop: 2 }]}>{windSpeed} m/s</Text>}
             </View>
-            <View style={styles.contentIcon}>
-                <View style={styles.detailIcon}>{contentIcon}</View>
-            </View>
+            <View style={styles.detailIcon}>{contentIcon}</View>
         </TouchableOpacity>
     )
 }
 
 const styles = StyleSheet.create({
-    contentIcon: {
-        marginTop: -8,
-        borderWidth: 2,
-        alignSelf: "flex-end"
-    },
     gap: {
         gap: 8
     },
     detailIcon: {
-        width: 63,
-        height: 63
+        marginTop: -8,
+        alignSelf: "flex-end"
     },
     row: {
         flexDirection: "row",
