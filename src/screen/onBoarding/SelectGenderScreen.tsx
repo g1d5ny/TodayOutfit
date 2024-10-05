@@ -34,7 +34,7 @@ export const SelectGenderScreen = () => {
                 title={OnBoardingText.characterTitle}
                 subTitle={OnBoardingText.characterSubTitle}
                 children={
-                    <View style={[CommonStyle.flex, CommonStyle.center, CommonStyle.spread]}>
+                    <View style={[CommonStyle.flex, CommonStyle.center, CommonStyle.spread, styles.flex]}>
                         <View style={styles.genderContainer}>
                             <View style={styles.genderView}>
                                 <TouchableOpacity onPress={() => selectGender("M")} style={styles.checkButton}>
@@ -114,17 +114,22 @@ const styles = StyleSheet.create({
         borderRadius: 15
     },
     gender: {
+        // width: isTablet ? 222 : 172,
+        height: isTablet ? 222 : 172,
         borderRadius: isTablet ? 26 : 20,
         backgroundColor: CommonColor.basic_gray_light,
         alignItems: "center",
         justifyContent: "center",
-        paddingHorizontal: 22,
-        paddingVertical: 16,
-        borderWidth: 2
+        paddingHorizontal: isTablet ? 18 : 22,
+        paddingVertical: isTablet ? 20 : 16
     },
     genderContainer: {
+        width: "100%",
+        paddingHorizontal: isTablet ? 52 : 0,
+        paddingVertical: 20,
         flexDirection: "row",
         alignItems: "center",
+        justifyContent: "center",
         gap: isTablet ? 24 : 14
     },
     container: {
@@ -133,5 +138,9 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         backgroundColor: "#fff",
         paddingBottom: isTablet ? 60 : 28
+    },
+    flex: {
+        width: "100%",
+        paddingHorizontal: isTablet ? 52 : 0
     }
 })

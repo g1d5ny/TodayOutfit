@@ -1,4 +1,4 @@
-import { Header, MoreMenu } from "component/CommonComponent"
+import { AppBar, MoreMenu } from "component/CommonComponent"
 import { StyleSheet, View } from "react-native"
 import { CommonStyle } from "style/CommonStyle"
 import Push from "asset/icon/icon_menu_push.svg"
@@ -10,7 +10,7 @@ import { navigationRef } from "navigation/RootNavigation"
 export const MoreScreen = () => {
     return (
         <View style={CommonStyle.flex}>
-            <Header text='더보기' hasBack={false} />
+            <AppBar text='더보기' hasBack={false} />
             <View style={[CommonStyle.padding, styles.container]}>
                 {/* <MoreMenu icon={<Push />} text='알림 수신' onPress={() => navigationRef.current?.navigate("PushScreen")} /> */}
                 <MoreMenu

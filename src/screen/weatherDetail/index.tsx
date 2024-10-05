@@ -2,7 +2,7 @@ import { useRef, useState } from "react"
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { isTablet } from "../../store"
 import PagerView from "react-native-pager-view"
-import { Header, WeatherDetailFooter } from "../../component/CommonComponent"
+import { AppBar, WeatherDetailFooter } from "../../component/CommonComponent"
 import { CommonColor, CommonStyle, FontStyle, screenHeight, screenWidth } from "../../style/CommonStyle"
 import { UVScreen } from "./UVScreen"
 import { FeelsLikeScreen } from "./FeelsLikeScreen"
@@ -82,7 +82,7 @@ export const WeatherDetailScreen = ({ route }: { route: any }) => {
 
     return (
         <View style={CommonStyle.flex}>
-            <Header text='기상정보에 관하여' hasBack />
+            <AppBar text='기상정보에 관하여' hasBack />
             <WeatherHeader />
             <PagerView ref={ref} initialPage={route.params.index} useNext={false} style={CommonStyle.flex}>
                 {categoryList.map(({ Component, footer }, index) => {

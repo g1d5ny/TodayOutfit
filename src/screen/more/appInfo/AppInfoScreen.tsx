@@ -1,4 +1,4 @@
-import { AppInfoMenu, Header } from "component/CommonComponent"
+import { AppBar, AppInfoMenu } from "component/CommonComponent"
 import { navigationRef } from "navigation/RootNavigation"
 import { StyleSheet, Text, View } from "react-native"
 import DeviceInfo from "react-native-device-info"
@@ -8,7 +8,7 @@ import { CommonColor, CommonStyle } from "style/CommonStyle"
 export const AppInfoScreen = () => {
     return (
         <View style={CommonStyle.flex}>
-            <Header text={"앱 정보"} hasBack />
+            <AppBar text={"앱 정보"} hasBack />
             <View style={[styles.container, CommonStyle.padding]}>
                 <AppInfoMenu text={"오픈소스 라이선스"} onPress={() => navigationRef.current?.navigate("OpenSourceLicenseScreen")} />
                 <AppInfoMenu text={"개발자 연락처"} customText='todaysoutfit.developer@gmail.com' />

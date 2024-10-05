@@ -1,11 +1,11 @@
 import { Alert } from "react-native"
 import { TextAlarm } from "../text/AlarmText"
 import { useRecoilValue, useSetRecoilState } from "recoil"
-import { inputAddressState, resultAdressListState } from "../store"
+import { inputAddressState, resultAddressListState } from "../store"
 import { coordinateToAddressApi, searchAddressApi } from "api/address"
 
 export const useAddressHook = () => {
-    const setResultAddress = useSetRecoilState(resultAdressListState)
+    const setResultAddress = useSetRecoilState(resultAddressListState)
     const { value } = useRecoilValue(inputAddressState)
 
     const searchAddress = async () => {

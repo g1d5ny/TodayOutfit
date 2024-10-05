@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { currentDate, currentMonth, currentWeatherInfoState, hourWeatherInfoState, isTablet } from "../../store"
-import { CommonColor, CommonStyle, FontStyle, screenWidth } from "../../style/CommonStyle"
+import { CommonColor, CommonStyle, FontStyle, screenHeight, screenWidth, TAB_HEIGHT } from "../../style/CommonStyle"
 import { DateView, LocationView, WeatherDetail } from "../../component/MiniCard"
 import { useRecoilValue } from "recoil"
 import UV from "../../asset/icon/icon_uv_index.svg"
@@ -14,6 +14,7 @@ import { LegacyRef, useCallback, useEffect, useState } from "react"
 import { FeelsLikeFormat, HumidityFormat, RainPercentageFormat, SnowFallFormat, UVFormat, WindDirectionFormat, WindSpeedFormat } from "../../utils"
 import { navigationRef } from "navigation/RootNavigation"
 import { HOUR_WEATHER } from "type"
+import { AppBar } from "component/CommonComponent"
 
 interface WeatherHourlyCard {
     hour?: string | number
@@ -147,22 +148,10 @@ export const WeatherFooter = ({ viewRef }: { viewRef: LegacyRef<View> }) => {
 
     return (
         <View ref={viewRef} style={styles.wrapper}>
-            <View style={[CommonStyle.padding, styles.title]}>
-                <Text style={[isTablet ? FontStyle.title1.bold : FontStyle.title2.semibold2]}>날씨 정보</Text>
-                <View style={CommonStyle.row}>
-                    <View style={styles.date}>
-                        <DateView
-                            date={currentDate}
-                            month={currentMonth}
-                            fontStyle={[isTablet ? FontStyle.label1.regular : FontStyle.label2.regular, { color: CommonColor.basic_gray_dark }]}
-                        />
-                    </View>
-                    <LocationView />
-                </View>
-            </View>
+            <AppBar text='날씨 정보' hasBack={false} custom={{ view: <LocationView /> }} />
             {hourWeather && selectedHour && (
                 <>
-                    <View style={{ marginTop: isTablet ? 40 : 32 }}>
+                    <View style={{ marginTop: 32 }}>
                         <Text style={[CommonStyle.padding, isTablet ? FontStyle.title2.semibold2 : FontStyle.body2.bold]}>시간별 일기 예보</Text>
                         <Text style={[CommonStyle.padding, isTablet ? FontStyle.label1.regular : FontStyle.label2.regular, styles.detail, { color: CommonColor.basic_gray_dark }]}>
                             시간을 선택시 상세 기상 정보를 확인할 수 있습니다.
@@ -225,7 +214,7 @@ const styles = StyleSheet.create({
     },
     foreDetailRow: {
         marginVertical: 24,
-        marginBottom: 32,
+        marginBottom: 133,
         flexDirection: "row",
         alignItems: "flex-start",
         flexWrap: "wrap",
@@ -262,6 +251,7 @@ const styles = StyleSheet.create({
         borderColor: CommonColor.basic_gray_light
     },
     wrapper: {
-        paddingTop: 50
+        height: isTablet ? screenHeight - TAB_HEIGHT : undefined,
+        paddingTop: 44
     }
 })

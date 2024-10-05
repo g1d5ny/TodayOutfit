@@ -22,14 +22,18 @@ export default () => {
 
     return (
         <View style={styles.character}>
-            <View style={styles.cardDesc}>
-                <Image source={gender === "W" ? require("asset/image/image_girl.png") : require("asset/image/image_t_shirt_shorts_boy.png")} style={styles.charaterImage} />
+            <View style={[styles.cardDesc, CommonStyle.center]}>
+                <Image
+                    source={gender === "W" ? require("asset/image/image_girl.png") : require("asset/image/image_t_shirt_shorts_boy.png")}
+                    resizeMode={"contain"}
+                    style={styles.charaterImage}
+                />
             </View>
             <View style={styles.cardDesc}>
                 <Text style={[isTablet ? FontStyle.title2.semibold : FontStyle.body2.bold, styles.recomText, { color: is_day ? CommonColor.main_black : CommonColor.main_white }]}>
                     기온 맞춤 추천 의상
                 </Text>
-                <View style={[styles.recomContainer, isTablet ? styles.tabletClothes : styles.mobileClothes]}>
+                <View style={[styles.recomContainer, isTablet && styles.tabletClothes]}>
                     <View style={styles.recom}>
                         <Image source={top[0].path} style={styles.clothes} resizeMode='contain' />
                         <View style={styles.clothesDesc}>
@@ -69,12 +73,10 @@ export default () => {
 }
 
 const styles = StyleSheet.create({
-    mobileClothes: {
-        gap: 8
-    },
     tabletClothes: {
         gap: 16,
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        flexDirection: "row"
     },
     recomText: {
         marginBottom: isTablet ? 8 : 9
@@ -95,8 +97,7 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     cardDesc: {
-        flex: 1,
-        borderWidth: 2
+        flex: 1
     },
     gradient: {
         flex: 1,
@@ -128,36 +129,38 @@ const styles = StyleSheet.create({
         marginTop: 26
     },
     clothesDesc: {
-        paddingVertical: isTablet ? 10 : 9,
-        paddingHorizontal: isTablet ? 10 : 9,
-        gap: isTablet ? 8 : 4,
+        paddingVertical: 9,
+        paddingHorizontal: 9,
+        gap: 4,
         backgroundColor: CommonColor.main_white,
         borderBottomLeftRadius: 10,
-        borderBottomRightRadius: 10
+        borderBottomRightRadius: 10,
+        borderTopWidth: 1,
+        borderColor: CommonColor.basic_gray_light
     },
     recom: {
-        width: isTablet ? 170 : 146,
+        flex: isTablet ? 1 : undefined,
+        width: isTablet ? undefined : "100%",
         height: isTablet ? 230 : 186,
         borderRadius: 10,
-        backgroundColor: "rgba(255, 255, 255, 0.4)"
+        backgroundColor: "rgba(255, 255, 255, 0.6)",
+        borderWidth: 1,
+        borderColor: CommonColor.basic_gray_light
     },
     recomContainer: {
-        flexDirection: isTablet ? "row" : "column"
+        gap: 8
     },
     charaterImage: {
-        flex: 1,
-        aspectRatio: 0.42,
-        height: "90%",
+        width: "100%",
+        height: "100%",
         alignSelf: "center"
     },
     character: {
         flex: 1,
-        borderWidth: 2,
         justifyContent: "space-between",
         alignItems: "flex-start",
         flexDirection: "row",
         marginTop: isTablet ? 40 : 33,
-        gap: 10
-        // gap: 28
+        gap: isTablet ? 20 : 10
     }
 })

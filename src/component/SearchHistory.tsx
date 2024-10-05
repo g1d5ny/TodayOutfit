@@ -1,7 +1,7 @@
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import History from "asset/icon/icon_history_record.svg"
 import { CommonColor, CommonStyle, FontStyle } from "style/CommonStyle"
-import { inputAddressState, isTablet, myAddressListState, resultAdressListState } from "store"
+import { inputAddressState, isTablet, myAddressListState, resultAddressListState } from "store"
 import { useRecoilValue, useSetRecoilState } from "recoil"
 import { useUserLocationHook } from "hook/useUserLocationHook"
 import { MY_ADDRSS } from "type"
@@ -9,7 +9,7 @@ import { navigationRef } from "navigation/RootNavigation"
 
 export const SearchHistory = () => {
     const myAddressList = useRecoilValue(myAddressListState)
-    const setResultAddress = useSetRecoilState(resultAdressListState)
+    const setResultAddress = useSetRecoilState(resultAddressListState)
     const setInputAddress = useSetRecoilState(inputAddressState)
     const { addUserAddress } = useUserLocationHook()
 

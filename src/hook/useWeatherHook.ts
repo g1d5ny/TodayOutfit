@@ -164,13 +164,15 @@ export const useWeatherHook = () => {
                 costume: { top, topDesc, bottom, bottomDesc },
                 desc
             } = parsedData
+            // console.log("top, topDesc, bottom, bottomDesc: ", isTablet, top, topDesc, bottom, bottomDesc)
 
-            parsedData.costume.top[0].path = CostumePath[top[0]?.en ?? "t_shirt"]
-            parsedData.costume.bottom[0].path = CostumePath[bottom[0]?.en ?? "jeans"]
+            parsedData.costume.top[0].path = CostumePath[top[0]?.en ?? "t_shirt"] ?? "t_shirt"
+            parsedData.costume.bottom[0].path = CostumePath[bottom[0]?.en ?? "jeans"] ?? "jeans"
 
-            if (isTablet) {
-                parsedData.costume.top[1].path = CostumePath[top[1]?.en ?? "t_sirt"]
-                parsedData.costume.bottom[1].path = CostumePath[bottom[1]?.en ?? "jeans"]
+            if (isTablet && parsedData.costume.top[1] && parsedData.costume.bottom[1]) {
+                // console.log("parsedData.costume.bottom[1].path: ", parsedData.costume.bottom[1].path)
+                parsedData.costume.top[1].path = CostumePath[top[1]?.en ?? "t_sirt"] ?? "t_sirt"
+                parsedData.costume.bottom[1].path = CostumePath[bottom[1]?.en ?? "jeans"] ?? "jeans"
             }
 
             setCurrentWeatherInfo({

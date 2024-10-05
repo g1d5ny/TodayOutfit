@@ -10,16 +10,34 @@ import Hyperlink from "react-native-hyperlink"
 interface Header {
     text: string
     hasBack: boolean
+    custom?: {
+        view?: ReactElement
+        text?: string
+        onPress?: () => void
+    }
 }
-export const Header = ({ text, hasBack }: Header) => {
+export const AppBar = ({ text, hasBack, custom }: Header) => {
     return (
         <View style={[CommonStyle.padding, styles.header]}>
-            {hasBack && (
-                <TouchableOpacity onPress={() => navigationRef?.current?.goBack()}>
-                    <Back />
-                </TouchableOpacity>
+            <View style={CommonStyle.row}>
+                {hasBack && (
+                    <TouchableOpacity style={styles.back} onPress={() => navigationRef?.current?.goBack()}>
+                        <Back />
+                    </TouchableOpacity>
+                )}
+                <Text style={[isTablet ? FontStyle.title1.bold : FontStyle.title2.semibold2]}>{text}</Text>
+            </View>
+            {custom ? (
+                custom.view ? (
+                    custom.view
+                ) : (
+                    <TouchableOpacity onPress={custom?.onPress}>
+                        <Text style={[isTablet ? FontStyle.body1.regular : FontStyle.body2.regular, { color: CommonColor.main_blue }]}>{custom?.text}</Text>
+                    </TouchableOpacity>
+                )
+            ) : (
+                <></>
             )}
-            <Text style={[isTablet ? FontStyle.title1.bold : FontStyle.title2.semibold2]}>{text}</Text>
         </View>
     )
 }
@@ -105,13 +123,16 @@ const styles = StyleSheet.create({
         paddingTop: 24,
         alignSelf: "center"
     },
+    back: {
+        marginRight: 20
+    },
     header: {
         width: "100%",
         paddingVertical: isTablet ? 14 : 15,
         flexDirection: "row",
-        alignItems: "center",
+        // alignItems: "center",
+        justifyContent: "space-between",
         borderBottomWidth: 1,
-        borderColor: CommonColor.basic_gray_light,
-        gap: 20
+        borderColor: CommonColor.basic_gray_light
     }
 })

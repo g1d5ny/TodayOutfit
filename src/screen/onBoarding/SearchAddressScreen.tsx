@@ -1,6 +1,6 @@
 import { Keyboard, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native"
 import { CommonColor, CommonStyle, FontStyle, screenWidth } from "../../style/CommonStyle"
-import { inputAddressState, isTablet, resultAdressListState } from "../../store"
+import { inputAddressState, isTablet, resultAddressListState } from "../../store"
 import { useRecoilState } from "recoil"
 import { SearchInput } from "../../component/SearchInput"
 import { isEmpty } from "lodash"
@@ -27,7 +27,7 @@ const selectedAddressInitialValue = {
 }
 
 export const SearchAddressScreen = () => {
-    const [resultAddress, setResultAddress] = useRecoilState(resultAdressListState)
+    const [resultAddress, setResultAddress] = useRecoilState(resultAddressListState)
     const [inputAddress, setInputAddress] = useRecoilState(inputAddressState)
     const [selectedAddress, setSelectedAddress] = useState<MY_ADDRSS | null>(null)
     const inputDisabled = inputAddress.value.length === 0

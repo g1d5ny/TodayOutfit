@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     },
     card: {
         width: isTablet ? 216 : 157,
-        height: isTablet ? 109 : 98,
+        height: 98,
         borderRadius: 10,
         alignItems: "center",
         justifyContent: "center",

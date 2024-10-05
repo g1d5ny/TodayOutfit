@@ -14,6 +14,7 @@ import WindSpeed from "asset/icon/icon_wind_speed.svg"
 import RainPercentage from "asset/icon/icon_rain_percentage.svg"
 import EmptyCalendar from "asset/icon/icon_empty_calendar.svg"
 import Loader from "component/lottie/Loader"
+import { AppBar } from "component/CommonComponent"
 
 interface WeatherDetail {
     uv: number
@@ -123,10 +124,7 @@ export const WeatherScreen = () => {
 
     return (
         <View style={CommonStyle.flex}>
-            <View style={styles.header}>
-                <Text style={[isTablet ? FontStyle.title1.bold : FontStyle.title2.semibold2]}>날씨 정보</Text>
-                <LocationView />
-            </View>
+            <AppBar text='날씨 정보' hasBack={false} custom={{ view: <LocationView /> }} />
             <ScrollView>
                 <View style={[CommonStyle.title, CommonStyle.padding]}>
                     <Text style={isTablet ? FontStyle.title2.regular : FontStyle.body2.bold}>이번주 날씨</Text>
@@ -302,15 +300,5 @@ const styles = StyleSheet.create({
         marginTop: 8,
         marginBottom: isTablet ? 24 : 22,
         color: CommonColor.basic_gray_dark
-    },
-    header: {
-        width: "100%",
-        paddingHorizontal: isTablet ? 32 : 16,
-        paddingVertical: isTablet ? 14 : 13,
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        borderBottomWidth: 1,
-        borderColor: CommonColor.basic_gray_light
     }
 })

@@ -1,13 +1,12 @@
-import { Header, OpenSource } from "component/CommonComponent"
+import { AppBar, OpenSource } from "component/CommonComponent"
 import { Linking, ScrollView, StyleSheet, Text, View } from "react-native"
-import Hyperlink from "react-native-hyperlink"
 import { isTablet } from "store"
 import { CommonColor, CommonStyle, screenWidth } from "style/CommonStyle"
 
 export const OpenSourceLicenseScreen = () => {
     return (
         <View style={CommonStyle.flex}>
-            <Header text={"오픈 소스 라이선스"} hasBack />
+            <AppBar text={"오픈 소스 라이선스"} hasBack />
             <ScrollView>
                 <View style={CommonStyle.padding}>
                     {/* <Text style={[FontStyle.label1.reading_regular, styles.padding, { color: CommonColor.basic_gray_dark }]}>

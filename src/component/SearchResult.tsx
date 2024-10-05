@@ -1,16 +1,13 @@
 import { Dispatch, SetStateAction, memo, useState } from "react"
 import { CommonColor, FontStyle } from "../style/CommonStyle"
-import { ScrollView, StyleSheet, Text, TextInputProps, TouchableOpacity, View } from "react-native"
-import { inputAddressState, isTablet, myAddressListState, resultAdressListState } from "../store"
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import { inputAddressState, isTablet, resultAddressListState } from "../store"
 import { LocationPermissionModal } from "./LocationPermissionModal"
 import { useRecoilState, useRecoilValue } from "recoil"
 import { isEmpty } from "lodash"
 import { MY_ADDRSS } from "../type"
 import BlueCheck from "../asset/icon/icon_blue_check.svg"
 import GrayCheck from "../asset/icon/icon_gray_check.svg"
-import { NowDate } from "utils"
-import { useUserLocationHook } from "hook/useUserLocationHook"
-import { navigationRef } from "navigation/RootNavigation"
 
 interface Result {
     id: number
@@ -29,7 +26,7 @@ interface IProps {
 export const SearchResult = memo(({ selectedAddress, setSelectedAddress }: IProps) => {
     const [isVisible, setIsVisible] = useState(false)
     const { value, isEditing } = useRecoilValue(inputAddressState)
-    const resultAddress = useRecoilValue(resultAdressListState)
+    const resultAddress = useRecoilValue(resultAddressListState)
     const isNotFoundAddress = resultAddress[0] === "NOT_FOUND"
 
     const ResultView = ({ id, coordinate, address_name }: Result) => {

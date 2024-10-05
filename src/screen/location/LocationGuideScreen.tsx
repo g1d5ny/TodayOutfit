@@ -1,4 +1,5 @@
 import { AddressGuide } from "component/AddressGuide"
+import { AppBar } from "component/CommonComponent"
 import { SearchHistory } from "component/SearchHistory"
 import { SearchInput } from "component/SearchInput"
 import { SearchResult } from "component/SearchResult"
@@ -10,7 +11,7 @@ import { navigationRef } from "navigation/RootNavigation"
 import { useEffect, useState } from "react"
 import { Keyboard, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { useRecoilState } from "recoil"
-import { inputAddressState, isTablet, resultAdressListState } from "store"
+import { inputAddressState, isTablet, resultAddressListState } from "store"
 import { CommonColor, CommonStyle, FontStyle, screenWidth } from "style/CommonStyle"
 import { OnBoardingText } from "text/OnBoardingText"
 import { MY_ADDRSS } from "type"
@@ -28,7 +29,7 @@ const selectedAddressInitialValue = {
 
 const BUTTON_HEIGHT = 58
 export const LocationGuideScreen = () => {
-    const [resultAddress, setResultAddress] = useRecoilState(resultAdressListState)
+    const [resultAddress, setResultAddress] = useRecoilState(resultAddressListState)
     const [inputAddress, setInputAddress] = useRecoilState(inputAddressState)
     const [selectedAddress, setSelectedAddress] = useState<MY_ADDRSS | null>(selectedAddressInitialValue)
     const isNotFoundAddress = resultAddress && resultAddress[0] === "NOT_FOUND"
@@ -51,12 +52,7 @@ export const LocationGuideScreen = () => {
 
     return (
         <View style={CommonStyle.flex}>
-            <View style={[CommonStyle.padding, styles.header]}>
-                <Text style={isTablet ? FontStyle.title1.bold : FontStyle.title2.semibold2}>위치 설정</Text>
-                <TouchableOpacity onPress={reset}>
-                    <Text style={[isTablet ? FontStyle.body1.regular : FontStyle.body2.regular, { color: CommonColor.main_blue }]}>취소</Text>
-                </TouchableOpacity>
-            </View>
+            <AppBar text='위치 설정' hasBack={false} custom={{ text: "취소", onPress: reset }} />
             <View style={[CommonStyle.flex, styles.scrollView]}>
                 <View style={CommonStyle.padding}>
                     <SearchInput
@@ -69,9 +65,7 @@ export const LocationGuideScreen = () => {
                             Keyboard.dismiss()
                         }}
                     />
-                </View>
-                <ScrollView style={{ flex: 1 }}>
-                    {isEmpty(resultAddress) ? (
+                    {isEmpty(resultAddress) && (
                         <>
                             <SearchHistory />
                             <View style={[CommonStyle.center, styles.addressGuide]}>
@@ -79,11 +73,12 @@ export const LocationGuideScreen = () => {
                                 <AddressGuide style={styles.guide} />
                             </View>
                         </>
-                    ) : (
-                        <View style={[CommonStyle.padding, { paddingBottom: BUTTON_HEIGHT }]}>
-                            <SearchResult selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress} />
-                        </View>
                     )}
+                </View>
+                <ScrollView style={{ flex: 1 }}>
+                    <View style={[CommonStyle.padding, { paddingBottom: BUTTON_HEIGHT }]}>
+                        <SearchResult selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress} />
+                    </View>
                 </ScrollView>
             </View>
             {(keyboardHeight > 0 || selectedAddress?.location) && (
@@ -115,6 +110,7 @@ export const LocationGuideScreen = () => {
 
 const styles = StyleSheet.create({
     guide: {
+        width: "100%",
         marginTop: 16
     },
     scrollView: {
@@ -131,14 +127,5 @@ const styles = StyleSheet.create({
     addressGuide: {
         alignSelf: "center",
         marginTop: isTablet ? 56 : 50
-    },
-    header: {
-        width: "100%",
-        paddingVertical: isTablet ? 14 : 15,
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        borderBottomWidth: 1,
-        borderColor: CommonColor.basic_gray_light
     }
 })

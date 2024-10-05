@@ -12,8 +12,8 @@ import Remove from "asset/icon/icon_remove_circle.svg"
 import { useUserLocationHook } from "hook/useUserLocationHook"
 import { MY_ADDRSS } from "type"
 import { NowDate } from "utils"
-import useKeyboardHeight from "hook/useKeyboardHeight"
 import { navigationRef } from "navigation/RootNavigation"
+import { AppBar } from "component/CommonComponent"
 
 const SelectedView = ({ location }: { location: string }) => {
     return (
@@ -58,12 +58,7 @@ export const LocationScreen = () => {
 
     return (
         <View style={CommonStyle.flex}>
-            <View style={[CommonStyle.padding, styles.header]}>
-                <Text style={isTablet ? FontStyle.title1.bold : FontStyle.title2.semibold2}>위치 설정</Text>
-                <TouchableOpacity onPress={() => setShowRemoveView(!showRemoveView)}>
-                    <Text style={[isTablet ? FontStyle.body1.regular : FontStyle.body2.regular, { color: CommonColor.main_blue }]}>{showRemoveView ? "취소" : "편집"}</Text>
-                </TouchableOpacity>
-            </View>
+            <AppBar text='위치 설정' hasBack={false} custom={{ text: showRemoveView ? "취소" : "편집", onPress: () => setShowRemoveView(!showRemoveView) }} />
             <ScrollView style={styles.scrollView}>
                 <View style={[CommonStyle.flex]}>
                     {!showRemoveView && (
@@ -116,14 +111,5 @@ const styles = StyleSheet.create({
         paddingHorizontal: isTablet ? 24 : 18,
         paddingVertical: isTablet ? 16 : 13,
         justifyContent: "space-between"
-    },
-    header: {
-        width: "100%",
-        paddingVertical: isTablet ? 14 : 15,
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        borderBottomWidth: 1,
-        borderColor: CommonColor.basic_gray_light
     }
 })

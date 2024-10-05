@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, memo, useState } from "react"
 import { CommonColor, FontStyle } from "../style/CommonStyle"
 import { StyleSheet, Text, TextInput, TextInputProps, TouchableOpacity, View } from "react-native"
-import { inputAddressState, isTablet, resultAdressListState } from "../store"
+import { inputAddressState, isTablet, resultAddressListState } from "../store"
 import { LocationPermissionModal } from "./LocationPermissionModal"
 import Search from "../asset/icon/icon_search.svg"
 import FocusLocation from "../asset/icon/icon_focus_location.svg"
@@ -23,7 +23,7 @@ interface IProps extends TextInputProps {
 }
 export const SearchInput = memo(({ hasInput, autoFocus, isOnboarding = false, onFocus, onBlur, ...props }: IProps) => {
     const [inputAddress, setInputAddress] = useRecoilState(inputAddressState)
-    const [resultAddress, setResultAddress] = useRecoilState(resultAdressListState)
+    const [resultAddress, setResultAddress] = useRecoilState(resultAddressListState)
     const isNotFoundAddress = resultAddress[0] === "NOT_FOUND"
     const [isVisible, setIsVisible] = useState(false)
     const [isOnFocus, setIsOnFocus] = useState(autoFocus)
