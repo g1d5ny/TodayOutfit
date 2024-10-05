@@ -7,6 +7,7 @@ import { useUserLocationHook } from "hook/useUserLocationHook"
 import { MY_ADDRSS } from "type"
 import { navigationRef } from "navigation/RootNavigation"
 
+const HISTORY_AREA = 20
 export const SearchHistory = () => {
     const myAddressList = useRecoilValue(myAddressListState)
     const setResultAddress = useSetRecoilState(resultAddressListState)
@@ -24,37 +25,36 @@ export const SearchHistory = () => {
                     navigationRef.current?.navigate("LocationNavigator", { screen: "LocationScreen" })
                 }}
             >
-                <Text style={(isTablet ? FontStyle.label1.regular : FontStyle.label2.regular, { color: CommonColor.basic_gray_dark })}>{item.location}</Text>
+                <Text style={[isTablet ? FontStyle.label1.regular : FontStyle.label2.regular, { color: CommonColor.basic_gray_dark }]}>{item.location}</Text>
             </TouchableOpacity>
         )
     }
 
     return (
         <View style={[myAddressList.length >= 2 && styles.flex]}>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={CommonStyle.padding}>
-                <View style={CommonStyle.row}>
-                    {myAddressList.length >= 2 && (
-                        <View style={styles.history}>
-                            <History />
-                        </View>
-                    )}
-                    <View style={[CommonStyle.row, styles.itemGap]}>
-                        {myAddressList.map((item, index) => {
-                            if (index === 0) {
-                                return
-                            }
-                            return <Component key={index} item={item} />
-                        })}
+            <View style={CommonStyle.row}>
+                {myAddressList.length >= 2 && (
+                    <View style={styles.history}>
+                        <History />
                     </View>
-                </View>
-            </ScrollView>
+                )}
+                <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.itemContainer}>
+                    {myAddressList.map((item, index) => {
+                        if (index === 0) {
+                            return
+                        }
+                        return <Component key={index} item={item} />
+                    })}
+                </ScrollView>
+            </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    itemGap: {
-        gap: 8
+    itemContainer: {
+        gap: 8,
+        paddingRight: CommonStyle.padding.paddingHorizontal + HISTORY_AREA
     },
     item: {
         paddingHorizontal: 8,
@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
     },
     flex: {
         width: "100%",
-        marginTop: isTablet ? 12 : 8
+        marginTop: isTablet ? 12 : 8,
+        marginLeft: CommonStyle.padding.paddingHorizontal
     }
 })

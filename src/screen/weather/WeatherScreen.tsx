@@ -75,7 +75,7 @@ const WeatherDetailComponent = ({ uv, maxWindSpeed, willItSnow, snowPercentage, 
                         style={styles.cardContainer}
                     />
                 )}
-                <View style={styles.cardContainer} />
+                <View style={[styles.cardContainer, styles.empty]} />
             </View>
         </>
     )
@@ -237,6 +237,10 @@ export const WeatherScreen = () => {
 }
 
 const styles = StyleSheet.create({
+    empty: {
+        paddingHorizontal: 12,
+        paddingVertical: 14
+    },
     emptyCalendar: {
         width: "100%",
         height: 380,

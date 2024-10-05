@@ -65,20 +65,18 @@ export const LocationGuideScreen = () => {
                             Keyboard.dismiss()
                         }}
                     />
-                    {isEmpty(resultAddress) && (
-                        <>
-                            <SearchHistory />
-                            <View style={[CommonStyle.center, styles.addressGuide]}>
-                                <Text style={[isTablet ? FontStyle.body2.regular : FontStyle.label1.regular, { color: CommonColor.basic_gray_dark }]}>{OnBoardingText.addressTitle}</Text>
-                                <AddressGuide style={styles.guide} />
-                            </View>
-                        </>
-                    )}
                 </View>
-                <ScrollView style={{ flex: 1 }}>
-                    <View style={[CommonStyle.padding, { paddingBottom: BUTTON_HEIGHT }]}>
-                        <SearchResult selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress} />
-                    </View>
+                {isEmpty(resultAddress) && (
+                    <>
+                        <SearchHistory />
+                        <View style={[CommonStyle.center, styles.addressGuide]}>
+                            <Text style={[isTablet ? FontStyle.body2.regular : FontStyle.label1.regular, { color: CommonColor.basic_gray_dark }]}>{OnBoardingText.addressTitle}</Text>
+                            <AddressGuide style={styles.guide} />
+                        </View>
+                    </>
+                )}
+                <ScrollView style={{ flex: 1 }} contentContainerStyle={[CommonStyle.padding, { paddingBottom: BUTTON_HEIGHT }]}>
+                    <SearchResult selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress} />
                 </ScrollView>
             </View>
             {(keyboardHeight > 0 || selectedAddress?.location) && (

@@ -37,7 +37,6 @@ import S from "../asset/icon/wind_direction/icon_wind_direction_5.svg"
 import E from "../asset/icon/wind_direction/icon_wind_direction_6.svg"
 import W from "../asset/icon/wind_direction/icon_wind_direction_7.svg"
 import N from "../asset/icon/wind_direction/icon_wind_direction_8.svg"
-
 import Precip0 from "../asset/icon/rain_percentage/icon_rain_percentage_0.svg"
 import Precip1 from "../asset/icon/rain_percentage/icon_rain_percentage_1.svg"
 import Precip2 from "../asset/icon/rain_percentage/icon_rain_percentage_2.svg"

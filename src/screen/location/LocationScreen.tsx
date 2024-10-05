@@ -59,20 +59,18 @@ export const LocationScreen = () => {
     return (
         <View style={CommonStyle.flex}>
             <AppBar text='위치 설정' hasBack={false} custom={{ text: showRemoveView ? "취소" : "편집", onPress: () => setShowRemoveView(!showRemoveView) }} />
-            <ScrollView style={styles.scrollView}>
-                <View style={[CommonStyle.flex]}>
-                    {!showRemoveView && (
-                        <TouchableOpacity style={CommonStyle.padding} onPress={() => navigationRef.current?.navigate("LocationGuideNavigator", { screen: "LocationGuideScreen" })}>
-                            <SearchInput hasInput={false} autoFocus={false} />
-                        </TouchableOpacity>
-                    )}
-                    <View style={[CommonStyle.padding, styles.addressContainer, !showRemoveView && { marginTop: isTablet ? 30 : 32 }]}>
-                        {myAddressList?.map((item, index) => {
-                            const { id, location } = item
-                            const isSelected = id === myAddressList[0].id
-                            return <View key={index}>{isSelected ? <SelectedView location={location} /> : <PrevView item={item} />}</View>
-                        })}
-                    </View>
+            <ScrollView contentContainerStyle={styles.scrollView}>
+                {!showRemoveView && (
+                    <TouchableOpacity style={CommonStyle.padding} onPress={() => navigationRef.current?.navigate("LocationGuideNavigator", { screen: "LocationGuideScreen" })}>
+                        <SearchInput hasInput={false} autoFocus={false} />
+                    </TouchableOpacity>
+                )}
+                <View style={[CommonStyle.padding, styles.addressContainer, !showRemoveView && { marginTop: isTablet ? 30 : 32 }]}>
+                    {myAddressList?.map((item, index) => {
+                        const { id, location } = item
+                        const isSelected = id === myAddressList[0].id
+                        return <View key={index}>{isSelected ? <SelectedView location={location} /> : <PrevView item={item} />}</View>
+                    })}
                 </View>
             </ScrollView>
         </View>

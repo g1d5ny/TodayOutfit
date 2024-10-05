@@ -54,15 +54,16 @@ export const WeatherDetail = ({ titleIcon, title, content, desc, contentIcon, wi
 
 const styles = StyleSheet.create({
     contentIcon: {
-        marginTop: -8
+        marginTop: -8,
+        borderWidth: 2,
+        alignSelf: "flex-end"
     },
     gap: {
         gap: 8
     },
     detailIcon: {
         width: 63,
-        height: 63,
-        alignSelf: "flex-end"
+        height: 63
     },
     row: {
         flexDirection: "row",

@@ -61,12 +61,7 @@ export const SearchResult = memo(({ selectedAddress, setSelectedAddress }: IProp
                                     const resultId = Number(road_address?.x ?? address?.x) + Number(road_address?.y ?? address?.y)
                                     let address_name = ""
                                     if (address) {
-                                        address_name =
-                                            address?.region_1depth_name +
-                                            " " +
-                                            address?.region_2depth_name +
-                                            " " +
-                                            (address?.region_3depth_h_name === "" ? address?.region_3depth_name : address?.region_3depth_h_name)
+                                        address_name = address?.address_name
                                     } else {
                                         address_name = road_address?.region_1depth_name + " " + road_address?.region_2depth_name + " " + road_address?.region_3depth_name
                                     }
