@@ -1,16 +1,19 @@
-import React, { Dispatch, SetStateAction } from "react"
-import { StyleSheet, Text, View } from "react-native"
+import React from "react"
+import { StyleSheet, View } from "react-native"
 import LottieView from "lottie-react-native"
 import { CommonColor } from "style/CommonStyle"
+import { isTablet } from "store"
 
 interface SplashProps {
     onAnimationFinish: () => void
 }
+
+const mobileSplash = require("asset/lottie/splash_mobile.json")
+const tabletSplash = require("asset/lottie/splash_tablet.json")
 export const Splash = ({ onAnimationFinish }: SplashProps) => {
     return (
         <View style={styles.view}>
-            <Text style={[{ color: CommonColor.sub_yellow }]}>날씨에 맞춘 코디 추천</Text>
-            <LottieView style={styles.lottie} source={require("../../asset/lottie/splash.json")} onAnimationFinish={onAnimationFinish} autoPlay loop={false} />
+            <LottieView style={styles.lottie} source={isTablet ? tabletSplash : mobileSplash} onAnimationFinish={onAnimationFinish} autoPlay loop={false} />
         </View>
     )
 }
@@ -23,8 +26,7 @@ const styles = StyleSheet.create({
         backgroundColor: CommonColor.main_blue
     },
     lottie: {
-        width: "30%",
-        height: "10%",
-        marginTop: 22
+        width: "100%",
+        height: "70%"
     }
 })
