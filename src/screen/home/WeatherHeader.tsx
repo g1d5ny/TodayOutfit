@@ -53,12 +53,12 @@ export default () => {
                 <View style={styles.tempView}>
                     <View style={[CommonStyle.row, styles.tempGap]}>
                         <MinTemp width={isTablet ? 14 : 12} height={isTablet ? 14 : 12} />
-                        <Text style={[isTablet ? FontStyle.body2.regular : FontStyle.label1.regular, { color: CommonColor.label_text_blue }]}>{todayWeather.minTemp}˚</Text>
+                        <Text style={[isTablet ? FontStyle.body2.regular : FontStyle.label1.regular, { color: CommonColor.label_text_blue }]}>{todayWeather?.minTemp}˚</Text>
                     </View>
                     <Text style={[isTablet ? FontStyle.body2.regular : FontStyle.label1.regular, { color: CommonColor.main_white }]}>|</Text>
                     <View style={[CommonStyle.row, styles.tempGap]}>
                         <MaxTemp width={isTablet ? 14 : 12} height={isTablet ? 14 : 12} />
-                        <Text style={[isTablet ? FontStyle.body2.regular : FontStyle.label1.regular, { color: CommonColor.label_text_red }]}>{todayWeather.maxTemp}˚</Text>
+                        <Text style={[isTablet ? FontStyle.body2.regular : FontStyle.label1.regular, { color: CommonColor.label_text_red }]}>{todayWeather?.maxTemp}˚</Text>
                     </View>
                 </View>
             </View>
