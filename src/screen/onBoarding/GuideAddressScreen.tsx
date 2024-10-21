@@ -23,7 +23,7 @@ export const GuideAddressScreen = () => {
                     children={
                         <>
                             <TouchableOpacity onPress={() => navigate("SearchAddressScreen")}>
-                                <SearchInput hasInput={false} />
+                                <SearchInput hasInput={false} isOnboarding />
                             </TouchableOpacity>
                             <AddressGuide style={styles.addressGuide} />
                         </>
