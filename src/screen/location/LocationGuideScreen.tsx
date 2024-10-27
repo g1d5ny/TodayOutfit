@@ -1,17 +1,17 @@
+import { useQuery } from "@tanstack/react-query"
+import { searchAddressApi } from "api/address"
 import { AddressGuide } from "component/AddressGuide"
 import { AppBar } from "component/CommonComponent"
 import { SearchHistory } from "component/SearchHistory"
 import { SearchInput } from "component/SearchInput"
 import { SearchResult } from "component/SearchResult"
-import { useAddressHook } from "hook/useAddressHook"
 import useKeyboardHeight from "hook/useKeyboardHeight"
 import { useUserLocationHook } from "hook/useUserLocationHook"
-import { isEmpty } from "lodash"
 import { navigationRef } from "navigation/RootNavigation"
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Keyboard, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { useRecoilState } from "recoil"
-import { inputAddressState, isTablet, resultAddressListState } from "store"
+import { inputAddressState, isTablet, queryClient } from "store"
 import { CommonColor, CommonStyle, FontStyle, screenWidth } from "style/CommonStyle"
 import { OnBoardingText } from "text/OnBoardingText"
 import { MY_ADDRSS } from "type"
@@ -29,17 +29,32 @@ const selectedAddressInitialValue = {
 
 const BUTTON_HEIGHT = 58
 export const LocationGuideScreen = () => {
-    const [resultAddress, setResultAddress] = useRecoilState(resultAddressListState)
-    const [inputAddress, setInputAddress] = useRecoilState(inputAddressState)
+    const [{ value, isEditing }, setInputAddress] = useRecoilState(inputAddressState)
     const [selectedAddress, setSelectedAddress] = useState<MY_ADDRSS | null>(selectedAddressInitialValue)
-    const isNotFoundAddress = resultAddress && resultAddress[0] === "NOT_FOUND"
+    const onSubmitEditing = useMemo(() => !!value && !isEditing, [value, isEditing])
     const { addUserAddress } = useUserLocationHook()
-    const { searchAddress } = useAddressHook()
     const { keyboardHeight } = useKeyboardHeight()
+
+    const { isLoading, error, data } = useQuery({
+        queryKey: [value],
+        queryFn: async () => {
+            const data = await searchAddressApi(encodeURIComponent(value))
+            const {
+                errorType,
+                meta: { total_count },
+                documents
+            } = data
+
+            if (!!errorType || total_count === 0 || documents.length === 0) {
+                throw new Error("No results found.") // 에러 발생
+            }
+            return documents
+        },
+        enabled: onSubmitEditing && !queryClient.getQueryData([value])
+    })
 
     const reset = () => {
         setSelectedAddress(null)
-        setResultAddress([])
         setInputAddress({ value: "", isEditing: false })
         navigationRef.current?.navigate("LocationNavigator", { screen: "LocationScreen" })
     }
@@ -53,20 +68,15 @@ export const LocationGuideScreen = () => {
     return (
         <View style={CommonStyle.flex}>
             <AppBar text='위치 설정' hasBack={false} custom={{ text: "취소", onPress: reset }} />
-            <View style={[CommonStyle.flex, styles.scrollView]}>
-                <View style={CommonStyle.padding}>
-                    <SearchInput
-                        hasInput
-                        autoFocus
-                        onSubmitEditing={() => {
-                            if (!isEmpty(inputAddress.value)) {
-                                searchAddress()
-                            }
-                            Keyboard.dismiss()
-                        }}
-                    />
-                </View>
-                {isEmpty(resultAddress) && (
+            <View style={[CommonStyle.flex, CommonStyle.padding, styles.scrollView]}>
+                <SearchInput hasInput autoFocus error={error} />
+                {data ? (
+                    <ScrollView style={{ flex: 1 }} contentContainerStyle={[CommonStyle.flex, { paddingBottom: BUTTON_HEIGHT }]}>
+                        <SearchResult isLoading={isLoading} data={data} selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress} />
+                    </ScrollView>
+                ) : error ? (
+                    <Text style={[isTablet ? FontStyle.body2.regular : FontStyle.label1.regular, styles.errorText, { color: CommonColor.etc_red }]}>올바르지 않은 주소입니다.</Text>
+                ) : (
                     <>
                         <SearchHistory />
                         <View style={[CommonStyle.center, styles.addressGuide]}>
@@ -75,17 +85,14 @@ export const LocationGuideScreen = () => {
                         </View>
                     </>
                 )}
-                <ScrollView style={{ flex: 1 }} contentContainerStyle={[CommonStyle.padding, { paddingBottom: BUTTON_HEIGHT }]}>
-                    <SearchResult selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress} />
-                </ScrollView>
             </View>
             {(keyboardHeight > 0 || selectedAddress?.location) && (
                 <TouchableOpacity
-                    disabled={isNotFoundAddress || inputAddress.value.length === 0}
+                    disabled={!!error || value.length === 0}
                     style={[
                         styles.confirmButton,
                         {
-                            backgroundColor: isNotFoundAddress || inputAddress.value.length === 0 ? CommonColor.basic_gray_medium : CommonColor.main_blue,
+                            backgroundColor: !!error || value.length === 0 ? CommonColor.basic_gray_medium : CommonColor.main_blue,
                             bottom: isIos ? (keyboardHeight > 0 ? keyboardHeight : 0) : 0
                         }
                     ]}
@@ -95,7 +102,7 @@ export const LocationGuideScreen = () => {
                             reset()
                             return
                         }
-                        searchAddress()
+
                         Keyboard.dismiss()
                     }}
                 >
@@ -107,6 +114,9 @@ export const LocationGuideScreen = () => {
 }
 
 const styles = StyleSheet.create({
+    errorText: {
+        marginTop: 6
+    },
     guide: {
         width: "100%",
         marginTop: 16

@@ -1,7 +1,7 @@
-import { Dispatch, SetStateAction, memo, useState } from "react"
+import { memo, useState } from "react"
 import { CommonColor, FontStyle } from "../style/CommonStyle"
-import { StyleSheet, Text, TextInput, TextInputProps, TouchableOpacity, View } from "react-native"
-import { inputAddressState, isTablet, resultAddressListState } from "../store"
+import { Keyboard, StyleSheet, Text, TextInput, TextInputProps, TouchableOpacity, View } from "react-native"
+import { inputAddressState, isTablet } from "../store"
 import { LocationPermissionModal } from "./LocationPermissionModal"
 import Search from "../asset/icon/icon_search.svg"
 import FocusLocation from "../asset/icon/icon_focus_location.svg"
@@ -20,14 +20,12 @@ interface IProps extends TextInputProps {
     isOnboarding?: boolean
     onFocus?: () => void
     onBlur?: () => void
+    error: Error | null
 }
-export const SearchInput = memo(({ hasInput, autoFocus, isOnboarding = false, onFocus, onBlur, ...props }: IProps) => {
-    const [inputAddress, setInputAddress] = useRecoilState(inputAddressState)
-    const [resultAddress, setResultAddress] = useRecoilState(resultAddressListState)
-    const isNotFoundAddress = resultAddress[0] === "NOT_FOUND"
+export const SearchInput = memo(({ hasInput, autoFocus, isOnboarding = false, onFocus, onBlur, error, ...props }: IProps) => {
+    const [{ value }, setInputAddress] = useRecoilState(inputAddressState)
     const [isVisible, setIsVisible] = useState(false)
     const [isOnFocus, setIsOnFocus] = useState(autoFocus)
-    const { searchAddress } = useAddressHook()
     const { requestLocationPermission, checkLocationPermission, getUserLocation } = useUserLocationHook()
 
     const getLocation = async () => {
@@ -36,7 +34,6 @@ export const SearchInput = memo(({ hasInput, autoFocus, isOnboarding = false, on
             navigationRef?.current?.navigate("SelectGenderScreen")
         }
         setInputAddress({ value: "", isEditing: false })
-        setResultAddress([])
     }
 
     const onPressLocation = async () => {
@@ -57,7 +54,7 @@ export const SearchInput = memo(({ hasInput, autoFocus, isOnboarding = false, on
         if (isOnFocus) {
             return { borderWidth: 2, borderColor: CommonColor.main_blue }
         }
-        if (isNotFoundAddress) {
+        if (error) {
             return { borderWidth: 2, borderColor: CommonColor.etc_red }
         }
     }
@@ -68,7 +65,7 @@ export const SearchInput = memo(({ hasInput, autoFocus, isOnboarding = false, on
                 <Search width={SEARCH_ICON} height={SEARCH_ICON} />
                 {hasInput ? (
                     <TextInput
-                        value={inputAddress.value}
+                        value={value}
                         onChangeText={value => setInputAddress({ value, isEditing: true })}
                         placeholder='위치를 입력하세요'
                         placeholderTextColor={CommonColor.basic_gray_medium}
@@ -78,10 +75,10 @@ export const SearchInput = memo(({ hasInput, autoFocus, isOnboarding = false, on
                         }}
                         onBlur={() => {
                             setIsOnFocus(false)
-                            setInputAddress({ value: inputAddress.value, isEditing: false })
+                            setInputAddress({ value, isEditing: false })
                             onBlur && onBlur()
+                            Keyboard.dismiss()
                         }}
-                        onSubmitEditing={searchAddress}
                         autoFocus={autoFocus}
                         style={[isTablet ? FontStyle.body1.regular : FontStyle.body2.regular, styles.textView, { paddingVertical: 0 }]}
                         {...props}

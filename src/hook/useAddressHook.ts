@@ -1,49 +1,24 @@
 import { Alert } from "react-native"
 import { TextAlarm } from "../text/AlarmText"
 import { useRecoilValue, useSetRecoilState } from "recoil"
-import { inputAddressState, resultAddressListState } from "../store"
-import { coordinateToAddressApi, searchAddressApi } from "api/address"
+import { inputAddressState } from "../store"
+import { searchAddressApi } from "api/address"
+import { useQuery } from "@tanstack/react-query"
 
 export const useAddressHook = () => {
-    const setResultAddress = useSetRecoilState(resultAddressListState)
     const { value } = useRecoilValue(inputAddressState)
 
-    const searchAddress = async () => {
-        return searchAddressApi(encodeURIComponent(value))
-            .then(({ errorType, meta: { total_count }, documents }) => {
-                if (!!errorType || total_count === 0) {
-                    setResultAddress(["NOT_FOUND"])
-                    return
-                }
-                setResultAddress(documents)
-            })
-            .catch(({ message }) => {
-                Alert.alert(TextAlarm.error_0, message)
-                console.error(message)
-            })
+    const fetchAddressData = () => {
+        const { data, isLoading, error } = useQuery({
+            queryKey: ["errorType", "meta", "documents"],
+            queryFn: async () => {
+                const response = await searchAddressApi(encodeURIComponent(value))
+                return response.data
+            }
+        })
+
+        return { data, isLoading, error }
     }
 
-    const addressToCoordinate = async (address: string) => {
-        return searchAddressApi(address)
-            .then(data => {
-                return data
-            })
-            .catch(({ message }) => {
-                Alert.alert(TextAlarm.error_0, message)
-                console.error("server error", message)
-            })
-    }
-
-    const coordinateToAddress = async (lng: number, lat: number) => {
-        return coordinateToAddressApi(lng, lat)
-            .then(data => {
-                return data
-            })
-            .catch(({ message }) => {
-                Alert.alert(TextAlarm.error_0, message)
-                console.error(message)
-            })
-    }
-
-    return { searchAddress, addressToCoordinate, coordinateToAddress }
+    return { fetchAddressData }
 }

@@ -1,20 +1,21 @@
 import { Keyboard, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native"
-import { CommonColor, CommonStyle, FontStyle, screenWidth } from "../../style/CommonStyle"
-import { inputAddressState, isTablet, resultAddressListState } from "../../store"
+import { CommonColor, FontStyle, screenWidth } from "../../style/CommonStyle"
+import { inputAddressState, isTablet, queryClient } from "../../store"
 import { useRecoilState } from "recoil"
 import { SearchInput } from "../../component/SearchInput"
 import { isEmpty } from "lodash"
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { useAddressHook } from "../../hook/useAddressHook"
 import { isIos, NowDate } from "utils"
 import { SearchResult } from "component/SearchResult"
 import { OnBoardingText } from "text/OnBoardingText"
 import { Guide } from "component/Guide"
 import useKeyboardHeight from "hook/useKeyboardHeight"
-import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { navigate } from "navigation/RootNavigation"
 import { useUserLocationHook } from "hook/useUserLocationHook"
 import { MY_ADDRSS } from "type"
+import { searchAddressApi } from "api/address"
+import { useQuery } from "@tanstack/react-query"
 
 const selectedAddressInitialValue = {
     id: 0,
@@ -27,25 +28,39 @@ const selectedAddressInitialValue = {
 }
 
 export const SearchAddressScreen = () => {
-    const [resultAddress, setResultAddress] = useRecoilState(resultAddressListState)
-    const [inputAddress, setInputAddress] = useRecoilState(inputAddressState)
+    const [{ value, isEditing }, setInputAddress] = useRecoilState(inputAddressState)
     const [selectedAddress, setSelectedAddress] = useState<MY_ADDRSS | null>(null)
-    const inputDisabled = inputAddress.value.length === 0
-    const completeButtonVisible = !isEmpty(resultAddress) && resultAddress[0] !== "NOT_FOUND"
-    const { searchAddress } = useAddressHook()
+    const onSubmitEditing = useMemo(() => !!value && !isEditing, [value, isEditing])
+    const inputDisabled = useMemo(() => value.length === 0, [value])
     const { keyboardHeight } = useKeyboardHeight()
     const { addUserAddress } = useUserLocationHook()
 
-    const onPress = () => {
-        Keyboard.dismiss()
-        searchAddress()
+    const { isLoading, error, data } = useQuery({
+        queryKey: [value],
+        queryFn: async () => {
+            const data = await searchAddressApi(encodeURIComponent(value))
+            const {
+                errorType,
+                meta: { total_count },
+                documents
+            } = data
+
+            if (!!errorType || total_count === 0 || documents.length === 0) {
+                throw new Error("No results found.") // 에러 발생
+            }
+            return documents
+        },
+        enabled: onSubmitEditing && !queryClient.getQueryData([value])
+    })
+
+    const reset = () => {
+        setSelectedAddress(null)
+        setInputAddress({ value: "", isEditing: false })
     }
 
     useEffect(() => {
         return () => {
-            setSelectedAddress(null)
-            setInputAddress({ value: "", isEditing: false })
-            setResultAddress([])
+            reset()
         }
     }, [])
 
@@ -58,10 +73,29 @@ export const SearchAddressScreen = () => {
                     subTitle={OnBoardingText.addressTitle}
                     children={
                         <>
-                            <SearchInput hasInput autoFocus isOnboarding />
-                            <View style={{ flex: 1, width: "100%" }}>
-                                <SearchResult selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress} />
-                                {completeButtonVisible ? (
+                            <SearchInput hasInput autoFocus isOnboarding error={error} />
+                            {data ? (
+                                <SearchResult isLoading={isLoading} data={data} selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress} />
+                            ) : (
+                                error && (
+                                    <Text style={[isTablet ? FontStyle.body2.regular : FontStyle.label1.regular, styles.errorText, { color: CommonColor.etc_red }]}>
+                                        올바르지 않은 주소입니다.
+                                    </Text>
+                                )
+                            )}
+                            {keyboardHeight > 0 ? (
+                                <TouchableOpacity
+                                    disabled={inputDisabled}
+                                    style={[
+                                        styles.confirmButton,
+                                        { backgroundColor: inputDisabled ? CommonColor.basic_gray_medium : CommonColor.main_blue, bottom: isIos ? keyboardHeight : 0 }
+                                    ]}
+                                    onPress={Keyboard.dismiss}
+                                >
+                                    <Text style={[isTablet ? FontStyle.title2.semibold2 : FontStyle.body1.bold, { color: CommonColor.main_white }]}>확인</Text>
+                                </TouchableOpacity>
+                            ) : (
+                                selectedAddress?.location && (
                                     <TouchableOpacity
                                         disabled={!selectedAddress?.id}
                                         style={[
@@ -79,21 +113,8 @@ export const SearchAddressScreen = () => {
                                     >
                                         <Text style={[isTablet ? FontStyle.title2.semibold2 : FontStyle.body1.bold, { color: CommonColor.main_white }]}>완료</Text>
                                     </TouchableOpacity>
-                                ) : (
-                                    keyboardHeight > 0 && (
-                                        <TouchableOpacity
-                                            disabled={inputDisabled}
-                                            style={[
-                                                styles.confirmButton,
-                                                { backgroundColor: inputDisabled ? CommonColor.basic_gray_medium : CommonColor.main_blue, bottom: isIos ? keyboardHeight : 0 }
-                                            ]}
-                                            onPress={onPress}
-                                        >
-                                            <Text style={[isTablet ? FontStyle.title2.semibold2 : FontStyle.body1.bold, { color: CommonColor.main_white }]}>확인</Text>
-                                        </TouchableOpacity>
-                                    )
-                                )}
-                            </View>
+                                )
+                            )}
                         </>
                     }
                 />
@@ -103,6 +124,10 @@ export const SearchAddressScreen = () => {
 }
 
 const styles = StyleSheet.create({
+    errorText: {
+        marginTop: 6,
+        alignSelf: "flex-start"
+    },
     phase: {
         paddingTop: 26
     },

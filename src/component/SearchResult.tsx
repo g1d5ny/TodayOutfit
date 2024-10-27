@@ -1,13 +1,13 @@
 import { Dispatch, SetStateAction, memo, useState } from "react"
 import { CommonColor, FontStyle } from "../style/CommonStyle"
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
-import { inputAddressState, isTablet, resultAddressListState } from "../store"
+import { inputAddressState, isTablet } from "../store"
 import { LocationPermissionModal } from "./LocationPermissionModal"
-import { useRecoilState, useRecoilValue } from "recoil"
-import { isEmpty } from "lodash"
-import { MY_ADDRSS } from "../type"
+import { useRecoilValue } from "recoil"
+import { MY_ADDRSS, RESULT_ADDRESS } from "../type"
 import BlueCheck from "../asset/icon/icon_blue_check.svg"
 import GrayCheck from "../asset/icon/icon_gray_check.svg"
+import Loader from "./lottie/Loader"
 
 interface Result {
     id: number
@@ -19,15 +19,15 @@ interface Result {
 }
 
 interface IProps {
+    isLoading: boolean
+    data: RESULT_ADDRESS[]
     selectedAddress: MY_ADDRSS | null
     setSelectedAddress: Dispatch<SetStateAction<MY_ADDRSS | null>>
 }
 
-export const SearchResult = memo(({ selectedAddress, setSelectedAddress }: IProps) => {
+export const SearchResult = memo(({ isLoading, data, selectedAddress, setSelectedAddress }: IProps) => {
     const [isVisible, setIsVisible] = useState(false)
-    const { value, isEditing } = useRecoilValue(inputAddressState)
-    const resultAddress = useRecoilValue(resultAddressListState)
-    const isNotFoundAddress = resultAddress[0] === "NOT_FOUND"
+    const { value } = useRecoilValue(inputAddressState)
 
     const ResultView = ({ id, coordinate, address_name }: Result) => {
         const isSelected = address_name === selectedAddress?.location
@@ -46,34 +46,31 @@ export const SearchResult = memo(({ selectedAddress, setSelectedAddress }: IProp
             </TouchableOpacity>
         )
     }
+
+    if (isLoading) {
+        return (
+            <View style={styles.flex}>
+                <Loader />
+            </View>
+        )
+    }
+
     return (
-        <View style={{ flex: 1 }}>
-            {!isEmpty(resultAddress) ? (
-                isNotFoundAddress ? (
-                    <Text style={[isTablet ? FontStyle.body2.regular : FontStyle.label1.regular, { color: CommonColor.etc_red, marginTop: 6 }]}>올바르지 않은 주소입니다.</Text>
-                ) : (
-                    <View style={{ flex: 1, marginTop: 4 }}>
-                        {!isEditing && <Text style={[FontStyle.label1.regular, { color: CommonColor.main_blue }]}>'{value}' 검색 결과</Text>}
-                        <View style={styles.scrollViewContainer}>
-                            <ScrollView>
-                                {resultAddress.map(({ road_address, address }, index) => {
-                                    const coordinate = { longitude: Number(address?.x ?? road_address?.x), latitude: Number(address?.y ?? road_address?.y) }
-                                    const resultId = Number(road_address?.x ?? address?.x) + Number(road_address?.y ?? address?.y)
-                                    let address_name = ""
-                                    if (address) {
-                                        address_name = address?.address_name
-                                    } else {
-                                        address_name = road_address?.region_1depth_name + " " + road_address?.region_2depth_name + " " + road_address?.region_3depth_name
-                                    }
-                                    return <ResultView key={index} id={resultId} coordinate={coordinate} address_name={address_name} />
-                                })}
-                            </ScrollView>
-                        </View>
-                    </View>
-                )
-            ) : (
-                <></>
-            )}
+        <View style={styles.flex}>
+            {data && <Text style={[FontStyle.label1.regular, { color: CommonColor.main_blue }]}>'{value}' 검색 결과</Text>}
+            <ScrollView contentContainerStyle={styles.resultGap} style={styles.scrollViewContainer}>
+                {data?.map(({ road_address, address }, index) => {
+                    const coordinate = { longitude: Number(address?.x ?? road_address?.x), latitude: Number(address?.y ?? road_address?.y) }
+                    const resultId = Number(road_address?.x ?? address?.x) + Number(road_address?.y ?? address?.y)
+                    let address_name = ""
+                    if (address) {
+                        address_name = address?.address_name
+                    } else {
+                        address_name = road_address?.region_1depth_name + " " + road_address?.region_2depth_name + " " + road_address?.region_3depth_name
+                    }
+                    return <ResultView key={index} id={resultId} coordinate={coordinate} address_name={address_name} />
+                })}
+            </ScrollView>
             <LocationPermissionModal isVisible={isVisible} setIsVisible={setIsVisible} />
         </View>
     )
@@ -84,6 +81,9 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: isTablet ? 26 : 16
     },
+    resultGap: {
+        gap: 4
+    },
     resultView: {
         width: "100%",
         borderLeftWidth: 2,
@@ -91,9 +91,11 @@ const styles = StyleSheet.create({
         paddingVertical: 20,
         paddingLeft: isTablet ? 15 : 18,
         paddingRight: isTablet ? 24 : 18,
-        marginBottom: 4,
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between"
+    },
+    flex: {
+        flex: 1
     }
 })

@@ -69,11 +69,13 @@ import SnowFall2 from "../asset/icon/snow_fall/icon_snow_fall_2.svg"
 import SnowFall3 from "../asset/icon/snow_fall/icon_snow_fall_3.svg"
 import SnowFall4 from "../asset/icon/snow_fall/icon_snow_fall_4.svg"
 import { Alert, Dimensions } from "react-native"
+import { QueryClient } from "@tanstack/react-query"
 
 const { width } = Dimensions.get("window")
 export const isTablet = DeviceInfo.isTablet() || width >= 600
 export const currentMonth = new Date().getMonth() + 1
 export const currentDate = new Date().getDate()
+export const queryClient = new QueryClient()
 
 export const getStorage = async (key: string): Promise<string | any> => {
     if (isEmpty(key)) {

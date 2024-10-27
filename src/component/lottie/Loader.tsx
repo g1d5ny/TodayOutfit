@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Image, StyleSheet, View } from "react-native"
+import { StyleSheet, View } from "react-native"
 import LottieView from "lottie-react-native"
 
 const Loader = () => {

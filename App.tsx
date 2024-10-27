@@ -7,6 +7,8 @@ import RecoilNexus from "recoil-nexus"
 import { Splash } from "component/lottie/Splash"
 import SplashScreen from "react-native-splash-screen"
 import Storage from "@react-native-async-storage/async-storage"
+import { QueryClientProvider } from "@tanstack/react-query"
+import { queryClient } from "store"
 
 if (__DEV__) {
     RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false
@@ -24,12 +26,14 @@ function App(): JSX.Element {
     return appLoading ? (
         <Splash onAnimationFinish={() => setAppLoading(false)} />
     ) : (
-        <RecoilRoot>
-            <RecoilNexus />
-            <SafeAreaProvider>
-                <NavController />
-            </SafeAreaProvider>
-        </RecoilRoot>
+        <QueryClientProvider client={queryClient}>
+            <RecoilRoot>
+                <RecoilNexus />
+                <SafeAreaProvider>
+                    <NavController />
+                </SafeAreaProvider>
+            </RecoilRoot>
+        </QueryClientProvider>
     )
 }
 
