@@ -1,4 +1,4 @@
-import { useRecoilValue, useSetRecoilState } from "recoil"
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
 import { currentWeatherInfoState, getStorage, hourWeatherInfoState, isTablet, myAddressListState, weather, weeklyWeatherInfoState } from "../store"
 import { CURRENT, Choice, FORECAST_DAY, HOUR, HOUR_WEATHER, WEEKELY_WEATHER } from "../type"
 import { getCurrentWeather, getDailyWeather } from "api/weather"
@@ -9,7 +9,7 @@ import { CostumePath } from "store/clothes"
 
 export const useWeatherHook = () => {
     const myAddressList = useRecoilValue(myAddressListState)
-    const setCurrentWeatherInfo = useSetRecoilState(currentWeatherInfoState)
+    const [currentWeatherInfo, setCurrentWeatherInfo] = useRecoilState(currentWeatherInfoState)
     const setHourWeatherInfo = useSetRecoilState(hourWeatherInfoState)
     const setWeeklyWeatherInfo = useSetRecoilState(weeklyWeatherInfoState)
 
@@ -122,8 +122,8 @@ export const useWeatherHook = () => {
                             avgTemp: Math.trunc(avgtemp_c),
                             maxTemp: Math.trunc(maxtemp_c),
                             minTemp: Math.trunc(mintemp_c),
-                            maxIcon: weather(code, true)?.maxIcon as JSX.Element,
-                            minIcon: weather(code, true)?.minIcon as JSX.Element,
+                            maxIcon: weather(code, index === 0 ? currentWeatherInfo?.is_day : true)?.maxIcon as JSX.Element,
+                            minIcon: weather(code, index === 0 ? currentWeatherInfo?.is_day : true)?.minIcon as JSX.Element,
                             backgroundColor: weather(code, true)?.backgroundColor as string
                         }
                     }

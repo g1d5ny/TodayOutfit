@@ -1,7 +1,7 @@
 import { DateView, LocationView, WeatherDetail } from "component/MiniCard"
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { useRecoilValue } from "recoil"
-import { isTablet, weather, weeklyWeatherInfoState } from "store"
+import { currentWeatherInfoState, isTablet, weather, weeklyWeatherInfoState } from "store"
 import { CommonColor, CommonStyle, FontStyle } from "style/CommonStyle"
 import { RainPercentageFormat, SnowFallFormat, UVFormat, WindSpeedFormat, getDay } from "utils"
 import MinTemp from "asset/icon/icon_min_temp.svg"
@@ -92,6 +92,7 @@ const EmptyView = () => {
 }
 
 export const WeatherScreen = () => {
+    const currentWeather = useRecoilValue(currentWeatherInfoState)
     const weeklyWeather = useRecoilValue(weeklyWeatherInfoState)
     const [open, setOpen] = useState<Open>()
 
@@ -199,7 +200,7 @@ export const WeatherScreen = () => {
                                                         <Text style={FontStyle.body2.regular}>{new Date(date).getDate()}</Text>
                                                     </View>
                                                     <View style={[CommonStyle.row, styles.weather]}>
-                                                        {weather(code, true)?.minIcon}
+                                                        {weather(code, index === 0 ? currentWeather.is_day : true)?.minIcon}
                                                         <Text style={[FontStyle.body2.regular, styles.text]}>{weather(code, true)?.text}</Text>
                                                     </View>
                                                 </View>
