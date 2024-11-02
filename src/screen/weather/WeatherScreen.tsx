@@ -200,7 +200,7 @@ export const WeatherScreen = () => {
                                                         <Text style={FontStyle.body2.regular}>{new Date(date).getDate()}</Text>
                                                     </View>
                                                     <View style={[CommonStyle.row, styles.weather]}>
-                                                        {weather(code, index === 0 ? currentWeather.is_day : true)?.minIcon}
+                                                        {weather(code, index === 0 ? currentWeather?.is_day : true)?.minIcon}
                                                         <Text style={[FontStyle.body2.regular, styles.text]}>{weather(code, true)?.text}</Text>
                                                     </View>
                                                 </View>
