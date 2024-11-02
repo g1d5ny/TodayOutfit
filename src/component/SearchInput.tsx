@@ -7,7 +7,6 @@ import Search from "../asset/icon/icon_search.svg"
 import FocusLocation from "../asset/icon/icon_focus_location.svg"
 import FocusOffLocation from "../asset/icon/icon_focus_off_location.svg"
 import { useRecoilState } from "recoil"
-import { useAddressHook } from "../hook/useAddressHook"
 import { useUserLocationHook } from "hook/useUserLocationHook"
 import { navigationRef } from "navigation/RootNavigation"
 

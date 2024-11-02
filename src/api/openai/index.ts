@@ -4,7 +4,7 @@ import { isTablet, Weather } from "store"
 import { OnePice, Outer, Pants, Skirt, Top } from "store/clothes"
 import { GENDER } from "type"
 
-export const fetchCurrentDesc = async (
+export const currentDescApi = async (
     code: Weather,
     temp: number,
     feels_like: number,
@@ -43,6 +43,7 @@ export const fetchCurrentDesc = async (
         Skirt
     )} 중에 태블릿이면 2개 아니면 1개, "bottomDesc": "형용사로 끝나는 하의 설명" }, "desc": 한 줄 조언}
     `
+
     const resp = await axios.post(
         OPEN_AI_BASE_URL + "v1/chat/completions",
         { model: "gpt-4o", messages: [{ role: "user", content: prompt }] },

@@ -1,11 +1,9 @@
 import { Keyboard, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native"
 import { CommonColor, FontStyle, screenWidth } from "../../style/CommonStyle"
-import { inputAddressState, isTablet, queryClient } from "../../store"
+import { inputAddressState, isTablet } from "../../store"
 import { useRecoilState } from "recoil"
 import { SearchInput } from "../../component/SearchInput"
-import { isEmpty } from "lodash"
 import { useEffect, useMemo, useState } from "react"
-import { useAddressHook } from "../../hook/useAddressHook"
 import { isIos, NowDate } from "utils"
 import { SearchResult } from "component/SearchResult"
 import { OnBoardingText } from "text/OnBoardingText"
@@ -14,44 +12,15 @@ import useKeyboardHeight from "hook/useKeyboardHeight"
 import { navigate } from "navigation/RootNavigation"
 import { useUserLocationHook } from "hook/useUserLocationHook"
 import { MY_ADDRSS } from "type"
-import { searchAddressApi } from "api/address"
-import { useQuery } from "@tanstack/react-query"
-
-const selectedAddressInitialValue = {
-    id: 0,
-    location: "",
-    coordinate: {
-        longitude: 0,
-        latitude: 0
-    },
-    date: NowDate()
-}
+import { searchAddressQuery } from "hook/useAddressHook"
 
 export const SearchAddressScreen = () => {
-    const [{ value, isEditing }, setInputAddress] = useRecoilState(inputAddressState)
+    const [{ value }, setInputAddress] = useRecoilState(inputAddressState)
     const [selectedAddress, setSelectedAddress] = useState<MY_ADDRSS | null>(null)
-    const onSubmitEditing = useMemo(() => !!value && !isEditing, [value, isEditing])
     const inputDisabled = useMemo(() => value.length === 0, [value])
     const { keyboardHeight } = useKeyboardHeight()
     const { addUserAddress } = useUserLocationHook()
-
-    const { isLoading, error, data } = useQuery({
-        queryKey: [value],
-        queryFn: async () => {
-            const data = await searchAddressApi(encodeURIComponent(value))
-            const {
-                errorType,
-                meta: { total_count },
-                documents
-            } = data
-
-            if (!!errorType || total_count === 0 || documents.length === 0) {
-                throw new Error("No results found.") // 에러 발생
-            }
-            return documents
-        },
-        enabled: onSubmitEditing && !queryClient.getQueryData([value])
-    })
+    const { isLoading, error, data } = searchAddressQuery()
 
     const reset = () => {
         setSelectedAddress(null)

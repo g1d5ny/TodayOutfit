@@ -125,11 +125,6 @@ export const inputAddressState = atom<INPUT_ADDRESS>({
     default: { value: "", isEditing: false }
 })
 
-export const resultAddressListState = atom<[RESULT_ADDRESS] | [] | ["NOT_FOUND"]>({
-    key: "resultAddressListState",
-    default: []
-})
-
 export const toastState = atom<TOAST | undefined>({
     key: "toastState",
     default: undefined

@@ -1,10 +1,10 @@
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
 import { currentWeatherInfoState, getStorage, hourWeatherInfoState, isTablet, myAddressListState, weather, weeklyWeatherInfoState } from "../store"
 import { CURRENT, Choice, FORECAST_DAY, HOUR, HOUR_WEATHER, WEEKELY_WEATHER } from "../type"
-import { getCurrentWeather, getDailyWeather } from "api/weather"
+import { getCurrentWeatherApi, getDailyWeatherApi } from "api/weather"
 import { Alert } from "react-native"
 import { TextAlarm } from "text/AlarmText"
-import { fetchCurrentDesc } from "api/openai/index"
+import { currentDescApi } from "api/openai/index"
 import { CostumePath } from "store/clothes"
 
 export const useWeatherHook = () => {
@@ -19,7 +19,7 @@ export const useWeatherHook = () => {
                 coordinate: { longitude, latitude }
             } = myAddressList[0]
 
-            getCurrentWeather(longitude, latitude)
+            getCurrentWeatherApi(longitude, latitude)
                 .then(({ current }) => {
                     setCurrentWeather(current)
                 })
@@ -36,7 +36,7 @@ export const useWeatherHook = () => {
                 coordinate: { longitude, latitude }
             } = myAddressList[0]
 
-            getDailyWeather(longitude, latitude, 3).then(({ forecast: { forecastday } }) => {
+            getDailyWeatherApi(longitude, latitude, 3).then(({ forecast: { forecastday } }) => {
                 const hourlyWeather = [] as HOUR_WEATHER[]
 
                 let count = 0
@@ -148,7 +148,7 @@ export const useWeatherHook = () => {
 
         const gender = await getStorage("gender")
 
-        fetchCurrentDesc(code, temp_c, feelslike_c, humidity, precip_mm, uv, wind_dir, wind_kph, is_day, gender).then(({ choices }: { choices: Choice[] }) => {
+        currentDescApi(code, temp_c, feelslike_c, humidity, precip_mm, uv, wind_dir, wind_kph, is_day, gender).then(({ choices }: { choices: Choice[] }) => {
             const {
                 message: { content }
             } = choices[0]
