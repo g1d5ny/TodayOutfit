@@ -214,7 +214,6 @@ const styles = StyleSheet.create({
     },
     foreDetailRow: {
         marginVertical: 24,
-        marginBottom: 133,
         flexDirection: "row",
         alignItems: "flex-start",
         flexWrap: "wrap",
