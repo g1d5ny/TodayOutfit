@@ -27,8 +27,8 @@ export const fetchDailyWeatherQuery = () => {
             }
 
             const hourlyWeather = [] as HOUR_WEATHER[]
-            let count = 0
 
+            let count = 0
             for (let i = 0; i < forecastday.length; i++) {
                 forecastday[i].hour.map(({ condition: { code }, time_epoch, is_day, time, temp_c, uv, feelslike_c, wind_dir, wind_kph, precip_mm, humidity, will_it_rain, will_it_snow, chance_of_rain, chance_of_snow }: HOUR) => {
                     if (count > 16) {
@@ -102,7 +102,8 @@ export const fetchDailyWeatherQuery = () => {
 
             return { hourlyWeather, weeklyWeather }
         },
-        enabled: !!myAddressList && !queryClient.getQueryData([longitude, latitude, 3]),
+        enabled: !!myAddressList,
+        staleTime: 1000 * 60 * 60, // 1시간
         throwOnError: true
     })
 

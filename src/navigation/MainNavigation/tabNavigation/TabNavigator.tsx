@@ -31,14 +31,17 @@ export const TabNavigator = () => {
     const { data: weekly } = fetchDailyWeatherQuery()
 
     useEffect(() => {
-        if (current) {
-            setCurrentWeather(current)
-        }
         if (weekly) {
             setWeeklyWeather(weekly.weeklyWeather)
             setHourlyWeather(weekly.hourlyWeather)
         }
-    }, [current, weekly])
+    }, [weekly])
+
+    useEffect(() => {
+        if (current) {
+            setCurrentWeather(current)
+        }
+    }, [current])
 
     return (
         <Navigator

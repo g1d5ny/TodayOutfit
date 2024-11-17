@@ -82,7 +82,8 @@ export const fetchCurrentWeatherQuery = () => {
                 costume: { top, topDesc, bottom, bottomDesc }
             }
         },
-        enabled: !!myAddressList && !queryClient.getQueryData([longitude, latitude]),
+        enabled: !!myAddressList,
+        staleTime: 1000 * 60 * 60, // 1시간
         throwOnError: true
     })
 
