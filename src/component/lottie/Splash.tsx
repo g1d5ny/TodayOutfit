@@ -20,7 +20,7 @@ export const Splash = ({ onAnimationFinish }: SplashProps) => {
 
 const styles = StyleSheet.create({
     view: {
-        flex: 1,
+        height: "100%",
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: CommonColor.main_blue
