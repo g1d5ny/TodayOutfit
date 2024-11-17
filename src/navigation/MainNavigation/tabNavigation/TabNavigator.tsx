@@ -13,22 +13,32 @@ import { LocationNavigator } from "./tab/location/LocationNavigator"
 import { WeatherNavigator } from "./tab/weather/WeatherNavigator"
 import { MoreNavigator } from "./tab/more/MoreNavigator"
 import { CommonColor, TAB_HEIGHT } from "../../../style/CommonStyle"
-import { useWeatherHook } from "hook/useWeatherHook"
-import { myAddressListState } from "store"
-import { useRecoilValue } from "recoil"
+import { currentWeatherInfoState, hourWeatherInfoState, weeklyWeatherInfoState } from "store"
+import { useSetRecoilState } from "recoil"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
+import { fetchCurrentWeatherQuery } from "hook/useCurrentWeatherHook"
+import { fetchDailyWeatherQuery } from "hook/useWeeklyWeatherHook"
 
 const { Navigator, Screen } = createBottomTabNavigator()
 
 export const TabNavigator = () => {
-    const myAddressList = useRecoilValue(myAddressListState)
-    const { CallCurrentWeather, CallDailyWeather } = useWeatherHook()
+    const setCurrentWeather = useSetRecoilState(currentWeatherInfoState)
+    const setWeeklyWeather = useSetRecoilState(weeklyWeatherInfoState)
+    const setHourlyWeather = useSetRecoilState(hourWeatherInfoState)
     const { bottom } = useSafeAreaInsets()
 
+    const { data: current } = fetchCurrentWeatherQuery()
+    const { data: weekly } = fetchDailyWeatherQuery()
+
     useEffect(() => {
-        CallCurrentWeather()
-        CallDailyWeather()
-    }, [myAddressList])
+        if (current) {
+            setCurrentWeather(current)
+        }
+        if (weekly) {
+            setWeeklyWeather(weekly.weeklyWeather)
+            setHourlyWeather(weekly.hourlyWeather)
+        }
+    }, [current, weekly])
 
     return (
         <Navigator
