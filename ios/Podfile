@@ -88,16 +88,16 @@ target 'TodayOutfit' do
     end
   end
   # function std 대응
-  installer.pods_project.targets.each do |target|
-    if target.name == 'Flipper'
-      file_path = 'Pods/Flipper/xplat/Flipper/FlipperTransportTypes.h'
-      contents = File.read(file_path)
-      unless contents.include?('#include <functional>')
-        File.open(file_path, 'w') do |file|
-          file.puts('#include <functional>')
-          file.puts(contents)
-        end
-      end
-    end
-  end
+  # installer.pods_project.targets.each do |target|
+  #   if target.name == 'Flipper'
+  #     file_path = 'Pods/Flipper/xplat/Flipper/FlipperTransportTypes.h'
+  #     contents = File.read(file_path)
+  #     unless contents.include?('#include <functional>')
+  #       File.open(file_path, 'w') do |file|
+  #         file.puts('#include <functional>')
+  #         file.puts(contents)
+  #       end
+  #     end
+  #   end
+  # end
 end

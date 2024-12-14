@@ -1,14 +1,14 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
-import { CommonColor, CommonStyle } from "../../style/CommonStyle"
-import { useState } from "react"
-import { isTablet } from "../../store"
-import { LocationPermissionModal } from "../../component/LocationPermissionModal"
+import { AddressGuide } from "component/AddressGuide"
 import { Guide } from "component/Guide"
-import { OnBoardingText } from "text/OnBoardingText"
 import { SearchInput } from "component/SearchInput"
 import { navigate } from "navigation/RootNavigation"
+import React, { useState } from "react"
+import { StyleSheet, TouchableOpacity, View } from "react-native"
+import { OnBoardingText } from "text/OnBoardingText"
 import { isIos } from "utils"
-import { AddressGuide } from "component/AddressGuide"
+import { LocationPermissionModal } from "../../component/LocationPermissionModal"
+import { isTablet } from "../../store"
+import { CommonColor, CommonStyle } from "../../style/CommonStyle"
 
 export const GuideAddressScreen = () => {
     const [isVisible, setIsVisible] = useState(false)
@@ -23,7 +23,7 @@ export const GuideAddressScreen = () => {
                     children={
                         <>
                             <TouchableOpacity onPress={() => navigate("SearchAddressScreen")}>
-                                <SearchInput hasInput={false} isOnboarding />
+                                <SearchInput hasInput={false} isOnboarding error={null} />
                             </TouchableOpacity>
                             <AddressGuide style={styles.addressGuide} />
                         </>
