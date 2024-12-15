@@ -1,60 +1,24 @@
-import { atom, selector } from "recoil"
-import { isEmpty } from "lodash"
 import Storage from "@react-native-async-storage/async-storage"
+import { QueryClient } from "@tanstack/react-query"
+import { isEmpty } from "lodash"
+import { Alert, Dimensions } from "react-native"
 import DeviceInfo from "react-native-device-info"
-import { RESULT_ADDRESS, MY_ADDRSS, TOAST, CURRENT_WEATHER, HOUR_WEATHER, WEEKELY_WEATHER, WEATHER_DESC_KOR, RECOMMEND_COSTUME, INPUT_ADDRESS } from "../type"
+import { atom, selector } from "recoil"
 import { setRecoil } from "recoil-nexus"
-import ClearDay from "../asset/icon/icon_clear_day.svg"
-import ClearNight from "../asset/icon/icon_clear_night.svg"
-import MaxSunny from "../asset/icon/3d/weather/day/icon_3d_sunny.svg"
-import Snow from "../asset/icon/icon_light_snow.svg"
-import MaxSnowDay from "../asset/icon/3d/weather/day/icon_3d_snowy.svg"
-import MaxSnowNight from "../asset/icon/3d/weather/night/icon_3d_snowy.svg"
-import PartyCloudyDay from "../asset/icon/icon_party_cloudy_day.svg"
-import PartyCloudyNight from "../asset/icon/icon_party_cloudy_night.svg"
-import MaxPartyCloudyDay from "../asset/icon/3d/weather/day/icon_3d_party_cloudy_day.svg"
-import MaxPartyCloudyNight from "../asset/icon/3d/weather/night/icon_3d_party_cloudy_night.svg"
-import CloudyDay from "../asset/icon/icon_cloudy_day.svg"
-import CloudyNight from "../asset/icon/icon_cloudy_night.svg"
+import MaxSunny from "../asset/icon/3d/weather/day/icon_3d_clear.svg"
 import MaxCloudyDay from "../asset/icon/3d/weather/day/icon_3d_cloudy.svg"
-import MaxCloudyNight from "../asset/icon/3d/weather/night/icon_3d_cloudy.svg"
-import RainyDay from "../asset/icon/icon_rain_day.svg"
-import RainyNight from "../asset/icon/icon_rain_night.svg"
-import MaxRainyDay from "../asset/icon/3d/weather/day/icon_3d_rainy.svg"
-import MaxRainyNight from "../asset/icon/3d/weather/night/icon_3d_rainy.svg"
-import FogNight from "../asset/icon/icon_fog_night.svg"
-import FogDay from "../asset/icon/icon_fog_day.svg"
 import MaxFogDay from "../asset/icon/3d/weather/day/icon_3d_fog.svg"
-import MaxFogNight from "../asset/icon/3d/weather/night/icon_3d_fog.svg"
-import MaxMoon from "../asset/icon/3d/weather/night/icon_3d_moon.svg"
-import Thunder from "../asset/icon/icon_thunder.svg"
+import MaxPartyCloudyDay from "../asset/icon/3d/weather/day/icon_3d_party_cloudy.svg"
+import MaxRainyDay from "../asset/icon/3d/weather/day/icon_3d_rainy.svg"
+import MaxSnow from "../asset/icon/3d/weather/icon_3d_snowy.svg"
 import MaxThunder from "../asset/icon/3d/weather/icon_3d_thunder.svg"
-import SW from "../asset/icon/wind_direction/icon_wind_direction_1.svg"
-import SE from "../asset/icon/wind_direction/icon_wind_direction_2.svg"
-import NE from "../asset/icon/wind_direction/icon_wind_direction_3.svg"
-import NW from "../asset/icon/wind_direction/icon_wind_direction_4.svg"
-import S from "../asset/icon/wind_direction/icon_wind_direction_5.svg"
-import E from "../asset/icon/wind_direction/icon_wind_direction_6.svg"
-import W from "../asset/icon/wind_direction/icon_wind_direction_7.svg"
-import N from "../asset/icon/wind_direction/icon_wind_direction_8.svg"
-import Precip0 from "../asset/icon/rain_percentage/icon_rain_percentage_0.svg"
-import Precip1 from "../asset/icon/rain_percentage/icon_rain_percentage_1.svg"
-import Precip2 from "../asset/icon/rain_percentage/icon_rain_percentage_2.svg"
-import Precip3 from "../asset/icon/rain_percentage/icon_rain_percentage_3.svg"
-import Precip4 from "../asset/icon/rain_percentage/icon_rain_percentage_4.svg"
-import Precip5 from "../asset/icon/rain_percentage/icon_rain_percentage_5.svg"
-import Precip6 from "../asset/icon/rain_percentage/icon_rain_percentage_6.svg"
-import Precip7 from "../asset/icon/rain_percentage/icon_rain_percentage_7.svg"
-import Precip8 from "../asset/icon/rain_percentage/icon_rain_percentage_8.svg"
-import Precip9 from "../asset/icon/rain_percentage/icon_rain_percentage_9.svg"
-import Precip10 from "../asset/icon/rain_percentage/icon_rain_percentage_10.svg"
-import Humidity1 from "../asset/icon/humidity/icon_humidity_1.svg"
-import Humidity2 from "../asset/icon/humidity/icon_humidity_2.svg"
-import Humidity3 from "../asset/icon/humidity/icon_humidity_3.svg"
-import Humidity4 from "../asset/icon/humidity/icon_humidity_4.svg"
-import Humidity5 from "../asset/icon/humidity/icon_humidity_5.svg"
-import Humidity6 from "../asset/icon/humidity/icon_humidity_6.svg"
+import MaxMoon from "../asset/icon/3d/weather/night/icon_3d_clear.svg"
+import MaxCloudyNight from "../asset/icon/3d/weather/night/icon_3d_cloudy.svg"
+import MaxFogNight from "../asset/icon/3d/weather/night/icon_3d_fog.svg"
+import MaxPartyCloudyNight from "../asset/icon/3d/weather/night/icon_3d_party_cloudy.svg"
+import MaxRainyNight from "../asset/icon/3d/weather/night/icon_3d_rainy.svg"
 import FeelsLike1 from "../asset/icon/feels_like/icon_feels_like_1.svg"
+import FeelsLike10 from "../asset/icon/feels_like/icon_feels_like_10.svg"
 import FeelsLike2 from "../asset/icon/feels_like/icon_feels_like_2.svg"
 import FeelsLike3 from "../asset/icon/feels_like/icon_feels_like_3.svg"
 import FeelsLike4 from "../asset/icon/feels_like/icon_feels_like_4.svg"
@@ -63,13 +27,48 @@ import FeelsLike6 from "../asset/icon/feels_like/icon_feels_like_6.svg"
 import FeelsLike7 from "../asset/icon/feels_like/icon_feels_like_7.svg"
 import FeelsLike8 from "../asset/icon/feels_like/icon_feels_like_8.svg"
 import FeelsLike9 from "../asset/icon/feels_like/icon_feels_like_9.svg"
-import FeelsLike10 from "../asset/icon/feels_like/icon_feels_like_10.svg"
+import Humidity1 from "../asset/icon/humidity/icon_humidity_1.svg"
+import Humidity2 from "../asset/icon/humidity/icon_humidity_2.svg"
+import Humidity3 from "../asset/icon/humidity/icon_humidity_3.svg"
+import Humidity4 from "../asset/icon/humidity/icon_humidity_4.svg"
+import Humidity5 from "../asset/icon/humidity/icon_humidity_5.svg"
+import Humidity6 from "../asset/icon/humidity/icon_humidity_6.svg"
+import ClearDay from "../asset/icon/icon_clear_day.svg"
+import ClearNight from "../asset/icon/icon_clear_night.svg"
+import CloudyDay from "../asset/icon/icon_cloudy_day.svg"
+import CloudyNight from "../asset/icon/icon_cloudy_night.svg"
+import FogDay from "../asset/icon/icon_fog_day.svg"
+import FogNight from "../asset/icon/icon_fog_night.svg"
+import Snow from "../asset/icon/icon_light_snow.svg"
+import PartyCloudyDay from "../asset/icon/icon_party_cloudy_day.svg"
+import PartyCloudyNight from "../asset/icon/icon_party_cloudy_night.svg"
+import RainyDay from "../asset/icon/icon_rain_day.svg"
+import RainyNight from "../asset/icon/icon_rain_night.svg"
+import Thunder from "../asset/icon/icon_thunder.svg"
+import Precip0 from "../asset/icon/rain_percentage/icon_rain_percentage_0.svg"
+import Precip1 from "../asset/icon/rain_percentage/icon_rain_percentage_1.svg"
+import Precip10 from "../asset/icon/rain_percentage/icon_rain_percentage_10.svg"
+import Precip2 from "../asset/icon/rain_percentage/icon_rain_percentage_2.svg"
+import Precip3 from "../asset/icon/rain_percentage/icon_rain_percentage_3.svg"
+import Precip4 from "../asset/icon/rain_percentage/icon_rain_percentage_4.svg"
+import Precip5 from "../asset/icon/rain_percentage/icon_rain_percentage_5.svg"
+import Precip6 from "../asset/icon/rain_percentage/icon_rain_percentage_6.svg"
+import Precip7 from "../asset/icon/rain_percentage/icon_rain_percentage_7.svg"
+import Precip8 from "../asset/icon/rain_percentage/icon_rain_percentage_8.svg"
+import Precip9 from "../asset/icon/rain_percentage/icon_rain_percentage_9.svg"
 import SnowFall1 from "../asset/icon/snow_fall/icon_snow_fall_1.svg"
 import SnowFall2 from "../asset/icon/snow_fall/icon_snow_fall_2.svg"
 import SnowFall3 from "../asset/icon/snow_fall/icon_snow_fall_3.svg"
 import SnowFall4 from "../asset/icon/snow_fall/icon_snow_fall_4.svg"
-import { Alert, Dimensions } from "react-native"
-import { QueryClient } from "@tanstack/react-query"
+import SW from "../asset/icon/wind_direction/icon_wind_direction_1.svg"
+import SE from "../asset/icon/wind_direction/icon_wind_direction_2.svg"
+import NE from "../asset/icon/wind_direction/icon_wind_direction_3.svg"
+import NW from "../asset/icon/wind_direction/icon_wind_direction_4.svg"
+import S from "../asset/icon/wind_direction/icon_wind_direction_5.svg"
+import E from "../asset/icon/wind_direction/icon_wind_direction_6.svg"
+import W from "../asset/icon/wind_direction/icon_wind_direction_7.svg"
+import N from "../asset/icon/wind_direction/icon_wind_direction_8.svg"
+import { CURRENT_WEATHER, HOUR_WEATHER, INPUT_ADDRESS, MY_ADDRSS, RECOMMEND_COSTUME, TOAST, WEATHER_DESC_KOR, WEEKELY_WEATHER } from "../type"
 
 const { width } = Dimensions.get("window")
 export const isTablet = DeviceInfo.isTablet() || width >= 600
@@ -259,7 +258,7 @@ export const weather = (code: Weather, is_day: boolean) => {
         return is_day ? weatherDesc["fog-day"] : weatherDesc["fog-night"]
     }
     if (isThunder(code)) {
-        return weatherDesc["thunder"]
+        return is_day ? weatherDesc["thunder-day"] : weatherDesc["thunder-night"]
     }
     if (isSummeryRain(code)) {
         return is_day ? weatherDesc["rain-day"] : weatherDesc["rain-night"]
@@ -272,8 +271,8 @@ export const weather = (code: Weather, is_day: boolean) => {
 export const weatherDesc: { [key: string]: { minIcon: JSX.Element; maxIcon: JSX.Element; text: WEATHER_DESC_KOR; backgroundColor: string } } = {
     "clear-day": { minIcon: <ClearDay />, maxIcon: <MaxSunny width={"100%"} height={"100%"} />, text: "맑음", backgroundColor: "rgb(252, 252, 221)" },
     "clear-night": { minIcon: <ClearNight />, maxIcon: <MaxMoon width={"100%"} height={"100%"} />, text: "맑음", backgroundColor: "rgb(201, 211, 246)" },
-    "snow-day": { minIcon: <Snow />, maxIcon: <MaxSnowDay width={"100%"} height={"100%"} />, text: "눈", backgroundColor: "rgb(230, 242, 253)" },
-    "snow-night": { minIcon: <Snow />, maxIcon: <MaxSnowNight width={"100%"} height={"100%"} />, text: "눈", backgroundColor: "rgb(228, 230, 242)" },
+    "snow-day": { minIcon: <Snow />, maxIcon: <MaxSnow width={"100%"} height={"100%"} />, text: "눈", backgroundColor: "rgb(230, 242, 253)" },
+    "snow-night": { minIcon: <Snow />, maxIcon: <MaxSnow width={"100%"} height={"100%"} />, text: "눈", backgroundColor: "rgb(228, 230, 242)" },
     "party-cloudy-day": { minIcon: <PartyCloudyDay />, maxIcon: <MaxPartyCloudyDay width={"100%"} height={"100%"} />, text: "구름 조금", backgroundColor: "rgb(241, 243, 255)" },
     "party-cloudy-night": { minIcon: <PartyCloudyNight />, maxIcon: <MaxPartyCloudyNight width={"100%"} height={"100%"} />, text: "구름 조금", backgroundColor: "rgb(241, 243, 255)" },
     "cloudy-day": { minIcon: <CloudyDay />, maxIcon: <MaxCloudyDay width={"100%"} height={"100%"} />, text: "흐림", backgroundColor: "rgb(241, 252, 255)" },
@@ -282,7 +281,8 @@ export const weatherDesc: { [key: string]: { minIcon: JSX.Element; maxIcon: JSX.
     "rain-night": { minIcon: <RainyNight />, maxIcon: <MaxRainyNight width={"100%"} height={"100%"} />, text: "비", backgroundColor: "rgb(239, 245, 245)" },
     "fog-day": { minIcon: <FogDay />, maxIcon: <MaxFogDay width={"100%"} height={"100%"} />, text: "안개", backgroundColor: "rgb(230, 242, 253)" },
     "fog-night": { minIcon: <FogNight />, maxIcon: <MaxFogNight width={"100%"} height={"100%"} />, text: "안개", backgroundColor: "rgb(230, 242, 253)" },
-    thunder: { minIcon: <Thunder />, maxIcon: <MaxThunder width={"100%"} height={"100%"} />, text: "천둥 번개", backgroundColor: "rgb(228, 230, 242)" }
+    "thunder-day": { minIcon: <Thunder />, maxIcon: <MaxThunder width={"100%"} height={"100%"} />, text: "천둥 번개", backgroundColor: "rgb(230, 242, 253)" },
+    "thunder-night": { minIcon: <Thunder />, maxIcon: <MaxThunder width={"100%"} height={"100%"} />, text: "천둥 번개", backgroundColor: "rgb(228, 230, 242)" }
 }
 
 export const WindDirection = [

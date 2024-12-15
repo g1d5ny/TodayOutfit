@@ -1,20 +1,20 @@
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
-import { currentDate, currentMonth, currentWeatherInfoState, hourWeatherInfoState, isTablet } from "../../store"
-import { CommonColor, CommonStyle, FontStyle, screenHeight, screenWidth, TAB_HEIGHT } from "../../style/CommonStyle"
-import { DateView, LocationView, WeatherDetail } from "../../component/MiniCard"
-import { useRecoilValue } from "recoil"
-import UV from "../../asset/icon/icon_uv_index.svg"
-import FeelsLike from "../../asset/icon/icon_feels_like.svg"
-import WindSpeed from "../../asset/icon/icon_wind_speed.svg"
-import WindDirection from "../../asset/icon/icon_wind_dir.svg"
-import RainPercentage from "../../asset/icon/icon_rain_percentage.svg"
-import Humidity from "../../asset/icon/icon_humidity.svg"
-import SnowFall from "../../asset/icon/icon_snow_fall.svg"
-import { LegacyRef, useCallback, useEffect, useState } from "react"
-import { FeelsLikeFormat, HumidityFormat, RainPercentageFormat, SnowFallFormat, UVFormat, WindDirectionFormat, WindSpeedFormat } from "../../utils"
-import { navigationRef } from "navigation/RootNavigation"
-import { HOUR_WEATHER } from "type"
 import { AppBar } from "component/CommonComponent"
+import { navigationRef } from "navigation/RootNavigation"
+import React, { LegacyRef, useCallback, useEffect, useState } from "react"
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import { useRecoilValue } from "recoil"
+import { HOUR_WEATHER } from "type"
+import FeelsLike from "../../asset/icon/icon_feels_like.svg"
+import Humidity from "../../asset/icon/icon_humidity.svg"
+import RainPercentage from "../../asset/icon/icon_rain_percentage.svg"
+import SnowFall from "../../asset/icon/icon_snow_fall.svg"
+import UV from "../../asset/icon/icon_uv_index.svg"
+import WindDirection from "../../asset/icon/icon_wind_dir.svg"
+import WindSpeed from "../../asset/icon/icon_wind_speed.svg"
+import { LocationView, WeatherDetail } from "../../component/MiniCard"
+import { currentWeatherInfoState, hourWeatherInfoState, isTablet } from "../../store"
+import { CommonColor, CommonStyle, FontStyle, screenWidth } from "../../style/CommonStyle"
+import { FeelsLikeFormat, HumidityFormat, RainPercentageFormat, SnowFallFormat, UVFormat, WindDirectionFormat, WindSpeedFormat } from "../../utils"
 
 interface WeatherHourlyCard {
     hour?: string | number
@@ -153,9 +153,7 @@ export const WeatherFooter = ({ viewRef }: { viewRef: LegacyRef<View> }) => {
                 <>
                     <View style={{ marginTop: 32 }}>
                         <Text style={[CommonStyle.padding, isTablet ? FontStyle.title2.semibold2 : FontStyle.body2.bold]}>시간별 일기 예보</Text>
-                        <Text style={[CommonStyle.padding, isTablet ? FontStyle.label1.regular : FontStyle.label2.regular, styles.detail, { color: CommonColor.basic_gray_dark }]}>
-                            시간을 선택시 상세 기상 정보를 확인할 수 있습니다.
-                        </Text>
+                        <Text style={[CommonStyle.padding, isTablet ? FontStyle.label1.regular : FontStyle.label2.regular, styles.detail, { color: CommonColor.basic_gray_dark }]}>시간을 선택시 상세 기상 정보를 확인할 수 있습니다.</Text>
                         <ScrollView style={styles.scrollView} horizontal={true} showsHorizontalScrollIndicator={false} contentContainerStyle={CommonStyle.padding}>
                             <View style={CommonStyle.row}>
                                 {WeatherHourlyCard({
@@ -181,21 +179,19 @@ export const WeatherFooter = ({ viewRef }: { viewRef: LegacyRef<View> }) => {
                                     isClicked: selectedHour.hour === String(-1),
                                     index: -1
                                 })}
-                                {hourWeather.map(
-                                    ({ hour, temp, minIcon, uv, feelslike, windSpeed, rainPercentage, snowPercentage, willItSnow, willItRain, windDir, humidity }, index: number) => {
-                                        const onPress = () => {
-                                            setSelectedHour({ hour, uv, feelslike, minIcon, windSpeed, snowPercentage, rainPercentage, willItRain, willItSnow, windDir, humidity })
-                                        }
-                                        return WeatherHourlyCard({
-                                            hour,
-                                            minIcon,
-                                            temp,
-                                            onPress,
-                                            isClicked: selectedHour.hour === hour,
-                                            index
-                                        })
+                                {hourWeather.map(({ hour, temp, minIcon, uv, feelslike, windSpeed, rainPercentage, snowPercentage, willItSnow, willItRain, windDir, humidity }, index: number) => {
+                                    const onPress = () => {
+                                        setSelectedHour({ hour, uv, feelslike, minIcon, windSpeed, snowPercentage, rainPercentage, willItRain, willItSnow, windDir, humidity })
                                     }
-                                )}
+                                    return WeatherHourlyCard({
+                                        hour,
+                                        minIcon,
+                                        temp,
+                                        onPress,
+                                        isClicked: selectedHour.hour === hour,
+                                        index
+                                    })
+                                })}
                             </View>
                         </ScrollView>
                     </View>
@@ -250,7 +246,6 @@ const styles = StyleSheet.create({
         borderColor: CommonColor.basic_gray_light
     },
     wrapper: {
-        height: isTablet ? screenHeight - TAB_HEIGHT : undefined,
         paddingTop: 44
     }
 })

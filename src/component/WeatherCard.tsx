@@ -1,11 +1,11 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
-import { CommonColor, CommonStyle, FontStyle } from "../style/CommonStyle"
 import LinearGradient from "react-native-linear-gradient"
-import MinTemp from "../asset/icon/icon_min_temp.svg"
 import MaxTemp from "../asset/icon/icon_max_temp.svg"
+import MinTemp from "../asset/icon/icon_min_temp.svg"
 import Sunrise from "../asset/icon/icon_sunrise.svg"
 import Sunset from "../asset/icon/icon_sunset.svg"
 import { isTablet } from "../store"
+import { CommonColor, CommonStyle, FontStyle } from "../style/CommonStyle"
 
 interface WeatherProps {
     day: string
@@ -38,38 +38,6 @@ export const WeatherCard = ({ day, date, minIcon, text, maxIcon, maxTemp, minTem
             </TouchableOpacity>
             <LinearGradient colors={[backgroundColor, "#fff"]} style={styles.gradient}>
                 <View style={styles.maxIcon}>{maxIcon}</View>
-                {/* <View style={[styles.cardDesc, CommonStyle.row, isTablet && { gap: 34 }]}>
-                    <View style={[styles.flex, styles.gap, { marginLeft: 34 }]}>
-                        <View style={[CommonStyle.center, styles.flex]}>
-                            <View style={[CommonStyle.row, { marginBottom: 8 }]}>
-                                <MaxTemp width={10} height={10} />
-                                <Text style={[FontStyle.label2.regular, { marginLeft: 4 }]}>최고온도</Text>
-                            </View>
-                            <Text style={[FontStyle.display.forecast_tablet, { color: CommonColor.etc_red }]}>{maxTemp}˚</Text>
-                        </View>
-                        <View style={CommonStyle.row}>
-                            <Sunrise />
-                            <Text style={[FontStyle.label1.regular, { color: CommonColor.basic_gray_dark, marginLeft: 8 }]}>일출</Text>
-                        </View>
-                        <View style={CommonStyle.row}>
-                            <Sunset />
-                            <Text style={[FontStyle.label1.regular, { color: CommonColor.basic_gray_dark, marginLeft: 8 }]}>일몰</Text>
-                        </View>
-                    </View>
-                    <View style={[styles.flex, styles.gap]}>
-                        <View style={[CommonStyle.center, styles.flex]}>
-                            <View style={[CommonStyle.row, { marginBottom: 8 }]}>
-                                <MinTemp width={10} height={10} />
-                                <Text style={[FontStyle.label2.regular, { marginLeft: 4 }]}>최저온도</Text>
-                            </View>
-                            <Text style={[FontStyle.display.forecast_tablet, { color: CommonColor.main_blue }]}>{minTemp}˚</Text>
-                        </View>
-                        <View style={[styles.gap, { alignItems: "flex-end" }]}>
-                            <Text style={[FontStyle.label1.regular, { color: CommonColor.main_black }]}>{sunrise}</Text>
-                            <Text style={[FontStyle.label1.regular, { color: CommonColor.main_black }]}>{sunset}</Text>
-                        </View>
-                    </View>
-                </View> */}
                 <View style={[styles.cardDesc, CommonStyle.row, isTablet && { gap: 34 }]}>
                     <View style={[styles.flex, styles.gap, { marginLeft: 34 }]}>
                         <View style={[CommonStyle.row, isTablet && { gap: 24 }]}>

@@ -1,4 +1,4 @@
-import { Dimensions, PixelRatio, Platform, StyleSheet } from "react-native"
+import { Dimensions, PixelRatio, StyleSheet } from "react-native"
 import { isTablet } from "store"
 import { isIos } from "utils"
 

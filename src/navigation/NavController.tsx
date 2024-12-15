@@ -1,13 +1,13 @@
 import { NavigationContainer } from "@react-navigation/native"
+import { ToastComponent } from "component/LocationPermissionModal"
 import React, { useEffect, useState } from "react"
 import { StatusBar, View } from "react-native"
-import { navigationRef } from "./RootNavigation"
 import { useRecoilValueLoadable } from "recoil"
-import { loggedInState } from "../store"
-import { OnBoardingNavigator } from "./onBoardingNavigation/OnBoardingNavigator"
-import { MainNavigator } from "./mainNavigation/MainNavigor"
 import { CommonStyle } from "style/CommonStyle"
-import { ToastComponent } from "component/LocationPermissionModal"
+import { loggedInState } from "../store"
+import { MainNavigator } from "./mainNavigation/MainNavigor"
+import { OnBoardingNavigator } from "./onBoardingNavigation/OnBoardingNavigator"
+import { navigationRef } from "./RootNavigation"
 
 export const NavController = () => {
     const { contents: isLoggedIn, state } = useRecoilValueLoadable(loggedInState)

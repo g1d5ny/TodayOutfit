@@ -1,20 +1,21 @@
+import EmptyCalendar from "asset/icon/icon_empty_calendar.svg"
+import MaxTemp from "asset/icon/icon_max_temp.svg"
+import MinTemp from "asset/icon/icon_min_temp.svg"
+import RainPercentage from "asset/icon/icon_rain_percentage.svg"
+import SnowPercentage from "asset/icon/icon_snow_percentage.svg"
+import UV from "asset/icon/icon_uv_index.svg"
+import WindSpeed from "asset/icon/icon_wind_speed.svg"
+import { AppBar } from "component/CommonComponent"
+import Loader from "component/lottie/Loader"
 import { DateView, LocationView, WeatherDetail } from "component/MiniCard"
+import { WeatherCard } from "component/WeatherCard"
+import { navigationRef } from "navigation/RootNavigation"
+import React, { useState } from "react"
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { useRecoilValue } from "recoil"
 import { currentWeatherInfoState, isTablet, weather, weeklyWeatherInfoState } from "store"
 import { CommonColor, CommonStyle, FontStyle } from "style/CommonStyle"
 import { RainPercentageFormat, SnowFallFormat, UVFormat, WindSpeedFormat, getDay } from "utils"
-import MinTemp from "asset/icon/icon_min_temp.svg"
-import MaxTemp from "asset/icon/icon_max_temp.svg"
-import { useState } from "react"
-import { WeatherCard } from "component/WeatherCard"
-import { navigationRef } from "navigation/RootNavigation"
-import UV from "asset/icon/icon_uv_index.svg"
-import WindSpeed from "asset/icon/icon_wind_speed.svg"
-import RainPercentage from "asset/icon/icon_rain_percentage.svg"
-import EmptyCalendar from "asset/icon/icon_empty_calendar.svg"
-import Loader from "component/lottie/Loader"
-import { AppBar } from "component/CommonComponent"
 
 interface WeatherDetail {
     uv: number
@@ -56,7 +57,7 @@ const WeatherDetailComponent = ({ uv, maxWindSpeed, willItSnow, snowPercentage, 
             <View style={styles.detailCard}>
                 {willItSnow ? (
                     <WeatherDetail
-                        titleIcon={<RainPercentage />}
+                        titleIcon={<SnowPercentage />}
                         title={"적설량"}
                         content={SnowFallFormat(snowPercentage)?.content as string}
                         desc={SnowFallFormat(snowPercentage)?.text as string}

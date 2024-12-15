@@ -1,17 +1,17 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
-import { CommonColor, CommonStyle, FontStyle } from "../../style/CommonStyle"
-import Man from "../../asset/icon/3d/icon_3d_gender_man.svg"
-import Woman from "../../asset/icon/3d/icon_3d_gender_woman.svg"
-import TabletMan from "../../asset/icon/3d/icon_3d_gender_man_tablet.svg"
-import TabletWoman from "../../asset/icon/3d/icon_3d_gender_woman_tablet.svg"
 import Check from "asset/icon/icon_blue_check.svg"
 import UnCheck from "asset/icon/icon_gray_check.svg"
-import { useState } from "react"
-import { isTablet, loggedInState, setStorage } from "../../store"
-import { useSetRecoilState } from "recoil"
 import { Guide } from "component/Guide"
+import { useState } from "react"
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import { useSetRecoilState } from "recoil"
 import { OnBoardingText } from "text/OnBoardingText"
 import { GENDER } from "type"
+import Man from "../../asset/icon/3d/icon_3d_gender_man.svg"
+import TabletMan from "../../asset/icon/3d/icon_3d_gender_man_tablet.svg"
+import Woman from "../../asset/icon/3d/icon_3d_gender_woman.svg"
+import TabletWoman from "../../asset/icon/3d/icon_3d_gender_woman_tablet.svg"
+import { isTablet, loggedInState, setStorage } from "../../store"
+import { CommonColor, CommonStyle, FontStyle } from "../../style/CommonStyle"
 
 export const SelectGenderScreen = () => {
     const setIsLoggedIn = useSetRecoilState(loggedInState)
@@ -114,14 +114,14 @@ const styles = StyleSheet.create({
         borderRadius: 15
     },
     gender: {
-        // width: isTablet ? 222 : 172,
+        width: isTablet ? 222 : 172,
         height: isTablet ? 222 : 172,
         borderRadius: isTablet ? 26 : 20,
         backgroundColor: CommonColor.basic_gray_light,
         alignItems: "center",
         justifyContent: "center",
-        paddingHorizontal: isTablet ? 18 : 22,
-        paddingVertical: isTablet ? 20 : 16
+        paddingHorizontal: 22,
+        paddingVertical: isTablet ? 22 : 17
     },
     genderContainer: {
         width: "100%",

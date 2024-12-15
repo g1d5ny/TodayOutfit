@@ -1,11 +1,11 @@
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
-import { currentWeatherInfoState, getStorage, hourWeatherInfoState, isTablet, myAddressListState, weather, weeklyWeatherInfoState } from "../store"
-import { CURRENT, Choice, FORECAST_DAY, HOUR, HOUR_WEATHER, WEEKELY_WEATHER } from "../type"
+import { currentDescApi } from "api/openai/index"
 import { getCurrentWeatherApi, getDailyWeatherApi } from "api/weather"
 import { Alert } from "react-native"
-import { TextAlarm } from "text/AlarmText"
-import { currentDescApi } from "api/openai/index"
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
 import { CostumePath } from "store/clothes"
+import { TextAlarm } from "text/AlarmText"
+import { currentWeatherInfoState, getStorage, hourWeatherInfoState, isTablet, myAddressListState, weather, weeklyWeatherInfoState } from "../store"
+import { CURRENT, Choice, FORECAST_DAY, HOUR, HOUR_WEATHER, WEEKELY_WEATHER } from "../type"
 
 export const useWeatherHook = () => {
     const myAddressList = useRecoilValue(myAddressListState)
@@ -41,47 +41,29 @@ export const useWeatherHook = () => {
 
                 let count = 0
                 for (let i = 0; i < forecastday.length; i++) {
-                    forecastday[i].hour.map(
-                        ({
-                            condition: { code },
-                            time_epoch,
-                            is_day,
-                            time,
-                            temp_c,
-                            uv,
-                            feelslike_c,
-                            wind_dir,
-                            wind_kph,
-                            precip_mm,
-                            humidity,
-                            will_it_rain,
-                            will_it_snow,
-                            chance_of_rain,
-                            chance_of_snow
-                        }: HOUR) => {
-                            if (count > 16) {
-                                return
-                            }
-                            if (time_epoch * 1000 > Date.now()) {
-                                hourlyWeather[count] = {
-                                    hour: time.split(" ")[1].split(":")[0],
-                                    minIcon: weather(code, Boolean(is_day))?.minIcon as JSX.Element,
-                                    temp: Math.trunc(temp_c),
-                                    uv,
-                                    feelslike: parseInt(feelslike_c),
-                                    windDir: wind_dir,
-                                    windSpeed: wind_kph,
-                                    precip_mm,
-                                    humidity: parseInt(humidity),
-                                    willItRain: will_it_rain,
-                                    willItSnow: will_it_snow,
-                                    rainPercentage: chance_of_rain,
-                                    snowPercentage: chance_of_snow
-                                }
-                                count++
-                            }
+                    forecastday[i].hour.map(({ condition: { code }, time_epoch, is_day, time, temp_c, uv, feelslike_c, wind_dir, wind_kph, precip_mm, humidity, will_it_rain, will_it_snow, chance_of_rain, chance_of_snow }: HOUR) => {
+                        if (count > 16) {
+                            return
                         }
-                    )
+                        if (time_epoch * 1000 > Date.now()) {
+                            hourlyWeather[count] = {
+                                hour: time.split(" ")[1].split(":")[0],
+                                minIcon: weather(code, Boolean(is_day))?.minIcon as JSX.Element,
+                                temp: Math.trunc(temp_c),
+                                uv,
+                                feelslike: parseInt(feelslike_c),
+                                windDir: wind_dir,
+                                windSpeed: wind_kph,
+                                precip_mm,
+                                humidity: parseInt(humidity),
+                                willItRain: will_it_rain,
+                                willItSnow: will_it_snow,
+                                rainPercentage: chance_of_rain,
+                                snowPercentage: chance_of_snow
+                            }
+                            count++
+                        }
+                    })
                 }
                 setHourWeatherInfo(hourlyWeather)
 

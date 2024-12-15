@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query"
 import { getDailyWeatherApi } from "api/weather"
 import { Alert } from "react-native"
 import { useRecoilValue } from "recoil"
-import { myAddressListState, queryClient, weather } from "store"
+import { myAddressListState, weather } from "store"
 import { TextAlarm } from "text/AlarmText"
 import { FORECAST_DAY, HOUR, HOUR_WEATHER, WEEKELY_WEATHER } from "type"
 
