@@ -3,11 +3,10 @@ import { currentDescApi } from "api/openai"
 import { getCurrentWeatherApi } from "api/weather"
 import { Alert } from "react-native"
 import { useRecoilValue } from "recoil"
-import { getStorage, isTablet, myAddressListState, queryClient, weather } from "store"
-import { CostumePath } from "store/clothes"
+import { getStorage, myAddressListState, weather } from "store"
 import { TextAlarm } from "text/AlarmText"
 
-export const fetchCurrentWeatherQuery = () => {
+export const useCurrentWeatherHook = () => {
     const myAddressList = useRecoilValue(myAddressListState)
 
     const {
@@ -62,14 +61,14 @@ export const fetchCurrentWeatherQuery = () => {
             } = parsedData
             // console.log("top, topDesc, bottom, bottomDesc: ", isTablet, top, topDesc, bottom, bottomDesc)
 
-            parsedData.costume.top[0].path = CostumePath[top[0]?.en ?? "t_shirt"] ?? "t_shirt"
-            parsedData.costume.bottom[0].path = CostumePath[bottom[0]?.en ?? "jeans"] ?? "jeans"
+            // parsedData.costume.top[0].path = CostumePath[top[0]?.en ?? "t_shirt"] ?? "t_shirt"
+            // parsedData.costume.bottom[0].path = CostumePath[bottom[0]?.en ?? "jeans"] ?? "jeans"
 
-            if (isTablet && parsedData.costume.top[1] && parsedData.costume.bottom[1]) {
-                // console.log("parsedData.costume.bottom[1].path: ", parsedData.costume.bottom[1].path)
-                parsedData.costume.top[1].path = CostumePath[top[1]?.en ?? "t_sirt"] ?? "t_sirt"
-                parsedData.costume.bottom[1].path = CostumePath[bottom[1]?.en ?? "jeans"] ?? "jeans"
-            }
+            // if (isTablet && parsedData.costume.top[1] && parsedData.costume.bottom[1]) {
+            //     // console.log("parsedData.costume.bottom[1].path: ", parsedData.costume.bottom[1].path)
+            //     parsedData.costume.top[1].path = CostumePath[top[1]?.en ?? "t_sirt"] ?? "t_sirt"
+            //     parsedData.costume.bottom[1].path = CostumePath[bottom[1]?.en ?? "jeans"] ?? "jeans"
+            // }
 
             return {
                 code,

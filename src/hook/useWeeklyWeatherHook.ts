@@ -6,7 +6,7 @@ import { myAddressListState, weather } from "store"
 import { TextAlarm } from "text/AlarmText"
 import { FORECAST_DAY, HOUR, HOUR_WEATHER, WEEKELY_WEATHER } from "type"
 
-export const fetchDailyWeatherQuery = () => {
+export const useWeeklyWeatherHook = () => {
     const myAddressList = useRecoilValue(myAddressListState)
 
     const {

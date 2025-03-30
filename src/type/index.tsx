@@ -1,5 +1,5 @@
 import { ReactNode } from "react"
-import { ImageSourcePropType, StyleProp, ViewStyle } from "react-native"
+import { StyleProp, ViewStyle } from "react-native"
 import { Weather } from "store"
 
 export interface RESULT_ADDRESS {
@@ -94,9 +94,11 @@ export interface DOCUMENT {
 }
 
 export interface COSTUME {
-    top: { ko: string; en: string; path: ImageSourcePropType }[]
+    // top: { ko: string; en: string; path: ImageSourcePropType }[]
+    top: string[]
     topDesc: string
-    bottom: { ko: string; en: string; path: ImageSourcePropType }[]
+    // bottom: { ko: string; en: string; path: ImageSourcePropType }[]
+    bottom: string[]
     bottomDesc: string
 }
 

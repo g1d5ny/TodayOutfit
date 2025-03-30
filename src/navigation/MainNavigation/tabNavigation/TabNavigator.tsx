@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import { fetchCurrentWeatherQuery } from "hook/useCurrentWeatherHook"
-import { fetchDailyWeatherQuery } from "hook/useWeeklyWeatherHook"
+import { useCurrentWeatherHook } from "hook/useCurrentWeatherHook"
+import { useWeeklyWeatherHook } from "hook/useWeeklyWeatherHook"
 import React, { useEffect } from "react"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { useSetRecoilState } from "recoil"
@@ -27,8 +27,8 @@ export const TabNavigator = () => {
     const setHourlyWeather = useSetRecoilState(hourWeatherInfoState)
     const { bottom } = useSafeAreaInsets()
 
-    const { data: current } = fetchCurrentWeatherQuery()
-    const { data: weekly } = fetchDailyWeatherQuery()
+    const { data: current } = useCurrentWeatherHook()
+    const { data: weekly } = useWeeklyWeatherHook()
 
     useEffect(() => {
         if (weekly) {
