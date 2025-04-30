@@ -1,16 +1,16 @@
+import { useEffect, useState } from "react"
 import { Image, StyleSheet, Text, View } from "react-native"
+import { useRecoilValue } from "recoil"
+import { GENDER } from "type"
 import { currentWeatherInfoState, getStorage, isTablet } from "../../store"
 import { CommonColor, CommonStyle, FontStyle } from "../../style/CommonStyle"
-import { useRecoilValue } from "recoil"
-import { useEffect, useState } from "react"
-import { GENDER } from "type"
 
 export default () => {
     const {
         is_day,
         costume: { top, topDesc, bottom, bottomDesc }
     } = useRecoilValue(currentWeatherInfoState)
-    const [gender, setGender] = useState<GENDER>("W")
+    const [gender, setGender] = useState<GENDER | "">("")
 
     useEffect(() => {
         const myGender = async () => {
@@ -23,16 +23,10 @@ export default () => {
     return (
         <View style={styles.character}>
             <View style={[styles.cardDesc, CommonStyle.center]}>
-                <Image
-                    source={gender === "W" ? require("asset/image/image_girl.png") : require("asset/image/image_t_shirt_shorts_boy.png")}
-                    resizeMode={"contain"}
-                    style={styles.charaterImage}
-                />
+                <Image source={gender === "W" ? require("asset/image/image_sweatshirts_girl.png") : require("asset/image/image_sweatshirts_boy.png")} resizeMode={"cover"} style={styles.charaterImage} />
             </View>
             <View style={styles.cardDesc}>
-                <Text style={[isTablet ? FontStyle.title2.semibold : FontStyle.body2.bold, styles.recomText, { color: is_day ? CommonColor.main_black : CommonColor.main_white }]}>
-                    기온 맞춤 추천 의상
-                </Text>
+                <Text style={[isTablet ? FontStyle.title2.semibold : FontStyle.body2.bold, styles.recomText, { color: is_day ? CommonColor.main_black : CommonColor.main_white }]}>기온 맞춤 추천 의상</Text>
                 <View style={[styles.recomContainer, isTablet && styles.tabletClothes]}>
                     <View style={styles.recom}>
                         <Image source={top[0].path} style={styles.clothes} resizeMode='contain' />
