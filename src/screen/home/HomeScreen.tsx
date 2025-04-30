@@ -1,6 +1,6 @@
 import { fetchCurrentWeatherQuery } from "hook/useCurrentWeatherHook"
 import { useDailyWeatherHook } from "hook/useDailyWeatherHook"
-import { useRef, useState } from "react"
+import { useCallback, useRef, useState } from "react"
 import { ImageBackground, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import ArrowDown from "../../asset/icon/icon_arrow_down.svg"
@@ -20,7 +20,7 @@ export const HomeScreen = () => {
     const { top, bottom } = useSafeAreaInsets()
 
     const { data: current } = fetchCurrentWeatherQuery()
-    const { data: weekly } = useDailyWeatherHook()
+    const { data: daily } = useDailyWeatherHook()
 
     const handleScroll = () => {
         if (arrow === "up") {
@@ -34,9 +34,17 @@ export const HomeScreen = () => {
         })
     }
 
+    const backgroundSource = useCallback(() => {
+        if (current?.is_day) {
+            return require("asset/image/background/image_day_background.png")
+        } else {
+            return require("asset/image/background/image_night_background.png")
+        }
+    }, [current?.is_day])
+
     return (
         <View style={CommonStyle.flex}>
-            {!current || !weekly?.hourlyWeather ? (
+            {!current || !daily?.hourlyWeather ? (
                 <Loader />
             ) : (
                 <View>
@@ -50,11 +58,7 @@ export const HomeScreen = () => {
                             }
                         }) => setArrow(y >= height / 2 ? "up" : "down")}
                     >
-                        <ImageBackground
-                            source={current.is_day ? require("asset/image/background/image_day_background.png") : require("asset/image/background/image_night_background.png")}
-                            resizeMode='cover'
-                            style={[CommonStyle.padding, styles.vertical, { height: screenHeight - bottom - TAB_HEIGHT, paddingTop: top + styles.vertical.paddingVertical }]}
-                        >
+                        <ImageBackground source={backgroundSource()} resizeMode='cover' style={[CommonStyle.padding, styles.vertical, { height: screenHeight - bottom - TAB_HEIGHT, paddingTop: top + styles.vertical.paddingVertical }]}>
                             <WeatherHeader />
                             <WeatherBody />
                         </ImageBackground>

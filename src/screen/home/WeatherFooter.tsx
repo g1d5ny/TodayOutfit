@@ -90,8 +90,8 @@ export const WeatherFooter = ({ viewRef }: { viewRef: LegacyRef<View> }) => {
     const [selectedHour, setSelectedHour] = useState<HOUR_WEATHER>()
 
     const { data: current } = fetchCurrentWeatherQuery()
-    const { data: weekly } = useDailyWeatherHook()
-    const hourWeather = weekly?.hourlyWeather
+    const { data: daily } = useDailyWeatherHook()
+    const hourWeather = daily?.hourlyWeather
 
     useEffect(() => {
         if (hourWeather?.[0]) {

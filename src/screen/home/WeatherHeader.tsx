@@ -12,8 +12,8 @@ export default () => {
     const myAddressList = useRecoilValue(myAddressListState)
 
     const { data: current } = fetchCurrentWeatherQuery()
-    const { data: weekly } = useDailyWeatherHook()
-    const todayWeather = weekly?.weeklyWeather[0]
+    const { data: daily } = useDailyWeatherHook()
+    const todayWeather = daily?.weeklyWeather[0]
 
     return (
         <View style={styles.container}>
