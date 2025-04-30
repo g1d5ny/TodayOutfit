@@ -9,11 +9,12 @@ import { AppBar } from "component/CommonComponent"
 import Loader from "component/lottie/Loader"
 import { DateView, LocationView, WeatherDetail } from "component/MiniCard"
 import { WeatherCard } from "component/WeatherCard"
+import { fetchCurrentWeatherQuery } from "hook/useCurrentWeatherHook"
+import { useDailyWeatherHook } from "hook/useDailyWeatherHook"
 import { navigationRef } from "navigation/RootNavigation"
 import React, { useState } from "react"
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
-import { useRecoilValue } from "recoil"
-import { currentWeatherInfoState, isTablet, weather, weeklyWeatherInfoState } from "store"
+import { isTablet, weather } from "store"
 import { CommonColor, CommonStyle, FontStyle } from "style/CommonStyle"
 import { RainPercentageFormat, SnowFallFormat, UVFormat, WindSpeedFormat, getDay } from "utils"
 
@@ -93,9 +94,11 @@ const EmptyView = () => {
 }
 
 export const WeatherScreen = () => {
-    const currentWeather = useRecoilValue(currentWeatherInfoState)
-    const weeklyWeather = useRecoilValue(weeklyWeatherInfoState)
     const [open, setOpen] = useState<Open>()
+
+    const { data: current } = fetchCurrentWeatherQuery()
+    const { data: daily } = useDailyWeatherHook()
+    const weeklyWeather = daily?.weeklyWeather
 
     const MobileView = ({ children }: { children: JSX.Element }) => {
         if (isTablet) {
@@ -149,9 +152,9 @@ export const WeatherScreen = () => {
                                             <WeatherCard
                                                 day={getDay(day)}
                                                 date={new Date(date).getDate()}
-                                                minIcon={weather(code, isFirst ? currentWeather?.is_day : true)?.minIcon as JSX.Element}
+                                                minIcon={weather(code, isFirst ? current?.is_day ?? true : true)?.minIcon as JSX.Element}
                                                 text={weather(code, true)?.text as string}
-                                                maxIcon={weather(code, isFirst ? currentWeather?.is_day : true)?.maxIcon as JSX.Element}
+                                                maxIcon={weather(code, isFirst ? current?.is_day ?? true : true)?.maxIcon as JSX.Element}
                                                 maxTemp={maxTemp}
                                                 minTemp={minTemp}
                                                 sunrise={sunrise}
@@ -175,7 +178,7 @@ export const WeatherScreen = () => {
                                                     <Text style={FontStyle.body2.regular}>{new Date(date).getDate()}</Text>
                                                 </View>
                                                 <View style={[CommonStyle.row, styles.weather]}>
-                                                    {weather(code, isFirst ? currentWeather?.is_day : true)?.minIcon}
+                                                    {weather(code, isFirst ? current?.is_day ?? true : true)?.minIcon}
                                                     <Text style={[FontStyle.body2.regular, styles.text]}>{weather(code, true)?.text}</Text>
                                                 </View>
                                             </View>

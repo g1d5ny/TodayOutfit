@@ -1,11 +1,12 @@
+import { fetchCurrentWeatherQuery } from "hook/useCurrentWeatherHook"
+import { useDailyWeatherHook } from "hook/useDailyWeatherHook"
 import { useRef, useState } from "react"
 import { ImageBackground, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
-import { useRecoilValue } from "recoil"
 import ArrowDown from "../../asset/icon/icon_arrow_down.svg"
 import ArrowUp from "../../asset/icon/icon_arrow_up.svg"
 import Loader from "../../component/lottie/Loader"
-import { currentWeatherInfoState, hourWeatherInfoState, isTablet } from "../../store"
+import { isTablet } from "../../store"
 import { CommonColor, CommonStyle, screenHeight, ShadowStyle, TAB_HEIGHT } from "../../style/CommonStyle"
 import WeatherBody from "./WeatherBody"
 import { WeatherFooter } from "./WeatherFooter"
@@ -13,12 +14,13 @@ import WeatherHeader from "./WeatherHeader"
 
 type ArrowType = "up" | "down"
 export const HomeScreen = () => {
-    const currentWeather = useRecoilValue(currentWeatherInfoState)
-    const hourWeather = useRecoilValue(hourWeatherInfoState)
     const scrollRef = useRef<ScrollView>(null)
     const viewRef = useRef<View>(null)
     const [arrow, setArrow] = useState<ArrowType>("down")
     const { top, bottom } = useSafeAreaInsets()
+
+    const { data: current } = fetchCurrentWeatherQuery()
+    const { data: weekly } = useDailyWeatherHook()
 
     const handleScroll = () => {
         if (arrow === "up") {
@@ -34,7 +36,7 @@ export const HomeScreen = () => {
 
     return (
         <View style={CommonStyle.flex}>
-            {!currentWeather || !hourWeather ? (
+            {!current || !weekly?.hourlyWeather ? (
                 <Loader />
             ) : (
                 <View>
@@ -49,7 +51,7 @@ export const HomeScreen = () => {
                         }) => setArrow(y >= height / 2 ? "up" : "down")}
                     >
                         <ImageBackground
-                            source={currentWeather.is_day ? require("asset/image/image_day_background.png") : require("asset/image/image_night_background.png")}
+                            source={current.is_day ? require("asset/image/background/image_day_background.png") : require("asset/image/background/image_night_background.png")}
                             resizeMode='cover'
                             style={[CommonStyle.padding, styles.vertical, { height: screenHeight - bottom - TAB_HEIGHT, paddingTop: top + styles.vertical.paddingVertical }]}
                         >

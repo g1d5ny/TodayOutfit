@@ -1,10 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import { fetchCurrentWeatherQuery } from "hook/useCurrentWeatherHook"
-import { fetchDailyWeatherQuery } from "hook/useWeeklyWeatherHook"
-import React, { useEffect } from "react"
+import React from "react"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
-import { useSetRecoilState } from "recoil"
-import { currentWeatherInfoState, hourWeatherInfoState, weeklyWeatherInfoState } from "store"
 import HomeOff from "../../../asset/icon/icon_home_off.svg"
 import HomeOn from "../../../asset/icon/icon_home_on.svg"
 import LocationOff from "../../../asset/icon/icon_location_off.svg"
@@ -22,26 +18,7 @@ import { WeatherNavigator } from "./tab/weather/WeatherNavigator"
 const { Navigator, Screen } = createBottomTabNavigator()
 
 export const TabNavigator = () => {
-    const setCurrentWeather = useSetRecoilState(currentWeatherInfoState)
-    const setWeeklyWeather = useSetRecoilState(weeklyWeatherInfoState)
-    const setHourlyWeather = useSetRecoilState(hourWeatherInfoState)
     const { bottom } = useSafeAreaInsets()
-
-    const { data: current } = fetchCurrentWeatherQuery()
-    const { data: weekly } = fetchDailyWeatherQuery()
-
-    useEffect(() => {
-        if (weekly) {
-            setWeeklyWeather(weekly.weeklyWeather)
-            setHourlyWeather(weekly.hourlyWeather)
-        }
-    }, [weekly])
-
-    useEffect(() => {
-        if (current) {
-            setCurrentWeather(current)
-        }
-    }, [current])
 
     return (
         <Navigator

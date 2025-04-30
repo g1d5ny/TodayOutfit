@@ -40,7 +40,7 @@ export const WeatherCard = ({ day, date, minIcon, text, maxIcon, maxTemp, minTem
                 <View style={styles.maxIcon}>{maxIcon}</View>
                 <View style={[styles.cardDesc, CommonStyle.row, isTablet && { gap: 34 }]}>
                     <View style={[styles.flex, styles.gap, { marginLeft: 34 }]}>
-                        <View style={[CommonStyle.row, isTablet && { gap: 24 }]}>
+                        <View style={[CommonStyle.row, CommonStyle.spread]}>
                             <View style={[CommonStyle.center, styles.flex]}>
                                 <View style={[CommonStyle.row, { marginBottom: 8 }]}>
                                     <MaxTemp width={10} height={10} />

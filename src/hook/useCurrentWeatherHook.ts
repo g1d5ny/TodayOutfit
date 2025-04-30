@@ -3,7 +3,7 @@ import { currentDescApi } from "api/openai"
 import { getCurrentWeatherApi } from "api/weather"
 import { Alert } from "react-native"
 import { useRecoilValue } from "recoil"
-import { getStorage, isTablet, myAddressListState, queryClient, weather } from "store"
+import { getStorage, isTablet, myAddressListState, weather } from "store"
 import { CostumePath } from "store/clothes"
 import { TextAlarm } from "text/AlarmText"
 

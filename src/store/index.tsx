@@ -68,7 +68,7 @@ import S from "../asset/icon/wind_direction/icon_wind_direction_5.svg"
 import E from "../asset/icon/wind_direction/icon_wind_direction_6.svg"
 import W from "../asset/icon/wind_direction/icon_wind_direction_7.svg"
 import N from "../asset/icon/wind_direction/icon_wind_direction_8.svg"
-import { CURRENT_WEATHER, HOUR_WEATHER, INPUT_ADDRESS, MY_ADDRSS, RECOMMEND_COSTUME, TOAST, WEATHER_DESC_KOR, WEEKELY_WEATHER } from "../type"
+import { INPUT_ADDRESS, MY_ADDRSS, RECOMMEND_COSTUME, TOAST, WEATHER_DESC_KOR } from "../type"
 
 const { width } = Dimensions.get("window")
 export const isTablet = DeviceInfo.isTablet() || width >= 600
@@ -145,21 +145,6 @@ export const myAddressListState = atom<MY_ADDRSS[]>({
             eviction: "most-recent"
         }
     })
-})
-
-export const currentWeatherInfoState = atom<CURRENT_WEATHER>({
-    key: "currentWeatherInfoState",
-    default: undefined
-})
-
-export const hourWeatherInfoState = atom<HOUR_WEATHER[]>({
-    key: "hourWeatherInfoState",
-    default: []
-})
-
-export const weeklyWeatherInfoState = atom<WEEKELY_WEATHER[]>({
-    key: "weeklyWeatherInfoState",
-    default: []
 })
 
 export const recommendCostumeState = atom<RECOMMEND_COSTUME>({

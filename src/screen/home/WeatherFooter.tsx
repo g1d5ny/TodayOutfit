@@ -1,8 +1,9 @@
 import { AppBar } from "component/CommonComponent"
+import { fetchCurrentWeatherQuery } from "hook/useCurrentWeatherHook"
+import { useDailyWeatherHook } from "hook/useDailyWeatherHook"
 import { navigationRef } from "navigation/RootNavigation"
 import React, { LegacyRef, useCallback, useEffect, useState } from "react"
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
-import { useRecoilValue } from "recoil"
 import { HOUR_WEATHER } from "type"
 import FeelsLike from "../../asset/icon/icon_feels_like.svg"
 import Humidity from "../../asset/icon/icon_humidity.svg"
@@ -12,7 +13,7 @@ import UV from "../../asset/icon/icon_uv_index.svg"
 import WindDirection from "../../asset/icon/icon_wind_dir.svg"
 import WindSpeed from "../../asset/icon/icon_wind_speed.svg"
 import { LocationView, WeatherDetail } from "../../component/MiniCard"
-import { currentWeatherInfoState, hourWeatherInfoState, isTablet } from "../../store"
+import { isTablet } from "../../store"
 import { CommonColor, CommonStyle, FontStyle, screenWidth } from "../../style/CommonStyle"
 import { FeelsLikeFormat, HumidityFormat, RainPercentageFormat, SnowFallFormat, UVFormat, WindDirectionFormat, WindSpeedFormat } from "../../utils"
 
@@ -86,12 +87,14 @@ const weatherItem = (selectedHour: HOUR_WEATHER) => [
     }
 ]
 export const WeatherFooter = ({ viewRef }: { viewRef: LegacyRef<View> }) => {
-    const hourWeather = useRecoilValue(hourWeatherInfoState)
-    const currentWeather = useRecoilValue(currentWeatherInfoState)
     const [selectedHour, setSelectedHour] = useState<HOUR_WEATHER>()
 
+    const { data: current } = fetchCurrentWeatherQuery()
+    const { data: weekly } = useDailyWeatherHook()
+    const hourWeather = weekly?.hourlyWeather
+
     useEffect(() => {
-        if (hourWeather[0]) {
+        if (hourWeather?.[0]) {
             const { uv, minIcon, feelslike, windSpeed, willItRain, willItSnow, rainPercentage, snowPercentage, windDir, humidity } = hourWeather[0]
             setSelectedHour({
                 hour: String(-1),
@@ -158,8 +161,8 @@ export const WeatherFooter = ({ viewRef }: { viewRef: LegacyRef<View> }) => {
                             <View style={CommonStyle.row}>
                                 {WeatherHourlyCard({
                                     hour: -1,
-                                    minIcon: currentWeather.minIcon,
-                                    temp: currentWeather.temp,
+                                    minIcon: current?.minIcon ?? <></>,
+                                    temp: current?.temp,
                                     onPress: () => {
                                         const { uv, minIcon, feelslike, windSpeed, willItRain, willItSnow, rainPercentage, snowPercentage, windDir, humidity } = hourWeather[0]
                                         setSelectedHour({
