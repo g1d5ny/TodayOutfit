@@ -6,13 +6,13 @@ import { getStorage, isTablet } from "../../store"
 import { CommonColor, CommonStyle, FontStyle } from "../../style/CommonStyle"
 
 export default () => {
-    const { data } = fetchCurrentWeatherQuery()
+    const { data: current } = fetchCurrentWeatherQuery()
 
-    const is_day = data?.is_day ?? false
-    const top = data?.costume?.top ?? []
-    const topDesc = data?.costume?.topDesc ?? ""
-    const bottom = data?.costume?.bottom ?? []
-    const bottomDesc = data?.costume?.bottomDesc ?? ""
+    const is_day = current?.is_day ?? false
+    const top = current?.costume?.top ?? []
+    const topDesc = current?.costume?.topDesc ?? ""
+    const bottom = current?.costume?.bottom ?? []
+    const bottomDesc = current?.costume?.bottomDesc ?? ""
 
     const [gender, setGender] = useState<GENDER | "">("")
 
@@ -27,7 +27,7 @@ export default () => {
     return (
         <View style={styles.character}>
             <View style={[styles.cardDesc, CommonStyle.center]}>
-                <Image source={gender === "W" ? require("asset/image/character/image_sweatshirts_girl.png") : require("asset/image/character/image_sweatshirts_boy.png")} resizeMode={"cover"} style={styles.charaterImage} />
+                <Image source={gender === "W" ? require("asset/image/character/image_sweatshirts_girl.png") : require("asset/image/character/image_sweatshirts_boy.png")} resizeMode={isTablet ? "contain" : "cover"} style={styles.charaterImage} />
             </View>
             <View style={styles.cardDesc}>
                 <Text style={[isTablet ? FontStyle.title2.semibold : FontStyle.body2.bold, styles.recomText, { color: is_day ? CommonColor.main_black : CommonColor.main_white }]}>기온 맞춤 추천 의상</Text>

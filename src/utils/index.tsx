@@ -1,6 +1,6 @@
+import { Platform } from "react-native"
 import { UV, WindSpeed } from "text/DetailInfoText"
 import { FeelsLikeContent, Humidity, RainPercentage, SnowFall, WindDirection } from "../store"
-import { Platform } from "react-native"
 
 export const isIos = Platform.OS === "ios"
 export const isAos = Platform.OS === "android"
