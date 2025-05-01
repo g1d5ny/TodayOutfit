@@ -1,7 +1,7 @@
 import { fetchCurrentWeatherQuery } from "hook/useCurrentWeatherHook"
 import { Image, StyleSheet, Text, View } from "react-native"
 import { isTablet } from "../../store"
-import { CommonColor, CommonStyle, FontStyle } from "../../style/CommonStyle"
+import { CommonColor, CommonStyle, FontStyle, TextShadowStyle } from "../../style/CommonStyle"
 
 export default () => {
     const { data: current } = fetchCurrentWeatherQuery()
@@ -19,7 +19,7 @@ export default () => {
                 <Image source={character} resizeMode={isTablet ? "contain" : "cover"} style={styles.charaterImage} />
             </View>
             <View style={styles.cardDesc}>
-                <Text style={[isTablet ? FontStyle.title2.semibold : FontStyle.body2.bold, styles.recomText, { color: is_day ? CommonColor.main_black : CommonColor.main_white }]}>기온 맞춤 추천 의상</Text>
+                <Text style={[isTablet ? FontStyle.title2.semibold : FontStyle.body2.bold, styles.recomText, !is_day && TextShadowStyle, { color: is_day ? CommonColor.main_black : CommonColor.main_white }]}>기온 맞춤 추천 의상</Text>
                 <View style={[styles.recomContainer, isTablet && styles.tabletClothes]}>
                     <View style={styles.recom}>
                         <Image source={top[0].path} style={styles.clothes} resizeMode='contain' />
