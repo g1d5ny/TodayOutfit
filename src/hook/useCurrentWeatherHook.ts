@@ -4,8 +4,9 @@ import { getCurrentWeatherApi } from "api/weather"
 import { Alert } from "react-native"
 import { useRecoilValue } from "recoil"
 import { getStorage, isTablet, myAddressListState, weather } from "store"
-import { CostumePath } from "store/clothes"
+import { BoyCharacterCostumePath, CostumePath, GirlCharacterCostumePath } from "store/clothes"
 import { TextAlarm } from "text/AlarmText"
+import { Clothes } from "type"
 
 export const fetchCurrentWeatherQuery = () => {
     const myAddressList = useRecoilValue(myAddressListState)
@@ -60,15 +61,23 @@ export const fetchCurrentWeatherQuery = () => {
                 costume: { top, topDesc, bottom, bottomDesc },
                 desc
             } = parsedData
-            // console.log("top, topDesc, bottom, bottomDesc: ", isTablet, top, topDesc, bottom, bottomDesc)
 
-            parsedData.costume.top[0].path = CostumePath[top[0]?.en ?? "t_shirt"] ?? "t_shirt"
-            parsedData.costume.bottom[0].path = CostumePath[bottom[0]?.en ?? "jeans"] ?? "jeans"
+            parsedData.costume.top[0].path = CostumePath[top[0]?.en as Clothes] ?? CostumePath[Clothes.T_SHIRTS] ?? Clothes.T_SHIRTS
+            parsedData.costume.bottom[0].path = CostumePath[bottom[0]?.en as Clothes] ?? CostumePath[Clothes.JEANS] ?? Clothes.JEANS
 
-            if (isTablet && parsedData.costume.top[1] && parsedData.costume.bottom[1]) {
-                // console.log("parsedData.costume.bottom[1].path: ", parsedData.costume.bottom[1].path)
-                parsedData.costume.top[1].path = CostumePath[top[1]?.en ?? "t_sirt"] ?? "t_sirt"
-                parsedData.costume.bottom[1].path = CostumePath[bottom[1]?.en ?? "jeans"] ?? "jeans"
+            if (isTablet) {
+                if (parsedData.costume.top[1]) {
+                    parsedData.costume.top[1].path = CostumePath[top[1]?.en as Clothes] ?? CostumePath[Clothes.T_SHIRTS] ?? Clothes.T_SHIRTS
+                }
+                if (parsedData.costume.bottom[1]) {
+                    parsedData.costume.bottom[1].path = CostumePath[bottom[1]?.en as Clothes] ?? CostumePath[Clothes.JEANS] ?? Clothes.JEANS
+                }
+            }
+
+            if (gender === "W") {
+                parsedData.character = GirlCharacterCostumePath[top[0]?.en as Clothes] ?? GirlCharacterCostumePath[top[1]?.en as Clothes] ?? GirlCharacterCostumePath[Clothes.KNIT_SWEATER]
+            } else {
+                parsedData.character = BoyCharacterCostumePath[top[0]?.en as Clothes] ?? BoyCharacterCostumePath[top[1]?.en as Clothes] ?? BoyCharacterCostumePath[Clothes.KNIT_SWEATER]
             }
 
             return {
@@ -79,6 +88,7 @@ export const fetchCurrentWeatherQuery = () => {
                 minIcon: weather(code, Boolean(is_day))?.minIcon as JSX.Element,
                 backgroundColor: weather(code, Boolean(is_day))?.backgroundColor as string,
                 desc,
+                character: parsedData.character,
                 costume: { top, topDesc, bottom, bottomDesc }
             }
         },

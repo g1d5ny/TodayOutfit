@@ -255,3 +255,30 @@ export interface INPUT_ADDRESS {
     value: string
     isEditing: boolean
 }
+
+export enum Clothes {
+    CARDIGAN = "cardigan",
+    JACKET = "jacket",
+    COAT = "coat",
+    THIN_JUMPER = "thin_jumper",
+    THICK_JUMPER = "thick_jumper",
+    PADDING = "padding",
+    T_SHIRTS = "t_shirts",
+    KNIT_SWEATER = "knit_sweater",
+    SHIRTS = "shirts",
+    MAN_TO_MAN = "man_to_man",
+    HOODIE_WITHOUT_BRUSHED = "hoodie_without_brushed",
+    BRUSHED_HOODIE = "brushed_hoodie",
+    BLOUSE = "blouse",
+    SLEEVELESS = "sleeveless",
+    LONG_ONEPIECE = "long_onepice",
+    MINI_ONEPIECE = "mini_onepice",
+    TWOPIECE = "twopiece",
+    COTTON_PANTS = "cotton_pants",
+    JEANS = "jeans",
+    SLACKS = "slacks",
+    DENIM = "denim",
+    SHORTS = "shorts",
+    MINI_SKIRT = "mini_skirt",
+    LONG_SKIRT = "long_skirt"
+}

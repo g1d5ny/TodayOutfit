@@ -1,100 +1,122 @@
 import { ImageSourcePropType } from "react-native"
+import { Clothes } from "type"
 
 export const Outer = [
-    { ko: "가디건", en: "cardigan" },
-    { ko: "자켓", en: "jacket" },
-    { ko: "코트", en: "coat" },
-    { ko: "얇은 점퍼", en: "thin_jumper" },
-    { ko: "두꺼운 점퍼", en: "thick_jumper" },
-    { ko: "패딩", en: "padding" }
+    { ko: "가디건", en: Clothes.CARDIGAN },
+    { ko: "자켓", en: Clothes.JACKET },
+    { ko: "코트", en: Clothes.COAT },
+    { ko: "얇은 점퍼", en: Clothes.THIN_JUMPER },
+    { ko: "두꺼운 점퍼", en: Clothes.THICK_JUMPER },
+    { ko: "패딩", en: Clothes.PADDING }
 ]
 
 export const Top = [
-    { ko: "티셔츠", en: "t_shirt" },
-    { ko: "니트/스웨터", en: "knit_sweater" },
-    { ko: "셔츠/남방", en: "shirt" },
-    { ko: "맨투맨", en: "man_to_man" },
-    { ko: "기모 없는 후드티", en: "hoodie_without_brushed" },
-    { ko: "기모 후드티", en: "brushed_hoodie" },
-    { ko: "블라우스", en: "blouse" },
-    { ko: "민소매/나시", en: "sleeveless" }
+    { ko: "티셔츠", en: Clothes.T_SHIRTS },
+    { ko: "니트/스웨터", en: Clothes.KNIT_SWEATER },
+    { ko: "셔츠/남방", en: Clothes.SHIRTS },
+    { ko: "맨투맨", en: Clothes.MAN_TO_MAN },
+    { ko: "기모 없는 후드티", en: Clothes.HOODIE_WITHOUT_BRUSHED },
+    { ko: "기모 후드티", en: Clothes.BRUSHED_HOODIE },
+    { ko: "블라우스", en: Clothes.BLOUSE },
+    { ko: "민소매/나시", en: Clothes.SLEEVELESS }
 ]
 
 export const OnePice = [
-    { ko: "롱원피스", en: "long_onpiece" },
-    { ko: "미니원피스", en: "mini_onpiece" },
-    { ko: "투피스", en: "twopiece" }
+    { ko: "롱원피스", en: Clothes.LONG_ONEPIECE },
+    { ko: "미니원피스", en: Clothes.MINI_ONEPIECE },
+    { ko: "투피스", en: Clothes.TWOPIECE }
 ]
 
 export const Pants = [
-    { ko: "면바지", en: "cotton_pants" },
-    { ko: "청바지", en: "jeans" },
-    { ko: "슬렉스", en: "slacks" },
-    { ko: "데님", en: "denim" },
-    { ko: "반바지", en: "shorts" }
+    { ko: "면바지", en: Clothes.COTTON_PANTS },
+    { ko: "청바지", en: Clothes.JEANS },
+    { ko: "슬렉스", en: Clothes.SLACKS },
+    { ko: "데님", en: Clothes.DENIM },
+    { ko: "반바지", en: Clothes.SHIRTS }
 ]
 
 export const Skirt = [
-    { ko: "미니 스커트", en: "mini_skirt" },
-    { ko: "롱 스커트", en: "long_skirt" }
+    { ko: "미니 스커트", en: Clothes.MINI_SKIRT },
+    { ko: "롱 스커트", en: Clothes.LONG_SKIRT }
 ]
 
-export const CostumePath: { [key: string]: ImageSourcePropType } = {
-    cardigan: require("asset/icon/clothes/icon_clothes_cardigan.png"),
-    jacket: require("asset/icon/clothes/icon_clothes_jacket.png"),
-    coat: require("asset/icon/clothes/icon_clothes_coat.png"),
-    thin_jumper: require("asset/icon/clothes/icon_clothes_thin_jumper.png"),
-    thick_jumper: require("asset/icon/clothes/icon_clothes_thick_jumper.png"),
-    padding: require("asset/icon/clothes/icon_clothes_padding.png"),
-    t_shirt: require("asset/icon/clothes/icon_clothes_t_shirt.png"),
-    knit_sweater: require("asset/icon/clothes/icon_clothes_knit_sweater.png"),
-    shirt: require("asset/icon/clothes/icon_clothes_shirt.png"),
-    man_to_man: require("asset/icon/clothes/icon_clothes_man_to_man.png"),
-    hoodie_without_brushed: require("asset/icon/clothes/icon_clothes_hoodie_without_brushed.png"),
-    brushed_hoodie: require("asset/icon/clothes/icon_clothes_brushed_hoodie.jpeg"),
-    blouse: require("asset/icon/clothes/icon_clothes_blouse.png"),
-    sleeveless: require("asset/icon/clothes/icon_clothes_sleeveless.png"),
-    long_onepice: require("asset/icon/clothes/icon_clothes_long_onepiece.png"),
-    mini_onepice: require("asset/icon/clothes/icon_clothes_mini_onepiece.png"),
-    twopiece: require("asset/icon/clothes/icon_clothes_twopiece.jpeg"),
-    cotton_pants: require("asset/icon/clothes/icon_clothes_cotton_pants.jpeg"),
-    jeans: require("asset/icon/clothes/icon_clothes_jeans.png"),
-    slacks: require("asset/icon/clothes/icon_clothes_slacks.png"),
-    denim: require("asset/icon/clothes/icon_clothes_denim.jpeg"),
-    shorts: require("asset/icon/clothes/icon_clothes_shorts.png"),
-    mini_skirt: require("asset/icon/clothes/icon_clothes_mini_skirt.png"),
-    long_skirt: require("asset/icon/clothes/icon_clothes_long_skirt.png")
+export const CostumePath: { [key in Clothes]: ImageSourcePropType } = {
+    [Clothes.CARDIGAN]: require("asset/icon/clothes/icon_clothes_cardigan.png"),
+    [Clothes.JACKET]: require("asset/icon/clothes/icon_clothes_jacket.png"),
+    [Clothes.COAT]: require("asset/icon/clothes/icon_clothes_coat.png"),
+    [Clothes.THIN_JUMPER]: require("asset/icon/clothes/icon_clothes_thin_jumper.png"),
+    [Clothes.THICK_JUMPER]: require("asset/icon/clothes/icon_clothes_thick_jumper.png"),
+    [Clothes.PADDING]: require("asset/icon/clothes/icon_clothes_padding.png"),
+    [Clothes.SHIRTS]: require("asset/icon/clothes/icon_clothes_shirts.png"),
+    [Clothes.T_SHIRTS]: require("asset/icon/clothes/icon_clothes_t_shirts.png"),
+    [Clothes.KNIT_SWEATER]: require("asset/icon/clothes/icon_clothes_knit_sweater.png"),
+    [Clothes.MAN_TO_MAN]: require("asset/icon/clothes/icon_clothes_man_to_man.png"),
+    [Clothes.HOODIE_WITHOUT_BRUSHED]: require("asset/icon/clothes/icon_clothes_hoodie_without_brushed.png"),
+    [Clothes.BRUSHED_HOODIE]: require("asset/icon/clothes/icon_clothes_brushed_hoodie.jpeg"),
+    [Clothes.BLOUSE]: require("asset/icon/clothes/icon_clothes_blouse.png"),
+    [Clothes.SLEEVELESS]: require("asset/icon/clothes/icon_clothes_sleeveless.png"),
+    [Clothes.LONG_ONEPIECE]: require("asset/icon/clothes/icon_clothes_long_onepiece.png"),
+    [Clothes.MINI_ONEPIECE]: require("asset/icon/clothes/icon_clothes_mini_onepiece.png"),
+    [Clothes.TWOPIECE]: require("asset/icon/clothes/icon_clothes_twopiece.jpeg"),
+    [Clothes.COTTON_PANTS]: require("asset/icon/clothes/icon_clothes_cotton_pants.jpeg"),
+    [Clothes.JEANS]: require("asset/icon/clothes/icon_clothes_jeans.png"),
+    [Clothes.SLACKS]: require("asset/icon/clothes/icon_clothes_slacks.png"),
+    [Clothes.DENIM]: require("asset/icon/clothes/icon_clothes_denim.jpeg"),
+    [Clothes.SHORTS]: require("asset/icon/clothes/icon_clothes_shorts.png"),
+    [Clothes.MINI_SKIRT]: require("asset/icon/clothes/icon_clothes_mini_skirt.png"),
+    [Clothes.LONG_SKIRT]: require("asset/icon/clothes/icon_clothes_long_skirt.png")
 }
 
-// export const CharacterCostumePath: { [key: string]: ImageSourcePropType } = {
-//     cardigan: require("asset/icon/clothes/icon_clothes_cardigan.png"),
-//     jacket: require("asset/icon/clothes/icon_clothes_jacket.png"),
-//     coat: require("asset/icon/clothes/icon_clothes_coat.png"),
-//     thin_jumper: require("asset/icon/clothes/icon_clothes_thin_jumper.png"),
-//     thick_jumper: require("asset/icon/clothes/icon_clothes_thick_jumper.png"),
-//     padding: require("asset/icon/clothes/icon_clothes_padding.png"),
-//     t_shirt: require("asset/icon/clothes/icon_clothes_t_shirt.png"),
-//     knit_sweater: require("asset/icon/clothes/icon_clothes_knit_sweater.png"),
-//     shirt: require("asset/icon/clothes/icon_clothes_shirt.png"),
-//     man_to_man: require("asset/icon/clothes/icon_clothes_man_to_man.png"),
-//     hoodie_without_brushed: require("asset/icon/clothes/icon_clothes_hoodie_without_brushed.png"),
-//     brushed_hoodie: require("asset/icon/clothes/icon_clothes_brushed_hoodie.jpeg"),
-//     blouse: require("asset/icon/clothes/icon_clothes_blouse.png"),
-//     sleeveless: require("asset/icon/clothes/icon_clothes_sleeveless.png"),
-//     long_onepice: require("asset/icon/clothes/icon_clothes_long_onepiece.png"),
-//     mini_onepice: require("asset/icon/clothes/icon_clothes_mini_onepiece.png"),
-//     twopiece: require("asset/icon/clothes/icon_clothes_twopiece.jpeg"),
-//     cotton_pants: require("asset/icon/clothes/icon_clothes_cotton_pants.jpeg"),
-//     jeans: require("asset/icon/clothes/icon_clothes_jeans.png"),
-//     slacks: require("asset/icon/clothes/icon_clothes_slacks.png"),
-//     denim: require("asset/icon/clothes/icon_clothes_denim.jpeg"),
-//     shorts: require("asset/icon/clothes/icon_clothes_shorts.png"),
-//     mini_skirt: require("asset/icon/clothes/icon_clothes_mini_skirt.png"),
-//     long_skirt: require("asset/icon/clothes/icon_clothes_long_skirt.png"),
-//     scarf_gloves: require("asset/icon/clothes/icon_clothes_scarf_gloves.png"),
-//     underwear: require("asset/icon/clothes/icon_clothes_underwear.png"),
-//     brushed_stockings: require("asset/icon/clothes/icon_clothes_brushed_stockings.png"),
-//     stockings: require("asset/icon/clothes/icon_clothes_stockings.png"),
-//     flesh_colored_stockings: require("asset/icon/clothes/icon_clothes_flesh_colored_stockings.jpeg"),
-//     leggings: require("asset/icon/clothes/icon_clothes_leggings.png")
-// }
+export const BoyCharacterCostumePath: { [key in Clothes]?: ImageSourcePropType } = {
+    // [Clothes.CARDIGAN]: require("asset/icon/clothes/icon_clothes_cardigan.png"),
+    // [Clothes.JACKET]: require("asset/icon/clothes/icon_clothes_jacket.png"),
+    // [Clothes.COAT]: require("asset/icon/clothes/icon_clothes_coat.png"),
+    // [Clothes.THIN_JUMPER]: require("asset/icon/clothes/icon_clothes_thin_jumper.png"),
+    // [Clothes.THICK_JUMPER]: require("asset/icon/clothes/icon_clothes_thick_jumper.png"),
+    [Clothes.PADDING]: require("asset/image/character/image_puffer_boy.png"),
+    [Clothes.SHIRTS]: require("asset/image/character/image_shirts_boy.png"),
+    // [Clothes.T_SHIRTS]: require("asset/icon/clothes/icon_clothes_t_shirts.png"),
+    [Clothes.KNIT_SWEATER]: require("asset/image/character/image_sweater_boy.png")
+    // [Clothes.MAN_TO_MAN]: require("asset/icon/clothes/icon_clothes_man_to_man.png"),
+    // [Clothes.HOODIE_WITHOUT_BRUSHED]: require("asset/icon/clothes/icon_clothes_hoodie_without_brushed.png"),
+    // [Clothes.BRUSHED_HOODIE]: require("asset/icon/clothes/icon_clothes_brushed_hoodie.jpeg"),
+    // [Clothes.BLOUSE]: require("asset/icon/clothes/icon_clothes_blouse.png"),
+    // [Clothes.SLEEVELESS]: require("asset/icon/clothes/icon_clothes_sleeveless.png"),
+    // [Clothes.LONG_ONEPIECE]: require("asset/icon/clothes/icon_clothes_long_onepiece.png"),
+    // [Clothes.MINI_ONEPIECE]: require("asset/icon/clothes/icon_clothes_mini_onepiece.png"),
+    // [Clothes.TWOPIECE]: require("asset/icon/clothes/icon_clothes_twopiece.jpeg"),
+    // [Clothes.COTTON_PANTS]: require("asset/icon/clothes/icon_clothes_cotton_pants.jpeg"),
+    // [Clothes.JEANS]: require("asset/icon/clothes/icon_clothes_jeans.png"),
+    // [Clothes.SLACKS]: require("asset/icon/clothes/icon_clothes_slacks.png"),
+    // [Clothes.DENIM]: require("asset/icon/clothes/icon_clothes_denim.jpeg"),
+    // [Clothes.SHORTS]: require("asset/icon/clothes/icon_clothes_shorts.png"),
+    // [Clothes.MINI_SKIRT]: require("asset/icon/clothes/icon_clothes_mini_skirt.png"),
+    // [Clothes.LONG_SKIRT]: require("asset/icon/clothes/icon_clothes_long_skirt.png")
+}
+
+export const GirlCharacterCostumePath: { [key in Clothes]?: ImageSourcePropType } = {
+    // [Clothes.CARDIGAN]: require("asset/icon/clothes/icon_clothes_cardigan.png"),
+    // [Clothes.JACKET]: require("asset/icon/clothes/icon_clothes_jacket.png"),
+    // [Clothes.COAT]: require("asset/icon/clothes/icon_clothes_coat.png"),
+    // [Clothes.THIN_JUMPER]: require("asset/icon/clothes/icon_clothes_thin_jumper.png"),
+    // [Clothes.THICK_JUMPER]: require("asset/icon/clothes/icon_clothes_thick_jumper.png"),
+    [Clothes.PADDING]: require("asset/image/character/image_puffer_girl.png"),
+    [Clothes.SHIRTS]: require("asset/image/character/image_shirts_girl.png"),
+    // [Clothes.T_SHIRTS]: require("asset/icon/clothes/icon_clothes_t_shirts.png"),
+    [Clothes.KNIT_SWEATER]: require("asset/image/character/image_sweater_girl.png")
+    // [Clothes.MAN_TO_MAN]: require("asset/icon/clothes/icon_clothes_man_to_man.png"),
+    // [Clothes.HOODIE_WITHOUT_BRUSHED]: require("asset/icon/clothes/icon_clothes_hoodie_without_brushed.png"),
+    // [Clothes.BRUSHED_HOODIE]: require("asset/icon/clothes/icon_clothes_brushed_hoodie.jpeg"),
+    // [Clothes.BLOUSE]: require("asset/icon/clothes/icon_clothes_blouse.png"),
+    // [Clothes.SLEEVELESS]: require("asset/icon/clothes/icon_clothes_sleeveless.png"),
+    // [Clothes.LONG_ONEPIECE]: require("asset/icon/clothes/icon_clothes_long_onepiece.png"),
+    // [Clothes.MINI_ONEPIECE]: require("asset/icon/clothes/icon_clothes_mini_onepiece.png"),
+    // [Clothes.TWOPIECE]: require("asset/icon/clothes/icon_clothes_twopiece.jpeg"),
+    // [Clothes.COTTON_PANTS]: require("asset/icon/clothes/icon_clothes_cotton_pants.jpeg"),
+    // [Clothes.JEANS]: require("asset/icon/clothes/icon_clothes_jeans.png"),
+    // [Clothes.SLACKS]: require("asset/icon/clothes/icon_clothes_slacks.png"),
+    // [Clothes.DENIM]: require("asset/icon/clothes/icon_clothes_denim.jpeg"),
+    // [Clothes.SHORTS]: require("asset/icon/clothes/icon_clothes_shorts.png"),
+    // [Clothes.MINI_SKIRT]: require("asset/icon/clothes/icon_clothes_mini_skirt.png"),
+    // [Clothes.LONG_SKIRT]: require("asset/icon/clothes/icon_clothes_long_skirt.png")
+}

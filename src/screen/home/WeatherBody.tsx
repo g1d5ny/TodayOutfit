@@ -1,8 +1,6 @@
 import { fetchCurrentWeatherQuery } from "hook/useCurrentWeatherHook"
-import { useEffect, useState } from "react"
 import { Image, StyleSheet, Text, View } from "react-native"
-import { GENDER } from "type"
-import { getStorage, isTablet } from "../../store"
+import { isTablet } from "../../store"
 import { CommonColor, CommonStyle, FontStyle } from "../../style/CommonStyle"
 
 export default () => {
@@ -13,21 +11,12 @@ export default () => {
     const topDesc = current?.costume?.topDesc ?? ""
     const bottom = current?.costume?.bottom ?? []
     const bottomDesc = current?.costume?.bottomDesc ?? ""
-
-    const [gender, setGender] = useState<GENDER | "">("")
-
-    useEffect(() => {
-        const myGender = async () => {
-            const gender = await getStorage("gender")
-            setGender(gender)
-        }
-        myGender()
-    }, [])
+    const character = current?.character
 
     return (
         <View style={styles.character}>
             <View style={[styles.cardDesc, CommonStyle.center]}>
-                <Image source={gender === "W" ? require("asset/image/character/image_sweatshirts_girl.png") : require("asset/image/character/image_sweatshirts_boy.png")} resizeMode={isTablet ? "contain" : "cover"} style={styles.charaterImage} />
+                <Image source={character} resizeMode={isTablet ? "contain" : "cover"} style={styles.charaterImage} />
             </View>
             <View style={styles.cardDesc}>
                 <Text style={[isTablet ? FontStyle.title2.semibold : FontStyle.body2.bold, styles.recomText, { color: is_day ? CommonColor.main_black : CommonColor.main_white }]}>기온 맞춤 추천 의상</Text>
