@@ -44,31 +44,31 @@ export const HomeScreen = () => {
 
     return (
         <View style={CommonStyle.flex}>
-            {!current || !daily?.hourlyWeather ? (
-                <Loader />
-            ) : (
-                <View>
-                    <ScrollView
-                        ref={scrollRef}
-                        scrollEventThrottle={0}
-                        onScroll={({
-                            nativeEvent: {
-                                contentOffset: { y },
-                                layoutMeasurement: { height }
-                            }
-                        }) => setArrow(y >= height / 2 ? "up" : "down")}
-                    >
-                        <ImageBackground source={backgroundSource()} resizeMode='cover' style={[CommonStyle.padding, styles.vertical, { height: screenHeight - bottom - TAB_HEIGHT, paddingTop: top + styles.vertical.paddingVertical }]}>
+            <ScrollView
+                ref={scrollRef}
+                scrollEventThrottle={0}
+                onScroll={({
+                    nativeEvent: {
+                        contentOffset: { y },
+                        layoutMeasurement: { height }
+                    }
+                }) => setArrow(y >= height / 2 ? "up" : "down")}
+            >
+                <ImageBackground source={backgroundSource()} resizeMode='cover' style={[CommonStyle.padding, styles.vertical, { height: screenHeight - bottom - TAB_HEIGHT, paddingTop: top + styles.vertical.paddingVertical }]}>
+                    {current ? (
+                        <>
                             <WeatherHeader />
                             <WeatherBody />
-                        </ImageBackground>
-                        <WeatherFooter viewRef={viewRef} />
-                    </ScrollView>
-                    <TouchableOpacity onPress={handleScroll} style={[styles.scroller, ShadowStyle, { bottom: isTablet ? 21 : 8 }]}>
-                        {arrow === "down" ? <ArrowDown /> : <ArrowUp />}
-                    </TouchableOpacity>
-                </View>
-            )}
+                        </>
+                    ) : (
+                        <Loader />
+                    )}
+                </ImageBackground>
+                {daily?.hourlyWeather ? <WeatherFooter viewRef={viewRef} /> : <Loader />}
+            </ScrollView>
+            <TouchableOpacity onPress={handleScroll} style={[styles.scroller, ShadowStyle, { bottom: isTablet ? 21 : 8 }]}>
+                {arrow === "down" ? <ArrowDown /> : <ArrowUp />}
+            </TouchableOpacity>
         </View>
     )
 }

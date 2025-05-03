@@ -22,8 +22,8 @@ export const currentDescApi = async (code: Weather, temp: number, feels_like: nu
 
     사용자가 입어야 할 의상은 상의, 하의이며 형용사로 끝나는 각각의 설명이 필요합니다.
 
-    상의는 ${JSON.stringify(Outer)}, ${JSON.stringify(Top)},(사용자 성별이 W이면) ${JSON.stringify(OnePice)}
-    하의는 ${JSON.stringify(Pants)}, (사용자 성별이 W이면) ${JSON.stringify(Skirt)} 이 중에서 선택해주세요.
+    상의는 ${JSON.stringify(Outer)}, ${JSON.stringify(Top)}, ${JSON.stringify(OnePice)},
+    하의는 ${JSON.stringify(Pants)}, ${JSON.stringify(Skirt)} 이 중에서 선택해주세요.
 
     출력 형식: {"costume": { "top":${JSON.stringify(Outer)}, ${JSON.stringify(Top)}, ${JSON.stringify(OnePice)} 중에 태블릿이면 2개 아니면 1개, "topDesc": "상의 설명. 형용사로 끝나는", "bottom": ${JSON.stringify(Pants)}, ${JSON.stringify(
         Skirt

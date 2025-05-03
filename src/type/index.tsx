@@ -266,6 +266,7 @@ export enum Clothes {
     T_SHIRTS = "t_shirts",
     KNIT_SWEATER = "knit_sweater",
     SHIRTS = "shirts",
+    POLO_SHIRTS = "poloshirts",
     MAN_TO_MAN = "man_to_man",
     HOODIE_WITHOUT_BRUSHED = "hoodie_without_brushed",
     BRUSHED_HOODIE = "brushed_hoodie",
