@@ -1,6 +1,37 @@
 import { ImageSourcePropType } from "react-native"
 import { Clothes } from "type"
 
+export const TopClothes = [
+    { ko: "가디건", en: Clothes.CARDIGAN },
+    { ko: "자켓", en: Clothes.JACKET },
+    { ko: "코트", en: Clothes.COAT },
+    { ko: "얇은 점퍼", en: Clothes.THIN_JUMPER },
+    { ko: "두꺼운 점퍼", en: Clothes.THICK_JUMPER },
+    { ko: "패딩", en: Clothes.PADDING },
+    { ko: "티셔츠", en: Clothes.T_SHIRTS },
+    { ko: "니트/스웨터", en: Clothes.KNIT_SWEATER },
+    { ko: "긴팔 셔츠", en: Clothes.SHIRTS },
+    { ko: "반팔 셔츠", en: Clothes.POLO_SHIRTS },
+    { ko: "맨투맨", en: Clothes.MAN_TO_MAN },
+    { ko: "기모 없는 후드티", en: Clothes.HOODIE_WITHOUT_BRUSHED },
+    { ko: "기모 후드티", en: Clothes.BRUSHED_HOODIE },
+    { ko: "블라우스", en: Clothes.BLOUSE },
+    { ko: "민소매/나시", en: Clothes.SLEEVELESS },
+    { ko: "롱원피스", en: Clothes.LONG_ONEPIECE },
+    { ko: "미니원피스", en: Clothes.MINI_ONEPIECE },
+    { ko: "투피스", en: Clothes.TWOPIECE }
+]
+
+export const BottomClothes = [
+    { ko: "면바지", en: Clothes.COTTON_PANTS },
+    { ko: "청바지", en: Clothes.JEANS },
+    { ko: "슬렉스", en: Clothes.SLACKS },
+    { ko: "데님", en: Clothes.DENIM },
+    { ko: "반바지", en: Clothes.SHIRTS },
+    { ko: "미니 스커트", en: Clothes.MINI_SKIRT },
+    { ko: "롱 스커트", en: Clothes.LONG_SKIRT }
+]
+
 export const Outer = [
     { ko: "가디건", en: Clothes.CARDIGAN },
     { ko: "자켓", en: Clothes.JACKET },
