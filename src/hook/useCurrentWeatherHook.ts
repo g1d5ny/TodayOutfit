@@ -62,22 +62,32 @@ export const fetchCurrentWeatherQuery = () => {
                 desc
             } = parsedData
 
-            parsedData.costume.top[0].path = CostumePath[top[0]?.en as Clothes] ?? CostumePath[Clothes.T_SHIRTS] ?? Clothes.T_SHIRTS
-            parsedData.costume.bottom[0].path = CostumePath[bottom[0]?.en as Clothes] ?? CostumePath[Clothes.JEANS] ?? Clothes.JEANS
+            parsedData.costume.top[0].path = CostumePath[top[0]?.en as Clothes] ?? CostumePath[Clothes.POLO_SHIRTS]
+            parsedData.costume.bottom[0].path = CostumePath[bottom[0]?.en as Clothes] ?? CostumePath[Clothes.COTTON_PANTS]
 
             if (isTablet) {
                 if (parsedData.costume.top[1]) {
-                    parsedData.costume.top[1].path = CostumePath[top[1]?.en as Clothes] ?? CostumePath[Clothes.T_SHIRTS] ?? Clothes.T_SHIRTS
+                    parsedData.costume.top[1].path = CostumePath[top[1]?.en as Clothes] ?? CostumePath[Clothes.SHIRTS]
                 }
                 if (parsedData.costume.bottom[1]) {
-                    parsedData.costume.bottom[1].path = CostumePath[bottom[1]?.en as Clothes] ?? CostumePath[Clothes.JEANS] ?? Clothes.JEANS
+                    parsedData.costume.bottom[1].path = CostumePath[bottom[1]?.en as Clothes] ?? CostumePath[Clothes.SHORTS]
                 }
             }
 
             if (gender === "W") {
-                parsedData.character = GirlCharacterCostumePath[top[0]?.en as Clothes] ?? GirlCharacterCostumePath[top[1]?.en as Clothes] ?? GirlCharacterCostumePath[Clothes.KNIT_SWEATER]
+                parsedData.character =
+                    GirlCharacterCostumePath[top[0]?.en as Clothes] ??
+                    GirlCharacterCostumePath[top[1]?.en as Clothes] ??
+                    GirlCharacterCostumePath[bottom[0]?.en as Clothes] ??
+                    GirlCharacterCostumePath[bottom[1]?.en as Clothes] ??
+                    GirlCharacterCostumePath[Clothes.LONG_ONEPIECE]
             } else {
-                parsedData.character = BoyCharacterCostumePath[top[0]?.en as Clothes] ?? BoyCharacterCostumePath[top[1]?.en as Clothes] ?? BoyCharacterCostumePath[Clothes.KNIT_SWEATER]
+                parsedData.character =
+                    BoyCharacterCostumePath[top[0]?.en as Clothes] ??
+                    GirlCharacterCostumePath[top[1]?.en as Clothes] ??
+                    BoyCharacterCostumePath[bottom[0]?.en as Clothes] ??
+                    GirlCharacterCostumePath[bottom[1]?.en as Clothes] ??
+                    BoyCharacterCostumePath[Clothes.SHIRTS]
             }
 
             return {

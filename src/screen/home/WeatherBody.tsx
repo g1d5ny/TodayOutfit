@@ -25,14 +25,18 @@ export default () => {
                         <Image source={top[0].path} style={styles.clothes} resizeMode='contain' />
                         <View style={styles.clothesDesc}>
                             <Text style={[isTablet ? FontStyle.body1.bold : FontStyle.body2.bold, { color: CommonColor.main_blue }]}>{top[0].ko}</Text>
-                            <Text style={[isTablet ? FontStyle.body2.regular : FontStyle.label2.regular, { color: CommonColor.basic_gray_dark }]}>{topDesc} 상의</Text>
+                            <Text lineBreakMode='tail' numberOfLines={2} style={[isTablet ? FontStyle.body2.regular : FontStyle.label2.regular, { color: CommonColor.basic_gray_dark }]}>
+                                {topDesc} 상의
+                            </Text>
                         </View>
                     </View>
                     <View style={styles.recom}>
                         <Image source={bottom[0].path} style={styles.clothes} resizeMode='contain' />
                         <View style={styles.clothesDesc}>
                             <Text style={[isTablet ? FontStyle.body1.bold : FontStyle.body2.bold, { color: CommonColor.main_blue }]}>{bottom[0].ko}</Text>
-                            <Text style={[isTablet ? FontStyle.body2.regular : FontStyle.label2.regular, { color: CommonColor.basic_gray_dark }]}>{bottomDesc} 하의</Text>
+                            <Text lineBreakMode='tail' numberOfLines={2} style={[isTablet ? FontStyle.body2.regular : FontStyle.label2.regular, { color: CommonColor.basic_gray_dark }]}>
+                                {bottomDesc} 하의
+                            </Text>
                         </View>
                     </View>
                 </View>
@@ -42,14 +46,18 @@ export default () => {
                             <Image source={top[1].path} style={styles.clothes} resizeMode='contain' />
                             <View style={styles.clothesDesc}>
                                 <Text style={[isTablet ? FontStyle.body1.bold : FontStyle.body2.bold, { color: CommonColor.main_blue }]}>{top[1].ko}</Text>
-                                <Text style={[isTablet ? FontStyle.body2.regular : FontStyle.label2.regular, { color: CommonColor.basic_gray_dark }]}>{topDesc} 상의</Text>
+                                <Text lineBreakMode='tail' numberOfLines={2} style={[isTablet ? FontStyle.body2.regular : FontStyle.label2.regular, { color: CommonColor.basic_gray_dark }]}>
+                                    {topDesc} 상의
+                                </Text>
                             </View>
                         </View>
                         <View style={styles.recom}>
                             <Image source={bottom[1].path} style={styles.clothes} resizeMode='contain' />
                             <View style={styles.clothesDesc}>
                                 <Text style={[isTablet ? FontStyle.body1.bold : FontStyle.body2.bold, { color: CommonColor.main_blue }]}>{bottom[1].ko}</Text>
-                                <Text style={[isTablet ? FontStyle.body2.regular : FontStyle.label2.regular, { color: CommonColor.basic_gray_dark }]}>{bottomDesc} 하의</Text>
+                                <Text lineBreakMode='tail' numberOfLines={2} style={[isTablet ? FontStyle.body2.regular : FontStyle.label2.regular, { color: CommonColor.basic_gray_dark }]}>
+                                    {bottomDesc} 하의
+                                </Text>
                             </View>
                         </View>
                     </View>
@@ -69,7 +77,8 @@ const styles = StyleSheet.create({
         marginBottom: isTablet ? 8 : 9
     },
     clothes: {
-        flex: 1,
+        // flex: 2 / 3,
+        flex: 3 / 4,
         width: "90%",
         height: "90%",
         margin: 10
@@ -116,6 +125,7 @@ const styles = StyleSheet.create({
         marginTop: 26
     },
     clothesDesc: {
+        flex: 1 / 4,
         paddingVertical: 9,
         paddingHorizontal: 9,
         gap: 4,
@@ -124,6 +134,7 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 10,
         borderTopWidth: 1,
         borderColor: CommonColor.basic_gray_light
+        // justifyContent: "space-around"
     },
     recom: {
         flex: isTablet ? 1 : undefined,
