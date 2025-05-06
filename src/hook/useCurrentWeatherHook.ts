@@ -4,7 +4,7 @@ import { getCurrentWeatherApi } from "api/weather"
 import { Alert } from "react-native"
 import { useRecoilValue } from "recoil"
 import { getStorage, isTablet, myAddressListState, weather } from "store"
-import { BoyCharacterCostumePath, CostumePath, GirlCharacterCostumePath } from "store/clothes"
+import { BoyCharacterCostumePath, BoyClothesPath, GirlCharacterCostumePath, GirlClothesPath } from "store/clothes"
 import { TextAlarm } from "text/AlarmText"
 import { Clothes } from "type"
 
@@ -62,32 +62,30 @@ export const fetchCurrentWeatherQuery = () => {
                 desc
             } = parsedData
 
-            parsedData.costume.top[0].path = CostumePath[top[0]?.en as Clothes] ?? CostumePath[Clothes.POLO_SHIRTS]
-            parsedData.costume.bottom[0].path = CostumePath[bottom[0]?.en as Clothes] ?? CostumePath[Clothes.COTTON_PANTS]
-
-            if (isTablet) {
-                if (parsedData.costume.top[1]) {
-                    parsedData.costume.top[1].path = CostumePath[top[1]?.en as Clothes] ?? CostumePath[Clothes.SHIRTS]
-                }
-                if (parsedData.costume.bottom[1]) {
-                    parsedData.costume.bottom[1].path = CostumePath[bottom[1]?.en as Clothes] ?? CostumePath[Clothes.SHORTS]
-                }
-            }
-
             if (gender === "W") {
-                parsedData.character =
-                    GirlCharacterCostumePath[top[0]?.en as Clothes] ??
-                    GirlCharacterCostumePath[top[1]?.en as Clothes] ??
-                    GirlCharacterCostumePath[bottom[0]?.en as Clothes] ??
-                    GirlCharacterCostumePath[bottom[1]?.en as Clothes] ??
-                    GirlCharacterCostumePath[Clothes.LONG_ONEPIECE]
+                parsedData.costume.top[0].path = GirlClothesPath[top[0]?.en as Clothes] // ?? TODO 체감온도 맞춰서 추천
+                parsedData.costume.bottom[0].path = GirlClothesPath[bottom[0]?.en as Clothes] // ?? TODO 체감온도 맞춰서 추천
+                if (isTablet) {
+                    if (parsedData.costume.top[1]) {
+                        parsedData.costume.top[1].path = GirlClothesPath[top[1]?.en as Clothes] // ?? TODO 체감온도 맞춰서 추천
+                    }
+                    if (parsedData.costume.bottom[1]) {
+                        parsedData.costume.bottom[1].path = GirlClothesPath[bottom[1]?.en as Clothes] // ?? TODO 체감온도 맞춰서 추천
+                    }
+                    parsedData.character = GirlCharacterCostumePath[top[0]?.en as Clothes] ?? GirlCharacterCostumePath[top[1]?.en as Clothes] ?? GirlCharacterCostumePath[bottom[0]?.en as Clothes] ?? GirlCharacterCostumePath[bottom[1]?.en as Clothes] // ?? TODO 체감온도 맞춰서 추천
+                }
             } else {
-                parsedData.character =
-                    BoyCharacterCostumePath[top[0]?.en as Clothes] ??
-                    GirlCharacterCostumePath[top[1]?.en as Clothes] ??
-                    BoyCharacterCostumePath[bottom[0]?.en as Clothes] ??
-                    GirlCharacterCostumePath[bottom[1]?.en as Clothes] ??
-                    BoyCharacterCostumePath[Clothes.SHIRTS]
+                parsedData.costume.top[0].path = BoyClothesPath[top[0]?.en as Clothes] // ?? TODO 체감온도 맞춰서 추천
+                parsedData.costume.bottom[0].path = BoyClothesPath[bottom[0]?.en as Clothes] // ?? TODO 체감온도 맞춰서 추천
+                if (isTablet) {
+                    if (parsedData.costume.top[1]) {
+                        parsedData.costume.top[1].path = BoyClothesPath[top[1]?.en as Clothes] // ?? TODO 체감온도 맞춰서 추천
+                    }
+                    if (parsedData.costume.bottom[1]) {
+                        parsedData.costume.bottom[1].path = BoyClothesPath[bottom[1]?.en as Clothes] // ?? TODO 체감온도 맞춰서 추천
+                    }
+                    parsedData.character = BoyCharacterCostumePath[top[0]?.en as Clothes] ?? BoyCharacterCostumePath[top[1]?.en as Clothes] ?? BoyCharacterCostumePath[bottom[0]?.en as Clothes] ?? BoyCharacterCostumePath[bottom[1]?.en as Clothes] // ?? TODO 체감온도 맞춰서 추천
+                }
             }
 
             return {

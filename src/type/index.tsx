@@ -257,29 +257,31 @@ export interface INPUT_ADDRESS {
 }
 
 export enum Clothes {
-    CARDIGAN = "cardigan",
-    JACKET = "jacket",
-    COAT = "coat",
-    THIN_JUMPER = "thin_jumper",
-    THICK_JUMPER = "thick_jumper",
-    PADDING = "padding",
-    T_SHIRTS = "t_shirts",
-    KNIT_SWEATER = "knit_sweater",
-    SHIRTS = "shirts",
-    POLO_SHIRTS = "poloshirts",
-    MAN_TO_MAN = "man_to_man",
-    HOODIE_WITHOUT_BRUSHED = "hoodie_without_brushed",
-    BRUSHED_HOODIE = "brushed_hoodie",
-    BLOUSE = "blouse",
-    SLEEVELESS = "sleeveless",
-    LONG_ONEPIECE = "long_onepice",
-    MINI_ONEPIECE = "mini_onepice",
-    TWOPIECE = "twopiece",
-    COTTON_PANTS = "cotton_pants",
-    JEANS = "jeans",
-    SLACKS = "slacks",
-    DENIM = "denim",
-    SHORTS = "shorts",
-    MINI_SKIRT = "mini_skirt",
-    LONG_SKIRT = "long_skirt"
+    // 공용
+    CARDIGAN = "cardigan", // 가디건 (에셋 구분 필)
+    COAT_GRAY = "coat gray", // 코트 (에셋 구분 필)
+    COAT_BROWN = "coat brown", // 코트 (에셋 구분 필)
+    JACKET_BOMBER = "jacket bomber", // 항공 점퍼 (에셋 구분 필)
+    SHIRTS = "shirts", // 셔츠 (에셋 구분 필)
+    T_SHIRTS = "t shirts", // 티셔츠 (에셋 구분 필)
+    PUFFER_LONG = "puffer long", // 롱패딩
+    PUFFER_SHORT = "puffer short", // 숏패딩
+    SWEATER = "sweater", // 니트/스웨터
+    LONG_PANTS_JEAN_BLACK = "long pants jean black", // 긴 바지
+    LONG_PANTS_JEAN_DENIM = "long pants jean denim", // 청바지
+    SHORT_SLEEVE_SHIRTS_NAVY = "short sleeve shirts navy", // 반팔 남색 셔츠 (에셋 구분 필)
+    SHORT_SLEEVE_SHIRTS_GRAY = "short sleeve shirts gray", // 반팔 회색 셔츠 (에셋 구분 필)
+    SHORT_PANTS = "short pants", // 반바지
+
+    // 남자
+    JACKET_DENIM = "denim jacket", // 청자켓
+
+    // 여자
+    BLOUSE = "blouse", // 블라우스
+    HOODY_JACKET_SHERPA = "hoody jacket sherpa", // 후드 자켓
+    JACKET_PUFFY = "jacket puffy", // 패딩 자켓
+    JACKET_KNIT = "jacket knit", // 니트 자켓
+    SHORT_SLEEVE_DRESS = "short sleeve dress", // 반팔 원피스
+    LONG_SLEEVE_DRESS = "long sleeve dress", // 반팔 원피스
+    LONG_SKIRT = "long skirt" // 롱 스커트
 }
