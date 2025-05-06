@@ -72,8 +72,8 @@ export const fetchCurrentWeatherQuery = () => {
                     if (parsedData.costume.bottom[1]) {
                         parsedData.costume.bottom[1].path = GirlClothesPath[bottom[1]?.en as Clothes] // ?? TODO 체감온도 맞춰서 추천
                     }
-                    parsedData.character = GirlCharacterCostumePath[top[0]?.en as Clothes] ?? GirlCharacterCostumePath[top[1]?.en as Clothes] ?? GirlCharacterCostumePath[bottom[0]?.en as Clothes] ?? GirlCharacterCostumePath[bottom[1]?.en as Clothes] // ?? TODO 체감온도 맞춰서 추천
                 }
+                parsedData.character = GirlCharacterCostumePath[top[0]?.en as Clothes] ?? GirlCharacterCostumePath[top[1]?.en as Clothes] ?? GirlCharacterCostumePath[bottom[0]?.en as Clothes] ?? GirlCharacterCostumePath[bottom[1]?.en as Clothes] // ?? TODO 체감온도 맞춰서 추천
             } else {
                 parsedData.costume.top[0].path = BoyClothesPath[top[0]?.en as Clothes] // ?? TODO 체감온도 맞춰서 추천
                 parsedData.costume.bottom[0].path = BoyClothesPath[bottom[0]?.en as Clothes] // ?? TODO 체감온도 맞춰서 추천
@@ -84,8 +84,8 @@ export const fetchCurrentWeatherQuery = () => {
                     if (parsedData.costume.bottom[1]) {
                         parsedData.costume.bottom[1].path = BoyClothesPath[bottom[1]?.en as Clothes] // ?? TODO 체감온도 맞춰서 추천
                     }
-                    parsedData.character = BoyCharacterCostumePath[top[0]?.en as Clothes] ?? BoyCharacterCostumePath[top[1]?.en as Clothes] ?? BoyCharacterCostumePath[bottom[0]?.en as Clothes] ?? BoyCharacterCostumePath[bottom[1]?.en as Clothes] // ?? TODO 체감온도 맞춰서 추천
                 }
+                parsedData.character = BoyCharacterCostumePath[top[0]?.en as Clothes] ?? BoyCharacterCostumePath[top[1]?.en as Clothes] ?? BoyCharacterCostumePath[bottom[0]?.en as Clothes] ?? BoyCharacterCostumePath[bottom[1]?.en as Clothes] // ?? TODO 체감온도 맞춰서 추천
             }
 
             return {
