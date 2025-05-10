@@ -22,18 +22,18 @@ export default () => {
                 <Text style={[isTablet ? FontStyle.title2.semibold : FontStyle.body2.bold, styles.recomText, !is_day && TextShadowStyle, { color: is_day ? CommonColor.main_black : CommonColor.main_white }]}>기온 맞춤 추천 의상</Text>
                 <View style={[styles.recomContainer, isTablet && styles.tabletClothes]}>
                     <View style={styles.recom}>
-                        <Image source={top[0].path} style={styles.clothes} resizeMode='contain' />
+                        <Image source={top[0]?.path} style={styles.clothes} resizeMode='contain' />
                         <View style={styles.clothesDesc}>
-                            <Text style={[isTablet ? FontStyle.body1.bold : FontStyle.body2.bold, { color: CommonColor.main_blue }]}>{top[0].ko}</Text>
+                            <Text style={[isTablet ? FontStyle.body1.bold : FontStyle.body2.bold, { color: CommonColor.main_blue }]}>{top[0]?.ko}</Text>
                             <Text lineBreakMode='tail' numberOfLines={2} style={[isTablet ? FontStyle.body2.regular : FontStyle.label2.regular, { color: CommonColor.basic_gray_dark }]}>
                                 {topDesc} 상의
                             </Text>
                         </View>
                     </View>
                     <View style={styles.recom}>
-                        <Image source={bottom[0].path} style={styles.clothes} resizeMode='contain' />
+                        <Image source={bottom[0]?.path} style={styles.clothes} resizeMode='contain' />
                         <View style={styles.clothesDesc}>
-                            <Text style={[isTablet ? FontStyle.body1.bold : FontStyle.body2.bold, { color: CommonColor.main_blue }]}>{bottom[0].ko}</Text>
+                            <Text style={[isTablet ? FontStyle.body1.bold : FontStyle.body2.bold, { color: CommonColor.main_blue }]}>{bottom[0]?.ko}</Text>
                             <Text lineBreakMode='tail' numberOfLines={2} style={[isTablet ? FontStyle.body2.regular : FontStyle.label2.regular, { color: CommonColor.basic_gray_dark }]}>
                                 {bottomDesc} 하의
                             </Text>
@@ -43,18 +43,18 @@ export default () => {
                 {isTablet && top[1] && bottom[1] && (
                     <View style={[styles.recomContainer, styles.tabletClothes, { marginTop: 20 }]}>
                         <View style={styles.recom}>
-                            <Image source={top[1].path} style={styles.clothes} resizeMode='contain' />
+                            <Image source={top[1]?.path} style={styles.clothes} resizeMode='contain' />
                             <View style={styles.clothesDesc}>
-                                <Text style={[isTablet ? FontStyle.body1.bold : FontStyle.body2.bold, { color: CommonColor.main_blue }]}>{top[1].ko}</Text>
+                                <Text style={[isTablet ? FontStyle.body1.bold : FontStyle.body2.bold, { color: CommonColor.main_blue }]}>{top[1]?.ko}</Text>
                                 <Text lineBreakMode='tail' numberOfLines={2} style={[isTablet ? FontStyle.body2.regular : FontStyle.label2.regular, { color: CommonColor.basic_gray_dark }]}>
                                     {topDesc} 상의
                                 </Text>
                             </View>
                         </View>
                         <View style={styles.recom}>
-                            <Image source={bottom[1].path} style={styles.clothes} resizeMode='contain' />
+                            <Image source={bottom[1]?.path} style={styles.clothes} resizeMode='contain' />
                             <View style={styles.clothesDesc}>
-                                <Text style={[isTablet ? FontStyle.body1.bold : FontStyle.body2.bold, { color: CommonColor.main_blue }]}>{bottom[1].ko}</Text>
+                                <Text style={[isTablet ? FontStyle.body1.bold : FontStyle.body2.bold, { color: CommonColor.main_blue }]}>{bottom[1]?.ko}</Text>
                                 <Text lineBreakMode='tail' numberOfLines={2} style={[isTablet ? FontStyle.body2.regular : FontStyle.label2.regular, { color: CommonColor.basic_gray_dark }]}>
                                     {bottomDesc} 하의
                                 </Text>
@@ -77,8 +77,7 @@ const styles = StyleSheet.create({
         marginBottom: isTablet ? 8 : 9
     },
     clothes: {
-        // flex: 2 / 3,
-        flex: 3 / 4,
+        flex: 1,
         width: "90%",
         height: "90%",
         margin: 10
@@ -125,7 +124,7 @@ const styles = StyleSheet.create({
         marginTop: 26
     },
     clothesDesc: {
-        flex: 1 / 4,
+        // flex: 1 / 4,
         paddingVertical: 9,
         paddingHorizontal: 9,
         gap: 4,

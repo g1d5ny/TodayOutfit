@@ -1,19 +1,19 @@
-import React, { useState } from "react"
+import Check from "asset/icon/icon_check_circle.svg"
+import LocationOff from "asset/icon/icon_location_off.svg"
+import LocationOn from "asset/icon/icon_location_on.svg"
+import Remove from "asset/icon/icon_remove_circle.svg"
+import UnCheck from "asset/icon/icon_uncheck_circle.svg"
+import { AppBar } from "component/CommonComponent"
 import { SearchInput } from "component/SearchInput"
+import { useUserLocationHook } from "hook/useUserLocationHook"
+import { navigationRef } from "navigation/RootNavigation"
+import React, { useState } from "react"
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { useRecoilValue } from "recoil"
 import { isTablet, myAddressListState } from "store"
 import { CommonColor, CommonStyle, FontStyle } from "style/CommonStyle"
-import LocationOn from "asset/icon/icon_location_on.svg"
-import LocationOff from "asset/icon/icon_location_off.svg"
-import Check from "asset/icon/icon_check_circle.svg"
-import UnCheck from "asset/icon/icon_uncheck_circle.svg"
-import Remove from "asset/icon/icon_remove_circle.svg"
-import { useUserLocationHook } from "hook/useUserLocationHook"
 import { MY_ADDRSS } from "type"
 import { NowDate } from "utils"
-import { navigationRef } from "navigation/RootNavigation"
-import { AppBar } from "component/CommonComponent"
 
 const SelectedView = ({ location }: { location: string }) => {
     return (
@@ -62,7 +62,7 @@ export const LocationScreen = () => {
             <ScrollView contentContainerStyle={styles.scrollView}>
                 {!showRemoveView && (
                     <TouchableOpacity style={CommonStyle.padding} onPress={() => navigationRef.current?.navigate("LocationGuideNavigator", { screen: "LocationGuideScreen" })}>
-                        <SearchInput hasInput={false} autoFocus={false} />
+                        <SearchInput hasInput={false} autoFocus={false} error={null} />
                     </TouchableOpacity>
                 )}
                 <View style={[CommonStyle.padding, styles.addressContainer, !showRemoveView && { marginTop: isTablet ? 30 : 32 }]}>

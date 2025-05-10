@@ -1,14 +1,14 @@
-import { memo, useState } from "react"
-import { CommonColor, FontStyle } from "../style/CommonStyle"
-import { Keyboard, StyleSheet, Text, TextInput, TextInputProps, TouchableOpacity, View } from "react-native"
-import { inputAddressState, isTablet } from "../store"
-import { LocationPermissionModal } from "./LocationPermissionModal"
-import Search from "../asset/icon/icon_search.svg"
-import FocusLocation from "../asset/icon/icon_focus_location.svg"
-import FocusOffLocation from "../asset/icon/icon_focus_off_location.svg"
-import { useRecoilState } from "recoil"
 import { useUserLocationHook } from "hook/useUserLocationHook"
 import { navigationRef } from "navigation/RootNavigation"
+import { memo, useState } from "react"
+import { Keyboard, StyleSheet, Text, TextInput, TextInputProps, TouchableOpacity, View } from "react-native"
+import { useRecoilState } from "recoil"
+import FocusLocation from "../asset/icon/icon_focus_location.svg"
+import FocusOffLocation from "../asset/icon/icon_focus_off_location.svg"
+import Search from "../asset/icon/icon_search.svg"
+import { inputAddressState, isTablet } from "../store"
+import { CommonColor, FontStyle } from "../style/CommonStyle"
+import { LocationPermissionModal } from "./LocationPermissionModal"
 
 const SEARCH_ICON = isTablet ? 24 : 20
 const LOCATION_ICON = isTablet ? 26 : 22
@@ -19,9 +19,10 @@ interface IProps extends TextInputProps {
     isOnboarding?: boolean
     onFocus?: () => void
     onBlur?: () => void
+    onIconPress?: () => void
     error: Error | null
 }
-export const SearchInput = memo(({ hasInput, autoFocus, isOnboarding = false, onFocus, onBlur, error, ...props }: IProps) => {
+export const SearchInput = memo(({ hasInput, autoFocus, isOnboarding = false, onFocus, onBlur, onIconPress, error, ...props }: IProps) => {
     const [{ value }, setInputAddress] = useRecoilState(inputAddressState)
     const [isVisible, setIsVisible] = useState(false)
     const [isOnFocus, setIsOnFocus] = useState(autoFocus)
@@ -39,11 +40,13 @@ export const SearchInput = memo(({ hasInput, autoFocus, isOnboarding = false, on
         const checkP = await checkLocationPermission()
         if (checkP) {
             getLocation()
+            onIconPress?.()
             return
         }
         const reqP = await requestLocationPermission()
         if (reqP) {
             getLocation()
+            onIconPress?.()
             return
         }
         setIsVisible(true)
@@ -72,7 +75,10 @@ export const SearchInput = memo(({ hasInput, autoFocus, isOnboarding = false, on
                             setIsOnFocus(true)
                             onFocus && onFocus()
                         }}
-                        onBlur={() => {
+                        onSubmitEditing={() => {
+                            if (value.length < 2) {
+                                return false
+                            }
                             setIsOnFocus(false)
                             setInputAddress({ value, isEditing: false })
                             onBlur && onBlur()
@@ -83,11 +89,7 @@ export const SearchInput = memo(({ hasInput, autoFocus, isOnboarding = false, on
                         {...props}
                     />
                 ) : (
-                    <Text
-                        style={[isTablet ? FontStyle.body1.regular : FontStyle.body2.regular, styles.textView, { color: CommonColor.basic_gray_medium, paddingVertical: isTablet ? 20 : 17 }]}
-                    >
-                        위치를 입력하세요
-                    </Text>
+                    <Text style={[isTablet ? FontStyle.body1.regular : FontStyle.body2.regular, styles.textView, { color: CommonColor.basic_gray_medium, paddingVertical: isTablet ? 20 : 17 }]}>위치를 입력하세요</Text>
                 )}
                 <TouchableOpacity disabled={isOnFocus} onPress={onPressLocation}>
                     {isOnFocus ? <FocusOffLocation width={LOCATION_ICON} height={LOCATION_ICON} /> : <FocusLocation width={LOCATION_ICON} height={LOCATION_ICON} />}

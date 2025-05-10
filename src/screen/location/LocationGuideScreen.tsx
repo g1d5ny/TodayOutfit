@@ -50,7 +50,7 @@ export const LocationGuideScreen = () => {
         <View style={CommonStyle.flex}>
             <AppBar text='위치 설정' hasBack={false} custom={{ text: "취소", onPress: reset }} />
             <View style={[CommonStyle.flex, CommonStyle.padding, styles.scrollView]}>
-                <SearchInput hasInput autoFocus error={error} />
+                <SearchInput hasInput autoFocus error={error} onIconPress={() => navigationRef.current?.goBack()} />
                 {data ? (
                     <ScrollView style={{ flex: 1 }} contentContainerStyle={[CommonStyle.flex, { paddingBottom: BUTTON_HEIGHT }]}>
                         <SearchResult isLoading={isLoading} data={data} selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress} />
