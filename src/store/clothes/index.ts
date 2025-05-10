@@ -6,7 +6,7 @@ export const CommonTopClothes = [
     { ko: "코트", en: Clothes.COAT_GRAY },
     { ko: "코트", en: Clothes.COAT_BROWN },
     { ko: "항공 점퍼", en: Clothes.JACKET_BOMBER },
-    { ko: "셔츠", en: Clothes.SHIRTS },
+    { ko: "셔츠", en: Clothes.LONG_SLEEVE_SHIRTS },
     { ko: "티셔츠", en: Clothes.T_SHIRTS },
     { ko: "후드티", en: Clothes.HOODIE },
     { ko: "롱패딩", en: Clothes.PUFFER_LONG },
@@ -54,7 +54,7 @@ export const BoyClothesPath: { [key in BoyClothesKeys]: ImageSourcePropType } = 
     [Clothes.COAT_GRAY]: require("asset/image/clothes/boy/image_coat_gray.png"),
     [Clothes.COAT_BROWN]: require("asset/image/clothes/boy/image_coat_brown.png"),
     [Clothes.JACKET_BOMBER]: require("asset/image/clothes/boy/image_jacket_bomber.png"),
-    [Clothes.SHIRTS]: require("asset/image/clothes/boy/image_shirts.png"),
+    [Clothes.LONG_SLEEVE_SHIRTS]: require("asset/image/clothes/boy/image_long_sleeve_shirts.png"),
     [Clothes.T_SHIRTS]: require("asset/image/clothes/boy/image_t_shirts.png"),
     [Clothes.PUFFER_LONG]: require("asset/image/clothes/image_long_puffer.png"),
     [Clothes.PUFFER_SHORT]: require("asset/image/clothes/image_short_puffer.png"),
@@ -79,7 +79,7 @@ export const GirlClothesPath: { [key in GirlClothesKeys]: ImageSourcePropType } 
     [Clothes.COAT_GRAY]: require("asset/image/clothes/girl/image_coat_gray.png"),
     [Clothes.COAT_BROWN]: require("asset/image/clothes/girl/image_coat_brown.png"),
     [Clothes.JACKET_BOMBER]: require("asset/image/clothes/girl/image_jacket_bomber.png"),
-    [Clothes.SHIRTS]: require("asset/image/clothes/girl/image_shirts.png"),
+    [Clothes.LONG_SLEEVE_SHIRTS]: require("asset/image/clothes/girl/image_long_sleeve_shirts.png"),
     [Clothes.T_SHIRTS]: require("asset/image/clothes/girl/image_t_shrits.png"),
     [Clothes.PUFFER_LONG]: require("asset/image/clothes/image_long_puffer.png"),
     [Clothes.PUFFER_SHORT]: require("asset/image/clothes/image_short_puffer.png"),
@@ -108,7 +108,7 @@ export const BoyCharacterCostumePath: { [key in BoyClothesKeys]?: ImageSourcePro
     [Clothes.JACKET_BOMBER]: require("asset/image/character/boy/image_jacket.png"),
     [Clothes.JACKET_DENIM]: require("asset/image/character/boy/image_jacket.png"),
     // 셔츠
-    [Clothes.SHIRTS]: require("asset/image/character/boy/image_shirts.png"),
+    [Clothes.LONG_SLEEVE_SHIRTS]: require("asset/image/character/boy/image_long_sleeve_shirts.png"),
     [Clothes.SHORT_SLEEVE_SHIRTS_GRAY]: require("asset/image/character/boy/image_short_sleeve_shirts.png"),
     [Clothes.SHORT_SLEEVE_SHIRTS_NAVY]: require("asset/image/character/boy/image_short_sleeve_shirts.png"),
     // 패딩
@@ -116,7 +116,7 @@ export const BoyCharacterCostumePath: { [key in BoyClothesKeys]?: ImageSourcePro
     [Clothes.PUFFER_SHORT]: require("asset/image/character/boy/image_short_puffer.png"),
     // 바지
     [Clothes.SHORT_PANTS]: require("asset/image/character/boy/image_shorts.png"),
-    [Clothes.LONG_PANTS_JEAN_BLACK]: require("asset/image/character/boy/image_shirts.png"),
+    [Clothes.LONG_PANTS_JEAN_BLACK]: require("asset/image/character/boy/image_long_sleeve_shirts.png"),
     // 니트/스웨터
     [Clothes.SWEATER]: require("asset/image/character/boy/image_sweater.png")
 }
@@ -137,7 +137,7 @@ export const GirlCharacterCostumePath: { [key in GirlClothesKeys]?: ImageSourceP
     [Clothes.LONG_SLEEVE_DRESS_BLUE]: require("asset/image/character/girl/image_blouse.png"),
     [Clothes.LONG_SLEEVE_DRESS_NAVY]: require("asset/image/character/girl/image_blouse.png"),
     // 셔츠
-    [Clothes.SHIRTS]: require("asset/image/character/girl/image_shirts.png"),
+    [Clothes.LONG_SLEEVE_SHIRTS]: require("asset/image/character/girl/image_long_sleeve_shirts.png"),
     [Clothes.SHORT_SLEEVE_SHIRTS_GRAY]: require("asset/image/character/girl/image_short_sleeve_shirts.png"),
     [Clothes.SHORT_SLEEVE_SHIRTS_NAVY]: require("asset/image/character/girl/image_short_sleeve_shirts.png"),
     // 패딩
@@ -145,7 +145,7 @@ export const GirlCharacterCostumePath: { [key in GirlClothesKeys]?: ImageSourceP
     [Clothes.PUFFER_SHORT]: require("asset/image/character/girl/image_short_puffer.png"),
     // 바지
     [Clothes.SHORT_PANTS]: require("asset/image/character/girl/image_shorts.png"),
-    [Clothes.LONG_PANTS_JEAN_BLACK]: require("asset/image/character/girl/image_shirts.png"),
+    [Clothes.LONG_PANTS_JEAN_BLACK]: require("asset/image/character/girl/image_long_sleeve_shirts.png"),
     // 니트/스웨터
     [Clothes.SWEATER]: require("asset/image/character/girl/image_sweater.png")
 }
