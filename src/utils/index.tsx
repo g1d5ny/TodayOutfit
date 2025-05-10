@@ -97,3 +97,26 @@ export const SnowFallFormat = (snowFall: number) => {
     if (snowFall < 20) return SnowFall(snowFall)[2]
     if (snowFall >= 20) return SnowFall(snowFall)[3]
 }
+
+export const DefaultGirlCharacterCostume = (temp: number) => {
+    if (temp <= -10) return require("asset/image/character/girl/image_short_puffer.png")
+    if (temp <= -3) return require("asset/image/character/girl/image_coat.png")
+    if (temp <= 5) return require("asset/image/character/girl/image_jacket.png")
+    if (temp <= 10) return require("asset/image/character/girl/image_sweater.png")
+    if (temp <= 14) return require("asset/image/character/girl/image_blouse.png")
+    if (temp <= 18) return require("asset/image/character/girl/image_long_sleeve_shirts.png")
+    if (temp <= 22) return require("asset/image/character/girl/image_long_sleeve_dress.png")
+    if (temp <= 26) return require("asset/image/character/girl/image_short_sleeve_shirts.png")
+    if (temp <= 30) return require("asset/image/character/girl/image_long_skirt.png")
+    if (temp > 30) return require("asset/image/character/girl/image_shorts.png")
+}
+
+export const DefaultBoyCharacterCostume = (temp: number) => {
+    if (temp <= -10) return require("asset/image/character/boy/image_short_puffer.png")
+    if (temp <= -3) return require("asset/image/character/boy/image_coat.png")
+    if (temp <= 5) return require("asset/image/character/boy/image_jacket.png")
+    if (temp <= 10) return require("asset/image/character/boy/image_sweater.png")
+    if (temp <= 18) return require("asset/image/character/boy/image_long_sleeve_shirts.png")
+    if (temp <= 26) return require("asset/image/character/boy/image_short_sleeve_shirts.png")
+    if (temp > 26) return require("asset/image/character/boy/image_shorts.png")
+}
