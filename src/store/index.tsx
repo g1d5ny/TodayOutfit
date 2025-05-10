@@ -27,6 +27,7 @@ import FeelsLike6 from "../asset/icon/feels_like/icon_feels_like_6.svg"
 import FeelsLike7 from "../asset/icon/feels_like/icon_feels_like_7.svg"
 import FeelsLike8 from "../asset/icon/feels_like/icon_feels_like_8.svg"
 import FeelsLike9 from "../asset/icon/feels_like/icon_feels_like_9.svg"
+import Humidity0 from "../asset/icon/humidity/icon_humidity_0.svg"
 import Humidity1 from "../asset/icon/humidity/icon_humidity_1.svg"
 import Humidity2 from "../asset/icon/humidity/icon_humidity_2.svg"
 import Humidity3 from "../asset/icon/humidity/icon_humidity_3.svg"
@@ -296,6 +297,7 @@ export const RainPercentage = (precip: number) => [
 ]
 
 export const Humidity = (humidity: number) => [
+    { text: humidity + "%", content: "매우 건조한 상태로 호흡기 환자는 주의해야 합니다.", icon: <Humidity0 /> },
     { text: humidity + "%", content: "매우 건조한 상태로 호흡기 환자는 주의해야 합니다.", icon: <Humidity1 /> },
     { text: humidity + "%", content: "건조한 상태로 주의가 필요합니다.", icon: <Humidity2 /> },
     { text: humidity + "%", content: "다소 건조함을 느낄 수 있는 정도 입니다.", icon: <Humidity3 /> },

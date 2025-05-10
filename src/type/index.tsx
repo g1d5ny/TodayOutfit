@@ -272,9 +272,10 @@ export enum Clothes {
     SHORT_SLEEVE_SHIRTS_NAVY = "short sleeve shirts navy", // 반팔 남색 셔츠 (에셋 구분 필)
     SHORT_SLEEVE_SHIRTS_GRAY = "short sleeve shirts gray", // 반팔 회색 셔츠 (에셋 구분 필)
     SHORT_PANTS = "short pants", // 반바지
+    HOODIE = "hoodie", // 후드티 (에셋 구분 필)
 
     // 남자
-    JACKET_DENIM = "denim jacket", // 청자켓
+    JACKET_DENIM = "jacket denim", // 청자켓
 
     // 여자
     BLOUSE = "blouse", // 블라우스
@@ -282,6 +283,7 @@ export enum Clothes {
     JACKET_PUFFY = "jacket puffy", // 패딩 자켓
     JACKET_KNIT = "jacket knit", // 니트 자켓
     SHORT_SLEEVE_DRESS = "short sleeve dress", // 반팔 원피스
-    LONG_SLEEVE_DRESS = "long sleeve dress", // 반팔 원피스
+    LONG_SLEEVE_DRESS_NAVY = "long sleeve dress navy", // 긴팔 원피스
+    LONG_SLEEVE_DRESS_BLUE = "long sleeve dress blue", // 긴팔 원피스
     LONG_SKIRT = "long skirt" // 롱 스커트
 }
