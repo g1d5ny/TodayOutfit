@@ -86,7 +86,7 @@ export const GirlClothesPath: { [key in GirlClothesKeys]: ImageSourcePropType } 
     [Clothes.SWEATER]: require("asset/image/clothes/image_sweater.png"),
     [Clothes.LONG_PANTS_JEAN_BLACK]: require("asset/image/clothes/image_long_pants_jean_black.png"),
     [Clothes.LONG_PANTS_JEAN_DENIM]: require("asset/image/clothes/image_long_pants_jean_denim.png"),
-    [Clothes.SHORT_SLEEVE_SHIRTS_NAVY]: require("asset/image/clothes/girl/image_short_sleeve_shirts_gray.png"), // TODO
+    [Clothes.SHORT_SLEEVE_SHIRTS_NAVY]: require("asset/image/clothes/girl/image_short_sleeve_shirts_navy.png"),
     [Clothes.SHORT_SLEEVE_SHIRTS_GRAY]: require("asset/image/clothes/girl/image_short_sleeve_shirts_gray.png"),
     [Clothes.BLOUSE]: require("asset/image/clothes/girl/image_blouse.png"),
     [Clothes.HOODY_JACKET_SHERPA]: require("asset/image/clothes/girl/image_hoody_jacket_sherpa.png"),
@@ -97,7 +97,7 @@ export const GirlClothesPath: { [key in GirlClothesKeys]: ImageSourcePropType } 
     [Clothes.LONG_SLEEVE_DRESS_NAVY]: require("asset/image/clothes/girl/image_long_sleeve_dress_navy.png"),
     [Clothes.SHORT_PANTS]: require("asset/image/clothes/image_short_pants.png"),
     [Clothes.HOODIE]: require("asset/image/clothes/girl/image_hoodie.png"),
-    [Clothes.LONG_SKIRT]: require("asset/image/clothes/girl/image_long_sleeve_dress_navy.png")
+    [Clothes.LONG_SKIRT]: require("asset/image/clothes/girl/image_long_skirt.png")
 }
 
 export const BoyCharacterCostumePath: { [key in BoyClothesKeys]?: ImageSourcePropType } = {
@@ -133,7 +133,7 @@ export const GirlCharacterCostumePath: { [key in GirlClothesKeys]?: ImageSourceP
     [Clothes.JACKET_KNIT]: require("asset/image/character/girl/image_jacket.png"),
     // 치마
     [Clothes.LONG_SKIRT]: require("asset/image/character/girl/image_long_skirt.png"),
-    [Clothes.SHORT_SLEEVE_DRESS]: require("asset/image/character/girl/image_long_sleeve_dress.png"),
+    [Clothes.SHORT_SLEEVE_DRESS]: require("asset/image/character/girl//image_short_sleeve_dress.png"),
     [Clothes.LONG_SLEEVE_DRESS_BLUE]: require("asset/image/character/girl/image_blouse.png"),
     [Clothes.LONG_SLEEVE_DRESS_NAVY]: require("asset/image/character/girl/image_blouse.png"),
     // 셔츠
