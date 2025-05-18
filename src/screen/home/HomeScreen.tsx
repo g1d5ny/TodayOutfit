@@ -1,13 +1,13 @@
 import { fetchCurrentWeatherQuery } from "hook/useCurrentWeatherHook"
 import { useDailyWeatherHook } from "hook/useDailyWeatherHook"
 import { useCallback, useRef, useState } from "react"
-import { ImageBackground, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native"
+import { ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import ArrowDown from "../../asset/icon/icon_arrow_down.svg"
 import ArrowUp from "../../asset/icon/icon_arrow_up.svg"
 import Loader from "../../component/lottie/Loader"
 import { isTablet } from "../../store"
-import { CommonColor, CommonStyle, screenHeight, ShadowStyle, TAB_HEIGHT } from "../../style/CommonStyle"
+import { CommonColor, CommonStyle, FontStyle, screenHeight, ShadowStyle, TAB_HEIGHT } from "../../style/CommonStyle"
 import WeatherBody from "./WeatherBody"
 import { WeatherFooter } from "./WeatherFooter"
 import WeatherHeader from "./WeatherHeader"
@@ -66,8 +66,19 @@ export const HomeScreen = () => {
                 </ImageBackground>
                 {daily?.hourlyWeather ? <WeatherFooter viewRef={viewRef} /> : <Loader />}
             </ScrollView>
-            <TouchableOpacity onPress={handleScroll} style={[styles.scroller, ShadowStyle, { bottom: isTablet ? 21 : 8 }]}>
-                {arrow === "down" ? <ArrowDown /> : <ArrowUp />}
+            <TouchableOpacity onPress={handleScroll} style={[styles.scroller, CommonStyle.row, isTablet && styles.tabletScroller, ShadowStyle]}>
+                {arrow === "down" && (
+                    <>
+                        <Text style={[isTablet ? FontStyle.body1.bold : FontStyle.label2.bold, { color: CommonColor.main_blue }]}>자세한 날씨 보기</Text>
+                        <ArrowDown />
+                    </>
+                )}
+                {arrow === "up" && (
+                    <>
+                        <Text style={[isTablet ? FontStyle.body1.bold : FontStyle.label2.bold, { color: CommonColor.main_blue }]}>요약된 날씨 보기</Text>
+                        <ArrowUp />
+                    </>
+                )}
             </TouchableOpacity>
         </View>
     )
@@ -77,14 +88,18 @@ const styles = StyleSheet.create({
     vertical: {
         paddingVertical: isTablet ? 54 : 26
     },
+    tabletScroller: {
+        paddingHorizontal: 18
+    },
     scroller: {
-        width: 52,
-        height: 52,
-        borderRadius: 10,
+        borderRadius: 30,
+        gap: 5,
+        bottom: 20,
+        paddingHorizontal: 14,
+        paddingVertical: 10,
         backgroundColor: "#fff",
         alignItems: "center",
         justifyContent: "center",
-        alignSelf: "flex-end",
         position: "absolute",
         right: CommonStyle.padding.paddingHorizontal
     },
