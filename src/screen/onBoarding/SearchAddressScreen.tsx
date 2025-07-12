@@ -1,18 +1,18 @@
-import { Keyboard, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native"
-import { CommonColor, FontStyle, screenWidth } from "../../style/CommonStyle"
-import { inputAddressState, isTablet } from "../../store"
-import { useRecoilState } from "recoil"
-import { SearchInput } from "../../component/SearchInput"
-import { useEffect, useMemo, useState } from "react"
-import { isIos, NowDate } from "utils"
-import { SearchResult } from "component/SearchResult"
-import { OnBoardingText } from "text/OnBoardingText"
 import { Guide } from "component/Guide"
-import useKeyboardHeight from "hook/useKeyboardHeight"
-import { navigate } from "navigation/RootNavigation"
-import { useUserLocationHook } from "hook/useUserLocationHook"
-import { MY_ADDRSS } from "type"
+import { SearchResult } from "component/SearchResult"
 import { searchAddressQuery } from "hook/useAddressHook"
+import useKeyboardHeight from "hook/useKeyboardHeight"
+import { useUserLocationHook } from "hook/useUserLocationHook"
+import { navigate } from "navigation/RootNavigation"
+import React, { useEffect, useMemo, useState } from "react"
+import { Keyboard, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native"
+import { useRecoilState } from "recoil"
+import { OnBoardingText } from "text/OnBoardingText"
+import { MY_ADDRSS } from "type"
+import { isIos, NowDate } from "utils"
+import { SearchInput } from "../../component/SearchInput"
+import { inputAddressState, isTablet } from "../../store"
+import { CommonColor, FontStyle, screenWidth } from "../../style/CommonStyle"
 
 export const SearchAddressScreen = () => {
     const [{ value }, setInputAddress] = useRecoilState(inputAddressState)
@@ -46,20 +46,16 @@ export const SearchAddressScreen = () => {
                             {data ? (
                                 <SearchResult isLoading={isLoading} data={data} selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress} />
                             ) : (
-                                error && (
-                                    <Text style={[isTablet ? FontStyle.body2.regular : FontStyle.label1.regular, styles.errorText, { color: CommonColor.etc_red }]}>
-                                        올바르지 않은 주소입니다.
-                                    </Text>
-                                )
+                                error && <Text style={[isTablet ? FontStyle.body2.regular : FontStyle.label1.regular, styles.errorText, { color: CommonColor.etc_red }]}>올바르지 않은 주소입니다.</Text>
                             )}
                             {keyboardHeight > 0 ? (
                                 <TouchableOpacity
                                     disabled={inputDisabled}
-                                    style={[
-                                        styles.confirmButton,
-                                        { backgroundColor: inputDisabled ? CommonColor.basic_gray_medium : CommonColor.main_blue, bottom: isIos ? keyboardHeight : 0 }
-                                    ]}
-                                    onPress={Keyboard.dismiss}
+                                    style={[styles.confirmButton, { backgroundColor: inputDisabled ? CommonColor.basic_gray_medium : CommonColor.main_blue, bottom: isIos ? keyboardHeight : 0 }]}
+                                    onPress={() => {
+                                        Keyboard.dismiss()
+                                        setInputAddress(prev => ({ ...prev, isEditing: false }))
+                                    }}
                                 >
                                     <Text style={[isTablet ? FontStyle.title2.semibold2 : FontStyle.body1.bold, { color: CommonColor.main_white }]}>확인</Text>
                                 </TouchableOpacity>
@@ -67,10 +63,7 @@ export const SearchAddressScreen = () => {
                                 selectedAddress?.location && (
                                     <TouchableOpacity
                                         disabled={!selectedAddress?.id}
-                                        style={[
-                                            styles.completeButton,
-                                            { backgroundColor: !selectedAddress?.id ? CommonColor.basic_gray_medium : CommonColor.main_blue, bottom: keyboardHeight }
-                                        ]}
+                                        style={[styles.completeButton, { backgroundColor: !selectedAddress?.id ? CommonColor.basic_gray_medium : CommonColor.main_blue, bottom: keyboardHeight }]}
                                         onPress={async () => {
                                             if (selectedAddress) {
                                                 const { id, location: location, coordinate } = selectedAddress

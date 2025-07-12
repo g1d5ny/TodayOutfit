@@ -7,7 +7,7 @@ import { searchAddressQuery } from "hook/useAddressHook"
 import useKeyboardHeight from "hook/useKeyboardHeight"
 import { useUserLocationHook } from "hook/useUserLocationHook"
 import { navigationRef } from "navigation/RootNavigation"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Keyboard, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { useRecoilState } from "recoil"
 import { inputAddressState, isTablet } from "store"
@@ -83,7 +83,7 @@ export const LocationGuideScreen = () => {
                             reset()
                             return
                         }
-
+                        setInputAddress(prev => ({ ...prev, isEditing: false }))
                         Keyboard.dismiss()
                     }}
                 >
