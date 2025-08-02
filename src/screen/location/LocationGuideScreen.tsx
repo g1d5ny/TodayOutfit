@@ -79,7 +79,7 @@ export const LocationGuideScreen = () => {
                     ]}
                     onPress={async () => {
                         if (selectedAddress?.location) {
-                            await addUserAddress({ id: selectedAddress.id, location: selectedAddress.location, coordinate: selectedAddress.coordinate, date: NowDate() })
+                            await addUserAddress({ id: selectedAddress?.id, location: selectedAddress.location, coordinate: selectedAddress?.coordinate, date: NowDate() })
                             reset()
                             return
                         }

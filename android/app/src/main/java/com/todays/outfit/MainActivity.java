@@ -1,4 +1,4 @@
-package com.todayoutfit;
+package com.todays.outfit;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
