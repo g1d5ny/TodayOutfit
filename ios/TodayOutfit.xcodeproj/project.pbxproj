@@ -11,7 +11,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		72CE5345C937F4E6A251C69A /* libPods-TodayOutfit-TodayOutfitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20D5696BDCD0A7E43E4B4EA0 /* libPods-TodayOutfit-TodayOutfitTests.a */; };
+		18F193A3F9B8E75595740E4E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 6CE98BBF574B1FDE93CD6424 /* PrivacyInfo.xcprivacy */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		86766F9C7D647019715178EF /* libPods-TodayOutfit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8B3F3E5B1425FE3A6EB0CEF /* libPods-TodayOutfit.a */; };
 		87279CD82A8B775100E7E909 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 87279CD72A8B775100E7E909 /* Settings.bundle */; };
@@ -38,13 +38,11 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = TodayOutfit/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = TodayOutfit/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = TodayOutfit/main.m; sourceTree = "<group>"; };
-		20D5696BDCD0A7E43E4B4EA0 /* libPods-TodayOutfit-TodayOutfitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TodayOutfit-TodayOutfitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6CE98BBF574B1FDE93CD6424 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = TodayOutfit/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = TodayOutfit/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		87279CD72A8B775100E7E909 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		8758BF442A8B7BE400D3D386 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		B8B3F3E5B1425FE3A6EB0CEF /* libPods-TodayOutfit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TodayOutfit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D218529C3E87D0382F79524A /* Pods-TodayOutfit-TodayOutfitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodayOutfit-TodayOutfitTests.debug.xcconfig"; path = "Target Support Files/Pods-TodayOutfit-TodayOutfitTests/Pods-TodayOutfit-TodayOutfitTests.debug.xcconfig"; sourceTree = "<group>"; };
-		D5B11EA07824F8EE2F99A916 /* Pods-TodayOutfit-TodayOutfitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodayOutfit-TodayOutfitTests.release.xcconfig"; path = "Target Support Files/Pods-TodayOutfit-TodayOutfitTests/Pods-TodayOutfit-TodayOutfitTests.release.xcconfig"; sourceTree = "<group>"; };
 		D93A15BC04989D33EE6F17E6 /* Pods-TodayOutfit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodayOutfit.debug.xcconfig"; path = "Target Support Files/Pods-TodayOutfit/Pods-TodayOutfit.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F8521C53902E5A9D89838D51 /* Pods-TodayOutfit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodayOutfit.release.xcconfig"; path = "Target Support Files/Pods-TodayOutfit/Pods-TodayOutfit.release.xcconfig"; sourceTree = "<group>"; };
@@ -55,7 +53,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				72CE5345C937F4E6A251C69A /* libPods-TodayOutfit-TodayOutfitTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +93,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				6CE98BBF574B1FDE93CD6424 /* PrivacyInfo.xcprivacy */,
 			);
 			name = TodayOutfit;
 			sourceTree = "<group>";
@@ -105,7 +103,6 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				B8B3F3E5B1425FE3A6EB0CEF /* libPods-TodayOutfit.a */,
-				20D5696BDCD0A7E43E4B4EA0 /* libPods-TodayOutfit-TodayOutfitTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -148,8 +145,6 @@
 			children = (
 				D93A15BC04989D33EE6F17E6 /* Pods-TodayOutfit.debug.xcconfig */,
 				F8521C53902E5A9D89838D51 /* Pods-TodayOutfit.release.xcconfig */,
-				D218529C3E87D0382F79524A /* Pods-TodayOutfit-TodayOutfitTests.debug.xcconfig */,
-				D5B11EA07824F8EE2F99A916 /* Pods-TodayOutfit-TodayOutfitTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -161,12 +156,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "TodayOutfitTests" */;
 			buildPhases = (
-				BE44A8E2351432D9744789CC /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				32377C9832EBC2F0A2443A2D /* [CP] Embed Pods Frameworks */,
-				C9A1D56E3023A6BC53329BC9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -252,6 +244,7 @@
 				87279CD82A8B775100E7E909 /* Settings.bundle in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				8758BF452A8B7BE400D3D386 /* Fonts in Resources */,
+				18F193A3F9B8E75595740E4E /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,23 +266,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
-		};
-		32377C9832EBC2F0A2443A2D /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TodayOutfit-TodayOutfitTests/Pods-TodayOutfit-TodayOutfitTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TodayOutfit-TodayOutfitTests/Pods-TodayOutfit-TodayOutfitTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TodayOutfit-TodayOutfitTests/Pods-TodayOutfit-TodayOutfitTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		3841538DA7E1E57005061330 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -328,45 +304,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BE44A8E2351432D9744789CC /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-TodayOutfit-TodayOutfitTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C9A1D56E3023A6BC53329BC9 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TodayOutfit-TodayOutfitTests/Pods-TodayOutfit-TodayOutfitTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TodayOutfit-TodayOutfitTests/Pods-TodayOutfit-TodayOutfitTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TodayOutfit-TodayOutfitTests/Pods-TodayOutfit-TodayOutfitTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E7379A6185C6549C6E5F080A /* [CP] Copy Pods Resources */ = {
@@ -438,7 +375,6 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D218529C3E87D0382F79524A /* Pods-TodayOutfit-TodayOutfitTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -465,7 +401,6 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D5B11EA07824F8EE2F99A916 /* Pods-TodayOutfit-TodayOutfitTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -562,7 +497,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -632,6 +567,8 @@
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				USE_HERMES = true;
 			};
 			name = Debug;
 		};
@@ -640,7 +577,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -705,6 +642,7 @@
 				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				USE_HERMES = true;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
